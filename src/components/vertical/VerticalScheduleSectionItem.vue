@@ -14,7 +14,7 @@ defineProps<{
     <a
       :href="video.url"
       target="_blank"
-      :class="`bg-white shadow w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px] ${video.isLive ? 'outline outline-red-500 outline-2 ' : ''}`"
+      :class="`bg-white shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px] ${video.isLive ? 'outline outline-red-500 outline-2 ' : ''}`"
     >
       <div class="w-[70px]">
         <img
