@@ -1,9 +1,27 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { VideoDetailWithTime } from './VerticalSchedule.vue'
 
 defineProps<{
   video: VideoDetailWithTime
 }>()
+
+const dialogEl = ref<HTMLDialogElement | null>(null)
+
+// 通常クリック時はダイアログを開き、ホイールクリックでリンクを開く
+function onClickCard(evt: MouseEvent) {
+  evt.preventDefault()
+  if (!dialogEl.value) return
+  dialogEl.value.showModal()
+}
+// ダイアログ外をクリックしたら閉じる
+function onClickDialog(evt: MouseEvent) {
+  if (!dialogEl.value) return
+  // ターゲットがダイアログならダイアログ外判定
+  if (evt.target !== dialogEl.value) return
+  evt.preventDefault()
+  dialogEl.value.close()
+}
 </script>
 <template>
   <div :class="`relative hover:scale-105 hover:z-10 transition-all`">
@@ -12,9 +30,11 @@ defineProps<{
     </div>
 
     <a
+      ref="button"
       :href="video.url"
       target="_blank"
       :class="`bg-white shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px] ${video.isLive ? 'outline outline-red-500 outline-2 ' : ''}`"
+      @click="onClickCard"
     >
       <div class="w-[70px]">
         <img
@@ -40,5 +60,42 @@ defineProps<{
 
       <img :src="video.thumbnail" class="w-[192px] h-[108px] object-cover" loading="lazy" />
     </a>
+    <dialog
+      ref="dialogEl"
+      @click="onClickDialog"
+      class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-lg"
+    >
+      <a
+        :href="video.url"
+        class="flex gap-4 flex-col text-blue-700 hover:underline flex-1"
+        target="_blank"
+      >
+        <img :src="video.thumbnail" class="w-[480px] h-[270px] object-cover" loading="lazy" />
+      </a>
+
+      <div class="p-4">
+        <div class="flex flex-row gap-2">
+          <img
+            :src="video.talent.iconImageUrl"
+            class="rounded-full w-[70px] h-[70px] border"
+            loading="lazy"
+          />
+          <div>
+            {{ video.talent.name }}
+            <div class="flex flex-row flex-wrap">
+              <img
+                v-for="talent in video.collaboTalents"
+                :key="talent.iconImageUrl"
+                :src="talent.iconImageUrl"
+                class="rounded-full w-[40px] h-[40px]"
+                :title="talent.name"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+        <div>{{ video.title }}</div>
+      </div>
+    </dialog>
   </div>
 </template>
