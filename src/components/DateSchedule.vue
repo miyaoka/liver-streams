@@ -116,7 +116,7 @@ onMounted(() => {
         <div
           v-for="video in channel"
           :key="video.url"
-          :class="`absolute bg-white shadow-lg w-[240px] rounded-[20px] hover:scale-125 hover:z-10 transition-all overflow-hidden ${video.isLive ? 'outline outline-red-500 outline-4' : ''}`"
+          :class="`absolute bg-white shadow-lg w-[240px] rounded-[20px] hover:scale-125 hover:z-10 transition-all overflow-hidden ${video.isLive ? 'outline outline-red-500 outline-8 bg-yellow-300' : ''}`"
           :style="{ left: `${video.offset * hourWidth}px` }"
         >
           <a :href="video.url" target="_blank">
