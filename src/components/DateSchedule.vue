@@ -20,7 +20,7 @@ const minute = 60 * 1000
 const defaultDuration = 90 * minute
 const shortsDuration = 30 * minute
 const hourWidth = 150
-const channelHeight = 300
+const channelHeight = 250
 
 const currentDate = ref(new Date())
 
@@ -92,14 +92,14 @@ onMounted(() => {
       <div class="flex flex-row absolute inset-0">
         <div v-for="date in dateList" :key="date.datetime" class="flex-1 flex flex-row relative">
           <div
-            :class="`absolute w-full bottom-full h-[48px] ${date.datetime.startsWith(ymd) ? 'bg-yellow-300' : ''}`"
+            :class="`absolute w-full bottom-full h-[48px] ${date.datetime.startsWith(ymd) ? 'bg-sky-300' : ''}`"
           >
             <div class="text-lg">
-              {{ date.displayDate }}
+              {{ date.datetime }}
             </div>
           </div>
           <div v-for="hour in 24" :key="hour" class="flex-1 bg-slate-50 even:bg-white relative">
-            <div class="absolute bottom-full mb-1 ml-1">
+            <div class="absolute bottom-full ml-1 text-base">
               {{ hour - 1 }}
             </div>
           </div>
@@ -108,7 +108,7 @@ onMounted(() => {
       <div
         v-for="(channel, i) in channels"
         :key="i"
-        class="relative border-t-2"
+        class="relative"
         :style="{
           height: `${channelHeight}px`
         }"
@@ -116,36 +116,38 @@ onMounted(() => {
         <div
           v-for="video in channel"
           :key="video.url"
-          :class="`absolute bg-white shadow-lg w-[240px] rounded-[20px] overflow-hidden ${video.isLive ? 'outline outline-red-500 outline-4' : ''}`"
+          :class="`absolute bg-white shadow-lg w-[240px] rounded-[20px] hover:scale-125 hover:z-10 transition-all overflow-hidden ${video.isLive ? 'outline outline-red-500 outline-4' : ''}`"
           :style="{ left: `${video.offset * hourWidth}px` }"
         >
-          <a :href="video.url" :title="video.title" target="_blank">
+          <a :href="video.url" target="_blank">
             <img :src="video.thumbnail" class="w-full h-[135px] object-cover" loading="lazy" />
-          </a>
-          <div class="absolute bg-slate-700 top-0 text-white p-1 text-sm">
-            {{ video.displayDate }}
-          </div>
-          <div class="flex flex-col p-2">
-            <div class="flex flex-row items-center gap-2">
-              <img
-                :src="video.talent.iconImageUrl"
-                class="rounded-full w-[36px] h-[36px]"
-                :title="video.name"
-              />
-              <h3 class="text-base">{{ video.name }}</h3>
+            <div class="absolute bg-slate-700 top-0 text-white p-1 text-sm">
+              {{ video.displayDate }}
             </div>
-            <div>
-              <h3>{{ video.title }}</h3>
-              <div class="flex flex-row flex-wrap items-end">
+            <div class="flex flex-col p-2">
+              <div class="flex flex-row items-center gap-2">
                 <img
-                  v-for="talent in video.collaboTalents"
-                  :key="talent.iconImageUrl"
-                  :src="talent.iconImageUrl"
-                  class="rounded-full w-[24px] h-[24px]"
+                  :src="video.talent.iconImageUrl"
+                  class="rounded-full w-[36px] h-[36px]"
+                  loading="lazy"
                 />
+                <h3 class="text-base">{{ video.name }}</h3>
+              </div>
+              <div>
+                <h3>{{ video.title }}</h3>
+                <div class="flex flex-row flex-wrap items-end">
+                  <img
+                    v-for="talent in video.collaboTalents"
+                    :key="talent.iconImageUrl"
+                    :src="talent.iconImageUrl"
+                    class="rounded-full w-[24px] h-[24px]"
+                    :title="talent.name"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
