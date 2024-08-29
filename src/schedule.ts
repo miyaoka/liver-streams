@@ -29,15 +29,8 @@ export interface Telent {
   iconImageUrl: string
 }
 export async function getSchedule(): Promise<Schedule> {
-  // const response = await fetch(holoAPI)
-  // const json = await response.json()
-
-  // json.dateGroupList.forEach((dateGroup) => {
-
-  //   dateGroup.videoList.forEach((video) => {
-  //     video.
-  //   })
-  // })
+  const response = await fetch(holoAPI)
+  const json = await response.json()
 
   return json
 }
