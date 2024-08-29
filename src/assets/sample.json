@@ -512,13 +512,13 @@
           "datetime": "2024/08/28 18:00:59",
           "isLive": false,
           "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=tqcOGxJMLfs",
-          "thumbnail": "https://img.youtube.com/vi/tqcOGxJMLfs/mqdefault.jpg",
-          "title": "【手書き】暴力に迷いがなさすぎるVTuber www【ARK/切り抜き】#VTuber #shorts #ホロライブ",
-          "name": "音乃瀬奏",
+          "url": "https://www.youtube.com/watch?v=zWqepL29Gcg",
+          "thumbnail": "https://img.youtube.com/vi/zWqepL29Gcg/mqdefault.jpg",
+          "title": "湊県あてぃ市MAP【ホロライブ / AZKi】#ぷちあず #shorts #GeoGuessr #湊あくあ",
+          "name": "AZKi",
           "talent": {
-            "name": "音乃瀬奏",
-            "iconImageUrl": "https://yt3.ggpht.com/o03i3rWw98BSquRZFhyiDQuunr1cr_9xEBVNNx3Cq8vqlJZVKXMgKsVLGW2AlbsFTvphGiHRCg0=s88-c-k-c0x00ffffff-no-rj"
+            "name": "AZKi",
+            "iconImageUrl": "https://yt3.ggpht.com/so69WMDlrSwil0013l7MLKIBLV--U_zjya2tG9_Sgij5NBm7raSvbZXUJiiAbQgrZosseqKDobM=s88-c-k-c0x00ffffff-no-rj"
           },
           "collaboTalents": []
         },
@@ -527,13 +527,13 @@
           "datetime": "2024/08/28 18:00:59",
           "isLive": false,
           "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=zWqepL29Gcg",
-          "thumbnail": "https://img.youtube.com/vi/zWqepL29Gcg/mqdefault.jpg",
-          "title": "湊県あてぃ市MAP【ホロライブ / AZKi】#ぷちあず #shorts #GeoGuessr #湊あくあ",
-          "name": "AZKi",
+          "url": "https://www.youtube.com/watch?v=tqcOGxJMLfs",
+          "thumbnail": "https://img.youtube.com/vi/tqcOGxJMLfs/mqdefault.jpg",
+          "title": "【手書き】暴力に迷いがなさすぎるVTuber www【ARK/切り抜き】#VTuber #shorts #ホロライブ",
+          "name": "音乃瀬奏",
           "talent": {
-            "name": "AZKi",
-            "iconImageUrl": "https://yt3.ggpht.com/so69WMDlrSwil0013l7MLKIBLV--U_zjya2tG9_Sgij5NBm7raSvbZXUJiiAbQgrZosseqKDobM=s88-c-k-c0x00ffffff-no-rj"
+            "name": "音乃瀬奏",
+            "iconImageUrl": "https://yt3.ggpht.com/o03i3rWw98BSquRZFhyiDQuunr1cr_9xEBVNNx3Cq8vqlJZVKXMgKsVLGW2AlbsFTvphGiHRCg0=s88-c-k-c0x00ffffff-no-rj"
           },
           "collaboTalents": []
         },
@@ -1042,7 +1042,7 @@
         {
           "displayDate": "12:01",
           "datetime": "2024/08/29 12:01:50",
-          "isLive": true,
+          "isLive": false,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=5EeXEn37P4w",
           "thumbnail": "https://img.youtube.com/vi/5EeXEn37P4w/mqdefault.jpg",
@@ -1057,7 +1057,7 @@
         {
           "displayDate": "14:00",
           "datetime": "2024/08/29 14:00:44",
-          "isLive": true,
+          "isLive": false,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=1TkdPzRlxYI",
           "thumbnail": "https://img.youtube.com/vi/1TkdPzRlxYI/mqdefault.jpg",
@@ -1070,9 +1070,39 @@
           "collaboTalents": []
         },
         {
-          "displayDate": "18:00",
-          "datetime": "2024/08/29 18:00:00",
+          "displayDate": "17:38",
+          "datetime": "2024/08/29 17:38:47",
           "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=Bc88CmS02xQ",
+          "thumbnail": "https://img.youtube.com/vi/Bc88CmS02xQ/mqdefault.jpg",
+          "title": "Menari lagu Tokecang bersama Moona #shorts",
+          "name": "Moona",
+          "talent": {
+            "name": "Moona",
+            "iconImageUrl": "https://yt3.ggpht.com/w8ilN5YMfG3H6SX162Fkg71BaJdYUUoHOc91cryyfdvto94IpypSjvsLaMA1MyODr2V-w-ox-h8=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "17:48",
+          "datetime": "2024/08/29 17:48:27",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=-cE7YTW1s4Y",
+          "thumbnail": "https://img.youtube.com/vi/-cE7YTW1s4Y/mqdefault.jpg",
+          "title": "【僕が最高だから】連続水着投稿☀️🍉踊ってみた💘#獅白ぼたん#僕が最高だから#shorts",
+          "name": "獅白ぼたん",
+          "talent": {
+            "name": "獅白ぼたん",
+            "iconImageUrl": "https://yt3.ggpht.com/CoKMtt9uQNGPOQP_t0LaCL4N21m0TUNCxzLtKRRTBmpH0xPc0s2cZQ-uUuQkxqerbGkxJkGU=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "17:55",
+          "datetime": "2024/08/29 17:55:47",
+          "isLive": true,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=r3FCFYF1Qds",
           "thumbnail": "https://img.youtube.com/vi/r3FCFYF1Qds/mqdefault.jpg",
@@ -1085,8 +1115,156 @@
           "collaboTalents": []
         },
         {
+          "displayDate": "18:00",
+          "datetime": "2024/08/29 18:00:28",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=JHFB_VTVxeE",
+          "thumbnail": "https://img.youtube.com/vi/JHFB_VTVxeE/mqdefault.jpg",
+          "title": "ふりふり〜 #pokedance #shorts #hololive #鷹嶺ルイ",
+          "name": "鷹嶺ルイ",
+          "talent": {
+            "name": "鷹嶺ルイ",
+            "iconImageUrl": "https://yt3.ggpht.com/Q0ZlKBQO8v0qwpw-wp_WwL4vvJftdNGRsGhswPWyThplayrMP1HVT0X1naBX69Y-cB6ZHrqXHg=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "18:00",
+          "datetime": "2024/08/29 18:00:29",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=eZ_RL48S-vo",
+          "thumbnail": "https://img.youtube.com/vi/eZ_RL48S-vo/mqdefault.jpg",
+          "title": "【衝撃的】歌姫VTuberのギャップがすごすぎるｗｗｗ【音乃瀬奏】 #VTuber #ホロライブ #shorts",
+          "name": "音乃瀬奏",
+          "talent": {
+            "name": "音乃瀬奏",
+            "iconImageUrl": "https://yt3.ggpht.com/o03i3rWw98BSquRZFhyiDQuunr1cr_9xEBVNNx3Cq8vqlJZVKXMgKsVLGW2AlbsFTvphGiHRCg0=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "18:00",
+          "datetime": "2024/08/29 18:00:38",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=_Tnv_iSe8WY",
+          "thumbnail": "https://img.youtube.com/vi/_Tnv_iSe8WY/mqdefault.jpg",
+          "title": "※これは部屋を見せていただく企画です#ポルカの伝説 #尾丸ポルカ",
+          "name": "尾丸ポルカ",
+          "talent": {
+            "name": "尾丸ポルカ",
+            "iconImageUrl": "https://yt3.ggpht.com/KE2NpU0fd43SXO-G46SSyPOEgyjHW7FnU_SAly2t5URFS4X-I85ILTAOzhrSZ6_3_jU4d6IjRvY=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "18:00",
+          "datetime": "2024/08/29 18:00:44",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=iqWVO1VSCmw",
+          "thumbnail": "https://img.youtube.com/vi/iqWVO1VSCmw/mqdefault.jpg",
+          "title": "開拓者可哀そうに…【ホロライブ / AZKi】#ぷちあず #shorts #TRAINCREW",
+          "name": "AZKi",
+          "talent": {
+            "name": "AZKi",
+            "iconImageUrl": "https://yt3.ggpht.com/so69WMDlrSwil0013l7MLKIBLV--U_zjya2tG9_Sgij5NBm7raSvbZXUJiiAbQgrZosseqKDobM=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "18:09",
+          "datetime": "2024/08/29 18:09:17",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=d-M_HfJx8Hc",
+          "thumbnail": "https://img.youtube.com/vi/d-M_HfJx8Hc/mqdefault.jpg",
+          "title": "【初心者スト6 day4】 これがヨガのコンボだ【火威青 】#hololiveDEV_IS #ReGLOSS",
+          "name": "火威青",
+          "talent": {
+            "name": "火威青",
+            "iconImageUrl": "https://yt3.ggpht.com/-D2Cf4dIQGO_CcY_1F9i63TcHyY0EuPV1pYskJQmQHIClJGOt34BoI84zlgje_THCw8AprB6=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "18:20",
+          "datetime": "2024/08/29 18:20:45",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=_y70oklPmzs",
+          "thumbnail": "https://img.youtube.com/vi/_y70oklPmzs/mqdefault.jpg",
+          "title": "They're Blue Da Ba Dee Da Ba Doo ft. @NerissaRavencroft @OuroKronii #holoENShorts",
+          "name": "holo EN",
+          "talent": {
+            "name": "holo EN",
+            "iconImageUrl": "https://yt3.ggpht.com/6OWNODOaLJ7zHjqojS0chpkwMxaLHwLApAwAZtOXZELVeNJ3FvsGf-YrigoCfPcTBM9uOJUp7A=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "18:24",
+          "datetime": "2024/08/29 18:24:52",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=4W1A7v6e-HI",
+          "thumbnail": "https://img.youtube.com/vi/4W1A7v6e-HI/mqdefault.jpg",
+          "title": "保健室で眼帯をねだるちゃま。 #youtubeshorts #hololive",
+          "name": "赤井はあと",
+          "talent": {
+            "name": "赤井はあと",
+            "iconImageUrl": "https://yt3.ggpht.com/tUHzjVx8_3IchEO64NDOJGFzH-uN7b5QHUBiKqnUmwLlY0ZSxmQ1snRse4jUx0gt8dGh2MzILP4=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "18:59",
+          "datetime": "2024/08/29 18:59:50",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=UOs_QMgPctI",
+          "thumbnail": "https://img.youtube.com/vi/UOs_QMgPctI/mqdefault.jpg",
+          "title": "【 SIREN｜PS2版 】完全初見プレイ４日目！気が狂いそうな難しさに耐えながらプレイしていくのら！！！【姫森ルーナ/ホロライブ】",
+          "name": "姫森ルーナ",
+          "talent": {
+            "name": "姫森ルーナ",
+            "iconImageUrl": "https://yt3.ggpht.com/O7m_5HMY_O8yxR3Jhn9cEO1fLNL_GifMERExnAmfY7JrdTRsTjNijTcNYTPN97Llj3zGn8Susw=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
           "displayDate": "19:00",
-          "datetime": "2024/08/29 19:00:00",
+          "datetime": "2024/08/29 19:00:04",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=-8E2y44v7zI",
+          "thumbnail": "https://img.youtube.com/vi/-8E2y44v7zI/mqdefault.jpg",
+          "title": "【ロボ子さん視点 】マーダーミステリー『「豪華客船イクリプス殺人事件」-名探偵の競演-』【＃ホロミステリーライブ 】",
+          "name": "ロボ子さん",
+          "talent": {
+            "name": "ロボ子さん",
+            "iconImageUrl": "https://yt3.ggpht.com/GF0wbwZvZAGzYg8s8d6Yh1BDcWAE9UmLAh2uf3IMJ5l_ESi3sWeRqk2XfhW3IgzMeliHpt4cAw=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "白上フブキ",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "儒烏風亭らでん",
+              "iconImageUrl": "https://yt3.ggpht.com/MrOx47-A0RkLxHN5Wh8stc3SYfbPGNHdJY9AnjD5mRkuKYVeYjxlBSnzKHtqTjDQ3Lm_MRCjcA=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "一条莉々華",
+              "iconImageUrl": "https://yt3.ggpht.com/TQwdYxMCQYmBQskSxmdAbfAqRR__ROlB-mFGlCFqLF4C-6vHpjYkWj9GbnlKOoOTaOMssRGw=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "19:00",
+          "datetime": "2024/08/29 19:00:06",
           "isLive": false,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=1VemUxnmhyM",
@@ -1101,7 +1279,7 @@
         },
         {
           "displayDate": "19:00",
-          "datetime": "2024/08/29 19:00:00",
+          "datetime": "2024/08/29 19:00:06",
           "isLive": false,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=6-zr_9wInYk",
@@ -1116,37 +1294,7 @@
         },
         {
           "displayDate": "19:00",
-          "datetime": "2024/08/29 19:00:00",
-          "isLive": false,
-          "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=UOs_QMgPctI",
-          "thumbnail": "https://img.youtube.com/vi/UOs_QMgPctI/mqdefault.jpg",
-          "title": "【 SIREN｜PS2版 】完全初見プレイ４日目！気が狂いそうな難しさに耐えながらプレイしていくのら！！！【姫森ルーナ/ホロライブ】",
-          "name": "姫森ルーナ",
-          "talent": {
-            "name": "姫森ルーナ",
-            "iconImageUrl": "https://yt3.ggpht.com/O7m_5HMY_O8yxR3Jhn9cEO1fLNL_GifMERExnAmfY7JrdTRsTjNijTcNYTPN97Llj3zGn8Susw=s88-c-k-c0x00ffffff-no-rj"
-          },
-          "collaboTalents": []
-        },
-        {
-          "displayDate": "19:00",
-          "datetime": "2024/08/29 19:00:00",
-          "isLive": false,
-          "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=aSrwoWrZuTE",
-          "thumbnail": "https://img.youtube.com/vi/aSrwoWrZuTE/mqdefault.jpg",
-          "title": "【配信予定地】かなたそなにする【天音かなた/ホロライブ】",
-          "name": "天音かなた",
-          "talent": {
-            "name": "天音かなた",
-            "iconImageUrl": "https://yt3.ggpht.com/e5wX9w1xSFUjaUdyhFugYZKzDZ_KLTLWBgdtRohHQDu0pshH867pyOv6gLGuqkqy5Ik8bJ9MSZU=s88-c-k-c0x00ffffff-no-rj"
-          },
-          "collaboTalents": []
-        },
-        {
-          "displayDate": "19:00",
-          "datetime": "2024/08/29 19:00:00",
+          "datetime": "2024/08/29 19:00:29",
           "isLive": false,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=cFjp_-LB5vA",
@@ -1174,7 +1322,7 @@
         },
         {
           "displayDate": "19:00",
-          "datetime": "2024/08/29 19:00:00",
+          "datetime": "2024/08/29 19:00:41",
           "isLive": false,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=zRwJNeZBOq0",
@@ -1188,23 +1336,53 @@
           "collaboTalents": []
         },
         {
-          "displayDate": "20:00",
-          "datetime": "2024/08/29 20:00:00",
+          "displayDate": "19:00",
+          "datetime": "2024/08/29 19:00:47",
           "isLive": false,
           "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=7rRH0GOtdS8",
-          "thumbnail": "https://img.youtube.com/vi/7rRH0GOtdS8/mqdefault.jpg",
-          "title": "【】【ホロライブ/宝鐘マリン】",
-          "name": "宝鐘マリン",
+          "url": "https://www.youtube.com/watch?v=aSrwoWrZuTE",
+          "thumbnail": "https://img.youtube.com/vi/aSrwoWrZuTE/mqdefault.jpg",
+          "title": "【僕、アルバイトォォ！！】治安最悪なコンビニでバイトする！！！！【天音かなた/ホロライブ】",
+          "name": "天音かなた",
           "talent": {
-            "name": "宝鐘マリン",
-            "iconImageUrl": "https://yt3.ggpht.com/Z2QpYUZ4-jKoFR7Ms330gRQzjI2gZ4CB_uVP6f39YysxUe1u8icrtE07ffpRxCtpu9U65MWNDA=s88-c-k-c0x00ffffff-no-rj"
+            "name": "天音かなた",
+            "iconImageUrl": "https://yt3.ggpht.com/e5wX9w1xSFUjaUdyhFugYZKzDZ_KLTLWBgdtRohHQDu0pshH867pyOv6gLGuqkqy5Ik8bJ9MSZU=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "19:01",
+          "datetime": "2024/08/29 19:01:31",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=adq-Njc4u9U",
+          "thumbnail": "https://img.youtube.com/vi/adq-Njc4u9U/mqdefault.jpg",
+          "title": "【 儒烏風亭らでん視点 】マーダーミステリー『「豪華客船イクリプス殺人事件」-名探偵の競演-』【＃ホロミステリーライブ 】",
+          "name": "儒烏風亭らでん",
+          "talent": {
+            "name": "儒烏風亭らでん",
+            "iconImageUrl": "https://yt3.ggpht.com/MrOx47-A0RkLxHN5Wh8stc3SYfbPGNHdJY9AnjD5mRkuKYVeYjxlBSnzKHtqTjDQ3Lm_MRCjcA=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "19:38",
+          "datetime": "2024/08/29 19:38:45",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=aUGv7bNGMT4",
+          "thumbnail": "https://img.youtube.com/vi/aUGv7bNGMT4/mqdefault.jpg",
+          "title": "【たこパサバイバル】タコパします/wエビオ、日ノ隈らん【アキロゼ/ホロライブ】",
+          "name": "アキロゼ",
+          "talent": {
+            "name": "アキロゼ",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kU3qKIJYEfUnFV1ikRs92qVoxgvWQLf8XGpoUJVJEdUcc=s88-c-k-c0x00ffffff-no-rj"
           },
           "collaboTalents": []
         },
         {
           "displayDate": "20:00",
-          "datetime": "2024/08/29 20:00:00",
+          "datetime": "2024/08/29 20:00:07",
           "isLive": false,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=cmf2wvZrJAo",
@@ -1218,17 +1396,77 @@
           "collaboTalents": []
         },
         {
-          "displayDate": "21:00",
-          "datetime": "2024/08/29 21:00:00",
+          "displayDate": "20:00",
+          "datetime": "2024/08/29 20:00:09",
           "isLive": false,
           "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=oA_LHTIwYRE",
-          "thumbnail": "https://img.youtube.com/vi/oA_LHTIwYRE/mqdefault.jpg",
-          "title": "【 #ホロ7DTD 】気づけばもう5回目の襲撃？！今日の贄は誰だ！【角巻わため/ホロライブ４期生】",
-          "name": "角巻わため",
+          "url": "https://www.youtube.com/watch?v=N_H1dW01XRM",
+          "thumbnail": "https://img.youtube.com/vi/N_H1dW01XRM/mqdefault.jpg",
+          "title": "【Coral Island】First Play !!!【Ayunda Risu】",
+          "name": "Risu",
           "talent": {
-            "name": "角巻わため",
-            "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
+            "name": "Risu",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_lfOOnprUv5xcScxIgQBTa2ZGUfS3TdfMEerPzr6BXED94=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "20:00",
+          "datetime": "2024/08/29 20:00:29",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=7rRH0GOtdS8",
+          "thumbnail": "https://img.youtube.com/vi/7rRH0GOtdS8/mqdefault.jpg",
+          "title": "【歌枠】あたしったら三十路のくせして海賊コスプレ婚期もちょっとアレ【ホロライブ/宝鐘マリン】",
+          "name": "宝鐘マリン",
+          "talent": {
+            "name": "宝鐘マリン",
+            "iconImageUrl": "https://yt3.ggpht.com/Z2QpYUZ4-jKoFR7Ms330gRQzjI2gZ4CB_uVP6f39YysxUe1u8icrtE07ffpRxCtpu9U65MWNDA=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "20:01",
+          "datetime": "2024/08/29 20:01:41",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=a_dqZu9EyxQ",
+          "thumbnail": "https://img.youtube.com/vi/a_dqZu9EyxQ/mqdefault.jpg",
+          "title": "【お宝マウンテン】1時間以内のダブルダブルぺこらできなかったら21時から輪ゴムでスイカ割る！！！！！ぺこ！【ホロライブ/兎田ぺこら】",
+          "name": "兎田ぺこら",
+          "talent": {
+            "name": "兎田ぺこら",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_n1iH9fDDGm8RHUzoB-XDfnTEwhlgBcP3OLjapDqHYoYVw=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "20:37",
+          "datetime": "2024/08/29 20:37:48",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=zJ9oGw1aLWI",
+          "thumbnail": "https://img.youtube.com/vi/zJ9oGw1aLWI/mqdefault.jpg",
+          "title": "【Overcooked 2】きっちんが次の戦場【アキロゼ/ホロライブ】",
+          "name": "アキロゼ",
+          "talent": {
+            "name": "アキロゼ",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kU3qKIJYEfUnFV1ikRs92qVoxgvWQLf8XGpoUJVJEdUcc=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "20:46",
+          "datetime": "2024/08/29 20:46:51",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=W0mgPXJ75co",
+          "thumbnail": "https://img.youtube.com/vi/W0mgPXJ75co/mqdefault.jpg",
+          "title": "【#ホロ7DTD】みんなで生き残れ！！！！！７DAYS TO DIEやるしゅばああああああああああああああああああああああああああ！！！【ホロライブ/大空スバル】",
+          "name": "大空スバル",
+          "talent": {
+            "name": "大空スバル",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
           },
           "collaboTalents": [
             {
@@ -1236,28 +1474,28 @@
               "iconImageUrl": "https://yt3.ggpht.com/Z78RNXxUqpOGYKFt-VrJV7nlehOHzl7Ta-l1cgPx5Ewucmr5kY64iGxmPSe7QqIdM1ZhvPlEOg=s88-c-k-c0x00ffffff-no-rj"
             },
             {
-              "name": "さくらみこ",
-              "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "星街すいせい",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
               "name": "白上フブキ",
               "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "大空スバル",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
             },
             {
               "name": "戌神ころね",
               "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
             },
             {
+              "name": "星街すいせい",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
               "name": "猫又おかゆ",
               "iconImageUrl": "https://yt3.ggpht.com/G92yBEhkf9R2mEpayuPvhwlA42tYAPOcNi2r77JeL7ic0ETS_FvTkwkBHjvR6iCqUk7TOlpROQ=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "角巻わため",
+              "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "さくらみこ",
+              "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
             },
             {
               "name": "常闇トワ",
@@ -1266,133 +1504,39 @@
           ]
         },
         {
-          "displayDate": "21:00",
-          "datetime": "2024/08/29 21:00:00",
+          "displayDate": "20:52",
+          "datetime": "2024/08/29 20:52:30",
           "isLive": false,
           "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=odCEVJ1-o50",
-          "thumbnail": "https://img.youtube.com/vi/odCEVJ1-o50/mqdefault.jpg",
-          "title": "【パーティパーティタイム2】わちゃわちゃパーティゲームだ！！【ホロライブ/ときのそら/博衣こより/火威青/轟はじめ】",
-          "name": "ときのそら",
+          "url": "https://www.youtube.com/watch?v=qrB0wJ7e72s",
+          "thumbnail": "https://img.youtube.com/vi/qrB0wJ7e72s/mqdefault.jpg",
+          "title": "【 Escape the Backrooms】謎解き脱出ホラー/wエビオ、日ノ隈らん、秋雪こはく【ホロライブ/アキロゼ】",
+          "name": "アキロゼ",
           "talent": {
-            "name": "ときのそら",
-            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kT9PiLS8BWANuBdGG_-GHsNZxFqmF0YjMnzK55jISdca4=s88-c-k-c0x00ffffff-no-rj"
+            "name": "アキロゼ",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kU3qKIJYEfUnFV1ikRs92qVoxgvWQLf8XGpoUJVJEdUcc=s88-c-k-c0x00ffffff-no-rj"
           },
-          "collaboTalents": [
-            {
-              "name": "博衣こより",
-              "iconImageUrl": "https://yt3.ggpht.com/WO7ItKNmy6tW_NQ82g8c1y74CZSw6GsSdynsE5s2csuEok2fHRrAaGcBV3JJO-2BxEOXXA8lvw=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "火威青",
-              "iconImageUrl": "https://yt3.ggpht.com/-D2Cf4dIQGO_CcY_1F9i63TcHyY0EuPV1pYskJQmQHIClJGOt34BoI84zlgje_THCw8AprB6=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "轟はじめ",
-              "iconImageUrl": "https://yt3.ggpht.com/vMM_SKbkipyDVJkUYPPWlQkgThE1rXMSh7hkhqvC_Qs-iTigfyKW23OfLH5U1HFTZIcsHR2Z=s88-c-k-c0x00ffffff-no-rj"
-            }
-          ]
+          "collaboTalents": []
         },
         {
-          "displayDate": "21:00",
-          "datetime": "2024/08/29 21:00:00",
-          "isLive": false,
+          "displayDate": "21:01",
+          "datetime": "2024/08/29 21:01:09",
+          "isLive": true,
           "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=g54gqg2yUc4",
-          "thumbnail": "https://img.youtube.com/vi/g54gqg2yUc4/mqdefault.jpg",
-          "title": "【 #ホロ7DTD 】襲撃襲撃襲撃～～！！！✨初めての襲撃楽しみだ～！ボコするぞ【常闇トワ視点/ホロライブ】",
-          "name": "常闇トワ",
+          "url": "https://www.youtube.com/watch?v=GD2kFqxai1M",
+          "thumbnail": "https://img.youtube.com/vi/GD2kFqxai1M/mqdefault.jpg",
+          "title": "【#ホロ7DTD】ころね支店 ～ アホの何日か目、今日は襲撃らしい ～【７Days To Die】",
+          "name": "戌神ころね",
           "talent": {
-            "name": "常闇トワ",
-            "iconImageUrl": "https://yt3.ggpht.com/meRnxbRUm5yPSwq8Q5QpI5maFApm5QTGQV_LGblQFsoO0yAV4LI-nSZ70GYwMZ_tbfSa_O8MTCU=s88-c-k-c0x00ffffff-no-rj"
+            "name": "戌神ころね",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
           },
-          "collaboTalents": [
-            {
-              "name": "大神ミオ",
-              "iconImageUrl": "https://yt3.ggpht.com/Z78RNXxUqpOGYKFt-VrJV7nlehOHzl7Ta-l1cgPx5Ewucmr5kY64iGxmPSe7QqIdM1ZhvPlEOg=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "大空スバル",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "猫又おかゆ",
-              "iconImageUrl": "https://yt3.ggpht.com/G92yBEhkf9R2mEpayuPvhwlA42tYAPOcNi2r77JeL7ic0ETS_FvTkwkBHjvR6iCqUk7TOlpROQ=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "戌神ころね",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "さくらみこ",
-              "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "星街すいせい",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "角巻わため",
-              "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "白上フブキ",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
-            }
-          ]
+          "collaboTalents": []
         },
         {
-          "displayDate": "21:00",
-          "datetime": "2024/08/29 21:00:00",
-          "isLive": false,
-          "platformType": 1,
-          "url": "https://www.youtube.com/watch?v=RHlQ4oziJnk",
-          "thumbnail": "https://img.youtube.com/vi/RHlQ4oziJnk/mqdefault.jpg",
-          "title": "【 #ホロ7DTD 】DAY.10！激しい襲撃の予感？！？！【大神ミオ視点】",
-          "name": "大神ミオ",
-          "talent": {
-            "name": "大神ミオ",
-            "iconImageUrl": "https://yt3.ggpht.com/Z78RNXxUqpOGYKFt-VrJV7nlehOHzl7Ta-l1cgPx5Ewucmr5kY64iGxmPSe7QqIdM1ZhvPlEOg=s88-c-k-c0x00ffffff-no-rj"
-          },
-          "collaboTalents": [
-            {
-              "name": "さくらみこ",
-              "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "星街すいせい",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "白上フブキ",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "大空スバル",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "猫又おかゆ",
-              "iconImageUrl": "https://yt3.ggpht.com/G92yBEhkf9R2mEpayuPvhwlA42tYAPOcNi2r77JeL7ic0ETS_FvTkwkBHjvR6iCqUk7TOlpROQ=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "戌神ころね",
-              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "角巻わため",
-              "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
-            },
-            {
-              "name": "常闇トワ",
-              "iconImageUrl": "https://yt3.ggpht.com/meRnxbRUm5yPSwq8Q5QpI5maFApm5QTGQV_LGblQFsoO0yAV4LI-nSZ70GYwMZ_tbfSa_O8MTCU=s88-c-k-c0x00ffffff-no-rj"
-            }
-          ]
-        },
-        {
-          "displayDate": "21:00",
-          "datetime": "2024/08/29 21:00:00",
-          "isLive": false,
+          "displayDate": "21:01",
+          "datetime": "2024/08/29 21:01:12",
+          "isLive": true,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=OkLzc6Rbf2Q",
           "thumbnail": "https://img.youtube.com/vi/OkLzc6Rbf2Q/mqdefault.jpg",
@@ -1438,9 +1582,344 @@
           ]
         },
         {
-          "displayDate": "22:00",
-          "datetime": "2024/08/29 22:00:00",
+          "displayDate": "21:01",
+          "datetime": "2024/08/29 21:01:48",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=RHlQ4oziJnk",
+          "thumbnail": "https://img.youtube.com/vi/RHlQ4oziJnk/mqdefault.jpg",
+          "title": "【 #ホロ7DTD 】DAY.10！激しい襲撃の予感？！？！【大神ミオ視点】",
+          "name": "大神ミオ",
+          "talent": {
+            "name": "大神ミオ",
+            "iconImageUrl": "https://yt3.ggpht.com/Z78RNXxUqpOGYKFt-VrJV7nlehOHzl7Ta-l1cgPx5Ewucmr5kY64iGxmPSe7QqIdM1ZhvPlEOg=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "さくらみこ",
+              "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "星街すいせい",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "白上フブキ",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "大空スバル",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "猫又おかゆ",
+              "iconImageUrl": "https://yt3.ggpht.com/G92yBEhkf9R2mEpayuPvhwlA42tYAPOcNi2r77JeL7ic0ETS_FvTkwkBHjvR6iCqUk7TOlpROQ=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "戌神ころね",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "角巻わため",
+              "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "常闇トワ",
+              "iconImageUrl": "https://yt3.ggpht.com/meRnxbRUm5yPSwq8Q5QpI5maFApm5QTGQV_LGblQFsoO0yAV4LI-nSZ70GYwMZ_tbfSa_O8MTCU=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "21:02",
+          "datetime": "2024/08/29 21:02:02",
           "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=N0JZTHbPtCQ",
+          "thumbnail": "https://img.youtube.com/vi/N0JZTHbPtCQ/mqdefault.jpg",
+          "title": "【Rental】Wow! This Cabin Looks So Comfy!【hololive ID 2nd Generation | Anya Melfissa】",
+          "name": "Anya",
+          "talent": {
+            "name": "Anya",
+            "iconImageUrl": "https://yt3.ggpht.com/58uF1apTqtovpieDrBCSF5pUeNU2MA6n34bdj2EBEVnySKm-VvEznGNt2puk4v4tAnA3AYh5JA=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "21:02",
+          "datetime": "2024/08/29 21:02:02",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=g54gqg2yUc4",
+          "thumbnail": "https://img.youtube.com/vi/g54gqg2yUc4/mqdefault.jpg",
+          "title": "【 #ホロ7DTD 】襲撃襲撃襲撃～～！！！✨初めての襲撃楽しみだ～！ボコするぞ【常闇トワ視点/ホロライブ】",
+          "name": "常闇トワ",
+          "talent": {
+            "name": "常闇トワ",
+            "iconImageUrl": "https://yt3.ggpht.com/meRnxbRUm5yPSwq8Q5QpI5maFApm5QTGQV_LGblQFsoO0yAV4LI-nSZ70GYwMZ_tbfSa_O8MTCU=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "大神ミオ",
+              "iconImageUrl": "https://yt3.ggpht.com/Z78RNXxUqpOGYKFt-VrJV7nlehOHzl7Ta-l1cgPx5Ewucmr5kY64iGxmPSe7QqIdM1ZhvPlEOg=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "大空スバル",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "猫又おかゆ",
+              "iconImageUrl": "https://yt3.ggpht.com/G92yBEhkf9R2mEpayuPvhwlA42tYAPOcNi2r77JeL7ic0ETS_FvTkwkBHjvR6iCqUk7TOlpROQ=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "戌神ころね",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "さくらみこ",
+              "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "星街すいせい",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "角巻わため",
+              "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "白上フブキ",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "21:03",
+          "datetime": "2024/08/29 21:03:38",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=9gDCKan6pdg",
+          "thumbnail": "https://img.youtube.com/vi/9gDCKan6pdg/mqdefault.jpg",
+          "title": "【 7days to die 】 #ホロ7DTD５回目の襲撃回🔥試行錯誤や！！！！！！【ホロライブ/さくらみこ】",
+          "name": "さくらみこ",
+          "talent": {
+            "name": "さくらみこ",
+            "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "大神ミオ",
+              "iconImageUrl": "https://yt3.ggpht.com/Z78RNXxUqpOGYKFt-VrJV7nlehOHzl7Ta-l1cgPx5Ewucmr5kY64iGxmPSe7QqIdM1ZhvPlEOg=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "常闇トワ",
+              "iconImageUrl": "https://yt3.ggpht.com/meRnxbRUm5yPSwq8Q5QpI5maFApm5QTGQV_LGblQFsoO0yAV4LI-nSZ70GYwMZ_tbfSa_O8MTCU=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "戌神ころね",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "星街すいせい",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "大空スバル",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "白上フブキ",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "角巻わため",
+              "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "猫又おかゆ",
+              "iconImageUrl": "https://yt3.ggpht.com/G92yBEhkf9R2mEpayuPvhwlA42tYAPOcNi2r77JeL7ic0ETS_FvTkwkBHjvR6iCqUk7TOlpROQ=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "21:03",
+          "datetime": "2024/08/29 21:03:58",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=oA_LHTIwYRE",
+          "thumbnail": "https://img.youtube.com/vi/oA_LHTIwYRE/mqdefault.jpg",
+          "title": "【 #ホロ7DTD 】気づけばもう5回目の襲撃？！今日の贄は誰だ！【角巻わため/ホロライブ４期生】",
+          "name": "角巻わため",
+          "talent": {
+            "name": "角巻わため",
+            "iconImageUrl": "https://yt3.ggpht.com/4wLMmSJkzy4vmWfWYkmzn6YO9T__jp1cORNuFXN7YyihwvhGkqXCxNBaklKoXlgdik-Fp0Zu=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "大神ミオ",
+              "iconImageUrl": "https://yt3.ggpht.com/Z78RNXxUqpOGYKFt-VrJV7nlehOHzl7Ta-l1cgPx5Ewucmr5kY64iGxmPSe7QqIdM1ZhvPlEOg=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "さくらみこ",
+              "iconImageUrl": "https://yt3.ggpht.com/gxXHmXJq_kkZ0bvTmz7R1deyOAV44zZr2keaF0ojSq7MeiOGLSzFTCoYgYR4PGDWTCoLR7eK=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "星街すいせい",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kLDBK5ksSvk5-XJ6S8e0kWfjy7mVl3jyUkgDeMQ7rlCpU=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "白上フブキ",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_m1fu92SbTfaHSOnyn1FhjNahnPRea-pgVwN9x_gg8nCzk=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "大空スバル",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_k5mjdt1wcbaYCXKwmDpVXmSGtOc-LH3WjIyUHVC4soP28=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "戌神ころね",
+              "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nrS6tFctvjyWv1mKzKBIetHJBfpqwHOpvRFc3KU2P_5yc=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "猫又おかゆ",
+              "iconImageUrl": "https://yt3.ggpht.com/G92yBEhkf9R2mEpayuPvhwlA42tYAPOcNi2r77JeL7ic0ETS_FvTkwkBHjvR6iCqUk7TOlpROQ=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "常闇トワ",
+              "iconImageUrl": "https://yt3.ggpht.com/meRnxbRUm5yPSwq8Q5QpI5maFApm5QTGQV_LGblQFsoO0yAV4LI-nSZ70GYwMZ_tbfSa_O8MTCU=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "21:11",
+          "datetime": "2024/08/29 21:11:41",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=odCEVJ1-o50",
+          "thumbnail": "https://img.youtube.com/vi/odCEVJ1-o50/mqdefault.jpg",
+          "title": "【パーティパーティタイム2】わちゃわちゃパーティゲームだ！！【ホロライブ/ときのそら/博衣こより/火威青/轟はじめ】",
+          "name": "ときのそら",
+          "talent": {
+            "name": "ときのそら",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kT9PiLS8BWANuBdGG_-GHsNZxFqmF0YjMnzK55jISdca4=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "博衣こより",
+              "iconImageUrl": "https://yt3.ggpht.com/WO7ItKNmy6tW_NQ82g8c1y74CZSw6GsSdynsE5s2csuEok2fHRrAaGcBV3JJO-2BxEOXXA8lvw=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "火威青",
+              "iconImageUrl": "https://yt3.ggpht.com/-D2Cf4dIQGO_CcY_1F9i63TcHyY0EuPV1pYskJQmQHIClJGOt34BoI84zlgje_THCw8AprB6=s88-c-k-c0x00ffffff-no-rj"
+            },
+            {
+              "name": "轟はじめ",
+              "iconImageUrl": "https://yt3.ggpht.com/vMM_SKbkipyDVJkUYPPWlQkgThE1rXMSh7hkhqvC_Qs-iTigfyKW23OfLH5U1HFTZIcsHR2Z=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "21:52",
+          "datetime": "2024/08/29 21:52:41",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=WJak3-zgsng",
+          "thumbnail": "https://img.youtube.com/vi/WJak3-zgsng/mqdefault.jpg",
+          "title": "【輪ゴムでスイカ割り】何本で割れるか検証する！！！！！！！！！！！！ぺこ！【ホロライブ/兎田ぺこら】",
+          "name": "兎田ぺこら",
+          "talent": {
+            "name": "兎田ぺこら",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_n1iH9fDDGm8RHUzoB-XDfnTEwhlgBcP3OLjapDqHYoYVw=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "22:00",
+          "datetime": "2024/08/29 22:00:41",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=xLVMR3ZH9ZU",
+          "thumbnail": "https://img.youtube.com/vi/xLVMR3ZH9ZU/mqdefault.jpg",
+          "title": "【Overwatch 2】watashi zeta",
+          "name": "Zeta",
+          "talent": {
+            "name": "Zeta",
+            "iconImageUrl": "https://yt3.ggpht.com/-IdVo-vK7pr0VRjJDdza1-t1Edjce1Rd1R1hon_3SRIzuQ-XVBTWOJj-UfwYPp8y40KM197_y4o=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "Moona",
+              "iconImageUrl": "https://yt3.ggpht.com/w8ilN5YMfG3H6SX162Fkg71BaJdYUUoHOc91cryyfdvto94IpypSjvsLaMA1MyODr2V-w-ox-h8=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "22:00",
+          "datetime": "2024/08/29 22:00:54",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=hZyXh7ULRXo",
+          "thumbnail": "https://img.youtube.com/vi/hZyXh7ULRXo/mqdefault.jpg",
+          "title": "【青と夏】実はラスサビにうっすらコーラスが入ってるよ～！気づけた人いる？？👀【音乃瀬奏】 #VTuber #ミセス #青と夏 #cover",
+          "name": "音乃瀬奏",
+          "talent": {
+            "name": "音乃瀬奏",
+            "iconImageUrl": "https://yt3.ggpht.com/o03i3rWw98BSquRZFhyiDQuunr1cr_9xEBVNNx3Cq8vqlJZVKXMgKsVLGW2AlbsFTvphGiHRCg0=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "22:01",
+          "datetime": "2024/08/29 22:01:37",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=SeTRrM6CdLM",
+          "thumbnail": "https://img.youtube.com/vi/SeTRrM6CdLM/mqdefault.jpg",
+          "title": "【CATHERINE FULL BODY】Three Girls One Sheep 💅 (SPOILERS!)【Pavolia Reine/hololiveID 2nd gen】",
+          "name": "Reine",
+          "talent": {
+            "name": "Reine",
+            "iconImageUrl": "https://yt3.ggpht.com/3Wp-qrvmEyR4I4CcqrzbERgqjZkKWpptZTV9veusoh9ZeIdBTx7WfUB3uT8bnMp5ApebFERHZ9I=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "22:01",
+          "datetime": "2024/08/29 22:01:52",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=zfL2aXE0vHI",
+          "thumbnail": "https://img.youtube.com/vi/zfL2aXE0vHI/mqdefault.jpg",
+          "title": "【OVERWATCH 2】udah lama gak main, mabar gak sih?【holoID】",
+          "name": "Moona",
+          "talent": {
+            "name": "Moona",
+            "iconImageUrl": "https://yt3.ggpht.com/w8ilN5YMfG3H6SX162Fkg71BaJdYUUoHOc91cryyfdvto94IpypSjvsLaMA1MyODr2V-w-ox-h8=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": [
+            {
+              "name": "Zeta",
+              "iconImageUrl": "https://yt3.ggpht.com/-IdVo-vK7pr0VRjJDdza1-t1Edjce1Rd1R1hon_3SRIzuQ-XVBTWOJj-UfwYPp8y40KM197_y4o=s88-c-k-c0x00ffffff-no-rj"
+            }
+          ]
+        },
+        {
+          "displayDate": "22:06",
+          "datetime": "2024/08/29 22:06:26",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=SHmAT_ozkmk",
+          "thumbnail": "https://img.youtube.com/vi/SHmAT_ozkmk/mqdefault.jpg",
+          "title": "【The Witcher 3 Part #6】Gwent is Our Main Quest【 iofi / hololiveID 】",
+          "name": "Iofi",
+          "talent": {
+            "name": "Iofi",
+            "iconImageUrl": "https://yt3.ggpht.com/bF91weVtAIL7Uhnr2HVwtCTLVKK5kVsn4FC_Ze3Gl8rkSsEjDwyey3AbQ1PDfJQ1Oeac5cePeg=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "22:43",
+          "datetime": "2024/08/29 22:43:25",
+          "isLive": true,
           "platformType": 1,
           "url": "https://www.youtube.com/watch?v=ybe7Jxn-4nQ",
           "thumbnail": "https://img.youtube.com/vi/ybe7Jxn-4nQ/mqdefault.jpg",
@@ -1484,6 +1963,51 @@
               "iconImageUrl": "https://yt3.ggpht.com/meRnxbRUm5yPSwq8Q5QpI5maFApm5QTGQV_LGblQFsoO0yAV4LI-nSZ70GYwMZ_tbfSa_O8MTCU=s88-c-k-c0x00ffffff-no-rj"
             }
           ]
+        },
+        {
+          "displayDate": "22:59",
+          "datetime": "2024/08/29 22:59:55",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=NK3qnq1Mgds",
+          "thumbnail": "https://img.youtube.com/vi/NK3qnq1Mgds/mqdefault.jpg",
+          "title": "【あつまれ どうぶつの森】#13 BGM代わりにどうぞ。どう森雑談【 雪花ラミィ /ホロライブ】",
+          "name": "雪花ラミィ",
+          "talent": {
+            "name": "雪花ラミィ",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_nHPsjV8KMncrIzZh7NPGaG8xzAgzN8Vf9YAj12dRN7sCc=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "23:02",
+          "datetime": "2024/08/29 23:02:45",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=zXhf3SL8rMQ",
+          "thumbnail": "https://img.youtube.com/vi/zXhf3SL8rMQ/mqdefault.jpg",
+          "title": "【School Labyrinth】夜の学校にきました【アキロゼ/ホロライブ】",
+          "name": "アキロゼ",
+          "talent": {
+            "name": "アキロゼ",
+            "iconImageUrl": "https://yt3.ggpht.com/ytc/AIdro_kU3qKIJYEfUnFV1ikRs92qVoxgvWQLf8XGpoUJVJEdUcc=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "23:20",
+          "datetime": "2024/08/29 23:20:49",
+          "isLive": true,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=fEO6MqDF2IY",
+          "thumbnail": "https://img.youtube.com/vi/fEO6MqDF2IY/mqdefault.jpg",
+          "title": "🛸【歌枠】✧︎SINGING! ✧︎ １２３万人登録者語呂良い記念【ラプラス・ダークネス/ホロライブ】💜",
+          "name": "ラプラス",
+          "talent": {
+            "name": "ラプラス",
+            "iconImageUrl": "https://yt3.ggpht.com/roGS60A8a_lDbVakIg1JU3u3hbtjHSTilMGHMizuPKh7tuoY2nl46raxuW2f_83IKFGMjL6Z=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
         }
       ]
     },
@@ -1491,6 +2015,21 @@
       "displayDate": "08.30",
       "datetime": "2024/08/30 00:00:00",
       "videoList": [
+        {
+          "displayDate": "00:30",
+          "datetime": "2024/08/30 00:30:00",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=Gleq0KYDQWM",
+          "thumbnail": "https://img.youtube.com/vi/Gleq0KYDQWM/mqdefault.jpg",
+          "title": "【#AstonishinglyKAEOTIC COUNTDOWN】i have cooked so much! come, look! :)【Kaela Kovalskia / hololiveID】",
+          "name": "Kaela",
+          "talent": {
+            "name": "Kaela",
+            "iconImageUrl": "https://yt3.ggpht.com/i-aqA-4BPUKlCYErdtAkp2_s2AsG_8IB1saxXSSBXevz6bA8ptaIm53-SXB1_KIODP4SI4_l=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
         {
           "displayDate": "09:00",
           "datetime": "2024/08/30 09:00:00",
@@ -1548,6 +2087,51 @@
           "talent": {
             "name": "Kaela",
             "iconImageUrl": "https://yt3.ggpht.com/i-aqA-4BPUKlCYErdtAkp2_s2AsG_8IB1saxXSSBXevz6bA8ptaIm53-SXB1_KIODP4SI4_l=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "19:00",
+          "datetime": "2024/08/30 19:00:00",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=3h2MAUNePYY",
+          "thumbnail": "https://img.youtube.com/vi/3h2MAUNePYY/mqdefault.jpg",
+          "title": "【BLUE PROTOCOL】DON'T TAKE THIS MMORPG AWAY FROM ME I WILL CRY #kfp #キアライブ",
+          "name": "Kiara",
+          "talent": {
+            "name": "Kiara",
+            "iconImageUrl": "https://yt3.ggpht.com/w7TKJYU7zmamFmf-WxfahCo_K7Bg2__Pk-CCBNnbewMG-77OZLqJO9MLvDAmH9nEkZH8OkWgSQ=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "20:00",
+          "datetime": "2024/08/30 20:00:00",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=wVAiHmdP0Ig",
+          "thumbnail": "https://img.youtube.com/vi/wVAiHmdP0Ig/mqdefault.jpg",
+          "title": "【パワプロ2024】にじさんじ高校 VS こんこよ高校⚾交流戦～～～！✨【博衣こより/ホロライブ】",
+          "name": "博衣こより",
+          "talent": {
+            "name": "博衣こより",
+            "iconImageUrl": "https://yt3.ggpht.com/WO7ItKNmy6tW_NQ82g8c1y74CZSw6GsSdynsE5s2csuEok2fHRrAaGcBV3JJO-2BxEOXXA8lvw=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "collaboTalents": []
+        },
+        {
+          "displayDate": "20:00",
+          "datetime": "2024/08/30 20:00:00",
+          "isLive": false,
+          "platformType": 1,
+          "url": "https://www.youtube.com/watch?v=zbsKHOYJ62A",
+          "thumbnail": "https://img.youtube.com/vi/zbsKHOYJ62A/mqdefault.jpg",
+          "title": "【歌ってみた】女々しくて【火威青 】#hololiveDEV_IS #ReGLOSS",
+          "name": "火威青",
+          "talent": {
+            "name": "火威青",
+            "iconImageUrl": "https://yt3.ggpht.com/-D2Cf4dIQGO_CcY_1F9i63TcHyY0EuPV1pYskJQmQHIClJGOt34BoI84zlgje_THCw8AprB6=s88-c-k-c0x00ffffff-no-rj"
           },
           "collaboTalents": []
         },

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DateSchedule from '@/components/DateSchedule.vue'
+import HorizontalSchedule from '@/components/horizontal/HorizontalSchedule.vue'
 import { getSchedule, type Schedule } from '@/schedule'
 import { onMounted, ref } from 'vue'
 
@@ -12,7 +12,7 @@ onMounted(async () => {
 <template>
   <main>
     <div v-if="data" class="flex flex-row p-8">
-      <DateSchedule :data="data" />
+      <HorizontalSchedule :data="data" />
     </div>
   </main>
 </template>
