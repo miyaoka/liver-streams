@@ -7,7 +7,7 @@ const props = defineProps<{
 }>()
 </script>
 <template>
-  <div class="flex flex-row flex-wrap mt-4 gap-y-[40px] bg-slate-100 p-4">
+  <div class="flex flex-row flex-wrap mt-4 gap-y-[40px] bg-slate-100 p-8">
     <VerticalScheduleSection
       v-for="[time, videoList] in Object.entries(props.sectionMap)"
       :key="time"
