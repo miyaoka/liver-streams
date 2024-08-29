@@ -1,18 +1,27 @@
 <script setup lang="ts">
 import type { Schedule, VideoDetail } from '@/schedule'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import VerticalScheduleColumn from './VerticalScheduleColumn.vue'
 
 const props = defineProps<{
   data: Schedule
 }>()
 
-const currentDate = ref(new Date())
+onMounted(() => {
+  const now = Date.now()
+  const sections = [...document.querySelectorAll('section[data-time]')]
+  const sectionIndex = sections.findIndex((el) => {
+    const time = Number(el.getAttribute('data-time'))
+    // 現在時刻を超える最初のセクションを探す
+    if (time > now) return true
+  })
+  // 現在時刻の直前のセクション
+  const prevSection = sections[sectionIndex - 1]
 
-onMounted(async () => {
-  setInterval(() => {
-    currentDate.value = new Date()
-  }, 5000)
+  if (prevSection) {
+    // セクションにスクロール
+    prevSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 })
 
 export interface VideoDetailWithTime extends VideoDetail {

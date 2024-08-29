@@ -26,7 +26,7 @@ function sectionTime(time: number) {
 }
 </script>
 <template>
-  <div class="flex flex-col w-full gap-[20px]">
+  <section class="flex flex-col w-full gap-[20px] pt-4" :data-time="time">
     <div class="flex w-full items-center justify-center">
       <div class="bg-slate-700 text-gray-100 font-bold px-3 py-1 rounded-full">
         {{ sectionTime(time) }}
@@ -43,5 +43,5 @@ function sectionTime(time: number) {
         <VerticalScheduleSectionItem v-else :video="item" />
       </div>
     </div>
-  </div>
+  </section>
 </template>
