@@ -47,7 +47,7 @@ function scrollToSectionTop() {
   >
     <div class="flex w-full items-center justify-center sticky z-20 top-4">
       <button
-        :class="`bg-slate-700 text-gray-100 font-bold px-3 py-1 rounded-full ${isCurrent ? 'bg-red-700' : ''}`"
+        :class="` text-gray-100 font-bold px-3 py-1 rounded-full ${isCurrent ? 'bg-red-600' : 'bg-slate-700'}`"
         @click="scrollToSectionTop"
       >
         {{ sectionTime(time) }}
@@ -57,7 +57,7 @@ function scrollToSectionTop() {
       <div v-for="item in videoList" :key="(Array.isArray(item) ? item[0] : item).url">
         <div
           v-if="Array.isArray(item)"
-          class="p-2 bg-orange-500 bg-opacity-20 rounded-[10px] flex flex-wrap gap-[20px]"
+          class="p-4 bg-orange-500 bg-opacity-20 rounded-[10px] flex flex-wrap gap-[20px]"
         >
           <VerticalScheduleSectionItem v-for="video in item" :key="video.url" :video="video" />
         </div>
