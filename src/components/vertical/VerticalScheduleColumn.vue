@@ -9,12 +9,10 @@ const props = defineProps<{
 const entries = Object.entries(props.sectionMap)
 </script>
 <template>
-  <div class="flex flex-row flex-wrap mt-4 gap-y-[40px] bg-slate-100">
-    <VerticalScheduleSection
-      v-for="(section, i) in entries"
-      :key="section[0]"
-      :section="section"
-      :nextSection="entries[i + 1]"
-    />
-  </div>
+  <VerticalScheduleSection
+    v-for="(section, i) in entries"
+    :key="section[0]"
+    :section="section"
+    :nextSection="entries[i + 1]"
+  />
 </template>
