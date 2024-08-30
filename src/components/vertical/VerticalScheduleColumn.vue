@@ -5,14 +5,16 @@ import VerticalScheduleSection from './VerticalScheduleSection.vue'
 const props = defineProps<{
   sectionMap: Record<number, (VideoDetailWithTime | VideoDetailWithTime[])[]>
 }>()
+
+const entries = Object.entries(props.sectionMap)
 </script>
 <template>
-  <div class="flex flex-row flex-wrap mt-4 gap-y-[40px] bg-slate-100 p-8">
+  <div class="flex flex-row flex-wrap mt-4 gap-y-[40px] bg-slate-100">
     <VerticalScheduleSection
-      v-for="[time, videoList] in Object.entries(props.sectionMap)"
-      :key="time"
-      :time="Number(time)"
-      :videoList="videoList"
+      v-for="(section, i) in entries"
+      :key="section[0]"
+      :section="section"
+      :nextSection="entries[i + 1]"
     />
   </div>
 </template>
