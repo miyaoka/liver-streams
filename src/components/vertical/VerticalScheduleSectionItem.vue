@@ -1,12 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { VideoDetailWithTime } from './VerticalSchedule.vue'
 
-defineProps<{
+const props = defineProps<{
   video: VideoDetailWithTime
 }>()
 
 const dialogEl = ref<HTMLDialogElement | null>(null)
+
+// 配信終了判定
+const isFinished = computed(() => {
+  // 配信中か
+  if (props.video.isLive) return false
+
+  const now = Date.now()
+  // 現在時刻を過ぎているか
+  if (now < props.video.startTime) return false
+  // 配信していなくてstartTimeが00以外であれば終了と判定（配信開始後には実際の配信開始時刻が入るため）
+  if (!props.video.datetime.endsWith(':00')) return true
+  // 配信しないまま1時間経ったら終了と判定
+  if (now - props.video.startTime > 60 * 60 * 1000) return true
+  return false
+})
 
 // 通常クリック時はダイアログを開き、ホイールクリックでリンクを開く
 function onClickCard(evt: MouseEvent) {
@@ -24,7 +39,7 @@ function onClickDialog(evt: MouseEvent) {
 }
 </script>
 <template>
-  <div :class="`relative hover:scale-105 hover:z-10 transition-all`">
+  <div class="relative hover:scale-105 hover:z-10 transition-all" :class="{ isFinished }">
     <div class="absolute bg-white text-gray-400 font-bold px-2 left-6 -top-2 shadow rounded-full">
       {{ video.displayDate }}
     </div>
@@ -60,59 +75,63 @@ function onClickDialog(evt: MouseEvent) {
 
       <img :src="video.thumbnail" class="w-[192px] h-[108px] object-cover" loading="lazy" />
     </a>
-    <dialog
-      ref="dialogEl"
-      @click="onClickDialog"
-      class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl"
-    >
-      <div class="px-4 py-2">
-        <div class="font-bold">
-          {{ video.datetime }}
-        </div>
+  </div>
+  <dialog
+    ref="dialogEl"
+    @click="onClickDialog"
+    class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl"
+  >
+    <div class="px-4 py-2">
+      <div class="font-bold">
+        {{ video.datetime }}
       </div>
+    </div>
 
-      <a
-        :href="video.url"
-        class="flex gap-4 flex-col text-blue-700 hover:underline flex-1"
-        target="_blank"
-      >
-        <img :src="video.thumbnail" class="w-[480px] h-[270px] object-cover" loading="lazy" />
-      </a>
+    <a
+      :href="video.url"
+      class="flex gap-4 flex-col text-blue-700 hover:underline flex-1"
+      target="_blank"
+    >
+      <img :src="video.thumbnail" class="w-[480px] h-[270px] object-cover" loading="lazy" />
+    </a>
 
-      <div class="px-6 py-4 flex flex-col gap-2">
-        <div class="font-bold text-lg">
-          <a :href="video.url" target="_blank">
-            {{ video.title }}
-          </a>
-        </div>
-        <div class="flex flex-row gap-2 items-center">
-          <img
-            :src="video.talent.iconImageUrl"
-            class="rounded-full w-[70px] h-[70px] border"
-            loading="lazy"
-          />
-          <div>
-            <div class="font-bold">
-              {{ video.talent.name }}
-            </div>
-            <div class="flex flex-row flex-wrap">
-              <img
-                v-for="talent in video.collaboTalents"
-                :key="talent.iconImageUrl"
-                :src="talent.iconImageUrl"
-                class="rounded-full w-[40px] h-[40px]"
-                :title="talent.name"
-                loading="lazy"
-              />
-            </div>
+    <div class="px-6 py-4 flex flex-col gap-2">
+      <div class="font-bold text-lg">
+        <a :href="video.url" target="_blank">
+          {{ video.title }}
+        </a>
+      </div>
+      <div class="flex flex-row gap-2 items-center">
+        <img
+          :src="video.talent.iconImageUrl"
+          class="rounded-full w-[70px] h-[70px] border"
+          loading="lazy"
+        />
+        <div>
+          <div class="font-bold">
+            {{ video.talent.name }}
+          </div>
+          <div class="flex flex-row flex-wrap">
+            <img
+              v-for="talent in video.collaboTalents"
+              :key="talent.iconImageUrl"
+              :src="talent.iconImageUrl"
+              class="rounded-full w-[40px] h-[40px]"
+              :title="talent.name"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
-    </dialog>
-  </div>
+    </div>
+  </dialog>
 </template>
 
 <style scoped>
+.isFinished:not(:hover) {
+  opacity: 0.7;
+  filter: grayscale(0.8);
+}
 dialog {
   &::backdrop {
     animation: backdropFadeIn 0.4s forwards;
