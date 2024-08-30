@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Schedule, VideoDetail } from '@/schedule'
-import { computed, onMounted } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import VerticalScheduleColumn from './VerticalScheduleColumn.vue'
 
 const props = defineProps<{
@@ -28,9 +28,19 @@ export interface VideoDetailWithTime extends VideoDetail {
   startTime: number
 }
 
-const videoList = computed<Record<number, VideoDetailWithTime[]>>(() => {
+const sectionMap = ref<Record<number, VideoDetailWithTime[]>>({})
+
+watch(
+  () => props.data,
+  (newData) => {
+    sectionMap.value = createSectionMap(newData)
+  },
+  { immediate: true, deep: true }
+)
+
+function createSectionMap(data: Schedule): Record<number, VideoDetailWithTime[]> {
   // 全日付の動画をflat化し、time情報を付加
-  const wholeList: VideoDetailWithTime[] = props.data.dateGroupList
+  const wholeList: VideoDetailWithTime[] = data.dateGroupList
     .flatMap((dataGroup) => dataGroup.videoList)
     .map((video) => {
       const startTime = new Date(video.datetime).getTime()
@@ -59,8 +69,8 @@ const videoList = computed<Record<number, VideoDetailWithTime[]>>(() => {
   })
 
   return sectionVideoList
-})
+}
 </script>
 <template>
-  <VerticalScheduleColumn :sectionMap="videoList" />
+  <VerticalScheduleColumn :sectionMap="sectionMap" />
 </template>
