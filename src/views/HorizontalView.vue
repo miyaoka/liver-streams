@@ -16,3 +16,11 @@ onMounted(async () => {
     </div>
   </main>
 </template>
+
+<style>
+/* dialogやpopoverが開かれていたらスクロールを禁止する */
+body:has(dialog:modal),
+body:has([popover]:popover-open) {
+  overflow: hidden;
+}
+</style>
