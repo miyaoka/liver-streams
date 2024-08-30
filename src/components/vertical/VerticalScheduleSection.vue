@@ -57,7 +57,7 @@ function scrollToSectionTop() {
       <div v-for="item in videoList" :key="(Array.isArray(item) ? item[0] : item).url">
         <div
           v-if="Array.isArray(item)"
-          class="outline outline-[6px] p-4 outline-sky-200 bg-sky-100 rounded-[10px] flex flex-wrap gap-[20px]"
+          class="p-2 bg-black bg-opacity-10 rounded-[10px] flex flex-wrap gap-[20px]"
         >
           <VerticalScheduleSectionItem v-for="video in item" :key="video.url" :video="video" />
         </div>
