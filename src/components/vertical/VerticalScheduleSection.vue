@@ -58,7 +58,7 @@ function scrollToSectionTop() {
       </button>
     </div>
     <div
-      class="grid grid-cols-[repeat(auto-fill,560px)] max-w-full self-center gap-[20px] px-4 py-8"
+      class="grid grid-cols-[repeat(auto-fill,560px)] max-w-full self-center gap-x-[16px] gap-y-[28px] px-4 py-8"
     >
       <VerticalScheduleSectionItem
         v-for="item in videoList"

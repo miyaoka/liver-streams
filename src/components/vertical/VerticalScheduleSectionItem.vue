@@ -66,7 +66,7 @@ function hoverTalent(name: string | null) {
       ref="button"
       :href="video.url"
       target="_blank"
-      :class="`transition-all shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px]  ${isHovered ? 'bg-pink-50' : 'bg-white '} ${video.isLive ? 'outline outline-red-500 outline-2' : 'outline-1'}`"
+      :class="`transition-all shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px]  ${isHovered ? 'bg-pink-50' : 'bg-white '} ${video.isLive ? 'outline outline-red-500 outline-2 -outline-offset-2' : 'outline-1 -outline-offset-1'}`"
       @click="onClickCard"
     >
       <div class="w-[70px]">
