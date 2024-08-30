@@ -47,7 +47,7 @@ function scrollToSectionTop() {
   >
     <div class="flex w-full items-center justify-center sticky z-20 top-4">
       <button
-        :class="` text-gray-100 font-bold px-3 py-1 rounded-full ${isCurrent ? 'bg-red-600' : 'bg-slate-700'}`"
+        :class="` text-gray-100 font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${isCurrent ? 'bg-red-600' : 'bg-slate-700'}`"
         @click="scrollToSectionTop"
       >
         {{ sectionTime(time) }}
