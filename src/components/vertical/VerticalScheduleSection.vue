@@ -8,7 +8,6 @@ defineProps<{
 }>()
 
 const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
-  year: 'numeric',
   month: '2-digit',
   day: '2-digit',
   hour: '2-digit',
@@ -19,15 +18,12 @@ function sectionTime(time: number) {
   const date = new Date(time)
 
   const str = dateFormatter.format(date)
-  // 00:00の場合は日付を含めて表示
-  if (str.endsWith('00:00')) return str
-  // それ以外は時間のみ表示
-  return str.slice(11)
+  return str
 }
 </script>
 <template>
   <section class="flex flex-col w-full gap-[20px] pt-4" :data-time="time">
-    <div class="flex w-full items-center justify-center">
+    <div class="flex w-full items-center justify-center sticky z-10 top-4">
       <div class="bg-slate-700 text-gray-100 font-bold px-3 py-1 rounded-full">
         {{ sectionTime(time) }}
       </div>
