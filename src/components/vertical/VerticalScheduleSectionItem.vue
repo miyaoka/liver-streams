@@ -87,7 +87,7 @@ function hoverTalent(name: string | null) {
             class="rounded-full w-[24px] h-[24px] hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
-            @mouseover="hoverTalent(talent.name)"
+            @mouseenter="hoverTalent(talent.name)"
             @mouseleave="hoverTalent(null)"
           />
         </div>
@@ -137,7 +137,7 @@ function hoverTalent(name: string | null) {
               class="rounded-full w-[40px] h-[40px] hover:outline hover:outline-red-500 hover:outline-2"
               :title="talent.name"
               loading="lazy"
-              @mouseover="hoverTalent(talent.name)"
+              @mouseenter="hoverTalent(talent.name)"
               @mouseleave="hoverTalent(null)"
             />
           </div>
