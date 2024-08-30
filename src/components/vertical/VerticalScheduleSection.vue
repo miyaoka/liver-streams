@@ -18,6 +18,10 @@ const isCurrent = computed(() => {
   const now = dateStore.date.getTime()
   return now >= time.value && now < nextTime.value
 })
+const isPast = computed(() => {
+  const now = dateStore.date.getTime()
+  return now > time.value
+})
 
 const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
   month: '2-digit',
@@ -42,7 +46,7 @@ function scrollToSectionTop() {
 <template>
   <section
     ref="sectionEl"
-    :class="`flex flex-col gap-[20px]  pt-4 ${isCurrent ? 'bg-yellow-100' : ''}`"
+    :class="`flex flex-col gap-[20px]  pt-4 ${isCurrent ? 'bg-yellow-100' : isPast ? 'bg-gray-200' : 'bg-sky-100'}`"
     :data-time="time"
   >
     <div class="flex items-center justify-center sticky z-20 top-4">
@@ -53,7 +57,9 @@ function scrollToSectionTop() {
         {{ sectionTime(time) }}
       </button>
     </div>
-    <div class="grid grid-cols-[repeat(auto-fill,560px)] max-w-full self-center gap-[20px] p-8">
+    <div
+      class="grid grid-cols-[repeat(auto-fill,560px)] max-w-full self-center gap-[20px] px-4 py-8"
+    >
       <VerticalScheduleSectionItem
         v-for="item in videoList"
         :key="(Array.isArray(item) ? item[0] : item).url"

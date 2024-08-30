@@ -149,8 +149,8 @@ function hoverTalent(name: string | null) {
 
 <style scoped>
 .isFinished:not(:hover) {
-  opacity: 0.6;
-  filter: grayscale(0.8);
+  opacity: 0.7;
+  filter: grayscale(0.7);
 }
 dialog {
   &::backdrop {
