@@ -3,7 +3,7 @@ import type { VideoDetailWithTime } from './VerticalSchedule.vue'
 import VerticalScheduleSection from './VerticalScheduleSection.vue'
 
 const props = defineProps<{
-  sectionMap: Record<number, (VideoDetailWithTime | VideoDetailWithTime[])[]>
+  sectionMap: Record<number, VideoDetailWithTime[]>
 }>()
 
 const entries = Object.entries(props.sectionMap)

@@ -5,8 +5,8 @@ import VerticalScheduleSectionItem from './VerticalScheduleSectionItem.vue'
 import { useDateStore } from '@/store/dateStore'
 
 const props = defineProps<{
-  section: [string, (VideoDetailWithTime | VideoDetailWithTime[])[]]
-  nextSection: [string, (VideoDetailWithTime | VideoDetailWithTime[])[]] | undefined
+  section: [string, VideoDetailWithTime[]]
+  nextSection: [string, VideoDetailWithTime[]] | undefined
 }>()
 
 const dateStore = useDateStore()
@@ -55,13 +55,7 @@ function scrollToSectionTop() {
     </div>
     <div class="flex flex-row flex-wrap gap-[20px] p-8">
       <div v-for="item in videoList" :key="(Array.isArray(item) ? item[0] : item).url">
-        <div
-          v-if="Array.isArray(item)"
-          class="p-4 bg-orange-500 bg-opacity-20 rounded-[10px] flex flex-wrap gap-[20px]"
-        >
-          <VerticalScheduleSectionItem v-for="video in item" :key="video.url" :video="video" />
-        </div>
-        <VerticalScheduleSectionItem v-else :video="item" />
+        <VerticalScheduleSectionItem :video="item" />
       </div>
     </div>
   </section>
