@@ -11,8 +11,6 @@ onMounted(async () => {
 
 <template>
   <main>
-    <div v-if="data" class="flex flex-row">
-      <VerticalSchedule :data="data" />
-    </div>
+    <VerticalSchedule v-if="data" :data="data" />
   </main>
 </template>
