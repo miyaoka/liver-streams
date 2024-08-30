@@ -63,8 +63,14 @@ function onClickDialog(evt: MouseEvent) {
     <dialog
       ref="dialogEl"
       @click="onClickDialog"
-      class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-lg"
+      class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl"
     >
+      <div class="px-4 py-2">
+        <div class="font-bold">
+          {{ video.datetime }}
+        </div>
+      </div>
+
       <a
         :href="video.url"
         class="flex gap-4 flex-col text-blue-700 hover:underline flex-1"
@@ -73,15 +79,22 @@ function onClickDialog(evt: MouseEvent) {
         <img :src="video.thumbnail" class="w-[480px] h-[270px] object-cover" loading="lazy" />
       </a>
 
-      <div class="p-4">
-        <div class="flex flex-row gap-2">
+      <div class="px-6 py-4 flex flex-col gap-2">
+        <div class="font-bold text-lg">
+          <a :href="video.url" target="_blank">
+            {{ video.title }}
+          </a>
+        </div>
+        <div class="flex flex-row gap-2 items-center">
           <img
             :src="video.talent.iconImageUrl"
             class="rounded-full w-[70px] h-[70px] border"
             loading="lazy"
           />
           <div>
-            {{ video.talent.name }}
+            <div class="font-bold">
+              {{ video.talent.name }}
+            </div>
             <div class="flex flex-row flex-wrap">
               <img
                 v-for="talent in video.collaboTalents"
@@ -94,7 +107,6 @@ function onClickDialog(evt: MouseEvent) {
             </div>
           </div>
         </div>
-        <div>{{ video.title }}</div>
       </div>
     </dialog>
   </div>
