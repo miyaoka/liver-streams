@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { VideoDetailWithTime } from './VerticalSchedule.vue'
+import { useTalentStore } from '@/store/talentStore'
 
 const props = defineProps<{
   video: VideoDetailWithTime
 }>()
 
+const talentStore = useTalentStore()
 const dialogEl = ref<HTMLDialogElement | null>(null)
 
 // 配信終了判定
@@ -23,6 +25,13 @@ const isFinished = computed(() => {
   return false
 })
 
+const isHovered = computed(() => {
+  return (
+    talentStore.hoveredTalent === props.video.talent.name ||
+    props.video.collaboTalents.some((talent) => talentStore.hoveredTalent === talent.name)
+  )
+})
+
 // 通常クリック時はダイアログを開き、ホイールクリックでリンクを開く
 function onClickCard(evt: MouseEvent) {
   evt.preventDefault()
@@ -37,9 +46,18 @@ function onClickDialog(evt: MouseEvent) {
   evt.preventDefault()
   dialogEl.value.close()
 }
+
+function hoverTalent(name: string | null) {
+  talentStore.hoveredTalent = name
+}
 </script>
 <template>
-  <div class="relative hover:scale-105 hover:z-10 transition-all" :class="{ isFinished }">
+  <div
+    class="relative hover:scale-105 hover:z-10 transition-all"
+    :class="{ isFinished: isFinished && !isHovered }"
+    @mouseover="hoverTalent(video.talent.name)"
+    @mouseleave="hoverTalent(null)"
+  >
     <div class="absolute bg-white text-gray-400 font-bold px-2 left-6 -top-2 shadow rounded-full">
       {{ video.displayDate }}
     </div>
@@ -48,7 +66,7 @@ function onClickDialog(evt: MouseEvent) {
       ref="button"
       :href="video.url"
       target="_blank"
-      :class="`bg-white shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px] ${video.isLive ? 'outline outline-red-500 outline-2 ' : ''}`"
+      :class="`bg-white transition-all shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px]  ${isHovered ? 'bg-amber-200' : ''} ${video.isLive ? 'outline outline-red-500 outline-2' : 'outline-1'}`"
       @click="onClickCard"
     >
       <div class="w-[70px]">
@@ -66,14 +84,16 @@ function onClickDialog(evt: MouseEvent) {
             v-for="talent in video.collaboTalents"
             :key="talent.iconImageUrl"
             :src="talent.iconImageUrl"
-            class="rounded-full w-[24px] h-[24px]"
+            class="rounded-full w-[24px] h-[24px] hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
+            @mouseover="hoverTalent(talent.name)"
+            @mouseleave="hoverTalent(null)"
           />
         </div>
       </div>
 
-      <img :src="video.thumbnail" class="w-[192px] h-[108px] object-cover" loading="lazy" />
+      <img :src="video.thumbnail" class="w-[192px] h-[108px]" loading="lazy" />
     </a>
   </div>
   <dialog
@@ -87,25 +107,23 @@ function onClickDialog(evt: MouseEvent) {
       </div>
     </div>
 
-    <a
-      :href="video.url"
-      class="flex gap-4 flex-col text-blue-700 hover:underline flex-1"
-      target="_blank"
-    >
-      <img :src="video.thumbnail" class="w-[480px] h-[270px] object-cover" loading="lazy" />
+    <a :href="video.url" target="_blank">
+      <img :src="video.thumbnail" class="w-[480px] h-[270px]" loading="lazy" />
     </a>
 
     <div class="px-6 py-4 flex flex-col gap-2">
       <div class="font-bold text-lg">
-        <a :href="video.url" target="_blank">
+        <a :href="video.url" class="hover:underline" target="_blank">
           {{ video.title }}
         </a>
       </div>
       <div class="flex flex-row gap-2 items-center">
         <img
           :src="video.talent.iconImageUrl"
-          class="rounded-full w-[70px] h-[70px] border"
+          class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
           loading="lazy"
+          @mouseover="hoverTalent(video.talent.name)"
+          @mouseleave="hoverTalent(null)"
         />
         <div>
           <div class="font-bold">
@@ -116,9 +134,11 @@ function onClickDialog(evt: MouseEvent) {
               v-for="talent in video.collaboTalents"
               :key="talent.iconImageUrl"
               :src="talent.iconImageUrl"
-              class="rounded-full w-[40px] h-[40px]"
+              class="rounded-full w-[40px] h-[40px] hover:outline hover:outline-red-500 hover:outline-2"
               :title="talent.name"
               loading="lazy"
+              @mouseover="hoverTalent(talent.name)"
+              @mouseleave="hoverTalent(null)"
             />
           </div>
         </div>
@@ -129,7 +149,7 @@ function onClickDialog(evt: MouseEvent) {
 
 <style scoped>
 .isFinished:not(:hover) {
-  opacity: 0.7;
+  opacity: 0.6;
   filter: grayscale(0.8);
 }
 dialog {
