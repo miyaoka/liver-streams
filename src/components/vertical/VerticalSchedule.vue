@@ -44,7 +44,13 @@ watch(
             return {
               ...dateGroup,
               videoList: dateGroup.videoList.filter((video) => {
-                return map.has(video.talent.name)
+                // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
+                return (
+                  map.has(video.talent.name) ||
+                  video.collaboTalents.some((collaborator) => {
+                    return map.has(collaborator.name)
+                  })
+                )
               })
             }
           })
