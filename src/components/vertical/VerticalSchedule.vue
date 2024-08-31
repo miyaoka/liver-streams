@@ -2,6 +2,7 @@
 import type { Schedule, VideoDetail } from '@/schedule'
 import { onMounted, ref, watch } from 'vue'
 import VerticalScheduleColumn from './VerticalScheduleColumn.vue'
+import ChannelFilter from '@/components/filter/ChannelFilter.vue'
 
 const props = defineProps<{
   data: Schedule
@@ -72,5 +73,6 @@ function createSectionMap(data: Schedule): Record<number, VideoDetailWithTime[]>
 }
 </script>
 <template>
+  <ChannelFilter />
   <VerticalScheduleColumn :sectionMap="sectionMap" />
 </template>
