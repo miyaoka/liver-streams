@@ -57,7 +57,7 @@ function hoverTalent(name: string | null) {
     @mouseover="hoverTalent(video.talent.name)"
     @mouseleave="hoverTalent(null)"
   >
-    <div class="absolute bg-white text-gray-400 font-bold px-2 left-6 -top-2 shadow rounded-full">
+    <div class="absolute bg-white text-gray-700 font-bold px-2 left-6 -top-2 shadow rounded-full">
       {{ video.displayDate }}
     </div>
 
