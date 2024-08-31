@@ -34,30 +34,34 @@ export interface VideoDetailWithTime extends VideoDetail {
 
 const sectionMap = ref<Record<number, VideoDetailWithTime[]>>({})
 
-watch(
-  [() => props.data, () => channelFilterStore.map],
-  ([data, map]) => {
-    const filteredDateGroupList =
-      map.size === 0
-        ? data.dateGroupList
-        : data.dateGroupList.map((dateGroup) => {
-            return {
-              ...dateGroup,
-              videoList: dateGroup.videoList.filter((video) => {
-                // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-                return (
-                  map.has(video.talent.name) ||
-                  video.collaboTalents.some((collaborator) => {
-                    return map.has(collaborator.name)
-                  })
-                )
-              })
-            }
+function getFilteredData(filterMap: Map<string, boolean>, filterEnabled: boolean, data: Schedule) {
+  if (!filterEnabled) return data
+  if (filterMap.size === 0) return data
+  const filteredDateGroupList = data.dateGroupList.map((dateGroup) => {
+    return {
+      ...dateGroup,
+      videoList: dateGroup.videoList.filter((video) => {
+        // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
+        return (
+          filterMap.has(video.talent.name) ||
+          video.collaboTalents.some((collaborator) => {
+            return filterMap.has(collaborator.name)
           })
-    sectionMap.value = createSectionMap({
-      ...data,
-      dateGroupList: filteredDateGroupList
-    })
+        )
+      })
+    }
+  })
+
+  return {
+    ...data,
+    dateGroupList: filteredDateGroupList
+  }
+}
+
+watch(
+  [() => props.data, () => channelFilterStore.map, () => channelFilterStore.enabled],
+  ([data, map, enabled]) => {
+    sectionMap.value = createSectionMap(getFilteredData(map, enabled, data))
   },
   { immediate: true, deep: true }
 )

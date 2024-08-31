@@ -19,18 +19,28 @@ const filterCount = computed(() => channelFilterStore.map.size)
       scrollbarWidth: 'thin'
     }"
   >
-    <div class="flex flex-col items-start gap-4">
-      <div class="gap-2 flex justify-center items-center">
+    <div class="flex flex-col items-start gap-8">
+      <div class="flex flex-row gap-2 items-center w-full">
         <button
           class="px-2 py-1 bg-slate-200 rounded-lg border border-solid border-slate-500"
           @click="channelFilterStore.reset()"
         >
           reset
         </button>
+        <div class="flex-grow">
+          {{ filterCount === 0 ? 'no filter' : `filter count: ${filterCount}` }}
+        </div>
 
-        {{ filterCount === 0 ? 'no filter' : `filter count: ${filterCount}` }}
+        <label>
+          有効
+          <input type="checkbox" v-model="channelFilterStore.enabled" />
+        </label>
       </div>
-      <GroupNode class="-ml-6" :group="channelNames" />
+      <GroupNode
+        class="-ml-6"
+        :class="`${!channelFilterStore.enabled ? 'opacity-50 grayscale' : ''}`"
+        :group="channelNames"
+      />
     </div>
   </div>
 </template>
