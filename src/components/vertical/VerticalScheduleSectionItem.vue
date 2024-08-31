@@ -54,7 +54,6 @@ function hoverTalent(name: string | null) {
 <template>
   <div
     class="relative hover:scale-105 hover:z-10 transition-all"
-    :class="{ isFinished: isFinished && !isHovered }"
     @mouseover="hoverTalent(video.talent.name)"
     @mouseleave="hoverTalent(null)"
   >
@@ -62,14 +61,23 @@ function hoverTalent(name: string | null) {
       {{ video.displayDate }}
     </div>
 
+    <div
+      v-if="video.isLive || isFinished"
+      :class="`absolute right-2 -top-4  px-4 text-white rounded-full ${video.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
+    >
+      {{ video.isLive ? 'ON AIR' : '終了' }}
+    </div>
+
     <a
       ref="button"
       :href="video.url"
       target="_blank"
-      :class="`transition-all shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px] outline 
-      ${video.isLive ? 'outline outline-red-500 outline-4 -outline-offset-2' : '-outline-offset-1 outline-2  outline-slate-500'}
-      ${isHovered ? 'bg-pink-50' : isFinished ? 'bg-white outline-slate-300' : 'bg-white'}
-      `"
+      class="transition-all shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px] bg-white"
+      :class="{
+        isLive: video.isLive,
+        isFinished: isFinished,
+        isHovered: isHovered
+      }"
       @click="onClickCard"
     >
       <div class="w-[70px]">
@@ -151,10 +159,16 @@ function hoverTalent(name: string | null) {
 </template>
 
 <style scoped>
-.isFinished:not(:hover) {
-  /* opacity: 0.7;
-  filter: grayscale(0.7); */
+.isLive {
+  @apply outline outline-4 -outline-offset-4 outline-red-600;
 }
+.isHovered {
+  @apply bg-pink-100;
+}
+.isFinished:not(.isHovered) {
+  @apply bg-slate-50;
+}
+
 dialog {
   &::backdrop {
     animation: backdropFadeIn 0.4s forwards;
