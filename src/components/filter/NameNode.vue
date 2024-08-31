@@ -2,8 +2,10 @@
 import { onMounted, ref, watch } from 'vue'
 import { useChannelFilterStore } from '../filter/channelFilterStore'
 import icons from '@/assets/icons.json'
+import { useTalentStore } from '@/store/talentStore'
 
 const channelFilterStore = useChannelFilterStore()
+const talentStore = useTalentStore()
 
 const props = defineProps<{
   nameList: string[]
@@ -60,10 +62,10 @@ watch(channelFilterStore.map, () => {
       />
       <img
         :src="icons[name]"
-        :class="`w-[44px] h-[44px] rounded-full ${checkList[i] ? 'outline outline-red-400 outline-offset-4' : ''}`"
+        :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-red-400 outline-offset-4' : ''} ${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
       />
       <div
-        :class="`text-sm ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-2  rounded-xl`"
+        :class="`text-sm ${checkList[i] ? 'bg-red-400 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-2  rounded-xl`"
       >
         {{ name }}
       </div>

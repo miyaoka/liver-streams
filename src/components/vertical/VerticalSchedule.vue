@@ -3,10 +3,13 @@ import type { Schedule, VideoDetail } from '@/schedule'
 import { onMounted, ref, watch } from 'vue'
 import VerticalScheduleColumn from './VerticalScheduleColumn.vue'
 import ChannelFilter from '@/components/filter/ChannelFilter.vue'
+import { useChannelFilterStore } from '../filter/channelFilterStore'
 
 const props = defineProps<{
   data: Schedule
 }>()
+
+const channelFilterStore = useChannelFilterStore()
 
 onMounted(() => {
   const now = Date.now()
@@ -32,9 +35,23 @@ export interface VideoDetailWithTime extends VideoDetail {
 const sectionMap = ref<Record<number, VideoDetailWithTime[]>>({})
 
 watch(
-  () => props.data,
-  (newData) => {
-    sectionMap.value = createSectionMap(newData)
+  [() => props.data, () => channelFilterStore.map],
+  ([data, map]) => {
+    const filteredDateGroupList =
+      map.size === 0
+        ? data.dateGroupList
+        : data.dateGroupList.map((dateGroup) => {
+            return {
+              ...dateGroup,
+              videoList: dateGroup.videoList.filter((video) => {
+                return map.has(video.talent.name)
+              })
+            }
+          })
+    sectionMap.value = createSectionMap({
+      ...data,
+      dateGroupList: filteredDateGroupList
+    })
   },
   { immediate: true, deep: true }
 )
@@ -74,5 +91,6 @@ function createSectionMap(data: Schedule): Record<number, VideoDetailWithTime[]>
 </script>
 <template>
   <ChannelFilter />
-  <VerticalScheduleColumn :sectionMap="sectionMap" />
+  <VerticalScheduleColumn v-if="Object.keys(sectionMap).length > 0" :sectionMap="sectionMap" />
+  <div v-else>no data</div>
 </template>

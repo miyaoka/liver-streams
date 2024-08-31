@@ -24,11 +24,11 @@ onMounted(async () => {
 <style>
 /* スクロールバーが消えてもガタつかないようにする */
 html {
-  /* scrollbar-gutter: stable; */
+  scrollbar-gutter: stable;
 }
 /* dialogやpopoverが開かれていたらスクロールを禁止する */
 html:has(dialog:modal),
 html:has([popover]:popover-open) {
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 </style>
