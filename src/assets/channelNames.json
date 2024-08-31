@@ -1,32 +1,30 @@
 {
-  "hololive_jp": {
-    "official": ["ホロライブ", "Blue Journey"],
-    "gen0": ["ときのそら", "ロボ子さん", "AZKi", "さくらみこ", "星街すいせい"],
-    "gen1": ["アキロゼ", "赤井はあと", "白上フブキ", "夏色まつり"],
-    "gen2": ["湊あくあ", "紫咲シオン", "百鬼あやめ", "癒月ちょこ", "大空スバル"],
-    "gamers": ["白上フブキ", "大神ミオ", "猫又おかゆ", "戌神ころね"],
-    "gen3": ["兎田ぺこら", "不知火フレア", "白銀ノエル", "宝鐘マリン"],
-    "gen4": ["天音かなた", "角巻わため", "常闇トワ", "姫森ルーナ"],
-    "gen5": ["雪花ラミィ", "桃鈴ねね", "獅白ぼたん", "尾丸ポルカ"],
-    "gen6": ["ラプラス", "鷹嶺ルイ", "博衣こより", "沙花叉クロヱ", "風真いろは"]
+  "ホロライブ": {
+    "公式": ["ホロライブ", "Blue Journey"],
+    "0期生": ["ときのそら", "ロボ子さん", "AZKi", "さくらみこ", "星街すいせい"],
+    "1期生": ["アキロゼ", "赤井はあと", "白上フブキ", "夏色まつり"],
+    "2期生": ["湊あくあ", "紫咲シオン", "百鬼あやめ", "癒月ちょこ", "大空スバル"],
+    "ゲーマーズ": ["白上フブキ", "大神ミオ", "猫又おかゆ", "戌神ころね"],
+    "3期生": ["兎田ぺこら", "不知火フレア", "白銀ノエル", "宝鐘マリン"],
+    "4期生": ["天音かなた", "角巻わため", "常闇トワ", "姫森ルーナ"],
+    "5期生": ["雪花ラミィ", "桃鈴ねね", "獅白ぼたん", "尾丸ポルカ"],
+    "6期生": ["ラプラス", "鷹嶺ルイ", "博衣こより", "沙花叉クロヱ", "風真いろは"]
   },
-  "hololive_en": {
-    "official": ["holo EN"],
-    "myth": ["Calli", "Kiara", "Ina", "Gura", "Amelia"],
-    "hope": ["IRyS"],
-    "council": ["Fauna", "Kronii", "Mumei", "Baelz"],
-    "promise": ["IRyS", "Fauna", "Kronii", "Mumei", "Baelz"],
-    "advent": ["Shiori", "Bijou", "Nerissa", "FUWAMOCO"],
-    "justice": ["Elizabeth", "Gigi", "Cecilia", "Raora"]
+  "ホロライブEnglish": {
+    "公式": ["holo EN"],
+    "Myth": ["Calli", "Kiara", "Ina", "Gura", "Amelia"],
+    "Promise": ["IRyS", "Fauna", "Kronii", "Mumei", "Baelz"],
+    "Advent": ["Shiori", "Bijou", "Nerissa", "FUWAMOCO"],
+    "Justice": ["Elizabeth", "Gigi", "Cecilia", "Raora"]
   },
-  "hololive_id": {
-    "official": ["holo ID"],
-    "gen1": ["Risu", "Moona", "Iofi"],
-    "gen2": ["Ollie", "Anya", "Reine"],
-    "gen3": ["Zeta", "Kaela", "Kobo"]
+  "ホロライブインドネシア": {
+    "公式": ["holo ID"],
+    "1期生": ["Risu", "Moona", "Iofi"],
+    "2期生": ["Ollie", "Anya", "Reine"],
+    "3期生": ["Zeta", "Kaela", "Kobo"]
   },
-  "hololive_dev_is": {
-    "official": ["hololive DEV_IS"],
-    "regloss": ["火威青", "音乃瀬奏", "一条莉々華", "儒烏風亭らでん", "轟はじめ"]
+  "hololive DEV_IS": {
+    "公式": ["hololive DEV_IS"],
+    "ReGLOSS": ["火威青", "音乃瀬奏", "一条莉々華", "儒烏風亭らでん", "轟はじめ"]
   }
 }
