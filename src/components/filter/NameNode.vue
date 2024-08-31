@@ -42,7 +42,6 @@ watch(
 )
 
 watch(channelFilterStore.map, () => {
-  console.log('watch')
   checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false)
   update()
 })

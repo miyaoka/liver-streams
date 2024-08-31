@@ -22,7 +22,6 @@ const checkedList = ref<boolean[]>(entries.map(() => props.checked))
 watch(
   () => props.clicked,
   (val) => {
-    console.log('update:clicked', val)
     checkedList.value = entries.map(() => val)
   }
 )
