@@ -45,6 +45,10 @@ watch(channelFilterStore.map, () => {
   checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false)
   update()
 })
+
+function hoverTalent(name: string | null) {
+  talentStore.hoveredTalent = name
+}
 </script>
 <template>
   <div class="flex fles-row flex-wrap ml-20 gap-x-2 -mt-10">
@@ -52,6 +56,9 @@ watch(channelFilterStore.map, () => {
       class="flex flex-col items-center min-w-[30px] cursor-pointer w-[80px]"
       v-for="(name, i) in nameList"
       :key="name"
+      :title="name"
+      @mouseenter="hoverTalent(name)"
+      @mouseleave="hoverTalent(null)"
     >
       <input
         type="checkbox"
@@ -64,9 +71,11 @@ watch(channelFilterStore.map, () => {
         :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-red-400 outline-offset-4' : ''} ${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
       />
       <div
-        :class="`text-sm ${checkList[i] ? 'bg-red-400 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-2  rounded-xl`"
+        :class="`text-sm ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-2  rounded-xl`"
       >
-        {{ name }}
+        <p class="line-clamp-1">
+          {{ name }}
+        </p>
       </div>
     </label>
   </div>
