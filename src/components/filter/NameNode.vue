@@ -59,6 +59,7 @@ function hoverTalent(name: string | null) {
       :title="name"
       @mouseenter="hoverTalent(name)"
       @mouseleave="hoverTalent(null)"
+      :class="`${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
     >
       <input
         type="checkbox"
@@ -68,7 +69,7 @@ function hoverTalent(name: string | null) {
       />
       <img
         :src="(icons as Record<string, string>)[name]"
-        :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-red-400 outline-offset-4' : ''} ${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
+        :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-red-400 outline-offset-4' : ''} `"
       />
       <div
         :class="`text-sm ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-2  rounded-xl`"
