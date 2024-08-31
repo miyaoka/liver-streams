@@ -61,7 +61,7 @@ watch(channelFilterStore.map, () => {
         class="hidden"
       />
       <img
-        :src="icons[name]"
+        :src="(icons as Record<string, string>)[name]"
         :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-red-400 outline-offset-4' : ''} ${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
       />
       <div
