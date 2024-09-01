@@ -4,12 +4,14 @@ import { onMounted, ref, watch } from 'vue'
 import VerticalScheduleColumn from './VerticalScheduleColumn.vue'
 import ChannelFilter from '@/components/filter/ChannelFilter.vue'
 import { useChannelFilterStore } from '../filter/channelFilterStore'
+import { talentIcons, useTalentStore } from '@/store/talentStore'
 
 const props = defineProps<{
   data: Schedule
 }>()
 
 const channelFilterStore = useChannelFilterStore()
+const talentStore = useTalentStore()
 
 onMounted(() => {
   const now = Date.now()
@@ -34,49 +36,63 @@ export interface VideoDetailWithTime extends VideoDetail {
 
 const sectionMap = ref<Record<number, VideoDetailWithTime[]>>({})
 
-function getFilteredData(filterMap: Map<string, boolean>, filterEnabled: boolean, data: Schedule) {
-  if (!filterEnabled) return data
-  if (filterMap.size === 0) return data
-  const filteredDateGroupList = data.dateGroupList.map((dateGroup) => {
-    return {
-      ...dateGroup,
-      videoList: dateGroup.videoList.filter((video) => {
-        // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-        return (
-          filterMap.has(video.talent.name) ||
-          video.collaboTalents.some((collaborator) => {
-            return filterMap.has(collaborator.name)
-          })
-        )
-      })
-    }
-  })
-
-  return {
-    ...data,
-    dateGroupList: filteredDateGroupList
+function getFilteredData(
+  filterMap: Map<string, boolean>,
+  filterEnabled: boolean,
+  wholeList: VideoDetail[],
+  singleSelectedTalent: string | null
+): VideoDetail[] {
+  // 単一セレクト時
+  if (singleSelectedTalent) {
+    return wholeList.filter((video) => {
+      return (
+        video.talent.name === singleSelectedTalent ||
+        video.collaboTalents.some((collaborator) => {
+          return collaborator.name === singleSelectedTalent
+        })
+      )
+    })
   }
+  // フィルタなし
+  if (!filterEnabled || filterMap.size === 0) return wholeList
+
+  // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
+  return wholeList.filter((video) => {
+    return (
+      filterMap.has(video.talent.name) ||
+      video.collaboTalents.some((collaborator) => {
+        return filterMap.has(collaborator.name)
+      })
+    )
+  })
 }
 
 watch(
-  [() => props.data, () => channelFilterStore.map, () => channelFilterStore.enabled],
-  ([data, map, enabled]) => {
-    sectionMap.value = createSectionMap(getFilteredData(map, enabled, data))
+  [
+    () => props.data,
+    () => channelFilterStore.map,
+    () => channelFilterStore.enabled,
+    () => talentStore.singleSelectedTalent
+  ],
+  ([data, map, enabled, singleSelectedTalent]) => {
+    const wholeList = data.dateGroupList.flatMap((dataGroup) => dataGroup.videoList)
+
+    sectionMap.value = createSectionMap(
+      getFilteredData(map, enabled, wholeList, singleSelectedTalent)
+    )
   },
   { immediate: true, deep: true }
 )
 
-function createSectionMap(data: Schedule): Record<number, VideoDetailWithTime[]> {
+function createSectionMap(wholeList: VideoDetail[]): Record<number, VideoDetailWithTime[]> {
   // 全日付の動画をflat化し、time情報を付加
-  const wholeList: VideoDetailWithTime[] = data.dateGroupList
-    .flatMap((dataGroup) => dataGroup.videoList)
-    .map((video) => {
-      const startTime = new Date(video.datetime).getTime()
-      return {
-        ...video,
-        startTime
-      }
-    })
+  const listWithTime = wholeList.map((video) => {
+    const startTime = new Date(video.datetime).getTime()
+    return {
+      ...video,
+      startTime
+    }
+  })
 
   const sectionVideoList: Record<number, VideoDetailWithTime[]> = {}
 
@@ -84,7 +100,7 @@ function createSectionMap(data: Schedule): Record<number, VideoDetailWithTime[]>
   const sectionSpan = 6 * 60 * 60 * 1000
   const timezoneOffset = 9 * 60 * 60 * 1000
 
-  wholeList.forEach((video) => {
+  listWithTime.forEach((video) => {
     const time = video.startTime
     // 区切った時間に丸める
     const sectionTime =
@@ -103,4 +119,27 @@ function createSectionMap(data: Schedule): Record<number, VideoDetailWithTime[]>
   <ChannelFilter />
   <VerticalScheduleColumn v-if="Object.keys(sectionMap).length > 0" :sectionMap="sectionMap" />
   <div v-else>no data</div>
+  <button
+    v-if="talentStore.singleSelectedTalent != null"
+    class="selected fixed inset-0 bottom-4 m-auto top-auto w-fit h-fit z-20 flex flex-row justify-center items-center gap-4 px-4 py-1 rounded-full shadow-md bg-blue-800 text-white outline outline-white"
+    @click="talentStore.singleSelectedTalent = null"
+  >
+    selected:
+    <img
+      :src="talentIcons[talentStore.singleSelectedTalent]"
+      loading="lazy"
+      class="rounded-full w-[44px]"
+    />
+    {{ talentStore.singleSelectedTalent }}
+  </button>
 </template>
+
+<style scoped>
+.selected {
+  transition: all 0.3s;
+  @starting-style {
+    opacity: 0;
+    translate: 0 100px;
+  }
+}
+</style>

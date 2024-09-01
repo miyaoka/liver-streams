@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useChannelFilterStore } from '../filter/channelFilterStore'
-import icons from '@/assets/icons.json'
-import { useTalentStore } from '@/store/talentStore'
+import { talentIcons, useTalentStore } from '@/store/talentStore'
 
 const channelFilterStore = useChannelFilterStore()
 const talentStore = useTalentStore()
@@ -60,6 +59,7 @@ function hoverTalent(name: string | null) {
       @mouseenter="hoverTalent(name)"
       @mouseleave="hoverTalent(null)"
       :class="`${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
+      @contextmenu.prevent="talentStore.singleSelectedTalent = name"
     >
       <input
         type="checkbox"
@@ -68,7 +68,7 @@ function hoverTalent(name: string | null) {
         class="hidden"
       />
       <img
-        :src="(icons as Record<string, string>)[name]"
+        :src="talentIcons[name]"
         :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-2 outline-red-400 outline-offset-2' : ''} `"
         loading="lazy"
       />

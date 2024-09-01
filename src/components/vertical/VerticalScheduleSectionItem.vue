@@ -85,6 +85,7 @@ function hoverTalent(name: string | null) {
           :src="video.talent.iconImageUrl"
           class="rounded-full w-[70px] h-[70px] border"
           loading="lazy"
+          @contextmenu.prevent="talentStore.singleSelectedTalent = video.talent.name"
         />
       </div>
       <div class="flex flex-col items-start gap-p2 flex-1">
@@ -100,6 +101,7 @@ function hoverTalent(name: string | null) {
             loading="lazy"
             @mouseenter="hoverTalent(talent.name)"
             @mouseleave="hoverTalent(null)"
+            @contextmenu.prevent="talentStore.singleSelectedTalent = talent.name"
           />
         </div>
       </div>
@@ -135,6 +137,8 @@ function hoverTalent(name: string | null) {
           loading="lazy"
           @mouseover="hoverTalent(video.talent.name)"
           @mouseleave="hoverTalent(null)"
+          @click.prevent="talentStore.singleSelectedTalent = video.talent.name"
+          @contextmenu.prevent="talentStore.singleSelectedTalent = video.talent.name"
         />
         <div>
           <div class="font-bold">
