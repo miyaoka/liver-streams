@@ -4,7 +4,8 @@ import { onMounted, ref, watch } from 'vue'
 import VerticalScheduleColumn from './VerticalScheduleColumn.vue'
 import ChannelFilter from '@/components/filter/ChannelFilter.vue'
 import { useChannelFilterStore } from '../filter/channelFilterStore'
-import { talentIcons, useTalentStore } from '@/store/talentStore'
+import { useTalentStore } from '@/store/talentStore'
+import { getChannelIcon } from '@/utils/icons'
 
 const props = defineProps<{
   data: Schedule
@@ -126,7 +127,7 @@ function createSectionMap(wholeList: VideoDetail[]): Record<number, VideoDetailW
   >
     selected:
     <img
-      :src="talentIcons[talentStore.singleSelectedTalent]"
+      :src="getChannelIcon(talentStore.singleSelectedTalent)"
       loading="lazy"
       class="rounded-full w-[44px]"
     />

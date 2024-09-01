@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { useChannelFilterStore } from '../filter/channelFilterStore'
-import { talentIcons, useTalentStore } from '@/store/talentStore'
+import { useTalentStore } from '@/store/talentStore'
+import { getChannelIcon } from '@/utils/icons'
 
 const channelFilterStore = useChannelFilterStore()
 const talentStore = useTalentStore()
@@ -68,7 +69,7 @@ function hoverTalent(name: string | null) {
         class="hidden"
       />
       <img
-        :src="talentIcons[name]"
+        :src="getChannelIcon(name)"
         :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-2 outline-red-400 outline-offset-2' : ''} `"
         loading="lazy"
       />
