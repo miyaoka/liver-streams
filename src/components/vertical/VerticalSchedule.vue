@@ -123,7 +123,7 @@ function createSectionMap(wholeList: VideoDetail[]): Record<number, VideoDetailW
   <button
     v-if="talentStore.singleSelectedTalent != null"
     class="selected fixed inset-0 bottom-4 m-auto top-auto w-fit h-fit z-20 flex flex-row justify-center items-center gap-4 px-4 py-1 rounded-full shadow-md bg-blue-800 text-white outline outline-white"
-    @click="talentStore.singleSelectedTalent = null"
+    @click="talentStore.setSingleSelectedTalent(null)"
   >
     selected:
     <img

@@ -60,7 +60,7 @@ function hoverTalent(name: string | null) {
       @mouseenter="hoverTalent(name)"
       @mouseleave="hoverTalent(null)"
       :class="`${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
-      @contextmenu.prevent="talentStore.singleSelectedTalent = name"
+      @contextmenu.prevent="talentStore.setSingleSelectedTalent(name)"
     >
       <input
         type="checkbox"
