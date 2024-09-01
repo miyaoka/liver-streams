@@ -32,7 +32,7 @@ const filterCount = computed(() => channelFilterStore.map.size)
         </div>
 
         <label>
-          有効
+          フィルタ適用
           <input type="checkbox" v-model="channelFilterStore.enabled" />
         </label>
       </div>
