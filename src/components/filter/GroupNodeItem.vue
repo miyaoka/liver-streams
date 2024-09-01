@@ -34,7 +34,7 @@ watch(checked, (val) => {
 })
 </script>
 <template>
-  <div class="flex flex-col items-start ml-6 gap-2">
+  <div class="flex flex-col items-start ml-6 gap-3">
     <label
       :class="`cursor-pointer px-2 py-1 rounded-lg text-sm font-bold outline outline-2 ${checked ? '  outline-red-400 bg-red-500 text-white' : 'outline-slate-400'}`"
     >

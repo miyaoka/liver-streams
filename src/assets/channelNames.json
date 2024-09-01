@@ -10,6 +10,10 @@
     "5期生": ["雪花ラミィ", "桃鈴ねね", "獅白ぼたん", "尾丸ポルカ"],
     "6期生": ["ラプラス", "鷹嶺ルイ", "博衣こより", "沙花叉クロヱ", "風真いろは"]
   },
+  "hololive DEV_IS": {
+    "公式": ["hololive DEV_IS"],
+    "ReGLOSS": ["火威青", "音乃瀬奏", "一条莉々華", "儒烏風亭らでん", "轟はじめ"]
+  },
   "ホロライブEnglish": {
     "公式": ["holo EN"],
     "Myth": ["Calli", "Kiara", "Ina", "Gura", "Amelia"],
@@ -22,9 +26,5 @@
     "1期生": ["Risu", "Moona", "Iofi"],
     "2期生": ["Ollie", "Anya", "Reine"],
     "3期生": ["Zeta", "Kaela", "Kobo"]
-  },
-  "hololive DEV_IS": {
-    "公式": ["hololive DEV_IS"],
-    "ReGLOSS": ["火威青", "音乃瀬奏", "一条莉々華", "儒烏風亭らでん", "轟はじめ"]
   }
 }

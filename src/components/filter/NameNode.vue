@@ -69,10 +69,11 @@ function hoverTalent(name: string | null) {
       />
       <img
         :src="(icons as Record<string, string>)[name]"
-        :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-red-400 outline-offset-4' : ''} `"
+        :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-2 outline-red-400 outline-offset-2' : ''} `"
+        loading="lazy"
       />
       <div
-        :class="`text-sm ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-2  rounded-xl`"
+        :class="`text-xs ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-1  rounded-full`"
       >
         <p class="line-clamp-1">
           {{ name }}

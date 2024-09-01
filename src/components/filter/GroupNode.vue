@@ -15,7 +15,6 @@ const emit = defineEmits<{
 }>()
 
 const entries = Object.entries(props.group)
-const el = ref<HTMLElement | null>(null)
 const checkedList = ref<boolean[]>(entries.map(() => props.checked))
 
 // 親からのclick更新時のみ、全ての子要素を更新する
@@ -40,7 +39,7 @@ watch(
 )
 </script>
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 py-2">
     <GroupNodeItem
       v-for="([key, val], i) in entries"
       :key="key"
