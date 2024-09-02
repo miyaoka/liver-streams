@@ -61,7 +61,7 @@ function getHqThumnail(url: string) {
 </script>
 <template>
   <div
-    class="relative hover:scale-105 hover:z-10 transition-all max-w-[560px] h-[108px] max-sm:h-auto"
+    class="relative hover:scale-105 hover:z-10 transition-all"
     @mouseover="hoverTalent(video.talent.name)"
     @mouseleave="hoverTalent(null)"
   >
@@ -82,7 +82,7 @@ function getHqThumnail(url: string) {
       ref="button"
       :href="video.url"
       target="_blank"
-      class="transition-all w-full h-full shadow-md flex flex-row justify-center items-center gap-[12px] pl-2 overflow-hidden rounded-[10px] bg-white max-sm:gap-1 max-sm:pl-1"
+      class="transition-all max-w-[560px] h-[108px] shadow-md flex flex-row justify-center items-center gap-[12px] pl-2 overflow-hidden rounded-[10px] bg-white max-sm:gap-1 max-sm:pl-1 max-sm:h-auto"
       :class="{
         isLive: video.isLive,
         isFinished: isFinished,
