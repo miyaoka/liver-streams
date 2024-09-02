@@ -41,15 +41,15 @@ function getFilteredData(
   filterMap: Map<string, boolean>,
   filterEnabled: boolean,
   wholeList: VideoDetail[],
-  singleSelectedTalent: string | null
+  focusedTalent: string | null
 ): VideoDetail[] {
   // 単一セレクト時
-  if (singleSelectedTalent) {
+  if (focusedTalent) {
     return wholeList.filter((video) => {
       return (
-        video.talent.name === singleSelectedTalent ||
+        video.talent.name === focusedTalent ||
         video.collaboTalents.some((collaborator) => {
-          return collaborator.name === singleSelectedTalent
+          return collaborator.name === focusedTalent
         })
       )
     })
@@ -73,14 +73,12 @@ watch(
     () => props.data,
     () => channelFilterStore.map,
     () => channelFilterStore.enabled,
-    () => talentStore.singleSelectedTalent
+    () => talentStore.focusedTalent
   ],
-  ([data, map, enabled, singleSelectedTalent]) => {
+  ([data, map, enabled, focusedTalent]) => {
     const wholeList = data.dateGroupList.flatMap((dataGroup) => dataGroup.videoList)
 
-    sectionMap.value = createSectionMap(
-      getFilteredData(map, enabled, wholeList, singleSelectedTalent)
-    )
+    sectionMap.value = createSectionMap(getFilteredData(map, enabled, wholeList, focusedTalent))
   },
   { immediate: true, deep: true }
 )
@@ -121,17 +119,17 @@ function createSectionMap(wholeList: VideoDetail[]): Record<number, VideoDetailW
   <VerticalScheduleColumn v-if="Object.keys(sectionMap).length > 0" :sectionMap="sectionMap" />
   <div v-else>no data</div>
   <button
-    v-if="talentStore.singleSelectedTalent != null"
+    v-if="talentStore.focusedTalent != null"
     class="selected fixed inset-0 bottom-4 m-auto top-auto w-fit h-fit z-20 flex flex-row justify-center items-center gap-4 px-4 py-1 rounded-full shadow-md bg-blue-800 text-white outline outline-white"
-    @click="talentStore.setSingleSelectedTalent(null)"
+    @click="talentStore.setFocusedTalent(null)"
   >
-    selected:
+    focused:
     <img
-      :src="getChannelIcon(talentStore.singleSelectedTalent)"
+      :src="getChannelIcon(talentStore.focusedTalent)"
       loading="lazy"
       class="rounded-full w-[44px]"
     />
-    {{ talentStore.singleSelectedTalent }}
+    {{ talentStore.focusedTalent }}
   </button>
 </template>
 

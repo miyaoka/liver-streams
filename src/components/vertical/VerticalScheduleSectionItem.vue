@@ -93,7 +93,7 @@ function getHqThumnail(url: string) {
           :src="video.talent.iconImageUrl"
           class="rounded-full w-[70px] aspect-square border"
           loading="lazy"
-          @contextmenu.prevent="talentStore.setSingleSelectedTalent(video.talent.name)"
+          @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
         />
       </div>
       <div class="flex flex-col items-start gap-p2 flex-1">
@@ -109,7 +109,7 @@ function getHqThumnail(url: string) {
             loading="lazy"
             @mouseenter="hoverTalent(talent.name)"
             @mouseleave="hoverTalent(null)"
-            @contextmenu.prevent="talentStore.setSingleSelectedTalent(talent.name)"
+            @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
           />
         </div>
       </div>
@@ -149,8 +149,8 @@ function getHqThumnail(url: string) {
           loading="lazy"
           @mouseover="hoverTalent(video.talent.name)"
           @mouseleave="hoverTalent(null)"
-          @click.prevent="talentStore.setSingleSelectedTalent(video.talent.name)"
-          @contextmenu.prevent="talentStore.setSingleSelectedTalent(video.talent.name)"
+          @click.prevent="talentStore.setFocusedTalent(video.talent.name)"
+          @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
         />
         <div>
           <div class="font-bold">
@@ -166,8 +166,8 @@ function getHqThumnail(url: string) {
               loading="lazy"
               @mouseenter="hoverTalent(talent.name)"
               @mouseleave="hoverTalent(null)"
-              @click.prevent="talentStore.setSingleSelectedTalent(talent.name)"
-              @contextmenu.prevent="talentStore.setSingleSelectedTalent(talent.name)"
+              @click.prevent="talentStore.setFocusedTalent(talent.name)"
+              @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
             />
           </div>
         </div>
