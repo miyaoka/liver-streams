@@ -66,14 +66,14 @@ function getHqThumnail(url: string) {
     @mouseleave="hoverTalent(null)"
   >
     <div
-      class="absolute bg-white text-gray-700 font-bold px-2 left-3 -top-2 shadow rounded-full max-sm:-left-2 max-sm:-top-3"
+      class="absolute bg-white text-gray-700 font-bold px-2 left-3 -top-2 shadow rounded-full max-sm:-left-0 max-sm:-top-4"
     >
       {{ video.displayDate }}
     </div>
 
     <div
       v-if="video.isLive || isFinished"
-      :class="`absolute right-2 -top-4  px-4 text-white rounded-full  ${video.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
+      :class="`absolute right-0 -top-4 px-4 text-white rounded-full  ${video.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
     >
       {{ video.isLive ? 'ON AIR' : '終了' }}
     </div>
