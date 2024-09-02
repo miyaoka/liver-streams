@@ -130,6 +130,8 @@ function createSectionMap(wholeList: VideoDetail[]): Record<number, VideoDetailW
       class="rounded-full w-[44px]"
     />
     {{ talentStore.focusedTalent }}
+
+    <div class="i-mdi-cross-circle w-[32px] h-[32px]" />
   </button>
 </template>
 

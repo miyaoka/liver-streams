@@ -9,7 +9,9 @@ const channelFilterStore = useChannelFilterStore()
 const filterCount = computed(() => channelFilterStore.map.size)
 </script>
 <template>
-  <button class="fixed p-2 right-4 top-4 z-30 bg-white" popovertarget="filter">filter</button>
+  <button class="fixed flex top-4 right-4 p-0 m-0 z-30" popovertarget="filter">
+    <i class="i-mdi-menu h-[32px] w-[32px] text-gray-800" />
+  </button>
 
   <div
     id="filter"

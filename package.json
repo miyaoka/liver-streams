@@ -20,6 +20,8 @@
     "vue-router": "^4.3.3"
   },
   "devDependencies": {
+    "@egoist/tailwindcss-icons": "^1.8.1",
+    "@iconify-json/mdi": "^1.2.0",
     "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
