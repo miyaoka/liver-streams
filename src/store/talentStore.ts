@@ -16,7 +16,7 @@ export const useTalentStore = defineStore('talentStore', () => {
     // 選択が解除されたらスクロール位置をリセットする
     if (!focusedTalent.value) {
       nextTick(() => {
-        console.log('scrollY', scrollY.value)
+        window.scrollTo(0, scrollY.value)
       })
     }
   }
