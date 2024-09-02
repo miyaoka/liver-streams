@@ -53,7 +53,7 @@ function hoverTalent(name: string | null) {
 <template>
   <div class="flex fles-row flex-wrap ml-20 gap-x-2 -mt-10">
     <label
-      class="flex flex-col items-center min-w-[30px] cursor-pointer w-[80px]"
+      class="flex flex-col items-center min-w-[30px] cursor-pointer w-[60px]"
       v-for="(name, i) in nameList"
       :key="name"
       :title="name"
@@ -74,7 +74,7 @@ function hoverTalent(name: string | null) {
         loading="lazy"
       />
       <div
-        :class="`text-xs ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-1  rounded-full`"
+        :class="`text-xs tracking-tight ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-1  rounded-full`"
       >
         <p class="line-clamp-1">
           {{ name }}
