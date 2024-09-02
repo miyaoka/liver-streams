@@ -154,6 +154,8 @@ function hoverTalent(name: string | null) {
               loading="lazy"
               @mouseenter="hoverTalent(talent.name)"
               @mouseleave="hoverTalent(null)"
+              @click.prevent="talentStore.setSingleSelectedTalent(talent.name)"
+              @contextmenu.prevent="talentStore.setSingleSelectedTalent(talent.name)"
             />
           </div>
         </div>
