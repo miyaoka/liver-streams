@@ -50,6 +50,14 @@ function onClickDialog(evt: MouseEvent) {
 function hoverTalent(name: string | null) {
   talentStore.hoveredTalent = name
 }
+
+// サムネイルの画質を上げる
+function getHqThumnail(url: string) {
+  // 画像がyoutubeの場合、mq(320x180)のurlになっているのでsd(640x480)に置換する
+  const matched = url.match(/mqdefault\.jpg$/)
+  if (!matched) return url
+  return url.replace('mqdefault', 'sddefault')
+}
 </script>
 <template>
   <div
@@ -83,7 +91,7 @@ function hoverTalent(name: string | null) {
       <div class="w-[70px]">
         <img
           :src="video.talent.iconImageUrl"
-          class="rounded-full w-[70px] h-[70px] border"
+          class="rounded-full w-[70px] aspect-square border"
           loading="lazy"
           @contextmenu.prevent="talentStore.setSingleSelectedTalent(video.talent.name)"
         />
@@ -106,7 +114,7 @@ function hoverTalent(name: string | null) {
         </div>
       </div>
 
-      <img :src="video.thumbnail" class="w-[192px] h-[108px]" loading="lazy" />
+      <img :src="video.thumbnail" class="aspect-video h-full bg-black" loading="lazy" />
     </a>
   </div>
   <dialog
@@ -121,7 +129,11 @@ function hoverTalent(name: string | null) {
     </div>
 
     <a :href="video.url" target="_blank">
-      <img :src="video.thumbnail" class="w-[480px] h-[270px]" loading="lazy" />
+      <img
+        :src="getHqThumnail(video.thumbnail)"
+        class="w-[480px] aspect-video object-cover"
+        loading="lazy"
+      />
     </a>
 
     <div class="px-6 py-4 flex flex-col gap-2">
