@@ -116,64 +116,65 @@ function getHqThumnail(url: string) {
 
       <img :src="video.thumbnail" class="aspect-video h-full bg-black" loading="lazy" />
     </a>
-  </div>
-  <dialog
-    ref="dialogEl"
-    @click="onClickDialog"
-    class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl"
-  >
-    <div class="px-4 py-2">
-      <div class="font-bold">
-        {{ video.datetime }}
-      </div>
-    </div>
 
-    <a :href="video.url" target="_blank">
-      <img
-        :src="getHqThumnail(video.thumbnail)"
-        class="w-[480px] aspect-video object-cover"
-        loading="lazy"
-      />
-    </a>
-
-    <div class="px-6 py-4 flex flex-col gap-2">
-      <div class="font-bold text-lg">
-        <a :href="video.url" class="hover:underline" target="_blank">
-          {{ video.title }}
-        </a>
+    <dialog
+      ref="dialogEl"
+      @click="onClickDialog"
+      class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl"
+    >
+      <div class="px-4 py-2">
+        <div class="font-bold">
+          {{ video.datetime }}
+        </div>
       </div>
-      <div class="flex flex-row gap-2 items-center">
+
+      <a :href="video.url" target="_blank">
         <img
-          :src="video.talent.iconImageUrl"
-          class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
+          :src="getHqThumnail(video.thumbnail)"
+          class="w-[480px] aspect-video object-cover"
           loading="lazy"
-          @mouseover="hoverTalent(video.talent.name)"
-          @mouseleave="hoverTalent(null)"
-          @click.prevent="talentStore.setFocusedTalent(video.talent.name)"
-          @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
         />
-        <div>
-          <div class="font-bold">
-            {{ video.talent.name }}
-          </div>
-          <div class="flex flex-row flex-wrap">
-            <img
-              v-for="talent in video.collaboTalents"
-              :key="talent.iconImageUrl"
-              :src="talent.iconImageUrl"
-              class="rounded-full w-[40px] h-[40px] hover:outline hover:outline-red-500 hover:outline-2"
-              :title="talent.name"
-              loading="lazy"
-              @mouseenter="hoverTalent(talent.name)"
-              @mouseleave="hoverTalent(null)"
-              @click.prevent="talentStore.setFocusedTalent(talent.name)"
-              @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
-            />
+      </a>
+
+      <div class="px-6 py-4 flex flex-col gap-2">
+        <div class="font-bold text-lg">
+          <a :href="video.url" class="hover:underline" target="_blank">
+            {{ video.title }}
+          </a>
+        </div>
+        <div class="flex flex-row gap-2 items-center">
+          <img
+            :src="video.talent.iconImageUrl"
+            class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
+            loading="lazy"
+            @mouseover="hoverTalent(video.talent.name)"
+            @mouseleave="hoverTalent(null)"
+            @click.prevent="talentStore.setFocusedTalent(video.talent.name)"
+            @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
+          />
+          <div>
+            <div class="font-bold">
+              {{ video.talent.name }}
+            </div>
+            <div class="flex flex-row flex-wrap">
+              <img
+                v-for="talent in video.collaboTalents"
+                :key="talent.iconImageUrl"
+                :src="talent.iconImageUrl"
+                class="rounded-full w-[40px] h-[40px] hover:outline hover:outline-red-500 hover:outline-2"
+                :title="talent.name"
+                loading="lazy"
+                @mouseenter="hoverTalent(talent.name)"
+                @mouseleave="hoverTalent(null)"
+                @click.prevent="talentStore.setFocusedTalent(talent.name)"
+                @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </dialog>
+    </dialog>
+  </div>
 </template>
 
 <style scoped>
