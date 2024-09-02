@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Schedule, VideoDetail } from '@/schedule'
+import type { Schedule, VideoDetail } from '@/api/hololive/schedule'
 import { computed, onMounted, ref } from 'vue'
 
 interface VideoWithDuration extends VideoDetail {

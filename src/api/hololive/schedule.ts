@@ -1,6 +1,6 @@
 const holoAPI = 'https://schedule.hololive.tv/api/list/7'
 
-import json from '@/assets/apiSample.json'
+import json from './sample1.json'
 
 export interface Schedule {
   dateGroupList: DateGroup[]
