@@ -16,7 +16,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main>
+  <main class="text-[clamp(8px,3vw,16px)]">
     <VerticalSchedule v-if="data" :data="data" />
   </main>
 </template>

@@ -61,17 +61,19 @@ function getHqThumnail(url: string) {
 </script>
 <template>
   <div
-    class="relative hover:scale-105 hover:z-10 transition-all"
+    class="relative hover:scale-105 hover:z-10 transition-all max-w-[560px] h-[108px] max-sm:h-auto"
     @mouseover="hoverTalent(video.talent.name)"
     @mouseleave="hoverTalent(null)"
   >
-    <div class="absolute bg-white text-gray-700 font-bold px-2 left-6 -top-2 shadow rounded-full">
+    <div
+      class="absolute bg-white text-gray-700 font-bold px-2 left-3 -top-2 shadow rounded-full max-sm:-left-2 max-sm:-top-3"
+    >
       {{ video.displayDate }}
     </div>
 
     <div
       v-if="video.isLive || isFinished"
-      :class="`absolute right-2 -top-4  px-4 text-white rounded-full ${video.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
+      :class="`absolute right-2 -top-4  px-4 text-white rounded-full  ${video.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
     >
       {{ video.isLive ? 'ON AIR' : '終了' }}
     </div>
@@ -80,7 +82,7 @@ function getHqThumnail(url: string) {
       ref="button"
       :href="video.url"
       target="_blank"
-      class="transition-all shadow-md w-[560px] h-[108px] flex flex-row justify-center items-center gap-[12px] pl-[17px] overflow-hidden rounded-[10px] bg-white"
+      class="transition-all w-full h-full shadow-md flex flex-row justify-center items-center gap-[12px] pl-2 overflow-hidden rounded-[10px] bg-white max-sm:gap-2"
       :class="{
         isLive: video.isLive,
         isFinished: isFinished,
@@ -88,23 +90,23 @@ function getHqThumnail(url: string) {
       }"
       @click="onClickCard"
     >
-      <div class="w-[70px]">
+      <div class="w-[70px] max-sm:w-[clamp(30px,10vw,70px)]">
         <img
           :src="video.talent.iconImageUrl"
-          class="rounded-full w-[70px] aspect-square border"
+          class="rounded-full w-full aspect-square border"
           loading="lazy"
           @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
         />
       </div>
-      <div class="flex flex-col items-start gap-p2 flex-1">
-        <h3 class="text-base font-bold">{{ video.talent.name }}</h3>
+      <div class="flex flex-col items-start gap-p2 flex-1 max-sm:py-2">
+        <h3 class="font-bold">{{ video.talent.name }}</h3>
         <div class="line-clamp-2">{{ video.title }}</div>
-        <div class="flex flex-row flex-wrap">
+        <div class="flex flex-row z-10">
           <img
             v-for="talent in video.collaboTalents"
             :key="talent.iconImageUrl"
             :src="talent.iconImageUrl"
-            class="rounded-full w-[24px] h-[24px] hover:outline hover:outline-red-500 hover:outline-2"
+            class="rounded-full w-[24px] h-[24px] -mr-1 outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
             @mouseenter="hoverTalent(talent.name)"
@@ -114,7 +116,11 @@ function getHqThumnail(url: string) {
         </div>
       </div>
 
-      <img :src="video.thumbnail" class="aspect-video h-full bg-black" loading="lazy" />
+      <img
+        :src="video.thumbnail"
+        class="aspect-video object-cover h-full max-sm:w-[clamp(100px,30vw,200px)]"
+        loading="lazy"
+      />
     </a>
 
     <dialog
@@ -136,7 +142,7 @@ function getHqThumnail(url: string) {
         />
       </a>
 
-      <div class="px-6 py-4 flex flex-col gap-2">
+      <div class="px-6 py-4 flex flex-col gap-2 max-sm:p-3">
         <div class="font-bold text-lg">
           <a :href="video.url" class="hover:underline" target="_blank">
             {{ video.title }}
@@ -153,7 +159,7 @@ function getHqThumnail(url: string) {
             @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
           />
           <div>
-            <div class="font-bold">
+            <div class="font-bold text-base">
               {{ video.talent.name }}
             </div>
             <div class="flex flex-row flex-wrap">
@@ -161,7 +167,7 @@ function getHqThumnail(url: string) {
                 v-for="talent in video.collaboTalents"
                 :key="talent.iconImageUrl"
                 :src="talent.iconImageUrl"
-                class="rounded-full w-[40px] h-[40px] hover:outline hover:outline-red-500 hover:outline-2"
+                class="rounded-full w-[40px] hover:outline hover:outline-red-500 hover:outline-2 max-sm:w-[30px]"
                 :title="talent.name"
                 loading="lazy"
                 @mouseenter="hoverTalent(talent.name)"
