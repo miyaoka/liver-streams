@@ -82,7 +82,7 @@ function getHqThumnail(url: string) {
       ref="button"
       :href="video.url"
       target="_blank"
-      class="transition-all w-full h-full shadow-md flex flex-row justify-center items-center gap-[12px] pl-2 overflow-hidden rounded-[10px] bg-white max-sm:gap-2"
+      class="transition-all w-full h-full shadow-md flex flex-row justify-center items-center gap-[12px] pl-2 overflow-hidden rounded-[10px] bg-white max-sm:gap-1 max-sm:pl-1"
       :class="{
         isLive: video.isLive,
         isFinished: isFinished,
@@ -98,7 +98,7 @@ function getHqThumnail(url: string) {
           @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
         />
       </div>
-      <div class="flex flex-col items-start gap-p2 flex-1 max-sm:py-2">
+      <div class="flex flex-col items-start gap-p2 flex-1 max-sm:py-1">
         <h3 class="font-bold">{{ video.talent.name }}</h3>
         <div class="line-clamp-2">{{ video.title }}</div>
         <div class="flex flex-row z-10">
@@ -118,7 +118,7 @@ function getHqThumnail(url: string) {
 
       <img
         :src="video.thumbnail"
-        class="aspect-video object-cover h-full max-sm:w-[clamp(100px,30vw,200px)]"
+        class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)]"
         loading="lazy"
       />
     </a>
