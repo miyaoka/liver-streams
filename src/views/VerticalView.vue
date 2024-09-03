@@ -1,12 +1,25 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getSchedule, type Schedule } from "@/api/hololive/schedule";
+import { getSchedule as gs } from "@/api/nijisanji/nijisanji";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 
 const data = ref<Schedule | null>(null);
 
 async function setSchedule() {
   data.value = await getSchedule();
+
+  const { streams, livers } = await gs();
+
+  const channelMap = streams.data.forEach((item) => {
+    const date = new Date(item.attributes.start_at);
+
+    item.relationships.youtube_channel.data.id;
+
+    const title = item.attributes.title;
+
+    console.log("nijisanji", date, title);
+  });
 }
 onMounted(async () => {
   setSchedule();
