@@ -66,7 +66,7 @@ function getHqThumnail(url: string) {
     @mouseleave="hoverTalent(null)"
   >
     <div
-      class="absolute bg-white text-gray-700 font-bold px-2 left-3 -top-2 shadow rounded-full max-sm:-left-0 max-sm:-top-4"
+      :class="`absolute bg-white ${isFinished ? 'text-gray-700' : 'text-blue-500'} font-bold px-2 left-3 -top-2 shadow rounded-full max-sm:-left-0 max-sm:-top-4`"
     >
       {{ video.displayDate }}
     </div>
