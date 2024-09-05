@@ -1,62 +1,62 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { VideoDetailWithTime } from './VerticalSchedule.vue'
-import { useTalentStore } from '@/store/talentStore'
+import { computed, ref } from "vue";
+import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
+import { useTalentStore } from "@/store/talentStore";
 
 const props = defineProps<{
-  video: VideoDetailWithTime
-}>()
+  video: VideoDetailWithTime;
+}>();
 
-const talentStore = useTalentStore()
-const dialogEl = ref<HTMLDialogElement | null>(null)
+const talentStore = useTalentStore();
+const dialogEl = ref<HTMLDialogElement | null>(null);
 
 // 配信終了判定
 const isFinished = computed(() => {
   // 配信中か
-  if (props.video.isLive) return false
+  if (props.video.isLive) return false;
 
-  const now = Date.now()
+  const now = Date.now();
   // 現在時刻を過ぎているか
-  if (now < props.video.startTime) return false
+  if (now < props.video.startTime) return false;
   // 配信していなくてstartTimeが00以外であれば終了と判定（配信開始後には実際の配信開始時刻が入るため）
-  if (!props.video.datetime.endsWith(':00')) return true
+  if (!props.video.datetime.endsWith(":00")) return true;
   // 配信しないまま1時間経ったら終了と判定
-  if (now - props.video.startTime > 60 * 60 * 1000) return true
-  return false
-})
+  if (now - props.video.startTime > 60 * 60 * 1000) return true;
+  return false;
+});
 
 const isHovered = computed(() => {
   return (
     talentStore.hoveredTalent === props.video.talent.name ||
     props.video.collaboTalents.some((talent) => talentStore.hoveredTalent === talent.name)
-  )
-})
+  );
+});
 
 // 通常クリック時はダイアログを開き、ホイールクリックでリンクを開く
 function onClickCard(evt: MouseEvent) {
-  evt.preventDefault()
-  if (!dialogEl.value) return
-  dialogEl.value.showModal()
+  evt.preventDefault();
+  if (!dialogEl.value) return;
+  dialogEl.value.showModal();
 }
 // ダイアログ外をクリックしたら閉じる
 function onClickDialog(evt: MouseEvent) {
-  if (!dialogEl.value) return
+  if (!dialogEl.value) return;
   // ターゲットがダイアログならダイアログ外判定
-  if (evt.target !== dialogEl.value) return
-  evt.preventDefault()
-  dialogEl.value.close()
+  if (evt.target !== dialogEl.value) return;
+  evt.preventDefault();
+  dialogEl.value.close();
 }
 
 function hoverTalent(name: string | null) {
-  talentStore.hoveredTalent = name
+  talentStore.hoveredTalent = name;
 }
 
 // サムネイルの画質を上げる
 function getHqThumnail(url: string) {
   // 画像がyoutubeの場合、mq(320x180)のurlになっているのでsd(640x480)に置換する
-  const matched = url.match(/mqdefault\.jpg$/)
-  if (!matched) return url
-  return url.replace('mqdefault', 'sddefault')
+  const matched = url.match(/mqdefault\.jpg$/);
+  if (!matched) return url;
+  return url.replace("mqdefault", "sddefault");
 }
 </script>
 <template>
@@ -75,7 +75,7 @@ function getHqThumnail(url: string) {
       v-if="video.isLive || isFinished"
       :class="`absolute right-0 -top-4 px-4 text-white rounded-full  ${video.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
     >
-      {{ video.isLive ? 'ON AIR' : '終了' }}
+      {{ video.isLive ? "ON AIR" : "終了" }}
     </div>
 
     <a
@@ -86,7 +86,7 @@ function getHqThumnail(url: string) {
       :class="{
         isLive: video.isLive,
         isFinished: isFinished,
-        isHovered: isHovered
+        isHovered: isHovered,
       }"
       @click="onClickCard"
     >

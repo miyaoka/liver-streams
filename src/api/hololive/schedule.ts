@@ -1,36 +1,36 @@
-const holoAPI = 'https://schedule.hololive.tv/api/list/7'
+const holoAPI = "https://schedule.hololive.tv/api/list/7";
 
-import json from './sample1.json'
+import json from "./sample1.json";
 
 export interface Schedule {
-  dateGroupList: DateGroup[]
+  dateGroupList: DateGroup[];
 }
 export interface DateGroup {
-  displayDate: string
-  datetime: string
-  videoList: VideoDetail[]
+  displayDate: string;
+  datetime: string;
+  videoList: VideoDetail[];
 }
 
 export interface VideoDetail {
-  displayDate: string
-  datetime: string
-  isLive: boolean
-  platformType: number
-  url: string
-  thumbnail: string
-  title: string
-  name: string
-  talent: Telent
-  collaboTalents: Telent[]
+  displayDate: string;
+  datetime: string;
+  isLive: boolean;
+  platformType: number;
+  url: string;
+  thumbnail: string;
+  title: string;
+  name: string;
+  talent: Telent;
+  collaboTalents: Telent[];
 }
 
 export interface Telent {
-  name: string
-  iconImageUrl: string
+  name: string;
+  iconImageUrl: string;
 }
 export async function getSchedule(): Promise<Schedule> {
-  const response = await fetch(holoAPI)
-  const json = await response.json()
+  const response = await fetch(holoAPI);
+  const json = await response.json();
 
-  return json
+  return json;
 }

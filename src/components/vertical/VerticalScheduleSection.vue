@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { VideoDetailWithTime } from './VerticalSchedule.vue'
-import VerticalScheduleSectionItem from './VerticalScheduleSectionItem.vue'
-import { useDateStore } from '@/store/dateStore'
+import { computed, ref } from "vue";
+import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
+import VerticalScheduleSectionItem from "./VerticalScheduleSectionItem.vue";
+import { useDateStore } from "@/store/dateStore";
 
 const props = defineProps<{
-  section: [string, VideoDetailWithTime[]]
-  nextSection: [string, VideoDetailWithTime[]] | undefined
-}>()
+  section: [string, VideoDetailWithTime[]];
+  nextSection: [string, VideoDetailWithTime[]] | undefined;
+}>();
 
-const dateStore = useDateStore()
+const dateStore = useDateStore();
 
-const time = computed(() => Number(props.section[0]))
-const nextTime = computed(() => (props.nextSection ? Number(props.nextSection[0]) : Infinity))
-const videoList = computed(() => props.section[1])
+const time = computed(() => Number(props.section[0]));
+const nextTime = computed(() => (props.nextSection ? Number(props.nextSection[0]) : Infinity));
+const videoList = computed(() => props.section[1]);
 const isCurrent = computed(() => {
-  const now = dateStore.date.getTime()
-  return now >= time.value && now < nextTime.value
-})
+  const now = dateStore.date.getTime();
+  return now >= time.value && now < nextTime.value;
+});
 const isPast = computed(() => {
-  const now = dateStore.date.getTime()
-  return now > time.value
-})
+  const now = dateStore.date.getTime();
+  return now > time.value;
+});
 
-const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
-  month: '2-digit',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit'
-})
+const dateFormatter = new Intl.DateTimeFormat("ja-JP", {
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+});
 
-const sectionEl = ref<HTMLElement | null>(null)
+const sectionEl = ref<HTMLElement | null>(null);
 
 function sectionTime(time: number) {
-  const date = new Date(time)
+  const date = new Date(time);
 
-  const str = dateFormatter.format(date)
-  return str
+  const str = dateFormatter.format(date);
+  return str;
 }
 function scrollToSectionTop() {
-  if (!sectionEl.value) return
-  sectionEl.value.scrollIntoView({ behavior: 'smooth' })
+  if (!sectionEl.value) return;
+  sectionEl.value.scrollIntoView({ behavior: "smooth" });
 }
 </script>
 <template>

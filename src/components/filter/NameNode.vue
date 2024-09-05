@@ -1,53 +1,53 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { useChannelFilterStore } from '../filter/channelFilterStore'
-import { useTalentStore } from '@/store/talentStore'
-import { getChannelIcon } from '@/utils/icons'
+import { onMounted, ref, watch } from "vue";
+import { useChannelFilterStore } from "../filter/channelFilterStore";
+import { useTalentStore } from "@/store/talentStore";
+import { getChannelIcon } from "@/utils/icons";
 
-const channelFilterStore = useChannelFilterStore()
-const talentStore = useTalentStore()
+const channelFilterStore = useChannelFilterStore();
+const talentStore = useTalentStore();
 
 const props = defineProps<{
-  nameList: string[]
-  checked: boolean
-}>()
+  nameList: string[];
+  checked: boolean;
+}>();
 const emit = defineEmits<{
-  'update:checked': [checked: boolean]
-}>()
+  "update:checked": [checked: boolean];
+}>();
 
-const checkList = ref<boolean[]>(props.nameList.map(() => false))
+const checkList = ref<boolean[]>(props.nameList.map(() => false));
 
 function update() {
-  const isAllChecked = checkList.value.every((checked) => checked)
-  emit('update:checked', isAllChecked)
+  const isAllChecked = checkList.value.every((checked) => checked);
+  emit("update:checked", isAllChecked);
 }
 
 function onChange(name: string, checked: boolean) {
-  channelFilterStore.setName(name, checked)
-  update()
+  channelFilterStore.setName(name, checked);
+  update();
 }
 
 onMounted(() => {
-  checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false)
-  update()
-})
+  checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false);
+  update();
+});
 watch(
   () => props.checked,
   (val) => {
-    checkList.value = props.nameList.map(() => val)
+    checkList.value = props.nameList.map(() => val);
     props.nameList.forEach((name) => {
-      channelFilterStore.setName(name, val)
-    })
-  }
-)
+      channelFilterStore.setName(name, val);
+    });
+  },
+);
 
 watch(channelFilterStore.map, () => {
-  checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false)
-  update()
-})
+  checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false);
+  update();
+});
 
 function hoverTalent(name: string | null) {
-  talentStore.hoveredTalent = name
+  talentStore.hoveredTalent = name;
 }
 </script>
 <template>

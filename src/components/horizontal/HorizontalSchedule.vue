@@ -1,90 +1,90 @@
 <script setup lang="ts">
-import type { Schedule, VideoDetail } from '@/api/hololive/schedule'
-import { computed, onMounted, ref } from 'vue'
+import type { Schedule, VideoDetail } from "@/api/hololive/schedule";
+import { computed, onMounted, ref } from "vue";
 
 interface VideoWithDuration extends VideoDetail {
-  startTime: Date
-  endTime: Date
-  offset: number
-  isShorts: boolean
+  startTime: Date;
+  endTime: Date;
+  offset: number;
+  isShorts: boolean;
 }
 
 const props = defineProps<{
-  data: Schedule
-}>()
+  data: Schedule;
+}>();
 
-const channels = ref<VideoWithDuration[][]>([])
+const channels = ref<VideoWithDuration[][]>([]);
 
-const minute = 60 * 1000
+const minute = 60 * 1000;
 // 仮の動画の長さ
-const defaultDuration = 90 * minute
-const shortsDuration = 30 * minute
-const hourWidth = 150
-const channelHeight = 250
+const defaultDuration = 90 * minute;
+const shortsDuration = 30 * minute;
+const hourWidth = 150;
+const channelHeight = 250;
 
-const currentDate = ref(new Date())
+const currentDate = ref(new Date());
 
 // YYYY/mm/ddの形式で現在日付を取得
 const ymd = computed(() => {
-  return currentDate.value.toLocaleDateString('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  })
-})
+  return currentDate.value.toLocaleDateString("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+});
 
 onMounted(async () => {
   setInterval(() => {
-    currentDate.value = new Date()
-  }, 5000)
-})
+    currentDate.value = new Date();
+  }, 5000);
+});
 
 const dateList = computed(() => {
   return props.data.dateGroupList.map((dateGroup) => {
-    const { displayDate, datetime } = dateGroup
+    const { displayDate, datetime } = dateGroup;
     return {
       displayDate,
-      datetime
-    }
-  })
-})
+      datetime,
+    };
+  });
+});
 
-const originTime = computed(() => new Date(props.data.dateGroupList[0].datetime).getTime())
+const originTime = computed(() => new Date(props.data.dateGroupList[0].datetime).getTime());
 
 const videoList = computed<VideoWithDuration[]>(() => {
-  const wholeVideoList = props.data.dateGroupList.flatMap((dataGroup) => dataGroup.videoList)
+  const wholeVideoList = props.data.dateGroupList.flatMap((dataGroup) => dataGroup.videoList);
   return wholeVideoList.map((video) => {
-    const startTime = new Date(video.datetime)
-    const isShorts = false ///shorts/i.test(video.title)
-    const duration = isShorts ? shortsDuration : defaultDuration
-    const endTime = new Date(startTime.getTime() + duration)
+    const startTime = new Date(video.datetime);
+    const isShorts = false; ///shorts/i.test(video.title)
+    const duration = isShorts ? shortsDuration : defaultDuration;
+    const endTime = new Date(startTime.getTime() + duration);
     return {
       ...video,
       startTime,
       endTime,
       offset: (startTime.getTime() - originTime.value) / 1000 / 3600,
-      isShorts
-    }
-  })
-})
+      isShorts,
+    };
+  });
+});
 
 // videoが重ならないようにチャンネルに詰めていく
 function makeChannels() {
   videoList.value.forEach((video) => {
     let channel = channels.value.find((channel) => {
-      const lastVideo = channel[channel.length - 1]
-      return lastVideo.endTime < video.startTime
-    })
+      const lastVideo = channel[channel.length - 1];
+      return lastVideo.endTime < video.startTime;
+    });
     if (!channel) {
-      channel = []
-      channels.value.push(channel)
+      channel = [];
+      channels.value.push(channel);
     }
-    channel.push(video)
-  })
+    channel.push(video);
+  });
 }
 onMounted(() => {
-  makeChannels()
-})
+  makeChannels();
+});
 </script>
 <template>
   <div class="flex flex-col mt-4" :style="{ minWidth: `${hourWidth * 24 * dateList.length}px` }">
@@ -110,7 +110,7 @@ onMounted(() => {
         :key="i"
         class="relative"
         :style="{
-          height: `${channelHeight}px`
+          height: `${channelHeight}px`,
         }"
       >
         <div

@@ -1,37 +1,37 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { type Node } from '../filter/channelFilterStore'
-import NameNode from './NameNode.vue'
-import GroupNode from './GroupNode.vue'
+import { ref, watch } from "vue";
+import { type Node } from "../filter/channelFilterStore";
+import NameNode from "./NameNode.vue";
+import GroupNode from "./GroupNode.vue";
 
 const props = defineProps<{
-  name: string
-  val: Node | string[]
-  checked: boolean
-}>()
+  name: string;
+  val: Node | string[];
+  checked: boolean;
+}>();
 const emit = defineEmits<{
-  'update:checked': [checked: boolean]
-}>()
+  "update:checked": [checked: boolean];
+}>();
 
-const el = ref<HTMLElement | null>(null)
-const checked = ref(props.checked)
-const clickChecked = ref(checked.value)
+const el = ref<HTMLElement | null>(null);
+const checked = ref(props.checked);
+const clickChecked = ref(checked.value);
 
 // クリック時のみ更新するstate
 function onClick() {
-  clickChecked.value = checked.value
+  clickChecked.value = checked.value;
 }
 
 watch(
   () => props.checked,
   (val) => {
-    checked.value = val
-    clickChecked.value = val
-  }
-)
+    checked.value = val;
+    clickChecked.value = val;
+  },
+);
 watch(checked, (val) => {
-  emit('update:checked', val)
-})
+  emit("update:checked", val);
+});
 </script>
 <template>
   <div class="flex flex-col items-start ml-6 gap-3">

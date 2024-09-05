@@ -1,29 +1,29 @@
-import { defineStore } from 'pinia'
-import { nextTick, ref } from 'vue'
+import { defineStore } from "pinia";
+import { nextTick, ref } from "vue";
 
-export const useTalentStore = defineStore('talentStore', () => {
-  const hoveredTalent = ref<string | null>(null)
-  const focusedTalent = ref<string | null>(null)
-  const scrollY = ref<number>(0)
+export const useTalentStore = defineStore("talentStore", () => {
+  const hoveredTalent = ref<string | null>(null);
+  const focusedTalent = ref<string | null>(null);
+  const scrollY = ref<number>(0);
   function setFocusedTalent(talent: string | null) {
     // 非選択状態であればスクロール位置を保存する
     if (!focusedTalent.value) {
-      scrollY.value = window.scrollY
+      scrollY.value = window.scrollY;
     }
     // セット。既に選択されていたら解除
-    focusedTalent.value = focusedTalent.value === talent ? null : talent
+    focusedTalent.value = focusedTalent.value === talent ? null : talent;
 
     // 選択が解除されたらスクロール位置をリセットする
     if (!focusedTalent.value) {
       nextTick(() => {
-        window.scrollTo(0, scrollY.value)
-      })
+        window.scrollTo(0, scrollY.value);
+      });
     }
   }
 
   return {
     hoveredTalent,
     focusedTalent,
-    setFocusedTalent
-  }
-})
+    setFocusedTalent,
+  };
+});

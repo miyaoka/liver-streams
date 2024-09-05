@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import channelNames from '@/assets/channelNames.json'
-import GroupNode from './GroupNode.vue'
-import { useChannelFilterStore } from './channelFilterStore'
-import { computed } from 'vue'
+import channelNames from "@/assets/channelNames.json";
+import GroupNode from "./GroupNode.vue";
+import { useChannelFilterStore } from "./channelFilterStore";
+import { computed } from "vue";
 
-const channelFilterStore = useChannelFilterStore()
+const channelFilterStore = useChannelFilterStore();
 
-const filterCount = computed(() => channelFilterStore.map.size)
+const filterCount = computed(() => channelFilterStore.map.size);
 </script>
 <template>
   <button
@@ -21,7 +21,7 @@ const filterCount = computed(() => channelFilterStore.map.size)
     popover
     class="fixed transition-all top-4 right-4 left-auto bottom-auto px-8 py-8 rounded-xl outline outline-1 shadow-lg h-4/5 b-10 bg-white"
     :style="{
-      scrollbarWidth: 'thin'
+      scrollbarWidth: 'thin',
     }"
   >
     <div class="flex flex-col items-start gap-8">
@@ -33,7 +33,7 @@ const filterCount = computed(() => channelFilterStore.map.size)
           reset
         </button>
         <div class="flex-grow">
-          {{ filterCount === 0 ? 'no filter' : `filter count: ${filterCount}` }}
+          {{ filterCount === 0 ? "no filter" : `filter count: ${filterCount}` }}
         </div>
 
         <label>

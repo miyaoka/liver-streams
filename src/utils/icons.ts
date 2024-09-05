@@ -1,8 +1,8 @@
-import icons from '@/assets/icons.json'
-export const talentIcons: Record<string, string> = icons
+import icons from "@/assets/icons.json";
+export const talentIcons: Record<string, string> = icons;
 
-const defaultIcon = ''
+const defaultIcon = "";
 
 export function getChannelIcon(name: string) {
-  return talentIcons[name] ?? defaultIcon
+  return talentIcons[name] ?? defaultIcon;
 }
