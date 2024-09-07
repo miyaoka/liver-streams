@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Schedule, VideoDetail } from "@/api/hololive/schedule";
 import { onMounted, ref, watch } from "vue";
-import VerticalScheduleColumn from "./VerticalScheduleColumn.vue";
-import ChannelFilter from "@/components/filter/ChannelFilter.vue";
 import { useChannelFilterStore } from "../filter/channelFilterStore";
+import VerticalScheduleColumn from "./VerticalScheduleColumn.vue";
+import type { Schedule, VideoDetail } from "@/api/hololive/schedule";
+import ChannelFilter from "@/components/filter/ChannelFilter.vue";
 import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 

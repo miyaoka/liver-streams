@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
 import VerticalScheduleSection from "./VerticalScheduleSection.vue";
+import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
 
 const props = defineProps<{
   sectionMap: Record<number, VideoDetailWithTime[]>;

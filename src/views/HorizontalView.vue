@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import HorizontalSchedule from "@/components/horizontal/HorizontalSchedule.vue";
-import { getSchedule, type Schedule } from "@/api/hololive/schedule";
 import { onMounted, ref } from "vue";
+import { getSchedule, type Schedule } from "@/api/hololive/schedule";
+import HorizontalSchedule from "@/components/horizontal/HorizontalSchedule.vue";
 
 const data = ref<Schedule | null>(null);
 onMounted(async () => {

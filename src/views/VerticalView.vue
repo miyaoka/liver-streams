@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
-import { getSchedule, type Schedule } from "@/api/hololive/schedule";
 import { onMounted, ref } from "vue";
+import { getSchedule, type Schedule } from "@/api/hololive/schedule";
+import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 
 const data = ref<Schedule | null>(null);
 

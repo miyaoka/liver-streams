@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import channelNames from "@/assets/channelNames.json";
-import GroupNode from "./GroupNode.vue";
-import { useChannelFilterStore } from "./channelFilterStore";
 import { computed } from "vue";
+import { useChannelFilterStore } from "./channelFilterStore";
+import GroupNode from "./GroupNode.vue";
+import channelNames from "@/assets/channelNames.json";
 
 const channelFilterStore = useChannelFilterStore();
 

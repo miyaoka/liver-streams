@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
 import VerticalScheduleSectionItem from "./VerticalScheduleSectionItem.vue";
+import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
 import { useDateStore } from "@/store/dateStore";
 
 const props = defineProps<{
