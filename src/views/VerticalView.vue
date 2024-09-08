@@ -25,15 +25,3 @@ onMounted(async () => {
     <VerticalSchedule v-if="data" :data="data" />
   </main>
 </template>
-
-<style>
-/* スクロールバーが消えてもガタつかないようにする */
-html {
-  /* scrollbar-gutter: stable; */
-}
-/* dialogやpopoverが開かれていたらスクロールを禁止する */
-html:has(dialog:modal),
-html:has([popover]:popover-open) {
-  /* overflow: hidden; */
-}
-</style>
