@@ -1,5 +1,6 @@
 import livers from "./sample2/livers.json";
 import livers_en from "./sample2/livers_en.json";
+import type { StreamEvent, StreamTalent } from "..";
 
 export interface Stream {
   data: Data[];
@@ -115,14 +116,38 @@ interface LiverSiteColor {
   color2: string;
 }
 
-interface LiverSimple {
-  name: string;
-  image: string;
-}
+const apiBase = "https://www.nijisanji.jp/api";
 
-export async function getTalentMap() {
-  const liverMap = new Map<string, LiverSimple>();
-  [...livers, ...livers_en].forEach((liver) => {
+export async function getTalentMap(isDev: boolean): Promise<Map<string, StreamTalent>> {
+  const liverMap = new Map<string, StreamTalent>();
+
+  const jp = new URL(`${apiBase}/livers`);
+  const params = new URLSearchParams({
+    limit: "300",
+    orderKey: "name",
+    order: "asc",
+    affiliation: "nijisanji",
+    locale: "ja",
+    includeAll: "true",
+  });
+  jp.search = params.toString();
+
+  const en = new URL(`${apiBase}/livers`);
+  const params2 = new URLSearchParams({
+    limit: "300",
+    orderKey: "name",
+    order: "asc",
+    affiliation: "nijisanjien",
+    locale: "en",
+    includeAll: "true",
+  });
+  en.search = params2.toString();
+
+  const wholeLivers = isDev
+    ? [...livers, ...livers_en]
+    : (await Promise.all([jp, en].map((url) => fetch(url.href).then((res) => res.json())))).flat();
+
+  wholeLivers.forEach((liver) => {
     liverMap.set(liver.id, {
       name: liver.name,
       image: liver.images.head.url,
@@ -131,17 +156,30 @@ export async function getTalentMap() {
   return liverMap;
 }
 
-interface Video {
-  url: string;
-  title: string;
-  thumbnail: string;
-  startAt: string;
-  endAt: string | null;
-  isLive: boolean;
-  talentId: string;
-  collaboTalentIds: string[];
+function getTalent(
+  liverId: string | undefined,
+  extLiverIdMap: Map<string, string>,
+  talentMap: Map<string, StreamTalent>,
+): StreamTalent | undefined {
+  if (!liverId) {
+    console.error("liverId not found", liverId);
+    return undefined;
+  }
+  const extLiverId = extLiverIdMap.get(liverId);
+  if (!extLiverId) {
+    console.error("extLiverId not found", liverId);
+    return undefined;
+  }
+  const talent = talentMap.get(extLiverId);
+  if (!talent) {
+    console.error("talent not found", extLiverId);
+    return undefined;
+  }
+  return talent;
 }
-export async function getSchedule(stream: Stream): Promise<Video[]> {
+
+function _getEvents(stream: Stream, talentMap: Map<string, StreamTalent>): StreamEvent[] {
+  // streamのincludedからliverのidとexternal_idのマップを作成
   const channelMap = new Map<string, string>();
   const extLiverIdMap = new Map<string, string>();
   stream.included.forEach((included) => {
@@ -154,42 +192,77 @@ export async function getSchedule(stream: Stream): Promise<Video[]> {
     }
   });
 
-  const videos = stream.data.flatMap((video) => {
+  // streamのdataからevent情報を取得し、talent情報を付与
+  const events: StreamEvent[] = stream.data.flatMap((streamData) => {
     const {
       url,
       title,
       thumbnail_url: thumbnail,
       start_at: startAt,
       end_at: endAt,
-    } = video.attributes;
-    const channelLiverId = channelMap.get(video.relationships.youtube_channel.data.id);
-    if (!channelLiverId) {
-      console.error("channel not found", video);
-      return [];
-    }
-    const extLiverId = extLiverIdMap.get(channelLiverId);
-    if (!extLiverId) {
-      console.error("liverId not found", video);
-      return [];
-    }
+    } = streamData.attributes;
+
+    const channelLiverId = channelMap.get(streamData.relationships.youtube_channel.data.id);
+
+    const talent = getTalent(channelLiverId, extLiverIdMap, talentMap);
+    if (!talent) return [];
+
+    const collaboTalents = streamData.relationships.youtube_events_livers.data.flatMap((liver) => {
+      const talent = getTalent(liver.id, extLiverIdMap, talentMap);
+      return talent ?? [];
+    });
+
     return {
       url,
       title,
       thumbnail,
-      startAt,
-      endAt,
-      isLive: video.attributes.status === "on_air",
-      talentId: extLiverId,
-      collaboTalentIds: video.relationships.youtube_events_livers.data.flatMap((liver) => {
-        const extLiverId = extLiverIdMap.get(liver.id);
-        if (!extLiverId) {
-          console.error("collabo liverId not found", video);
-          return [];
-        }
-        return extLiverId;
-      }),
+      startDate: new Date(startAt),
+      endDate: endAt ? new Date(endAt) : null,
+      isLive: streamData.attributes.status === "on_air",
+      talent,
+      collaboTalents,
     };
   });
 
-  return videos;
+  return events;
+}
+
+function getStreamApiUrl(offset: number): string {
+  const url = new URL(`${apiBase}/streams`);
+  const params = new URLSearchParams({
+    day_offset: offset.toString(),
+  });
+  url.search = params.toString();
+  return url.href;
+}
+
+async function getStreamData(isDev: boolean): Promise<Stream[]> {
+  if (isDev) {
+    const data = (
+      await Promise.all([
+        import("./sample2/streams1.json"),
+        import("./sample2/streams0.json"),
+        import("./sample2/streams-1.json"),
+      ])
+    ).map((res) => res.default as Stream);
+    return data;
+  }
+
+  const urls = [1, 0, -1].map((offset) => getStreamApiUrl(offset));
+  const data = await Promise.all(urls.map((url) => fetch(url).then((res) => res.json())));
+  return data;
+}
+
+export async function getEvents({
+  isDev,
+  talentMap,
+}: {
+  isDev: boolean;
+  talentMap: Map<string, StreamTalent>;
+}): Promise<StreamEvent[]> {
+  const streamDataList = await getStreamData(isDev);
+
+  const eventList = streamDataList.map((stream) => _getEvents(stream, talentMap)).flat();
+
+  return eventList;
 }

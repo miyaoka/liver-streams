@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getSchedule, type Schedule } from "@/api/hololive/schedule";
-import { getTalentMap, getSchedule as gs, type Stream } from "@/api/nijisanji/nijisanji";
-import day0 from "@/api/nijisanji/sample2/day0.json";
+import { getEvents, getTalentMap } from "@/api/nijisanji/nijisanji";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 
 const data = ref<Schedule | null>(null);
@@ -10,37 +9,9 @@ const data = ref<Schedule | null>(null);
 async function setSchedule() {
   data.value = await getSchedule();
 
-  const talentMap = await getTalentMap();
-  const videos = await gs(day0 as Stream);
-
-  const vs = videos.flatMap((video) => {
-    const { talentId, collaboTalentIds, ...rest } = video;
-    const talent = talentMap.get(talentId);
-
-    if (!talent) {
-      console.error(`Liver not found: ${talentId}`);
-      return [];
-    }
-
-    const collaboTalents = collaboTalentIds.flatMap((collaboTalentId) => {
-      const collaboLiver = talentMap.get(collaboTalentId);
-
-      if (!collaboLiver) {
-        console.error(`collabo liver not found: ${collaboTalentId}`);
-        return [];
-      }
-
-      return collaboLiver;
-    });
-
-    return {
-      ...rest,
-      talent,
-      collaboTalents,
-    };
-  });
-
-  console.log("vs", vs);
+  const talentMap = await getTalentMap(true);
+  const events = await getEvents({ isDev: true, talentMap });
+  console.log("events", events);
 }
 onMounted(async () => {
   setSchedule();
