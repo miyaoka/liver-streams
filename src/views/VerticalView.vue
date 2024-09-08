@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getSchedule, type Schedule } from "@/api/hololive/schedule";
-import { getSchedule as gs } from "@/api/nijisanji/nijisanji";
+import { getTalentMap, getSchedule as gs, type Stream } from "@/api/nijisanji/nijisanji";
+import day0 from "@/api/nijisanji/sample2/day0.json";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 
 const data = ref<Schedule | null>(null);
@@ -9,17 +10,37 @@ const data = ref<Schedule | null>(null);
 async function setSchedule() {
   data.value = await getSchedule();
 
-  const { streams, livers } = await gs();
+  const talentMap = await getTalentMap();
+  const videos = await gs(day0 as Stream);
 
-  const channelMap = streams.data.forEach((item) => {
-    const date = new Date(item.attributes.start_at);
+  const vs = videos.flatMap((video) => {
+    const { talentId, collaboTalentIds, ...rest } = video;
+    const talent = talentMap.get(talentId);
 
-    item.relationships.youtube_channel.data.id;
+    if (!talent) {
+      console.error(`Liver not found: ${talentId}`);
+      return [];
+    }
 
-    const title = item.attributes.title;
+    const collaboTalents = collaboTalentIds.flatMap((collaboTalentId) => {
+      const collaboLiver = talentMap.get(collaboTalentId);
 
-    console.log("nijisanji", date, title);
+      if (!collaboLiver) {
+        console.error(`collabo liver not found: ${collaboTalentId}`);
+        return [];
+      }
+
+      return collaboLiver;
+    });
+
+    return {
+      ...rest,
+      talent,
+      collaboTalents,
+    };
   });
+
+  console.log("vs", vs);
 }
 onMounted(async () => {
   setSchedule();

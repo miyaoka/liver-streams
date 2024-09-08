@@ -1,6 +1,5 @@
 const holoAPI = "https://schedule.hololive.tv/api/list/7";
-
-import json from "./sample1.json";
+import json1 from "./sample1.json";
 
 export interface Schedule {
   dateGroupList: DateGroup[];
@@ -32,5 +31,5 @@ export async function getSchedule(): Promise<Schedule> {
   const response = await fetch(holoAPI);
   const json = await response.json();
 
-  return json;
+  return json1;
 }

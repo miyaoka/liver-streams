@@ -1,5 +1,5 @@
-import livers from "./sample1/livers.json";
-import streamsJson from "./sample1/streams.json";
+import livers from "./sample2/livers.json";
+import livers_en from "./sample2/livers_en.json";
 
 export interface Stream {
   data: Data[];
@@ -31,7 +31,7 @@ export interface Attributes {
   url: string;
   thumbnail_url: string;
   start_at: string; // '2024-09-01T23:45:00.000+09:00'
-  end_at: string;
+  end_at: string | null;
   status: "not_on_air" | "on_air";
 }
 
@@ -115,12 +115,81 @@ interface LiverSiteColor {
   color2: string;
 }
 
-export async function getSchedule(): Promise<{ streams: Stream; livers: Liver[] }> {
-  // jsonからだとunionにならないのでキャストする
-  const streams = streamsJson as unknown as Stream;
+interface LiverSimple {
+  name: string;
+  image: string;
+}
 
-  return {
-    streams,
-    livers,
-  };
+export async function getTalentMap() {
+  const liverMap = new Map<string, LiverSimple>();
+  [...livers, ...livers_en].forEach((liver) => {
+    liverMap.set(liver.id, {
+      name: liver.name,
+      image: liver.images.head.url,
+    });
+  });
+  return liverMap;
+}
+
+interface Video {
+  url: string;
+  title: string;
+  thumbnail: string;
+  startAt: string;
+  endAt: string | null;
+  isLive: boolean;
+  talentId: string;
+  collaboTalentIds: string[];
+}
+export async function getSchedule(stream: Stream): Promise<Video[]> {
+  const channelMap = new Map<string, string>();
+  const extLiverIdMap = new Map<string, string>();
+  stream.included.forEach((included) => {
+    if (included.type === "liver") {
+      extLiverIdMap.set(included.id, included.attributes.external_id);
+      return;
+    }
+    if (included.type === "youtube_channel") {
+      channelMap.set(included.id, included.relationships.liver.data.id);
+    }
+  });
+
+  const videos = stream.data.flatMap((video) => {
+    const {
+      url,
+      title,
+      thumbnail_url: thumbnail,
+      start_at: startAt,
+      end_at: endAt,
+    } = video.attributes;
+    const channelLiverId = channelMap.get(video.relationships.youtube_channel.data.id);
+    if (!channelLiverId) {
+      console.error("channel not found", video);
+      return [];
+    }
+    const extLiverId = extLiverIdMap.get(channelLiverId);
+    if (!extLiverId) {
+      console.error("liverId not found", video);
+      return [];
+    }
+    return {
+      url,
+      title,
+      thumbnail,
+      startAt,
+      endAt,
+      isLive: video.attributes.status === "on_air",
+      talentId: extLiverId,
+      collaboTalentIds: video.relationships.youtube_events_livers.data.flatMap((liver) => {
+        const extLiverId = extLiverIdMap.get(liver.id);
+        if (!extLiverId) {
+          console.error("collabo liverId not found", video);
+          return [];
+        }
+        return extLiverId;
+      }),
+    };
+  });
+
+  return videos;
 }

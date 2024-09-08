@@ -1,0 +1,1585 @@
+[
+  {
+    "slug": "twisty-amanozako",
+    "hidden": false,
+    "name": "トゥイスティー アマノザコ",
+    "enName": "Twisty Amanozako",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/8f25bc8dfbb345ebb47eaae365f0d633/liver-full-body_Twisty_Amanozako.png",
+        "height": 896,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/7369220590fb45dda26b8780f12ffd2e/liver-cropped_Twisty_Amanozako.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F46926f6204824603a8d0cc818abdcfa7%2Fliver-face_Twisty_Amanozako.png&signature=p1LED4yui55bFLfoq3WcUX%2BGZZG5RGTRlLL6RYy9gta%2F0Zn5gSsshMdjB78tCYyG2E25eZMK3WOFijY9WXWe8%2Bw6XKP47fhT4CyoftGYty3NofMUM2NKMvbaQD3LDuMpkvW1AHeuAtdkWW29R%2BKtXY5YxlIWi7lPMqgFAcYrECK64POBA18xZlu0oBEQFHAbL%2FXh4ua%2FQYsTnpnP1pDaPXl8VR0qPb7KxnuHocNHMt2F9AjFecbdiQGo7r9Hh5pgXXrzHffVhEiyOAsmEqtn88rTvvJpbVdkI8VVPNyxgHJJ%2Bj1ynm81JiDdbh2hVlWBa5KjpcobmEe8%2FdCsp7W8Bg%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://x.com/TwistyAmanozako",
+      "youtube": "https://www.youtube.com/@TwistyAmanozako"
+    },
+    "siteColor": {
+      "id": "iwba60gyosy",
+      "createdAt": "2022-07-05T08:59:35.198Z",
+      "updatedAt": "2022-07-05T08:59:35.198Z",
+      "publishedAt": "2022-07-05T08:59:35.198Z",
+      "revisedAt": "2022-07-05T08:59:35.198Z",
+      "name": "Lime01",
+      "color1": "#ebf6e2",
+      "color2": "#bae694"
+    },
+    "id": "zsnxnkcado8",
+    "subscriberCount": 44600
+  },
+  {
+    "slug": "ryoma-barrenwort",
+    "hidden": false,
+    "name": "凉舞 バレンウォート",
+    "enName": "Ryoma Barrenwort",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/04dcbe4c732d477bbcee717b90abf81b/liver-full-body_Ryoma_Barrenwort.png",
+        "height": 1246,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/4fe594637d3647be81135918530e19d1/liver-cropped_Ryoma_Barrenwort.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F0576be0e5a0c44c2a44d761f29a4e84c%2Fliver-face_Ryoma_Barrenwort.png&signature=pSuZiVrAR%2BEpMeCZwZ1A%2FHFYtRoVRtoqSnZNBDh0zD8mGa4dNPf5YOZQpuux8hMlNbxMUyZzbaiz1BRXgYrxfsudXnCV%2FAKU9LU7OAs4Lc4zxvaE%2BjrtOKG1rRTzeE1IDkvKGP9Wrs5ZQaUdsrePndYueCCq0EWtDTxbvs3W2OKpMQBRmhWUk3TSDI4PYAdtkx96AIOyeSCqAmZAjgyIiKy5F6C1RHKrUpEqt75Ef1EvjhGDznc9nxKHrt66bF2GRJaJc62obk3n8tJFwEmoZnnLgL9k2Bh7MOm8h0dm50GIfY4F1jc6vwSY%2FfUW7h%2FBPjHZjCxsLGXD3ce0vFuVVg%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://x.com/RyomaBarrenwort",
+      "youtube": "https://www.youtube.com/@RyomaBarrenwort"
+    },
+    "siteColor": {
+      "id": "epg9q0agh2ny",
+      "createdAt": "2022-07-05T08:59:43.794Z",
+      "updatedAt": "2022-07-05T10:38:41.556Z",
+      "publishedAt": "2022-07-05T08:59:43.794Z",
+      "revisedAt": "2022-07-05T08:59:43.794Z",
+      "name": "Red02",
+      "color1": "#ffe8e8",
+      "color2": "#ffa8a8"
+    },
+    "id": "ns0gbctt9k",
+    "subscriberCount": 44900
+  },
+  {
+    "slug": "klara-charmwood",
+    "hidden": false,
+    "name": "クララ チャームウッド",
+    "enName": "Klara Charmwood",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/e5b9de14ed5e4b9e803f4b6251654b39/liver-full-body_Klara_Charmwood.png",
+        "height": 1057,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/af1269b5e92544aea986da3cd24da381/liver-cropped_Klara_Charmwood.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Ff20391e06870486ca53c6c90b39b4c13%2Fliver-face_Klara_Charmwood.png&signature=Ywu3kFJViljRFl7nMDIfdug%2Bf6BE0WGiXFSexXTHgd%2FjGYUF%2B%2Fr7mfOuJBOtiGdfXmjevhHRcslIO3oxB6pzNXgPCnbDx%2Fsh2e8OZHBpIPfJON8HH6S5lAQRn8WnIhX0icCKI0dWM4ZYaU8XVSaeesyluCWWoTLCv3nNjRYzLVV0DcTP88GV8nwaOi%2FI0qun6JDTddJ19ReVRwhcRwbMOpO29cQmd53ZpUoKnTYe7mrmR2PxbRCXCYh9ZD%2BBBQ1KkFxRzNlFxWljgLq8%2FOXOfbpxUQjAHSwg5UPc6lRpKCj5nahmKH29ybG4oPIsabDIZ4Yn5ptofH8a80KHKtUQMQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://x.com/KlaraCharmwood",
+      "youtube": "https://www.youtube.com/@KlaraCharmwood"
+    },
+    "siteColor": {
+      "id": "cqohmukkzdx9",
+      "createdAt": "2022-07-05T08:59:40.428Z",
+      "updatedAt": "2022-07-05T10:38:37.992Z",
+      "publishedAt": "2022-07-05T08:59:40.428Z",
+      "revisedAt": "2022-07-05T08:59:40.428Z",
+      "name": "Yellow02",
+      "color1": "#fff8e0",
+      "color2": "#ffd787"
+    },
+    "id": "mt6y_fdp2w6",
+    "subscriberCount": 58500
+  },
+  {
+    "slug": "kunai-nakasato",
+    "hidden": false,
+    "name": "中里 苦無",
+    "enName": "Kunai Nakasato",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/62048940669d4db0bc9cf72193d7e2e4/liver-full-body_Kunai_Nakasato.png",
+        "height": 1351,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/519a1e08b0b44a26822882aea12b7f22/liver-cropped_Kunai_Nakasato.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Feda3b06ef35249a5945d970827193ebf%2Fliver-face_Kunai_Nakasato.png&signature=A4mitRgnM%2B%2BEbn%2FlLQPm1Rb5RrVxGxKPXAB3FIBQrywCQvy1KQnwK%2BCmdB3DokJ5Cdp5T%2FeraqdijJ1jP5kSwVWUw6g3GDGIGUuAqlR9ztWcezTVVNjW%2FzYCXxmWRjZtxOATrZyRJNIGwueujHCucyiGkgbXsqP45LjIGdp4IjASvSjbQi44pgeMfdI5O2vlteMJ3k7l%2BDJEzyC2N%2Fmcs%2FLig7jTSd%2Bv7G05aO2qR7VpF68%2BcL2%2BcqoOT%2FLZzGcPsY4iW6gor9adfSrpoVCuyvgcsBgH9O2NL73iXCjq0SBJc2Z%2BsZJD4Gf2kSPyuyuFKbOS%2BGVoh%2BB1VaYiQgVkBg%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://x.com/KunaiNakasato",
+      "youtube": "https://www.youtube.com/@KunaiNakasato"
+    },
+    "siteColor": {
+      "id": "cqohmukkzdx9",
+      "createdAt": "2022-07-05T08:59:40.428Z",
+      "updatedAt": "2022-07-05T10:38:37.992Z",
+      "publishedAt": "2022-07-05T08:59:40.428Z",
+      "revisedAt": "2022-07-05T08:59:40.428Z",
+      "name": "Yellow02",
+      "color1": "#fff8e0",
+      "color2": "#ffd787"
+    },
+    "id": "h81nzwgmpo",
+    "subscriberCount": 77600
+  },
+  {
+    "slug": "victoria-brightshield",
+    "hidden": false,
+    "name": "ヴィクトリア ブライトシールド",
+    "enName": "Victoria Brightshield",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/0c147f7c23aa4a8185b7700c6fa9e750/liver-full-body_Victoria_Brightshield.png",
+        "height": 1133,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/52d31df27eac46ddb1eedffdfa3bfae0/liver-cropped_Victoria_Brightshield.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fd29be8061d824e7fa0d50ea59dda6de3%2Fliver-face_Victoria_Brightshield.png&signature=D0e%2FpUim3r8Kl9X2VZk4SnMXAuwT8%2B2xT9MLlDkFteUjCH5W0pRJXFIBqeVqyl%2FQOad6zliV7EodWjpGd5VV%2Be1P23%2FtikYWIOUFf5GyiszTavTSeIhmJ%2BAkXm70Kt6JUWkMHXZ2zRU34mJPTFegHt4pyqYC%2B5wW3yDIaWsfoHp4BRD0c822lBAHLISYAl1ZzfYAuQ61tpxBNPn8NlsE8CFlErAHbw%2Brj8qkNNz4nF0ntpP9H7VpMYtM%2BKwajcPEgC4ynkMaZvhjzUD12aI61nQ9LBxa0evWgJ%2FoLw8uM23V7YfSvJ6c%2FurHOwgf4%2FzG75BinK56y6WY%2F8n7VkKJ6A%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://x.com/VBrightshield",
+      "youtube": "https://www.youtube.com/@VictoriaBrightshield"
+    },
+    "siteColor": {
+      "id": "o9p1hiiio",
+      "createdAt": "2022-07-05T08:59:46.939Z",
+      "updatedAt": "2022-07-05T10:38:44.177Z",
+      "publishedAt": "2022-07-05T08:59:46.939Z",
+      "revisedAt": "2022-07-05T08:59:46.939Z",
+      "name": "Gray02",
+      "color1": "#f8f8f8",
+      "color2": "#dadada"
+    },
+    "id": "h4uvnyff6czi",
+    "subscriberCount": 107000
+  },
+  {
+    "slug": "claude-clawmark",
+    "hidden": false,
+    "name": "クロード クローマーク",
+    "enName": "Claude Clawmark",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/fa4bfc8ba5074767813a453c8bd1b9dd/liver-full-body_Claude_Clawmark.png",
+        "height": 1218,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/81c8a4410e674ca3b49e6d5f6cf99a48/liver-cropped_Claude_Clawmark.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F9a3e3897cd36495cb28868a355506527%2Fliver-face_Claude_Clawmark.png&signature=W6oe%2FZhY0pKbBMkE6wfwrMcPWrxeZcK00HSrCcLcssAZa%2BuQ3MBjUUfk9rcI3GXOjIHz8uREH%2FsKEaJ0YRN%2Fzc5jc6CL0kZz2IFQBn8IYhJY7OSuqU9gf54tUfRr3%2F7X6UiTwJOcIOqLLlwv38OJDJLjUmblyDQ3PCeVyE7K5S17D8GioP%2FfzekPnEDtoeiRPco7nd6h4oJuz3JhdMlVKW%2BP41Fwr6YFS40q4HEu%2BkeFDzMxHW%2FvkybhjqrqPxK%2B4W54F7gq4BkAtytR%2FPUtP5zB9CM%2F9lIkXzorCW1jEjV%2FjNDgX%2FLhdi%2FZ05IDUgRULX5BIt1YDNkE6quNDPm%2BIQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://x.com/ClaudeClawmark",
+      "youtube": "https://www.youtube.com/@ClaudeClawmark"
+    },
+    "siteColor": {
+      "id": "d_ruc5tesx4",
+      "createdAt": "2022-07-05T08:59:52.379Z",
+      "updatedAt": "2022-07-05T08:59:52.379Z",
+      "publishedAt": "2022-07-05T08:59:52.379Z",
+      "revisedAt": "2022-07-05T08:59:52.379Z",
+      "name": "Blue01",
+      "color1": "#eae5fc",
+      "color2": "#a38dfc"
+    },
+    "id": "23il_3cze",
+    "subscriberCount": 115000
+  },
+  {
+    "slug": "yu-q-wilson",
+    "hidden": false,
+    "name": "ユウ Q ウィルソン",
+    "enName": "Yu Q. Wilson",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/54e70d7f87d647f38b35668b64694753/liver-full-body_Yu_Q._Wilson.png",
+        "height": 1090,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/54f0299612324a0fb1635777cf3d805b/liver-cropped_Yu_Q._Wilson.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fd0ee818c0be94a03836c33a5e54dc091%2Fliver-face_Yu_Q._Wilson.png&signature=fN06Mtg%2FGZjjaemYPutTtXXrEKHxEw9Vi9LnrHoKZ29cmj9bfY1ewcFlmMhO1m2FZ2gMiorCeKppTnvbCVuzTslXk3QDmUCSN%2FCIFaT67WvahMUVVPE5TqyP00cO62%2B0yTLV4GMH%2BTpD2PA8P5Bebelzv4IrAEGIafdybIrpG1gIczUigoqeV1IqmrLLAZcOsTAlZ6PeCJkWjju3Uw4BWW5DJvPSkERy4bWEK%2FKLpw7fy3LTan2gzMTkGKVMKwLK97QqTWYk82N2gvYNjPPqb8ysitL83Z4WXqoJ3ujeYafDLojX8ZVHgHHvfHeNbAZLLg5a3Bp5A%2Bm8jAhddYeM8A%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/YuQWilson",
+      "youtube": "https://www.youtube.com/@YuQ.Wilson"
+    },
+    "siteColor": {
+      "id": "0qh47ch-gs",
+      "createdAt": "2022-07-05T08:59:38.756Z",
+      "updatedAt": "2022-07-05T08:59:38.756Z",
+      "publishedAt": "2022-07-05T08:59:38.756Z",
+      "revisedAt": "2022-07-05T08:59:38.756Z",
+      "name": "Yellow01",
+      "color1": "#fffbde",
+      "color2": "#faf37d"
+    },
+    "id": "2p82mscn0cow",
+    "subscriberCount": 163000
+  },
+  {
+    "slug": "vezalius-bandage",
+    "hidden": false,
+    "name": "ヴェザリウス バンデージ",
+    "enName": "Vezalius Bandage",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/72a527d91fb142c8b58e9e0a2d899df3/liver-full-body_Vezalius_Bandage.png",
+        "height": 1409,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/07c60c0a00a74fffb333ec60b1421da4/liver-cropped_Vezalius_Bandage.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fd82003529a8f472c825834942a43c98a%2Fliver-face_Vezalius_Bandage.png&signature=H7939oOzJcwWGcArXO1hjC9XC4ZFWXoPp%2B13%2BAWG3gZkO4Heu2PezArvRAMhtsVX%2B7kB4%2BYqvNHthiqzXY4sp6uIYw50LwqlnVi%2B2LS440bjeBt9BC70Nc7uslYoSPvBF%2BTOk87gQH6ywA9QiDNgVp4Fi8rq0YwxL6QKiEyHEmwmC4IJQF0xjWsbJbVWIHavKGoOjmzVgLWaffl32r8Wauv7tV5%2F4xMPvW%2B8zAFLJbStI1lXo51dC6VqN7%2FJhdpb%2BkCiZgE5a87S7PmXgDQhO1qaOMNmmqIxJy0wVzLnBpmVjyH9WbxEWmRJngsE%2F8f6mX7%2F8mlF%2BZ45NT61BBbJDA%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/VezaliusBandage",
+      "youtube": "https://www.youtube.com/@VezaliusBandage"
+    },
+    "siteColor": {
+      "id": "wpsqblyx1a",
+      "createdAt": "2022-07-05T08:59:59.845Z",
+      "updatedAt": "2022-07-05T08:59:59.845Z",
+      "publishedAt": "2022-07-05T08:59:59.845Z",
+      "revisedAt": "2022-07-05T08:59:59.845Z",
+      "name": "Violet01",
+      "color1": "#ffedfa",
+      "color2": "#d273b5"
+    },
+    "id": "ukwma--6r",
+    "subscriberCount": 173000
+  },
+  {
+    "slug": "vantacrow-bringer",
+    "hidden": false,
+    "name": "ベンタクロウ ブリンガー",
+    "enName": "Vantacrow Bringer",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/ef4bf6771c4e4824965ae2ed2d407a72/liver-full-body_Vantacrow_Bringer.png",
+        "height": 1270,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/ec39a24fec284601b47dbb41f4e35c45/liver-cropped_Vantacrow_Bringer.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fd35ae95c701a41dfb191ba04f5d6e05f%2Fliver-face_Vantacrow_Bringer.png&signature=gdgQlk3f6UG2jw0uMRG0ozJZRqoq2I2HUszMXPVt0SAD4qXrHqCnpWEKU%2FmFqn1Jz9fBmrdXwawXDrwa8gIxWejTlqIQye4ByQ8ujRPsc9u%2FWuC3JULu49fX%2BXY4pGPXOISnq%2FGDfVXgZNGb5KdeRckdppZ%2Bll1cxzUa%2BS%2BkLHXV3ehUwSThuWYDB4iU51R4H6U7PNhc1wG5vD0E3kAJuD92wFRpCzu%2F%2B5kqbUkbQMMQVonBSEqI4gTwvQdPG4JWQvoGd8kRo83qSf7hbc0aSYKX4m3qDlL7Ss7rkaisPK6vXNwC3CUrU1nEYGzGxxQAxyj4FiD9mfZqynaRYLjDWw%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Tyrant_Vanta",
+      "youtube": "https://www.youtube.com/@VantacrowBringer"
+    },
+    "siteColor": {
+      "id": "d_ruc5tesx4",
+      "createdAt": "2022-07-05T08:59:52.379Z",
+      "updatedAt": "2022-07-05T08:59:52.379Z",
+      "publishedAt": "2022-07-05T08:59:52.379Z",
+      "revisedAt": "2022-07-05T08:59:52.379Z",
+      "name": "Blue01",
+      "color1": "#eae5fc",
+      "color2": "#a38dfc"
+    },
+    "id": "5jwowjbi0oz0",
+    "subscriberCount": 175000
+  },
+  {
+    "slug": "ver-vermillion",
+    "hidden": false,
+    "name": "ヴェール ヴァーミリオン",
+    "enName": "Ver Vermillion",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/a891cf99c7234bfe9b29386501d5c460/liver-full-body_Ver_Vermillion.png",
+        "height": 1359,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/2429617a8ae84258bf5f8fa065355964/liver-cropped_Ver_Vermillion.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Ff0b609dfe4e84993ba2960c8c7fca9f5%2Fliver-face_Ver_Vermillion.png&signature=XXphW1xV%2FbYYR%2BTtGAHWAqVXvFt3f7aovkmtNZt7wA1Au%2F%2B8zsK%2BqrsjD9kvfc9OiKF%2BvxvASxo7tcLAGZ725GDHslp0hvtEOc0MfNP2Zj6VcnP6jwhlPwKnoWBZr8eD1fmEojFXoBtAExsa5Ous%2BhTWBPDXqdc%2F5Ix2LGoK3CankkcdgQHvebGBI%2BYiGO2vqoNcQj1B4gfWsL6ZGlAIYhL74RaCJOFNbpoqTlqExwrlfVz4gn7vwopqdTgxSl7ui71rtF0lZfOf%2F3agKLxne1owUKPAT3tnOprHofFfGRCLHNCWrYEpxcyx%2BVLVwMEK896e%2FG7WdviFH18EzpcRFQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Ver_Vermillion",
+      "youtube": "https://www.youtube.com/@VerVermillion"
+    },
+    "siteColor": {
+      "id": "z-lf1bydy074",
+      "createdAt": "2022-07-05T08:59:42.129Z",
+      "updatedAt": "2022-07-05T08:59:42.129Z",
+      "publishedAt": "2022-07-05T08:59:42.129Z",
+      "revisedAt": "2022-07-05T08:59:42.129Z",
+      "name": "Red01",
+      "color1": "#f6e4db",
+      "color2": "#ffc1a0"
+    },
+    "id": "5jswijlz7",
+    "subscriberCount": 216000
+  },
+  {
+    "slug": "doppio-dropscythe",
+    "hidden": false,
+    "name": "ドッピオ ドロップサイト",
+    "enName": "Doppio Dropscythe",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/78a1793b17504a43878a3a745926b11a/liver-full-body_Doppio_Dropscythe.png",
+        "height": 1351,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/3d07bd46e4ba439989083e974aba13de/liver-cropped_Doppio_Dropscythe.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F44d559377a9649ddb85df12fcab6421e%2Fliver-face_Doppio_Dropscythe.png&signature=BT5Gme0WozVfMlNRlQQJitkyGeOgHhX6JLbNagQWsMco2%2FeMFm2xT07UqZldLG%2BLIKuOfpnfzecqwqjFYdF3z2DWw%2FH8k3CykS3bqQjFsx89YKv0LoY1uHQOwEJNWJ67DVSpvjUMK1qiJ2eksVep2as9CHFXp2h3QGITe9XJmuJMqaCOFJxsskStoWjrAYDapZ2XATtVLxcz0jsYtYzW9wd%2FTgFaEePRoda3gwQqSTXmP9UeB28uQG7qoVqEhva4X19ESDb%2BYOKWivyX6dbfooNW2NtIJFES%2BpS5rec73lmfy2QHVA9fsGZQ5MgvH4nmZXmWUc6wUJTPr4OVyYG%2FXw%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/D_Dropscythe",
+      "youtube": "https://www.youtube.com/@DoppioDropscythe"
+    },
+    "siteColor": {
+      "id": "wpsqblyx1a",
+      "createdAt": "2022-07-05T08:59:59.845Z",
+      "updatedAt": "2022-07-05T08:59:59.845Z",
+      "publishedAt": "2022-07-05T08:59:59.845Z",
+      "revisedAt": "2022-07-05T08:59:59.845Z",
+      "name": "Violet01",
+      "color1": "#ffedfa",
+      "color2": "#d273b5"
+    },
+    "id": "8wtt6ayf9",
+    "subscriberCount": 223000
+  },
+  {
+    "slug": "aia-amare",
+    "hidden": false,
+    "name": "アイア アマレ",
+    "enName": "Aia Amare",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/f7c5dec0fc4d409ea8eb563138210f82/liver-full-body_Aia_Amare.png.webp",
+        "height": 2165,
+        "width": 1000
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/1e8fc50190f741c9b913f958249aac6e/liver-cropped_Aia_Amare.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F277243c23e434832abb4d2eb80db5ad9%2Fliver-face_Aia_Amare.png.webp&signature=EIHu4y0JpocCRSSymvjHlRr5fC%2BHyho2CERFHCgzyw4XELN%2F1ogTx4EyaZfWUDWCp26qOOEQ%2FDKLbYgADpTwpQPMx4opQMlPEyFNQB1x2op0arJHHU8QRuoSyA6cxkjQN9EPqWaNb1RwLBwjEz0twZGsh8k0m2oLM3humR3Kx8l66HRKg0g%2BeiUPObq9OLGgJllZZLLSfDDqghIi7%2BB9rQ8MDTRbwWzEr1Pa4xWxmjJoZ4SCxrFSZy3vYB4iR84JZcxXCYSO4ohCGdgg6%2BlDOvfgzZ80CMpkhjTRiZ3s7GCuYyTDoOWhZuypinYO%2FN7g63%2BC%2Bqi8AeQbkP8Af9iEvg%3D%3D",
+        "height": 405,
+        "width": 405
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/AiaAmare",
+      "youtube": "https://www.youtube.com/channel/UCN68LoM3khS4gdBMiWJO8WA"
+    },
+    "siteColor": {
+      "id": "o9p1hiiio",
+      "createdAt": "2022-07-05T08:59:46.939Z",
+      "updatedAt": "2022-07-05T10:38:44.177Z",
+      "publishedAt": "2022-07-05T08:59:46.939Z",
+      "revisedAt": "2022-07-05T08:59:46.939Z",
+      "name": "Gray02",
+      "color1": "#f8f8f8",
+      "color2": "#dadada"
+    },
+    "id": "e5rwy4qas1q",
+    "subscriberCount": 291000
+  },
+  {
+    "slug": "hex-haywire",
+    "hidden": false,
+    "name": "ヘックス へイワイヤー",
+    "enName": "Hex Haywire",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/493944dc5c3540f6845e351c51d10521/liver-full-body_Hex_Haywire.png",
+        "height": 1278,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/b36ef874ab6e456bb20967e0a2cc2e62/liver-cropped_Hex_Haywire.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fe7b131b2eb72422682369263351a79a1%2Fliver-face_Hex_Haywire.png&signature=rCUkXBKGhbUJ1PpGoqqfjDARqShdDZzcM9ps6GgFyMmoNPAPFRMt%2BHSAQ7gO88akMy6qfZdveHrHdRiJl7RUlNauT3qwmtIJZvBeOQ6KCr0K87VJvPAA2QUX3FO%2BlfDueIMLF9UlfhLAWD4G%2BPMSY116lbrlyl%2BpPyaZ60gH6zJDRNiSXJbGIaV%2FwyxEFYYdckM0iuxknictJRA8TSL3OslK8I3TSrJBeg0DmBdo3Ik60ZbvXyP9p%2BgWC8Z1rM8y%2FXgoMV8vHvZIbk%2BBkiTSZBN6Vm5ntY1Fla%2BmJwf5JLF5W6aZ%2FePPK%2B1ZpT9YTixWwP0un3EgYFp5D9nOjNoqNQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/HexHaywire",
+      "youtube": "https://www.youtube.com/@HexHaywire"
+    },
+    "siteColor": {
+      "id": "hxce4pb7w-9",
+      "createdAt": "2022-07-05T08:59:56.105Z",
+      "updatedAt": "2022-07-05T08:59:56.105Z",
+      "publishedAt": "2022-07-05T08:59:56.105Z",
+      "revisedAt": "2022-07-05T08:59:56.105Z",
+      "name": "Sky01",
+      "color1": "#eaf2fc",
+      "color2": "#a4d7fc"
+    },
+    "id": "ir_p5jv89",
+    "subscriberCount": 306000
+  },
+  {
+    "slug": "aster-arcadia",
+    "hidden": false,
+    "name": "アスター アルカディア",
+    "enName": "Aster Arcadia",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/1d4b3b0b2efd4a38aaf4b52ae0a05db2/liver-full-body_Aster_Arcadia.png.webp",
+        "height": 2146,
+        "width": 1000
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/c7c563a5074943d983dd6ade6ae03aa9/liver-cropped_Aster_Arcadia.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F8fc8c807100f422dbdc7c3df9a42fac3%2Fliver-face_Aster_Arcadia.png.webp&signature=alE8JYwoG%2FGZUs%2FwENzN66hQ7UUoyzraTFAxi3pzshelkLpHO%2BrCLLAWL6cu310xPhVp%2BqMD4kRdC%2BMBWKrk6ZKOYkhxE%2FfhY5SAkOqVMiX1BGHKWc0gHfx0Pt2h8y%2FEiNYO3BibK86kCupe9g8Gt47CYiJ5CQjfUhRXqW2YP7y31ekuctFi5i0OzuXSKVtAwdU76ckGfoWVQb%2FEQofIKkBCrBOMPSVpNsOWeDwYgkqVb0RLdghR9q7R6D4wtkc%2BqgMh4MIUoF1mhykJnjNyaxKpes%2BNqoiD0g3FLZCJGhe%2BBPOk2SKxE3Wp4sfGo97oejKcCX7mkq6qSQSMktEnvg%3D%3D",
+        "height": 414,
+        "width": 415
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/AsterArcadia",
+      "youtube": "https://www.youtube.com/channel/UCpzxZW5kghGnO5TmAFJQAVw"
+    },
+    "siteColor": {
+      "id": "hhhcec-ij",
+      "createdAt": "2022-07-05T08:59:54.333Z",
+      "updatedAt": "2022-07-05T10:38:49.601Z",
+      "publishedAt": "2022-07-05T08:59:54.333Z",
+      "revisedAt": "2022-07-05T08:59:54.333Z",
+      "name": "Blue02",
+      "color1": "#e5eafc",
+      "color2": "#9aaffc"
+    },
+    "id": "tsrwt4gtb83k",
+    "subscriberCount": 325000
+  },
+  {
+    "slug": "kotoka-torahime",
+    "hidden": false,
+    "name": "虎姫 コトカ",
+    "enName": "Kotoka Torahime",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/8db89e48a678419484e4e7687f6353c1/liver-full-body_Kotoka_Torahime.png",
+        "height": 1337,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/1010e88fe051447e992c3c34d84e9611/liver-cropped_Kotoka_Torahime.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fc3e235c7ce994f2184f2b8642616a251%2Fliver-face_Kotoka_Torahime.png&signature=cuX6rJ%2BDvZ27p0LIL3Qzwd0fJBGp4NbwHyWJTrgkR287s6EU1NOgMc5%2FpWjnUq7YZSBLiDJvAhNloXHWzGB56iuOYPfEZMwcLRn1nBIGCzjIO5lxt5aGzJM9UTpmw0IeyO1ycE9%2F9IHvE0ciybIBw3ZfaPjBK3p5mdtJ6oJBlaLu0Hlh64NKUkEJLhzoulOW72leT9XQDZ%2FqHdr3Q1kgYNfuAgmZfMtby6RYstJ%2F74Tb5C5NLAURXPUkyI6DTjcaOLQnwVL3WIjGfz06lGd%2Fgeil776FZRRD%2FQzdl%2FNjg%2FUxCA6rfNqy9lAwZudMLhsbyC5TMnGT2JObMhCOhBs5%2BQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/KotokaTorahime",
+      "youtube": "https://www.youtube.com/@KotokaTorahime"
+    },
+    "siteColor": {
+      "id": "cuj9uu1npu5t",
+      "createdAt": "2022-07-05T08:59:48.631Z",
+      "updatedAt": "2022-07-05T08:59:48.631Z",
+      "publishedAt": "2022-07-05T08:59:48.631Z",
+      "revisedAt": "2022-07-05T08:59:48.631Z",
+      "name": "Pink01",
+      "color1": "#ffdbed",
+      "color2": "#fc8dac"
+    },
+    "id": "igvbzy6-sw7a",
+    "subscriberCount": 329000
+  },
+  {
+    "slug": "scarle-yonaguni",
+    "hidden": false,
+    "name": "スカーレ ヨナグニ",
+    "enName": "Scarle Yonaguni",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/4fa8014ed1bb4a47bb0aee2c28b46c16/liver-full-body_Scarle_Yonaguni.png.webp",
+        "height": 2399,
+        "width": 1000
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/093a02d23719459db5565b146ab7a518/liver-cropped_Scarle_Yonaguni.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fa410b878c4f64e9a9d1577097e3e56d9%2Fliver-face_Scarle_Yonaguni.png.webp&signature=ZZTt9XWyhesSyI7JHcHkl9ODMLwhoM3nxeYrZxt7cJtHD0YuPzgbkr8AqGerj5DUskuFtEA5egJRSakc%2BVJCdmOO%2BF2q9PTRveRYwBN0v5h0WFi1f6X6E5soiJPEznaIBLIWkP4AavnDP34DuCjAqEc20hZSHXLVWmrRBEbF0gJScy%2BEAHZtfkI2w9X93vxCgE6cEtt3lIRZPDcKOA2p79fykdNQnxlAC6eAzJcuUmXiYe3T58ebByVuHFUBUfXygkQ90gyiG7A1vzg1d8%2FNa%2BShkTS5nfgaiIvCcjBk7wayoYVXTapCW3p6%2B5UxWPM9EN2Vt4WotcrlpC5z7Zetbg%3D%3D",
+        "height": 451,
+        "width": 451
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/ScarleYonaguni",
+      "youtube": "https://www.youtube.com/channel/UCFgXWZOUZA2oYHNr6qDmsTQ",
+      "twitch": "https://www.twitch.tv/scarleyonaguni"
+    },
+    "siteColor": {
+      "id": "epg9q0agh2ny",
+      "createdAt": "2022-07-05T08:59:43.794Z",
+      "updatedAt": "2022-07-05T10:38:41.556Z",
+      "publishedAt": "2022-07-05T08:59:43.794Z",
+      "revisedAt": "2022-07-05T08:59:43.794Z",
+      "name": "Red02",
+      "color1": "#ffe8e8",
+      "color2": "#ffa8a8"
+    },
+    "id": "qd9i9snhx",
+    "subscriberCount": 366000
+  },
+  {
+    "slug": "reimu-endou",
+    "hidden": false,
+    "name": "遠藤霊夢",
+    "enName": "Reimu Endou",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/0826c328c5874b14a1dd3610c9552e47/liver-full-body_Reimu_Endou.png",
+        "height": 644,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/5c084d4e9608469fa5a156f437844112/liver-cropped_Reimu_Endou.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F895413d8e46a454098cf5f2fc7fc0a15%2Fliver-face_Reimu_Endou.png&signature=Hz39grKCplmh%2BvJ1y6mMiTA3u8YekdQ0ttCZQKefeU1zdberJNGC6SmyopKJ0gkxWy7JVXOGPJ%2F4SGlR6ZBW37GvHvXWvaYGkYeTyO9NqbmJ%2FY4Bdq%2FUB3iSLskX50uxRL7p%2BF5TAsHXrxTIM9WlOjQmsUD7Vb5tXHCkm%2BORNaKBPK62h2OPMgUxAiZArDTQUPSUBerg2IG%2BzoJTgMiQwt%2BHveFggWNEeAPdFfQkoIaBYMfIoJ5qZv5GcgrwSIJ8Hvg0rAINOyzQUVzirJwZodvboFqjVgVx1q8jzx4thO7RlPi4LlWiN%2Bvt5rX1rNqArkm3KArg1%2F%2Fr5F4rV%2Fcy5A%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [
+        {
+          "fieldId": "imagesVariation",
+          "name": "女王ゴシック衣装",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/f17138c4e46f4ecc94d8444b689915bf/liver-full-body_Reimu_Endou_costume2.png",
+            "height": 837,
+            "width": 500
+          }
+        },
+        {
+          "fieldId": "imagesVariation",
+          "name": "夏服",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/cd4e037760184337a7a854a56c43184f/liver-full-body_Reimu_Endou_costume3.png",
+            "height": 863,
+            "width": 500
+          }
+        }
+      ],
+      "threeDVariation": [
+        {
+          "fieldId": "imagesVariation",
+          "name": "3D立ち絵",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/c2182f406e994d66aa9e3425f44ff554/%E9%81%A0%E8%97%A4%E9%9C%8A%E5%A4%A2%E3%81%95%E3%82%93%E3%82%BF%E3%83%AC%E3%83%B3%E3%83%88%E3%83%9A%E3%83%BC%E3%82%B83D_0815.png",
+            "height": 1200,
+            "width": 920
+          }
+        }
+      ]
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/ReimuEndou",
+      "youtube": "https://www.youtube.com/channel/UCBURM8S4LH7cRZ0Clea9RDA"
+    },
+    "siteColor": {
+      "id": "epg9q0agh2ny",
+      "createdAt": "2022-07-05T08:59:43.794Z",
+      "updatedAt": "2022-07-05T10:38:41.556Z",
+      "publishedAt": "2022-07-05T08:59:43.794Z",
+      "revisedAt": "2022-07-05T08:59:43.794Z",
+      "name": "Red02",
+      "color1": "#ffe8e8",
+      "color2": "#ffa8a8"
+    },
+    "id": "r2utitckc",
+    "subscriberCount": 413000
+  },
+  {
+    "slug": "maria-marionette",
+    "hidden": false,
+    "name": "マリア マリオネット",
+    "enName": "Maria Marionette",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/5012d632f29f432da9ac8b1a4aeb3905/liver-full-body_Maria_Marionette.png.webp",
+        "height": 2575,
+        "width": 1000
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/546dcb28ed4e410d8d516f1cebbf1339/liver-cropped_Maria_Marionette.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fe4d32f8f3a9e4efc852950d38ea4ba57%2Fliver-face_Maria_Marionette.png.webp&signature=nG7Ng%2Fb3T%2BsPQn1AOGO5MxQhIVQM2tpbr7rPnjpOcwy%2FsQYxDf4ZUotQgh46icDm2PTUzfiwdhJo6s45EG4NESu8CF%2FBq6v%2B3VWo7T4wXNY2MwksO00kfiUiFjYD9JhvI5CY%2BHLLG8jaXS7mj4PO%2FFayg6TGwYftl5InpG5hkmXmMmqfc8H78j6tmCaMzSwK79JwEt24Ms1V6w11Z36YP%2F%2B6shR5yEhPDwK06jBNbZUAPVuMyk68yoJf5%2F5O85fwJOaucJnGrXOcmLe%2BCRRZg63mlLD0%2BMIctzSEK2KpJj3bQkMUl%2BmSJrSFxmUlgphrCYgxmIkCKPeonMskn05eNg%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/MariaMari0nette",
+      "youtube": "https://www.youtube.com/channel/UCwaS8_S7kMiKA3izlTWHbQg"
+    },
+    "siteColor": {
+      "id": "qt9nqhfcox",
+      "createdAt": "2022-07-05T08:59:50.279Z",
+      "updatedAt": "2022-07-05T10:38:46.532Z",
+      "publishedAt": "2022-07-05T08:59:50.279Z",
+      "revisedAt": "2022-07-05T08:59:50.279Z",
+      "name": "Pink02",
+      "color1": "#ffdbed",
+      "color2": "#fc73b5"
+    },
+    "id": "tdbzd8xltant",
+    "subscriberCount": 423000
+  },
+  {
+    "slug": "fulgur-ovid",
+    "hidden": false,
+    "name": "ファルガー・オーヴィド",
+    "enName": "Fulgur Ovid",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/9f169ddc10464ba28062514cfac17b09/liver-full-body_Fulgur_Ovid.png.webp",
+        "height": 3308,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/177dc8dcea4942dc8692a2942682b90d/liver-cropped_Fulgur_Ovid.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F2121341238014ed5a4a6793277075b13%2Fliver-face_Fulgur_Ovid.png.webp&signature=pV8Av%2Fap9%2Fu0y%2B4srAeYdLLu2P0yHfUYMW0fdBH62BYN6HxsX7KMBk11kpxQy4NXQImMRdRSN5ScDVs3eFg0MXAUojGzpjHm%2FXuXAln7m4aF9pav5te1hXm1xJuhbk68MvHnZrYYCisf0Tmm%2BesuId5J9DhheCLD8apB3FdiG0mwWfHWKPhkAA6xJ3vwdJnAAhfwxJPkWf4gNKGuCUDpSqC8JGGh43YjvnVqdR8aAcUdpEFelCseRZRQN1zaVLcVI3AnS1FAoNKzFZdrX1US8SYsngaa72TXFMt5Co0nXTPJt3YAh2eq3SA%2FlNu1092hgEXdGsgMeqqnDLGGVy2rmw%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/fulgur_ovid",
+      "youtube": "https://www.youtube.com/channel/UCGhqxhovNfaPBpxfCruy9EA"
+    },
+    "siteColor": {
+      "id": "cuj9uu1npu5t",
+      "createdAt": "2022-07-05T08:59:48.631Z",
+      "updatedAt": "2022-07-05T08:59:48.631Z",
+      "publishedAt": "2022-07-05T08:59:48.631Z",
+      "revisedAt": "2022-07-05T08:59:48.631Z",
+      "name": "Pink01",
+      "color1": "#ffdbed",
+      "color2": "#fc8dac"
+    },
+    "id": "emj7uhgcalw7",
+    "subscriberCount": 455000
+  },
+  {
+    "slug": "meloco-kyoran",
+    "hidden": false,
+    "name": "狂蘭 メロコ",
+    "enName": "Meloco Kyoran",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/73fd15e324b14d27a194e96a099cd319/liver-full-body_Meloco_Kyoran.png",
+        "height": 985,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/5b97162a01464f9181439faaa787206a/liver-cropped_Meloco_Kyoran.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F51ec419d0e4f4843a5a2385d908dcff8%2Fliver-face_Meloco_Kyoran.png&signature=LGp13b%2BA4ihG56mUjtgToVSN8rsEylJvRHz2OzHeRy937pQ4fdM%2Bc0uPFBRKiUpKHd4q1BKDEMGW8IyGsSurHLUVvAH6A7io9n7vQ%2FNONQ89qf5IoBfxv3D2HahXY6JvUPZ3tArp%2F2GVgdK3vj9xGq6bGSug0io%2FbXxGWwVZZnqYDSpRssY0zvZJ3C9kuaMZS6zYthZHJu2lglaaGP54lJZ7uDoAtV6KLZYuihH2DPNO1Ab9%2BVOr8Q24TWjmXxOnhye87EDZMjV%2FI%2BaMaQNZf97tQXdOidA7O3JQtqsiTLjc4mZoCkRbuYdyz0%2FW8mlDVAH99Sy3UDGx%2F%2FRAOYWZuA%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/MelocoKyoran",
+      "youtube": "https://www.youtube.com/@MelocoKyoran"
+    },
+    "siteColor": {
+      "id": "wpsqblyx1a",
+      "createdAt": "2022-07-05T08:59:59.845Z",
+      "updatedAt": "2022-07-05T08:59:59.845Z",
+      "publishedAt": "2022-07-05T08:59:59.845Z",
+      "revisedAt": "2022-07-05T08:59:59.845Z",
+      "name": "Violet01",
+      "color1": "#ffedfa",
+      "color2": "#d273b5"
+    },
+    "id": "5whqpl4g0",
+    "subscriberCount": 466000
+  },
+  {
+    "slug": "rosemi-lovelock",
+    "hidden": false,
+    "name": "ロゼミ ラブロック",
+    "enName": "Rosemi Lovelock",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/e09e78c728c04c309b7b7cb396ec30ab/liver-full-body_Rosemi_Lovelock.png.webp",
+        "height": 2091,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/06a1d9d1076a4ae68364901f95f053c5/liver-cropped_Rosemi_Lovelock.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F018669b1ff914bdd8fd6999b765a93ac%2Fliver-face_Rosemi_Lovelock.png.webp&signature=RC%2BajfGHqTQZSWIPxi6EDZKKDZfSr3HHTy5bJu82%2Bfu0YVSXLfXhqxtu%2FFTTC5BOqN6%2Bp3MKDAJQsHkrx4gAq4%2BTSLzlZ1%2BcFYfPb3QFUugFbjO52w1Y9xfA02m9GnbHWX43EnPKOi9yD9OQc1wlz6J79slLeZp2SdTDq5rfYYJQ4vHV6a03tEb2sXHmWz5pznGTE2SI%2BbG4LhbhAPsRQgEBYR5DSq0gZ2tZQOe6vor6pkhNIv%2Bmpb46%2Btsk5NtkssYfHcC1KbrgXKTymFhSGYeIZRUhTsfM954LHeSHfyXchCi3TzTb%2FV%2BXKQaiRNaBqLpFRjfn2lhSTYr%2F4AvJlQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Rosemi_Lovelock",
+      "youtube": "https://www.youtube.com/channel/UC4WvIIAo89_AzGUh1AZ6Dkg",
+      "twitch": "https://www.twitch.tv/rosemilovelock"
+    },
+    "siteColor": {
+      "id": "wpsqblyx1a",
+      "createdAt": "2022-07-05T08:59:59.845Z",
+      "updatedAt": "2022-07-05T08:59:59.845Z",
+      "publishedAt": "2022-07-05T08:59:59.845Z",
+      "revisedAt": "2022-07-05T08:59:59.845Z",
+      "name": "Violet01",
+      "color1": "#ffedfa",
+      "color2": "#d273b5"
+    },
+    "id": "kijb9pvz9sf",
+    "subscriberCount": 473000
+  },
+  {
+    "slug": "finana-ryugu",
+    "hidden": false,
+    "name": "フィナーナ 竜宮",
+    "enName": "Finana Ryugu",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/24e9c1a5a8664c538eba89410cf4990f/liver-full-body_Finana_Ryugu.png.webp",
+        "height": 1983,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/e6f04f9697f448fca7f5af2464d4af4e/liver-cropped_Finana_Ryugu.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F825b3215dd994a998e00c8efcecf49ce%2Fliver-face_Finana_Ryugu.png.webp&signature=JPRkyJfnQaDpCHEwV%2BeDuXr4ZxTPlzk3ohpqmaBMkYQQyg1djTVPsl3O%2FmlmhpNEyX%2FZAhCkI%2FBYof5h441MD60lQcrKGK%2F7ju1rMc1DMBB9LgkS%2BTfWpjFxlT%2Bj0iuMXdgvFvzkgoqKuP5zQaY2LeOMSdHGhRje8PLR7C9K40KNH8dhUVWagZo%2B6v6y3bZmVg2a8cD7yWzMoOOtq3JJKX0QRkmVkkFqEuac3KlnPherLmnH1tkHf3yCurrElZ8LXDVdSf2UG9XliJJgHUVkC1ZPljxYXzzda9TRQ%2FT9eVy4rc1u9l2xQRwpZsEtGJzsQvrKVCMdgEf6Jl2NM3sHpw%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/FinanaRyugu",
+      "youtube": "https://www.youtube.com/channel/UCu-J8uIXuLZh16gG-cT1naw",
+      "reddit": "https://www.reddit.com/user/Finana_Ryugu"
+    },
+    "siteColor": {
+      "id": "q2bd6xv53",
+      "createdAt": "2022-07-05T08:59:33.452Z",
+      "updatedAt": "2022-07-05T10:38:32.414Z",
+      "publishedAt": "2022-07-05T08:59:33.452Z",
+      "revisedAt": "2022-07-05T08:59:33.452Z",
+      "name": "Green02",
+      "color1": "#dbf6e2",
+      "color2": "#a0d9b2"
+    },
+    "id": "tbcto5u15e5m",
+    "subscriberCount": 491000
+  },
+  {
+    "slug": "petra-gurin",
+    "hidden": false,
+    "name": "ペトラ グリン",
+    "enName": "Petra Gurin",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/9a70033be98b4b4797d881144e269248/liver-full-body_Petra_Gurin.png.webp",
+        "height": 1833,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/924845f5b72a4f5b9f60bb24f4516479/liver-cropped_Petra_Gurin.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fc11417fb94b04f27aaca9a698861286e%2Fliver-face_Petra_Gurin.png.webp&signature=MDDDE1ukmOoIcbkE%2FavutlBLdGj9QO9jKe10TF5a3rEDrnCR6aaBgR2UO%2F2KAnE%2FbSdXwb8GQtnoFqwe80DuQHuJlpCgfL7TUfsh%2BsFJnSrm8g%2Bk4wJltmVQD25ona%2BLlPL91qOy5iryuEvJ06oRkeqlECefUGMDaBx7sm4YQ3QSIOBOq0ediCFWxkmodIOkiW%2BS%2BoJ3YaP0oxrEyQlpvV%2Fdany6OECDpA40Z%2BYJVsqS5hfXFlblkI9LeqUbEampbgV0riJFHshlNksslC2mpdTVvPJFQg5kZEM%2FTaOueucd2MtG0Mbzv0PFtT0PmQihtYtcurrTIZTTllJd3BoAIQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [
+        {
+          "fieldId": "imagesVariation",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/de8faa90cebc44a2b1853aed20eeb823/liver-full-body_Petra_Gurin_costume2.png",
+            "height": 666,
+            "width": 500
+          }
+        }
+      ],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Petra_Gurin",
+      "youtube": "https://www.youtube.com/channel/UCgA2jKRkqpY_8eysPUs8sjw",
+      "twitch": "https://www.twitch.tv/petragurin"
+    },
+    "siteColor": {
+      "id": "z-lf1bydy074",
+      "createdAt": "2022-07-05T08:59:42.129Z",
+      "updatedAt": "2022-07-05T08:59:42.129Z",
+      "publishedAt": "2022-07-05T08:59:42.129Z",
+      "revisedAt": "2022-07-05T08:59:42.129Z",
+      "name": "Red01",
+      "color1": "#f6e4db",
+      "color2": "#ffc1a0"
+    },
+    "id": "3uqk79y-zu7r",
+    "subscriberCount": 496000
+  },
+  {
+    "slug": "millie-parfait",
+    "hidden": false,
+    "name": "ミリー・パフェ",
+    "enName": "Millie Parfait",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/fecac35100b9459db8e060d7fcbe4bbd/liver-full-body_Millie_Parfait.png.webp",
+        "height": 1404,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/08cb3aabf2004b1cab4a81ce3bacc7af/liver-cropped_Millie_Parfait.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Ffdf4cecc8af14d99a1d2c9f6acd4a6cb%2Fliver-face_Millie_Parfait.png.webp&signature=TZyCX4iR7ARDkruMbTpksME58udPdh0t66G0LCfaMOXnOCaudt483hU%2Bgk2FSRvXvdS9llpmFIL%2BVIPWMMSmNRb3HpTs%2BslUOoXoxKKh6UgsdWksk1xu%2FTKbCw3r%2B6khI5TQtT99PjWk%2FQATud2CNMwN6xMOtmqHeannPxxACHyqVoaMFE2TvUWDDH6Xfs8egqGE8lKi0WVE3xnTCX%2BEU8jUPpj%2FDO5EzT32K%2BKQbguOyriKyfNiUAifUqsPb4Le3d0kL9NTlU4nr5UdyGA6PVAMUqy5MaSw14%2FtgjyDAY9oWvyc8JGgllpFMUjP9pZjJEyxkplUEZWBD5X%2Bvlb02g%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/MillieParfait",
+      "youtube": "https://www.youtube.com/channel/UC47rNmkDcNgbOcM-2BwzJTQ"
+    },
+    "siteColor": {
+      "id": "0qh47ch-gs",
+      "createdAt": "2022-07-05T08:59:38.756Z",
+      "updatedAt": "2022-07-05T08:59:38.756Z",
+      "publishedAt": "2022-07-05T08:59:38.756Z",
+      "revisedAt": "2022-07-05T08:59:38.756Z",
+      "name": "Yellow01",
+      "color1": "#fffbde",
+      "color2": "#faf37d"
+    },
+    "id": "xiwq3ppbqy",
+    "subscriberCount": 501000
+  },
+  {
+    "slug": "ren-zotto",
+    "hidden": false,
+    "name": "レン ゾット",
+    "enName": "Ren Zotto",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/0daedfc98c3d4fd98629b7e90c77d124/liver-full-body_Ren_Zotto.png.webp",
+        "height": 3541,
+        "width": 1000
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/2f9ac1df657f43fcadf3adb108feeaca/liver-cropped_Ren_Zotto.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fdeca5e8685ed481f8a618df234e5408c%2Fliver-face_Ren_Zotto.png.webp&signature=OFEYwvgpAgNQ7ztSBfA%2Fo9Of3C%2Bme8HcnpJ0FnFxvoRqmPGLiexhNz7Cv4LIuuCe%2F35iI9OiKeSXQZkpAjkx83qpEdJHif0V9PKrcnV2EcKUHZUPm%2FUl3CfYU2%2BECjsEAX%2F1QFSM88lmGFcOf1kdfjs5vCGHez1B%2BoJeGXmMP6gE%2FpPDMkYHs0o%2FEuqdjSQwmuRSH39L3EkS0hJls8lF6xoFCARciJuEtilyCGNLw8bdkin2LJz%2B3balVlQPgHvjDqr51zDCVOTJhhy9n0AbTkM75XirMIixYQ8xiNp1m1yfx650jwjXwjdzF%2Bs%2FcGXUYqkIk1XgubT0TuLxlGnoag%3D%3D",
+        "height": 559,
+        "width": 559
+      },
+      "variation": [
+        {
+          "fieldId": "imagesVariation",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/ba6d990e03984a31afcd3c2af19884a0/liver-full-body_Ren_Zotto_costume2.png",
+            "height": 1000,
+            "width": 500
+          }
+        }
+      ],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/RenZott0",
+      "youtube": "https://www.youtube.com/channel/UCKu59gTZ_rdEmerdx5rV4Yg"
+    },
+    "siteColor": {
+      "id": "dukg2z0zaq0",
+      "createdAt": "2022-07-05T08:59:31.566Z",
+      "updatedAt": "2022-07-05T08:59:31.566Z",
+      "publishedAt": "2022-07-05T08:59:31.566Z",
+      "revisedAt": "2022-07-05T08:59:31.566Z",
+      "name": "Green01",
+      "color1": "#dbf6ee",
+      "color2": "#91e6da"
+    },
+    "id": "82m7sygbc",
+    "subscriberCount": 505000
+  },
+  {
+    "slug": "sonny-brisko",
+    "hidden": false,
+    "name": "サニー・ブリスコー",
+    "enName": "Sonny Brisko",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/3bd911ca36be4aa59dcece75a9cb004d/liver-full-body_Sonny_Brisko.png.webp",
+        "height": 2481,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/8c9709c2f1614a9a9687b7280018419f/liver-cropped_Sonny_Brisko.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F7951b32b19244128a2379a53fb8a9493%2Fliver-face_Sonny_Brisko.png.webp&signature=YUU7PleICKjFXqMuTXPWmko7uRJERyYedmReakzyJnVv%2FfHhQOvPe9dEvDqQ9uTwI%2BV%2BNivV%2BY9UwZ%2FjGB2Tyi%2BkoIQ5gv7MjCatRvFlRqfJQ2oQ3ASNhE9LKsXDWnCPssxr9sH%2ByMR4I%2FmY8X4Nj7BDTtKDd7XedKPP09kg2XTgZ2RGU5ghWDrxmTTYyfXv594fd3OrQHAEZdfOKAjXYizTDOo34x5Tm6x26Zse7L6y2fJT2RqPhFP8i%2FE4eCrHQGowRZ6kxSO6SKtSwf%2BpHO1YYxTqFf6RADNo8pRzOoaSIddLqg2xPQVvAWc0TnNANE8IQ8ag0ScE1QgQxfu3qA%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/sonny_brisko",
+      "youtube": "https://www.youtube.com/channel/UCuuAb_72QzK0M1USPMEl1yw"
+    },
+    "siteColor": {
+      "id": "cqohmukkzdx9",
+      "createdAt": "2022-07-05T08:59:40.428Z",
+      "updatedAt": "2022-07-05T10:38:37.992Z",
+      "publishedAt": "2022-07-05T08:59:40.428Z",
+      "revisedAt": "2022-07-05T08:59:40.428Z",
+      "name": "Yellow02",
+      "color1": "#fff8e0",
+      "color2": "#ffd787"
+    },
+    "id": "fahao4k5j",
+    "subscriberCount": 521000
+  },
+  {
+    "slug": "elira-pendora",
+    "hidden": false,
+    "name": "エリーラ ペンドラ",
+    "enName": "Elira Pendora",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/8a80534439b04388ab6379406f3d95a1/liver-full-body_Elira_Pendora.png.webp",
+        "height": 1040,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/ab01aa507f1a43958f1807d97753576a/liver-cropped_Elira_Pendora.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F3b0f859e100e419aa179bc9def264714%2Fliver-face_Elira_Pendora.png.webp&signature=H1PI%2F8j8FQJ6Y%2FSfFiJ3UUKA0Z529F9O4zJXRkoor1OlkFm45EV9uVRzr7sLbf9Tv%2BfACkwU%2F1IoFJZBT4WNoLzJDicddFKVbTSQZFxxjRxi0pzbtXHpTea5kAETb0B%2BqTsGM0SNmTHa8NtW4V6HWyoyRYvzmhtHVn5Blb6vDc86dZJ3ORlfG6N8OsV1IZbRpiahy91DCrhulkarAWfCrxOZMs%2FlptkT45wygJhMnEgJ1Xc%2B6Fc1CcM51mge4pTZ5JQWdXe8z8Gkua54uSQPb7ajASz1Ggm2cr91XcoQtR9PAZHp%2F9MNk1xgzQlmtVIBbUm6GpYYEvALoQ1tzSXxxQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/EliraPendora",
+      "youtube": "https://www.youtube.com/channel/UCIeSUTOTkF9Hs7q3SGcO-Ow",
+      "reddit": "https://www.reddit.com/user/Elira_Pendora"
+    },
+    "siteColor": {
+      "id": "hhhcec-ij",
+      "createdAt": "2022-07-05T08:59:54.333Z",
+      "updatedAt": "2022-07-05T10:38:49.601Z",
+      "publishedAt": "2022-07-05T08:59:54.333Z",
+      "revisedAt": "2022-07-05T08:59:54.333Z",
+      "name": "Blue02",
+      "color1": "#e5eafc",
+      "color2": "#9aaffc"
+    },
+    "id": "925d100jpfw",
+    "subscriberCount": 533000
+  },
+  {
+    "slug": "uki-violeta",
+    "hidden": false,
+    "name": "浮奇・ヴィオレタ",
+    "enName": "Uki Violeta",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/3e871c545aaf403db8b2b41575c4ab2c/liver-full-body_Uki_Violeta.png.webp",
+        "height": 2210,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/5227d243ab23462db744a51180cc3a5c/liver-cropped_Uki_Violeta.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F44d1be4dbb9448e6b39f6e3d0ad33593%2Fliver-face_Uki_Violeta.png.webp&signature=l67dmRM295PpnStixNPexwZhv5K4Wdx0g5M3MuFSQZ4hrjxNIF%2BzugLBjKmaT9zAJiSVBGh4mkkTOgeXcfhRHVokS7ux6y2VDqtUhqIRWO6kWR4wGp2qqqrWc%2FN8kHVuJoEFXOhTjVClTirpSr0sEVrMm8y2RMskYymvaO%2BQUsslySTJk5DMJDXq5JVHaHpJvow77qqoo0KSfIGbdjmEmuMxWX%2B5QtXV1DlL1AykJOqtK0oNzjQGv00SoYCmM77EgJwlX0PrDqfnFo%2B3gJfLfaypnnhH%2BUQWPKr5Qj61V1ruPdHdREdK35S4sdV%2F0SyTiMTNzQwu7vI%2FQo%2Bn4LUFjQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [
+        {
+          "fieldId": "imagesVariation",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/983e485c72d549628dc6bdf90353aade/liver-full-body_Uki_Violeta_costume2.png",
+            "height": 1461,
+            "width": 500
+          }
+        }
+      ],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/uki_violeta",
+      "youtube": "https://www.youtube.com/channel/UChJ5FTsHOu72_5OVx0rvsvQ"
+    },
+    "siteColor": {
+      "id": "wpsqblyx1a",
+      "createdAt": "2022-07-05T08:59:59.845Z",
+      "updatedAt": "2022-07-05T08:59:59.845Z",
+      "publishedAt": "2022-07-05T08:59:59.845Z",
+      "revisedAt": "2022-07-05T08:59:59.845Z",
+      "name": "Violet01",
+      "color1": "#ffedfa",
+      "color2": "#d273b5"
+    },
+    "id": "ei2ujpb1h9",
+    "subscriberCount": 626000
+  },
+  {
+    "slug": "enna-alouette",
+    "hidden": false,
+    "name": "エナー・アールウェット",
+    "enName": "Enna Alouette",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/89e4ef3046a849e397596084477d4a75/liver-full-body_Enna_Alouette.png.webp",
+        "height": 1145,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/de5fddfd068b469ab0842e7b326272a2/liver-cropped_Enna_Alouette.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F0a0aec871e504f5c9eab69144afcd447%2Fliver-face_Enna_Alouette.png.webp&signature=N6TZ3Ronj43eldFNIeXPyIuysRsFBkMbEfw1OzgT26N1fvQghcp48KkersjwwYFZ%2BuIOPpU0%2FXwS%2FuFrUtpfX0V5PS9gf0V37agLz%2FADQpiWj7Qe7nONcDSHUUVQQHxL5a8HkKoueWHYwHhPqDBuGzdgpWui9qXSHja12rlw%2FywU4wsjJ%2BccXpJx9vZVuA9HhRGdKf6HavaHsmXdoGL4dhIhIZ9JVrRxekhmfPJrRUW3xXEVpmSzkIB0KY%2FBUYhWLwR7s%2BSsXmfrD3x8eGTgBEH9mO3rqH7ihDacvyaVpmp%2BPeznJzCLmwakd0zGouTJ0jVD6MuY1iiIID%2FyHbWZ1g%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/EnnaAlouette",
+      "youtube": "https://www.youtube.com/channel/UCR6qhsLpn62WVxCBK1dkLow"
+    },
+    "siteColor": {
+      "id": "q2krad5yb4",
+      "createdAt": "2022-07-05T08:59:57.714Z",
+      "updatedAt": "2022-07-05T10:38:52.609Z",
+      "publishedAt": "2022-07-05T08:59:57.714Z",
+      "revisedAt": "2022-07-05T08:59:57.714Z",
+      "name": "Sky02",
+      "color1": "#ebf7ff",
+      "color2": "#7dcfde"
+    },
+    "id": "ha1b-c9mq8c0",
+    "subscriberCount": 635000
+  },
+  {
+    "slug": "alban-knox",
+    "hidden": false,
+    "name": "アルバーン・ノックス",
+    "enName": "Alban Knox",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/ccdb07ce60ea499cb90da7707cbc3919/liver-full-body_Alban_Knox.png.webp",
+        "height": 2153,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/7fe4110bf2644caf866d6f8dd7746e5d/liver-cropped_Alban_Knox.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fb55c850f56474b81876f9a678640ce52%2Fliver-face_Alban_Knox.png.webp&signature=Ap%2Fghif9tLmOzDEqNRXQtI5qaKwzbUMitFYc6QuRj6kEOhcx97dr0HHpoeWPXbo9760Z5xvGAKqdJ%2FJ04JFHODLrZ0XJW1VueJL7qBXIssZ9HH2TibodZYprjgQDsWwudTR8i8o4roxiQ7m9Yx30ESAV7yFeeupOsf0cu7UueUz7XZM0TepdsaZWT%2FtBEmqCB9wKSFRSt0uwUynqZX3SB9N8rfQqdfjrj%2FgegnHx2IPb%2F6zoOJK2t9a8NFCPBM0uQV0J3kSrCmeO5flarbMa%2FGdrvrwG8PuQfeTflsgcrOyttpvocmNjt7IOWiBzA2MyaXGtoPM%2BqcHP4ZFE%2Fsk%2FgA%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/alban_knox",
+      "youtube": "https://www.youtube.com/channel/UCQ1zGxHrfEmmW4CPpBx9-qw"
+    },
+    "siteColor": {
+      "id": "z-lf1bydy074",
+      "createdAt": "2022-07-05T08:59:42.129Z",
+      "updatedAt": "2022-07-05T08:59:42.129Z",
+      "publishedAt": "2022-07-05T08:59:42.129Z",
+      "revisedAt": "2022-07-05T08:59:42.129Z",
+      "name": "Red01",
+      "color1": "#f6e4db",
+      "color2": "#ffc1a0"
+    },
+    "id": "shswd0seam",
+    "subscriberCount": 696000
+  },
+  {
+    "slug": "nijisanji-en",
+    "hidden": true,
+    "name": "NIJISANJI EN",
+    "enName": "NIJISANJI EN",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/1c76a75e59094fa28b55be918efab98b/nijisanji_en%20_%E5%85%AC%E5%BC%8F%E3%82%B5%E3%82%A4%E3%83%88%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E7%94%A8.png",
+        "height": 600,
+        "width": 600
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/3344dbbe5ffe446598fdf3fd894dda09/NIJISANJI%20EN_main%20logo.png",
+        "height": 721,
+        "width": 3205
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F1c76a75e59094fa28b55be918efab98b%2Fnijisanji_en%2520_%25E5%2585%25AC%25E5%25BC%258F%25E3%2582%25B5%25E3%2582%25A4%25E3%2583%2588%25E3%2582%25A2%25E3%2582%25A4%25E3%2582%25B3%25E3%2583%25B3%25E7%2594%25A8.png&signature=MWuAb%2BQyHzI9WQ3o3tuI6Ihc40YPWOPpY0r%2FUUmKanRpIwlMa4kfmbs7vbUjN%2FzFW6u4ErPt%2F5tT4iAqcWyOS%2FuQMq%2FrDdJJozH7Gf2K4prkp6E4oL5Rpjb1K7fiONKsgYlFsiaQRwiYhkDI%2BTlnkQquC66d6LNggn8VaTESKKzocaVSDndVTTr7mn8D9AXPmrp%2BFIdrLm0I8bCuIcqctKo%2Fo0haHwMVvPsiJ41GcQWkUWvEgdr3gyga%2BVp9evh1cGgWZqiWKZk9s0w1Y7q%2FrCiSSE11uPZw5q2tUkqVwu91zHaVUopmKucl3qErU7JMTv4Lch6V7%2FgYEP%2F9BsnnWg%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/nijisanji_world",
+      "youtube": "https://www.youtube.com/channel/UC-JSeFfovhNsEhftt1WHMvg"
+    },
+    "siteColor": {
+      "id": "vw_6jf535",
+      "createdAt": "2022-07-05T08:59:45.381Z",
+      "updatedAt": "2022-07-05T08:59:45.381Z",
+      "publishedAt": "2022-07-05T08:59:45.381Z",
+      "revisedAt": "2022-07-05T08:59:45.381Z",
+      "name": "Gray01",
+      "color1": "#ededed",
+      "color2": "#bdbdbd"
+    },
+    "id": "va0ckuxg7mx",
+    "subscriberCount": 784000
+  },
+  {
+    "slug": "shu-yamino",
+    "hidden": false,
+    "name": "闇ノシュウ",
+    "enName": "Shu Yamino",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/0a0e34055ac44c9c9798773463138ef3/liver-full-body_Shu_Yamino.png.webp",
+        "height": 1855,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/10279fc9ebcd48848f8e6da2499cadd7/liver-cropped_Shu_Yamino.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F57f8266ce45a4ace95f272c19e032413%2Fliver-face_ShuYamino.png.webp&signature=OdAkbT9rUa6JLVCp10v59ZFXIau%2Bi0FiWf8ZKGqlJ01MOSG0ku%2F5hLbsANMN9kETdTw3ox9yHRluGFUu%2FqV7lcx%2BY2N0IjoGNuCO2BOgFtSAgoi9qMT7cgWr2bvP6Pi7hIcBApwM9yq%2B2NTA%2FpjDBtruhECyFRPWrxepnMYJnAOVVAG2WfGPX4bGnTPGB3mStinAGNRqTUTQuvpW0MoyXGPVTVbS8TQ54a65UuBmMrk7QaIstD7iHdwvK0KRNC5V5nVmHwv7Pw3K1QpDEGvNbKbpPC7yxAGiBUAVLPc%2FK3gvrbYaSO4i2Bfm5x75qbqSLdATI71shUChkAJ5i24tdw%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [
+        {
+          "fieldId": "imagesVariation",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/2450c5a98c574af68fb41c783890a972/liver-full-body_Shu_Yamino_costume2.png",
+            "height": 976,
+            "width": 500
+          }
+        },
+        {
+          "fieldId": "imagesVariation",
+          "fullbody": {
+            "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/e70c49404eae436f9a6520e047bc7489/liver-full-body_Shu_Yamino_costume3.png",
+            "height": 1818,
+            "width": 500
+          }
+        }
+      ],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Shu_Yamino",
+      "youtube": "https://www.youtube.com/channel/UCG0rzBZV_QMP4MtWg6IjhEA"
+    },
+    "siteColor": {
+      "id": "wpsqblyx1a",
+      "createdAt": "2022-07-05T08:59:59.845Z",
+      "updatedAt": "2022-07-05T08:59:59.845Z",
+      "publishedAt": "2022-07-05T08:59:59.845Z",
+      "revisedAt": "2022-07-05T08:59:59.845Z",
+      "name": "Violet01",
+      "color1": "#ffedfa",
+      "color2": "#d273b5"
+    },
+    "id": "d6hc4r8i_r",
+    "subscriberCount": 944000
+  },
+  {
+    "slug": "ike-eveland",
+    "hidden": false,
+    "name": "アイク・イーヴランド",
+    "enName": "Ike Eveland",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/1d082e8ac05c4adc9417db84553426e6/liver-full-body_Ike_Eveland.png",
+        "height": 1122,
+        "width": 500
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/838b301b3f5140779d0f9dd4fc24d610/liver-cropped_Ike_Eveland%20(1).png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fdab2166fcd554f2696706800c880bcea%2Fliver-face_Ike_Eveland.png&signature=ikKuZRZ%2F4YeQ7yKysXCgle5RhyN%2Fc7MggqILPfix6SdFOViiPYoTQSvz6qLuFhP5Rq2Bey5fxzbfu41HmopF30EM31hwddaaPlH56zfai7LiB9YFWYFT1PHpUu0ACnsSuaVy4bEXEBE2Wy%2BvtYEgVA2WNCNp5FAaBM0gzkbRkBFXKi2a1qvXGxiFT35tbOkyyFBRHlm7K93F9lP5hAoX8VDHAaDpAheQ1loPb9k8A1x6nW%2FSYQ9ytkvlwX2EjVAC5JhRSX2bNwDaXEb%2FumUrDBTIN9FrfdzxDkS9161276IE8rRl0gpZc%2FXrFWhtMeGjTI8oxuU7GXYlX1zDkzrEkQ%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Ike_Eveland",
+      "youtube": "https://www.youtube.com/channel/UC4yNIKGvy-YUrwYupVdLDXA"
+    },
+    "siteColor": {
+      "id": "d_ruc5tesx4",
+      "createdAt": "2022-07-05T08:59:52.379Z",
+      "updatedAt": "2022-07-05T08:59:52.379Z",
+      "publishedAt": "2022-07-05T08:59:52.379Z",
+      "revisedAt": "2022-07-05T08:59:52.379Z",
+      "name": "Blue01",
+      "color1": "#eae5fc",
+      "color2": "#a38dfc"
+    },
+    "id": "j-w3642uwl",
+    "subscriberCount": 957000
+  },
+  {
+    "slug": "luca-kaneshiro",
+    "hidden": false,
+    "name": "ルカ・カネシロ",
+    "enName": "Luca Kaneshiro",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/550a3bd2194f493fac66c2bf979e801e/liver-full-body_Luca_Kaneshiro.png.webp",
+        "height": 1755,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/0ef2e314cc0a47f099d7a358ea8e7234/liver-cropped_Luca_Kaneshiro.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2Fa69e253aceeb4ea2aad124963263d1f3%2Fliver-face_Luca_Kaneshiro.png.webp&signature=Xf%2BVP5QW%2FWKXHbuRVZK%2BhHuAbKQpX0W0zMQD5pdaWDfYoxzb4%2BtyItgELMZd%2BeRM%2BlxOS%2B1wju6mFlTUGiv8pVQo8qaCmFT9yoIXvZYC4gIWz4dlDXcdm%2Fxj3CCzL%2BvdOEetDcjmHAaJBnKPyQLvfpeP5NY8yPw8IZxvoNKtubs9uZBs%2FheJbpzIcwt5XGog2OEapKRjdJi06bgZ%2FgPFju3B7eOZdf3Vj960KDxsBJ6GMa1NNCzJ7aKAF9%2BwQPw1257vSd0L%2Fr8A%2BvGqsug%2FAtMfXh8epgdYFSKTE7ikMc1sXOcS82zCy7P7i1ACSldyMIHYTHWi5iPuihikhkDh4w%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Luca_Kaneshiro",
+      "youtube": "https://www.youtube.com/channel/UC7Gb7Uawe20QyFibhLl1lzA"
+    },
+    "siteColor": {
+      "id": "cqohmukkzdx9",
+      "createdAt": "2022-07-05T08:59:40.428Z",
+      "updatedAt": "2022-07-05T10:38:37.992Z",
+      "publishedAt": "2022-07-05T08:59:40.428Z",
+      "revisedAt": "2022-07-05T08:59:40.428Z",
+      "name": "Yellow02",
+      "color1": "#fff8e0",
+      "color2": "#ffd787"
+    },
+    "id": "rq2rn1t99sx",
+    "subscriberCount": 1040000
+  },
+  {
+    "slug": "vox-akuma",
+    "hidden": false,
+    "name": "ヴォックス・アクマ",
+    "enName": "Vox Akuma",
+    "images": {
+      "fieldId": "images",
+      "fullbody": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/e24bc9746ad84f95b2869c88c2e14ccf/liver-full-body_Vox_Akuma.png.webp",
+        "height": 2399,
+        "width": 844
+      },
+      "halfbodyNew": {
+        "url": "https://images.microcms-assets.io/assets/5694fd90407444338a64d654e407cc0e/87e8cd299e3440d4a6c7df8edcd0dab5/liver-cropped_Vox_Akuma.png",
+        "height": 1700,
+        "width": 2300
+      },
+      "head": {
+        "url": "/api/image-proxy?url=https%3A%2F%2Fimages.microcms-assets.io%2Fassets%2F5694fd90407444338a64d654e407cc0e%2F75bce98aa25943518ae8b1d42ec3dd5d%2Fliver-face_Vox_Akuma.png.webp&signature=MxXsZmK4%2BxQPw9FatfWGcBG2i4xN2dSyEDlCe%2B%2FNnztCWQZn0yom8Hx1bMY12GlvSWeogZM5tM5yCgLYtubKWXBLf06wqWJTAYNRok2xic1PwJ6c16EjM79rSd66JBU3AGOYup4AXn0w%2BRA6uAQtxy%2Fn43WzT5HLcFAxj71DeHtvRMOlHjmL%2BWzhK3W9aE79b7cHUFoDhBZkCbmi37zsbrv5pe%2FD1EbfGnQV19qoe02f4HqZgXObtZrggayiEJmD8WwZFrx6uQwZ3cC9APd8xInCfhapZuX%2F8XF0lEqIdy5uWFV0p2F83TIalh4ztV2mo%2FArHffobQvBHiI0tWKN7Q%3D%3D",
+        "height": 600,
+        "width": 600
+      },
+      "variation": [],
+      "threeDVariation": null
+    },
+    "socialLinks": {
+      "fieldId": "socialLinks",
+      "twitter": "https://twitter.com/Vox_Akuma",
+      "youtube": "https://www.youtube.com/channel/UCckdfYDGrjojJM28n5SHYrA"
+    },
+    "siteColor": {
+      "id": "cuj9uu1npu5t",
+      "createdAt": "2022-07-05T08:59:48.631Z",
+      "updatedAt": "2022-07-05T08:59:48.631Z",
+      "publishedAt": "2022-07-05T08:59:48.631Z",
+      "revisedAt": "2022-07-05T08:59:48.631Z",
+      "name": "Pink01",
+      "color1": "#ffdbed",
+      "color2": "#fc8dac"
+    },
+    "id": "tdwklqupy",
+    "subscriberCount": 1340000
+  }
+]
