@@ -1,15 +1,16 @@
-export interface StreamEvent {
-  url: string;
+export interface LiverEvent {
   title: string;
+  url: string;
   thumbnail: string;
+  startAt: Date;
+  endAt: Date | null;
   isLive: boolean;
-  startDate: Date;
-  endDate: Date | null;
-  talent: StreamTalent;
-  collaboTalents: StreamTalent[];
+  talent: LiverTalent;
+  collaboTalents: LiverTalent[];
+  affilication: "hololive" | "nijisanji";
 }
 
-export interface StreamTalent {
+export interface LiverTalent {
   name: string;
   image: string;
 }

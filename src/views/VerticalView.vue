@@ -1,24 +1,44 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { getSchedule, type Schedule } from "@/api/hololive/schedule";
-import { getNijiLiversMap, getNijiStreams } from "@/api/nijisanji/nijisanji";
+import type { LiverEvent } from "@/api";
+import { getHoloEvents } from "@/api/hololive/schedule";
+import { getNijiLiverMap, getNijiStreams, type NijiLiverMap } from "@/api/nijisanji/nijisanji";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 
-const data = ref<Schedule | null>(null);
+const liverEventList = ref<LiverEvent[]>([]);
 
-async function setSchedule() {
-  data.value = await getSchedule();
+const isDev = false;
+
+async function getStreams({
+  isDev,
+  nijiLiverMap,
+}: {
+  isDev: boolean;
+  nijiLiverMap: NijiLiverMap;
+}): Promise<LiverEvent[]> {
+  const [holoEvents, nijiEvents] = await Promise.all([
+    getHoloEvents(isDev),
+    getNijiEvents({ isDev, nijiLiverMap }),
+  ]);
+
+  const wholeEvents = [...holoEvents, ...nijiEvents].sort(
+    (a, b) => a.startAt.getTime() - b.startAt.getTime(),
+  );
+  return wholeEvents;
 }
 
-async function getNijiEvents() {
-  const isDev = true;
-
-  const nijiLiversMap = await getNijiLiversMap(isDev);
+async function getNijiEvents({
+  isDev,
+  nijiLiverMap,
+}: {
+  isDev: boolean;
+  nijiLiverMap: NijiLiverMap;
+}): Promise<LiverEvent[]> {
   const nijiStreams = await getNijiStreams(isDev);
 
   const nijiUrl = "https://www.nijisanji.jp";
   function getTalent(id: string) {
-    const talent = nijiLiversMap[id];
+    const talent = nijiLiverMap[id];
     if (!talent) {
       console.error(`talent not found: ${id}`);
       return null;
@@ -29,37 +49,46 @@ async function getNijiEvents() {
     };
   }
 
-  const events = nijiStreams.map((stream) => {
-    const { title, url, thumnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
+  const events: LiverEvent[] = nijiStreams.flatMap((stream) => {
+    const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
     const talent = getTalent(talentId);
+    if (!talent) return [];
     return {
+      affilication: "nijisanji",
+      startAt: new Date(startAt),
       title,
       url,
-      thumnail,
-      startAt: new Date(startAt),
+      thumbnail,
       endAt: endAt ? new Date(endAt) : null,
       isLive,
       talent,
-      collaboTalents: collaboTalentIds.map((id) => getTalent(id)),
+      collaboTalents: collaboTalentIds.flatMap((id) => getTalent(id) ?? []),
     };
   });
 
-  console.log("events", events);
   return events;
 }
 
-const nijiEvents = ref<any[]>([]);
 onMounted(async () => {
-  setSchedule();
-  // 5分毎にスケジュールを再取得
-  setInterval(setSchedule, 5 * 60 * 1000);
+  const nijiStreams = await getNijiStreams(isDev);
+  const nijiLiverMap = await getNijiLiverMap(isDev);
+  console.log("nijiLiverMap", nijiLiverMap);
 
-  // nijiEvents.value = await getNijiEvents();
+  const setStreams = () => {
+    getStreams({ isDev, nijiLiverMap }).then((streams) => {
+      console.log("streams", streams);
+      liverEventList.value = streams;
+    });
+  };
+  setStreams();
+
+  // 5分毎にスケジュールを再取得
+  setInterval(setStreams, 5 * 60 * 1000);
 });
 </script>
 
 <template>
   <main class="text-[clamp(8px,3vw,16px)]">
-    <VerticalSchedule v-if="data" :data="data" />
+    <VerticalSchedule v-if="liverEventList" :liverEventList="liverEventList" />
   </main>
 </template>

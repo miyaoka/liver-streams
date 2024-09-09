@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import type { Schedule, VideoDetail } from "@/api/hololive/schedule";
+import type { HoloSchedule, HoloVideoDetail } from "@/api/hololive/schedule";
 
-interface VideoWithDuration extends VideoDetail {
+interface VideoWithDuration extends HoloVideoDetail {
   startTime: Date;
   endTime: Date;
   offset: number;
@@ -10,7 +10,7 @@ interface VideoWithDuration extends VideoDetail {
 }
 
 const props = defineProps<{
-  data: Schedule;
+  data: HoloSchedule;
 }>();
 
 const channels = ref<VideoWithDuration[][]>([]);

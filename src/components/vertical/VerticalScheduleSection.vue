@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import VerticalScheduleSectionItem from "./VerticalScheduleSectionItem.vue";
-import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
+import type { LiverEvent } from "@/api";
 import { useDateStore } from "@/store/dateStore";
 
 const props = defineProps<{
-  section: [string, VideoDetailWithTime[]];
-  nextSection: [string, VideoDetailWithTime[]] | undefined;
+  section: [string, LiverEvent[]];
+  nextSection: [string, LiverEvent[]] | undefined;
 }>();
 
 const dateStore = useDateStore();
@@ -63,7 +63,7 @@ function scrollToSectionTop() {
       <VerticalScheduleSectionItem
         v-for="item in videoList"
         :key="(Array.isArray(item) ? item[0] : item).url"
-        :video="item"
+        :liverEvent="item"
       />
     </div>
   </section>

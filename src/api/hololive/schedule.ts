@@ -1,16 +1,17 @@
-const holoAPI = "https://schedule.hololive.tv/api/list/7";
-import json1 from "./sample1.json";
+import type { LiverEvent } from "..";
 
-export interface Schedule {
-  dateGroupList: DateGroup[];
+const holoAPI = "https://schedule.hololive.tv/api/list/7";
+
+export interface HoloSchedule {
+  dateGroupList: HoloDateGroup[];
 }
-export interface DateGroup {
+export interface HoloDateGroup {
   displayDate: string;
   datetime: string;
-  videoList: VideoDetail[];
+  videoList: HoloVideoDetail[];
 }
 
-export interface VideoDetail {
+export interface HoloVideoDetail {
   displayDate: string;
   datetime: string;
   isLive: boolean;
@@ -19,17 +20,47 @@ export interface VideoDetail {
   thumbnail: string;
   title: string;
   name: string;
-  talent: Telent;
-  collaboTalents: Telent[];
+  talent: HoloTelent;
+  collaboTalents: HoloTelent[];
 }
 
-export interface Telent {
+export interface HoloTelent {
   name: string;
   iconImageUrl: string;
 }
-export async function getSchedule(): Promise<Schedule> {
-  const response = await fetch(holoAPI);
-  const json = await response.json();
 
-  return json1;
+function getData(isDev: boolean): Promise<HoloSchedule> {
+  if (isDev) {
+    return import("./sample4.json").then((res) => res.default);
+  }
+  return fetch(holoAPI).then((res) => res.json());
+}
+
+export async function getHoloEvents(isDev: boolean): Promise<LiverEvent[]> {
+  const data = await getData(isDev);
+
+  const wholeVideoList = data.dateGroupList.map((dateGroup) => dateGroup.videoList).flat();
+
+  const events: LiverEvent[] = wholeVideoList.map((video) => {
+    return {
+      affilication: "hololive",
+      startAt: new Date(video.datetime),
+      title: video.title,
+      url: video.url,
+      thumbnail: video.thumbnail,
+      endAt: null,
+      isLive: video.isLive,
+      talent: {
+        name: video.talent.name,
+        image: video.talent.iconImageUrl,
+      },
+      collaboTalents: video.collaboTalents.map((collaboTalent) => {
+        return {
+          name: collaboTalent.name,
+          image: collaboTalent.iconImageUrl,
+        };
+      }),
+    };
+  });
+  return events;
 }

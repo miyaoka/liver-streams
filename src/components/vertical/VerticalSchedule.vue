@@ -2,13 +2,13 @@
 import { onMounted, ref, watch } from "vue";
 import { useChannelFilterStore } from "../filter/channelFilterStore";
 import VerticalScheduleColumn from "./VerticalScheduleColumn.vue";
-import type { Schedule, VideoDetail } from "@/api/hololive/schedule";
+import type { LiverEvent } from "@/api";
 import ChannelFilter from "@/components/filter/ChannelFilter.vue";
 import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 
 const props = defineProps<{
-  data: Schedule;
+  liverEventList: LiverEvent[];
 }>();
 
 const channelFilterStore = useChannelFilterStore();
@@ -31,21 +31,17 @@ onMounted(() => {
   }
 });
 
-export interface VideoDetailWithTime extends VideoDetail {
-  startTime: number;
-}
-
-const sectionMap = ref<Record<number, VideoDetailWithTime[]>>({});
+const sectionMap = ref<Record<number, LiverEvent[]>>({});
 
 function getFilteredData(
   filterMap: Map<string, boolean>,
   filterEnabled: boolean,
-  wholeList: VideoDetail[],
+  liverEventList: LiverEvent[],
   focusedTalent: string | null,
-): VideoDetail[] {
+): LiverEvent[] {
   // 単一セレクト時
   if (focusedTalent) {
-    return wholeList.filter((video) => {
+    return liverEventList.filter((video) => {
       return (
         video.talent.name === focusedTalent ||
         video.collaboTalents.some((collaborator) => {
@@ -55,10 +51,10 @@ function getFilteredData(
     });
   }
   // フィルタなし
-  if (!filterEnabled || filterMap.size === 0) return wholeList;
+  if (!filterEnabled || filterMap.size === 0) return liverEventList;
 
   // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-  return wholeList.filter((video) => {
+  return liverEventList.filter((video) => {
     return (
       filterMap.has(video.talent.name) ||
       video.collaboTalents.some((collaborator) => {
@@ -70,37 +66,28 @@ function getFilteredData(
 
 watch(
   [
-    () => props.data,
+    () => props.liverEventList,
     () => channelFilterStore.map,
     () => channelFilterStore.enabled,
     () => talentStore.focusedTalent,
   ],
-  ([data, map, enabled, focusedTalent]) => {
-    const wholeList = data.dateGroupList.flatMap((dataGroup) => dataGroup.videoList);
-
-    sectionMap.value = createSectionMap(getFilteredData(map, enabled, wholeList, focusedTalent));
+  ([liverEventList, filterMap, filterEnabled, focusedTalent]) => {
+    sectionMap.value = createSectionMap(
+      getFilteredData(filterMap, filterEnabled, liverEventList, focusedTalent),
+    );
   },
   { immediate: true, deep: true },
 );
 
-function createSectionMap(wholeList: VideoDetail[]): Record<number, VideoDetailWithTime[]> {
-  // 全日付の動画をflat化し、time情報を付加
-  const listWithTime = wholeList.map((video) => {
-    const startTime = new Date(video.datetime).getTime();
-    return {
-      ...video,
-      startTime,
-    };
-  });
+function createSectionMap(liverEventList: LiverEvent[]): Record<number, LiverEvent[]> {
+  const sectionVideoList: Record<number, LiverEvent[]> = {};
 
-  const sectionVideoList: Record<number, VideoDetailWithTime[]> = {};
+  const minutes = 60 * 1000;
+  const sectionSpan = 6 * 60 * minutes; // 6hr
+  const timezoneOffset = new Date().getTimezoneOffset() * minutes; // 日本なら-540分
 
-  // 6hrごとに区切る
-  const sectionSpan = 6 * 60 * 60 * 1000;
-  const timezoneOffset = 9 * 60 * 60 * 1000;
-
-  listWithTime.forEach((video) => {
-    const time = video.startTime;
+  liverEventList.forEach((liverEvent) => {
+    const time = liverEvent.startAt.getTime();
     // 区切った時間に丸める
     const sectionTime =
       Math.floor((time - timezoneOffset) / sectionSpan) * sectionSpan + timezoneOffset;
@@ -108,8 +95,10 @@ function createSectionMap(wholeList: VideoDetail[]): Record<number, VideoDetailW
     if (!sectionVideoList[sectionTime]) {
       sectionVideoList[sectionTime] = [];
     }
-    sectionVideoList[sectionTime].push(video);
+    sectionVideoList[sectionTime].push(liverEvent);
   });
+
+  console.log("sectionVideoList", sectionVideoList);
 
   return sectionVideoList;
 }

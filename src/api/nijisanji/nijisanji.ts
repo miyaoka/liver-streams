@@ -1,4 +1,4 @@
-interface NijiLiver {
+export interface NijiLiver {
   name: string;
   enName: string;
   image: string;
@@ -6,10 +6,10 @@ interface NijiLiver {
   hidden: boolean;
 }
 
-interface NijiStream {
+export interface NijiStream {
   title: string;
   url: string;
-  thumnail: string;
+  thumbnail: string;
   startAt: string;
   endAt: string | null;
   isLive: boolean;
@@ -17,9 +17,13 @@ interface NijiStream {
   collaboTalentIds: string[];
 }
 
-const proxyApiBase = "https://nijiapi-proxy.vercel.app/api/livers";
+export interface NijiLiverMap {
+  [talentId: string]: NijiLiver;
+}
 
-export async function getNijiLiversMap(isDev: boolean): Promise<Record<string, NijiLiver>> {
+const proxyApiBase = "https://nijiapi-proxy.vercel.app/api";
+
+export async function getNijiLiverMap(isDev: boolean): Promise<NijiLiverMap> {
   if (isDev) {
     return import("./sample3/livers.json").then((res) => res.default);
   }
@@ -34,5 +38,5 @@ export async function getNijiStreams(isDev: boolean): Promise<NijiStream[]> {
   }
 
   const url = new URL(`${proxyApiBase}/streams`);
-  return await fetch(url).then((res) => res.json());
+  return fetch(url).then((res) => res.json());
 }
