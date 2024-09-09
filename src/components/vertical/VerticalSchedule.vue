@@ -14,7 +14,7 @@ const props = defineProps<{
 const channelFilterStore = useChannelFilterStore();
 const talentStore = useTalentStore();
 const sectionMap = ref<Record<number, LiverEvent[]>>({});
-const hourSections = [23, 22, 21, 20, 18, 12, 6, 0];
+const hourSections = [23, 22, 21, 20, 19, 18, 12, 6, 0];
 
 onMounted(() => {
   const now = Date.now();
