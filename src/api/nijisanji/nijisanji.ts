@@ -1,4 +1,5 @@
 export interface NijiLiver {
+  slug: string;
   name: string;
   enName: string;
   image: string;
@@ -21,7 +22,7 @@ export interface NijiLiverMap {
   [talentId: string]: NijiLiver;
 }
 
-const proxyApiBase = "https://nijiapi-proxy.vercel.app/api";
+const proxyApiBase = "http://localhost:3000/api";
 
 async function _getNijiLiverMap(isDev: boolean): Promise<NijiLiverMap> {
   if (isDev) {

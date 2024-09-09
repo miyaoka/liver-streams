@@ -6,6 +6,7 @@ import { getNijiLiverMap, getNijiStreams, type NijiLiverMap } from "@/api/nijisa
 import HeaderMenu from "@/components/HeaderMenu.vue";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 
+const nijiUrl = "https://www.nijisanji.jp";
 const liverEventList = ref<LiverEvent[]>([]);
 
 const isDev = false;
@@ -37,7 +38,6 @@ async function getNijiEvents({
 }): Promise<LiverEvent[]> {
   const nijiStreams = await getNijiStreams(isDev);
 
-  const nijiUrl = "https://www.nijisanji.jp";
   function getTalent(id: string) {
     const talent = nijiLiverMap[id];
     if (!talent) {
@@ -72,6 +72,12 @@ async function getNijiEvents({
 
 onMounted(async () => {
   const nijiLiverMap = await getNijiLiverMap(true);
+  const iconMap: Record<string, string> = {};
+  Object.values(nijiLiverMap).forEach((talent) => {
+    iconMap[talent.slug] = `${nijiUrl}${talent.image}`;
+  });
+
+  console.log("iconMap", iconMap);
 
   const setStreams = () => {
     getStreams({ isDev, nijiLiverMap }).then((streams) => {
