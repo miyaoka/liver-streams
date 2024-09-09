@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import VerticalScheduleSection from "./VerticalScheduleSection.vue";
-import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
+import type { LiverEvent } from "@/api";
 
 const props = defineProps<{
-  sectionMap: Record<number, VideoDetailWithTime[]>;
+  sectionMap: Record<number, LiverEvent[]>;
 }>();
 
 const entries = computed(() => Object.entries(props.sectionMap));

@@ -47,7 +47,7 @@ watch(channelFilterStore.map, () => {
 });
 
 function hoverTalent(name: string | null) {
-  talentStore.hoveredTalent = name;
+  talentStore.hoveredTalents = name ? [name] : [];
 }
 </script>
 <template>
@@ -59,7 +59,7 @@ function hoverTalent(name: string | null) {
       :title="name"
       @mouseenter="hoverTalent(name)"
       @mouseleave="hoverTalent(null)"
-      :class="`${talentStore.hoveredTalent === name ? 'scale-125' : ''}`"
+      :class="`${talentStore.hoveredTalents.includes(name) ? 'scale-125' : ''}`"
       @contextmenu.prevent="talentStore.setFocusedTalent(name)"
     >
       <input

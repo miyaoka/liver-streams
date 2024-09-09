@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { nextTick, ref } from "vue";
 
 export const useTalentStore = defineStore("talentStore", () => {
-  const hoveredTalent = ref<string | null>(null);
+  const hoveredTalents = ref<string[]>([]);
   const focusedTalent = ref<string | null>(null);
   const scrollY = ref<number>(0);
   function setFocusedTalent(talent: string | null) {
@@ -22,7 +22,7 @@ export const useTalentStore = defineStore("talentStore", () => {
   }
 
   return {
-    hoveredTalent,
+    hoveredTalents,
     focusedTalent,
     setFocusedTalent,
   };

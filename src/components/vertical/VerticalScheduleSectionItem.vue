@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import type { VideoDetailWithTime } from "./VerticalSchedule.vue";
+import type { LiverEvent } from "@/api";
+import hololive_logo from "@/assets/icons/hololive_logo.png";
+import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { useTalentStore } from "@/store/talentStore";
 
 const props = defineProps<{
-  video: VideoDetailWithTime;
+  liverEvent: LiverEvent;
 }>();
 
 const talentStore = useTalentStore();
@@ -12,24 +14,41 @@ const dialogEl = ref<HTMLDialogElement | null>(null);
 
 // 配信終了判定
 const isFinished = computed(() => {
+  // 終了時刻が設定されているか（にじさんじのみ）
+  if (props.liverEvent.endAt) return true;
   // 配信中か
-  if (props.video.isLive) return false;
+  if (props.liverEvent.isLive) return false;
 
+  // 配信していない場合
   const now = Date.now();
-  // 現在時刻を過ぎているか
-  if (now < props.video.startTime) return false;
-  // 配信していなくてstartTimeが00以外であれば終了と判定（配信開始後には実際の配信開始時刻が入るため）
-  if (!props.video.datetime.endsWith(":00")) return true;
-  // 配信しないまま1時間経ったら終了と判定
-  if (now - props.video.startTime > 60 * 60 * 1000) return true;
+  const startTime = props.liverEvent.startAt.getTime();
+  // 現在時刻を過ぎていなければ開始前
+  if (now < startTime) return false;
+  // ホロライブの場合
+  if (props.liverEvent.affilication === "hololive") {
+    // startTimeの秒数が0以外あれば配信開始済み
+    if (startTime % 1000 !== 0) return true;
+
+    // 秒数が0で1時間経過していたら終了と見なす
+    if (now - startTime > 60 * 60 * 1000) return true;
+  }
+  // それ以外の場合：未終了
   return false;
 });
 
 const isHovered = computed(() => {
-  return (
-    talentStore.hoveredTalent === props.video.talent.name ||
-    props.video.collaboTalents.some((talent) => talentStore.hoveredTalent === talent.name)
-  );
+  const talentNames = [
+    props.liverEvent.talent.name,
+    ...props.liverEvent.collaboTalents.map((t) => t.name),
+  ];
+
+  // eventのタレントとhoverのタレントをマージ
+  const mergedNames = [...talentStore.hoveredTalents, ...talentNames];
+  // 重複を削除
+  const uniqueNames = new Set(mergedNames);
+
+  // 重複があればhover中
+  return uniqueNames.size !== mergedNames.length;
 });
 
 // 通常クリック時はダイアログを開き、ホイールクリックでリンクを開く
@@ -47,44 +66,69 @@ function onClickDialog(evt: MouseEvent) {
   dialogEl.value.close();
 }
 
+function hoverEvent(liverEvent: LiverEvent | null) {
+  if (!liverEvent) {
+    talentStore.hoveredTalents = [];
+    return;
+  }
+  const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
+  talentStore.hoveredTalents = names;
+}
+
 function hoverTalent(name: string | null) {
-  talentStore.hoveredTalent = name;
+  talentStore.hoveredTalents = name ? [name] : [];
 }
 
 // サムネイルの画質を上げる
-function getHqThumnail(url: string) {
-  // 画像がyoutubeの場合、mq(320x180)のurlになっているのでsd(640x480)に置換する
-  const matched = url.match(/mqdefault\.jpg$/);
-  if (!matched) return url;
-  return url.replace("mqdefault", "sddefault");
+function getThumnail(url: string, quolity: string) {
+  // , 'sd'画像がyoutubeの場合、mq(320x180)のurlになっているのでsd(640x480)に置換する
+  const groups = url.match(/^(?<base>.+\/)(?<quolity>.+default)(?<filename>(_live)?\..+)$/)?.groups;
+  if (!groups) return url;
+
+  const { base, filename } = groups;
+  return `${base}${quolity}default${filename}`;
 }
+
+function hhss(date: Date) {
+  return date.toTimeString().slice(0, 5);
+}
+
+const affilicationLogoMap = {
+  nijisanji: nijisanji_logo,
+  hololive: hololive_logo,
+};
 </script>
 <template>
   <div
     class="relative hover:scale-105 hover:z-10 transition-all"
-    @mouseover="hoverTalent(video.talent.name)"
+    @mouseover="hoverEvent(liverEvent)"
     @mouseleave="hoverTalent(null)"
   >
     <div
-      :class="`absolute bg-white ${isFinished ? 'text-gray-700' : 'text-blue-500'} font-bold px-2 left-3 -top-2 shadow rounded-full max-sm:-left-0 max-sm:-top-4`"
+      :class="`absolute bg-white ${isFinished ? 'text-gray-700' : 'text-blue-500'} font-bold px-2 left-5 -top-2 shadow rounded-full  max-sm:-top-4`"
     >
-      {{ video.displayDate }}
+      {{ hhss(liverEvent.startAt) }}
+      <img
+        :src="affilicationLogoMap[liverEvent.affilication]"
+        class="absolute -top-[4px] -left-[24px] w-[28px] h-[28px]"
+        loading="lazy"
+      />
     </div>
 
     <div
-      v-if="video.isLive || isFinished"
-      :class="`absolute right-0 -top-4 px-4 text-white rounded-full  ${video.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
+      v-if="liverEvent.isLive || isFinished"
+      :class="`absolute right-0 -top-4 px-4 text-white rounded-full  ${liverEvent.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
     >
-      {{ video.isLive ? "ON AIR" : "終了" }}
+      {{ liverEvent.isLive ? "ON AIR" : "終了" }}
     </div>
 
     <a
       ref="button"
-      :href="video.url"
+      :href="liverEvent.url"
       target="_blank"
       class="transition-all max-w-[560px] h-[108px] shadow-md flex flex-row justify-center items-center gap-[12px] pl-2 overflow-hidden rounded-[10px] bg-white max-sm:gap-1 max-sm:pl-1 max-sm:h-auto"
       :class="{
-        isLive: video.isLive,
+        isLive: liverEvent.isLive,
         isFinished: isFinished,
         isHovered: isHovered,
       }"
@@ -92,20 +136,20 @@ function getHqThumnail(url: string) {
     >
       <div class="w-[70px] max-sm:w-[clamp(30px,10vw,70px)]">
         <img
-          :src="video.talent.iconImageUrl"
+          :src="liverEvent.talent.image"
           class="rounded-full w-full aspect-square border"
           loading="lazy"
-          @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
+          @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
         />
       </div>
       <div class="flex flex-col items-start gap-p2 flex-1 max-sm:py-1">
-        <h3 class="font-bold">{{ video.talent.name }}</h3>
-        <div class="line-clamp-2">{{ video.title }}</div>
+        <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
+        <div class="line-clamp-2">{{ liverEvent.title }}</div>
         <div class="flex flex-row z-10">
           <img
-            v-for="talent in video.collaboTalents"
-            :key="talent.iconImageUrl"
-            :src="talent.iconImageUrl"
+            v-for="talent in liverEvent.collaboTalents"
+            :key="talent.image"
+            :src="talent.image"
             class="rounded-full w-[24px] h-[24px] -mr-1 outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
@@ -117,7 +161,7 @@ function getHqThumnail(url: string) {
       </div>
 
       <img
-        :src="video.thumbnail"
+        :src="getThumnail(liverEvent.thumbnail, 'mq')"
         class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)]"
         loading="lazy"
       />
@@ -130,13 +174,13 @@ function getHqThumnail(url: string) {
     >
       <div class="px-4 py-2">
         <div class="font-bold">
-          {{ video.datetime }}
+          {{ liverEvent.startAt }}
         </div>
       </div>
 
-      <a :href="video.url" target="_blank">
+      <a :href="liverEvent.url" target="_blank">
         <img
-          :src="getHqThumnail(video.thumbnail)"
+          :src="getThumnail(liverEvent.thumbnail, 'sd')"
           class="w-[480px] aspect-video object-cover"
           loading="lazy"
         />
@@ -144,29 +188,29 @@ function getHqThumnail(url: string) {
 
       <div class="px-6 py-4 flex flex-col gap-2 max-sm:p-3">
         <div class="font-bold text-lg">
-          <a :href="video.url" class="hover:underline" target="_blank">
-            {{ video.title }}
+          <a :href="liverEvent.url" class="hover:underline" target="_blank">
+            {{ liverEvent.title }}
           </a>
         </div>
         <div class="flex flex-row gap-2 items-center">
           <img
-            :src="video.talent.iconImageUrl"
+            :src="liverEvent.talent.image"
             class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
             loading="lazy"
-            @mouseover="hoverTalent(video.talent.name)"
+            @mouseover="hoverTalent(liverEvent.talent.name)"
             @mouseleave="hoverTalent(null)"
-            @click.prevent="talentStore.setFocusedTalent(video.talent.name)"
-            @contextmenu.prevent="talentStore.setFocusedTalent(video.talent.name)"
+            @click.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
+            @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
           />
           <div>
             <div class="font-bold text-base">
-              {{ video.talent.name }}
+              {{ liverEvent.talent.name }}
             </div>
             <div class="flex flex-row flex-wrap">
               <img
-                v-for="talent in video.collaboTalents"
-                :key="talent.iconImageUrl"
-                :src="talent.iconImageUrl"
+                v-for="talent in liverEvent.collaboTalents"
+                :key="talent.image"
+                :src="talent.image"
                 class="rounded-full w-[40px] hover:outline hover:outline-red-500 hover:outline-2 max-sm:w-[30px]"
                 :title="talent.name"
                 loading="lazy"
