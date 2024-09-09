@@ -35,10 +35,18 @@ const isFinished = computed(() => {
 });
 
 const isHovered = computed(() => {
-  return (
-    talentStore.hoveredTalent === props.liverEvent.talent.name ||
-    props.liverEvent.collaboTalents.some((talent) => talentStore.hoveredTalent === talent.name)
-  );
+  const talentNames = [
+    props.liverEvent.talent.name,
+    ...props.liverEvent.collaboTalents.map((t) => t.name),
+  ];
+
+  // eventのタレントとhoverのタレントをマージ
+  const mergedNames = [...talentStore.hoveredTalents, ...talentNames];
+  // 重複を削除
+  const uniqueNames = new Set(mergedNames);
+
+  // 重複があればhover中
+  return uniqueNames.size !== mergedNames.length;
 });
 
 // 通常クリック時はダイアログを開き、ホイールクリックでリンクを開く
@@ -56,8 +64,17 @@ function onClickDialog(evt: MouseEvent) {
   dialogEl.value.close();
 }
 
+function hoverEvent(liverEvent: LiverEvent | null) {
+  if (!liverEvent) {
+    talentStore.hoveredTalents = [];
+    return;
+  }
+  const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
+  talentStore.hoveredTalents = names;
+}
+
 function hoverTalent(name: string | null) {
-  talentStore.hoveredTalent = name;
+  talentStore.hoveredTalents = name ? [name] : [];
 }
 
 // サムネイルの画質を上げる
@@ -77,7 +94,7 @@ function hhss(date: Date) {
 <template>
   <div
     class="relative hover:scale-105 hover:z-10 transition-all"
-    @mouseover="hoverTalent(liverEvent.talent.name)"
+    @mouseover="hoverEvent(liverEvent)"
     @mouseleave="hoverTalent(null)"
   >
     <div
