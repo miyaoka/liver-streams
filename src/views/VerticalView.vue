@@ -40,7 +40,7 @@ async function getNijiEvents({
   function getTalent(id: string) {
     const talent = nijiLiverMap[id];
     if (!talent) {
-      console.error(`talent not found: ${id}`);
+      console.warn(`talent not found: ${id}`);
       return null;
     }
     return {
