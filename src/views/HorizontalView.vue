@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { getHoloEvents, type HoloSchedule } from "@/api/hololive/schedule";
+import { type HoloSchedule } from "@/api/hololive/schedule";
 import HorizontalSchedule from "@/components/horizontal/HorizontalSchedule.vue";
 
 const data = ref<HoloSchedule | null>(null);
 onMounted(async () => {
-  data.value = await getHoloEvents();
+  // data.value = await getHoloEvents();
 });
 </script>
 
