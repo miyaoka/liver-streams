@@ -70,13 +70,10 @@ async function getNijiEvents({
 }
 
 onMounted(async () => {
-  const nijiStreams = await getNijiStreams(isDev);
   const nijiLiverMap = await getNijiLiverMap(isDev);
-  console.log("nijiLiverMap", nijiLiverMap);
 
   const setStreams = () => {
     getStreams({ isDev, nijiLiverMap }).then((streams) => {
-      console.log("streams", streams);
       liverEventList.value = streams;
     });
   };
