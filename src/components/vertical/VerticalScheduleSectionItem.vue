@@ -4,6 +4,7 @@ import type { LiverEvent } from "@/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { useTalentStore } from "@/store/talentStore";
+import { dateFormatter, hhss } from "@/utils/dateFormat";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
@@ -89,10 +90,6 @@ function getThumnail(url: string, quolity: string) {
   return `${base}${quolity}default${filename}`;
 }
 
-function hhss(date: Date) {
-  return date.toTimeString().slice(0, 5);
-}
-
 const affilicationLogoMap = {
   nijisanji: nijisanji_logo,
   hololive: hololive_logo,
@@ -174,7 +171,7 @@ const affilicationLogoMap = {
     >
       <div class="px-4 py-2">
         <div class="font-bold">
-          {{ liverEvent.startAt }}
+          {{ dateFormatter.format(liverEvent.startAt) }}
         </div>
       </div>
 
