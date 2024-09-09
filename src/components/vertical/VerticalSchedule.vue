@@ -15,10 +15,12 @@ const channelFilterStore = useChannelFilterStore();
 const talentStore = useTalentStore();
 
 onMounted(() => {
+  console.log("mounted");
   const now = Date.now();
   const sections = [...document.querySelectorAll("section[data-time]")];
   const sectionIndex = sections.findIndex((el) => {
     const time = Number(el.getAttribute("data-time"));
+    console.log("time", time, now);
     // 現在時刻を超える最初のセクションを探す
     if (time > now) return true;
   });

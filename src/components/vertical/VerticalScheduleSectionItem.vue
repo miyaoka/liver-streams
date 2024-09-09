@@ -114,7 +114,7 @@ function hhss(date: Date) {
         />
       </div>
       <div class="flex flex-col items-start gap-p2 flex-1 max-sm:py-1">
-        <h3 class="font-bold">{{ liverEvent.talent.name }} {{ liverEvent.affilication }}</h3>
+        <h3 class="font-bold">{{ liverEvent.talent.name }} [{{ liverEvent.affilication }}]</h3>
         <div class="line-clamp-2">{{ liverEvent.title }}</div>
         <div class="flex flex-row z-10">
           <img
