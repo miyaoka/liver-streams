@@ -89,3 +89,12 @@ onMounted(async () => {
     <VerticalSchedule v-if="liverEventList.length > 0" :liverEventList="liverEventList" />
   </main>
 </template>
+
+<style scoped>
+main {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+</style>
