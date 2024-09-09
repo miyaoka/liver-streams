@@ -13,6 +13,8 @@ const props = defineProps<{
 
 const channelFilterStore = useChannelFilterStore();
 const talentStore = useTalentStore();
+const sectionMap = ref<Record<number, LiverEvent[]>>({});
+const hourSections = [23, 22, 21, 20, 18, 12, 6, 0];
 
 onMounted(() => {
   const now = Date.now();
@@ -30,8 +32,6 @@ onMounted(() => {
     prevSection.scrollIntoView({ behavior: "instant", block: "start" });
   }
 });
-
-const sectionMap = ref<Record<number, LiverEvent[]>>({});
 
 function getFilteredData(
   filterMap: Map<string, boolean>,
@@ -64,6 +64,24 @@ function getFilteredData(
   });
 }
 
+function createSectionMap(liverEventList: LiverEvent[]): Record<number, LiverEvent[]> {
+  const sectionVideoList: Record<number, LiverEvent[]> = {};
+
+  liverEventList.forEach((liverEvent) => {
+    const hour = liverEvent.startAt.getHours();
+    // 区切った時間に丸める
+    const sectionHour = hourSections.find((sectionHour) => hour >= sectionHour) ?? 0;
+    const sectionTime = new Date(liverEvent.startAt).setHours(sectionHour, 0, 0, 0);
+
+    if (!sectionVideoList[sectionTime]) {
+      sectionVideoList[sectionTime] = [];
+    }
+    sectionVideoList[sectionTime].push(liverEvent);
+  });
+
+  return sectionVideoList;
+}
+
 watch(
   [
     () => props.liverEventList,
@@ -78,28 +96,6 @@ watch(
   },
   { immediate: true, deep: true },
 );
-
-function createSectionMap(liverEventList: LiverEvent[]): Record<number, LiverEvent[]> {
-  const sectionVideoList: Record<number, LiverEvent[]> = {};
-
-  const minutes = 60 * 1000;
-  const sectionSpan = 6 * 60 * minutes; // 6hr
-  const timezoneOffset = new Date().getTimezoneOffset() * minutes; // 日本なら-540分
-
-  liverEventList.forEach((liverEvent) => {
-    const time = liverEvent.startAt.getTime();
-    // 区切った時間に丸める
-    const sectionTime =
-      Math.floor((time - timezoneOffset) / sectionSpan) * sectionSpan + timezoneOffset;
-
-    if (!sectionVideoList[sectionTime]) {
-      sectionVideoList[sectionTime] = [];
-    }
-    sectionVideoList[sectionTime].push(liverEvent);
-  });
-
-  return sectionVideoList;
-}
 </script>
 <template>
   <ChannelFilter />
