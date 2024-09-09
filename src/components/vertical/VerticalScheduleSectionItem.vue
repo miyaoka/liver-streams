@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { LiverEvent } from "@/api";
+import hololive_logo from "@/assets/icons/hololive_logo.png";
+import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { useTalentStore } from "@/store/talentStore";
 
 const props = defineProps<{
@@ -90,6 +92,11 @@ function getThumnail(url: string, quolity: string) {
 function hhss(date: Date) {
   return date.toTimeString().slice(0, 5);
 }
+
+const affilicationLogoMap = {
+  nijisanji: nijisanji_logo,
+  hololive: hololive_logo,
+};
 </script>
 <template>
   <div
@@ -98,9 +105,14 @@ function hhss(date: Date) {
     @mouseleave="hoverTalent(null)"
   >
     <div
-      :class="`absolute bg-white ${isFinished ? 'text-gray-700' : 'text-blue-500'} font-bold px-2 left-3 -top-2 shadow rounded-full max-sm:-left-0 max-sm:-top-4`"
+      :class="`absolute bg-white ${isFinished ? 'text-gray-700' : 'text-blue-500'} font-bold px-2 left-5 -top-2 shadow rounded-full  max-sm:-top-4`"
     >
       {{ hhss(liverEvent.startAt) }}
+      <img
+        :src="affilicationLogoMap[liverEvent.affilication]"
+        class="absolute -top-[4px] -left-[24px] w-[28px] h-[28px]"
+        loading="lazy"
+      />
     </div>
 
     <div
@@ -131,7 +143,7 @@ function hhss(date: Date) {
         />
       </div>
       <div class="flex flex-col items-start gap-p2 flex-1 max-sm:py-1">
-        <h3 class="font-bold">{{ liverEvent.talent.name }} [{{ liverEvent.affilication }}]</h3>
+        <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
         <div class="line-clamp-2">{{ liverEvent.title }}</div>
         <div class="flex flex-row z-10">
           <img
