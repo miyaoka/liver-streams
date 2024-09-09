@@ -102,21 +102,26 @@ const affilicationLogoMap = {
     @mouseleave="hoverTalent(null)"
   >
     <div
-      :class="`absolute bg-white ${isFinished ? 'text-gray-700' : 'text-blue-500'} font-bold px-2 left-5 -top-2 shadow rounded-full  max-sm:-top-4`"
+      :class="`absolute  ${isFinished ? 'text-gray-700 bg-gray-300' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
     >
-      {{ hhss(liverEvent.startAt) }}
-      <img
-        :src="affilicationLogoMap[liverEvent.affilication]"
-        class="absolute -top-[4px] -left-[24px] w-[28px] h-[28px]"
-        loading="lazy"
-      />
+      <span>
+        {{ hhss(liverEvent.startAt) }}
+      </span>
+      <span v-if="isFinished">
+        {{ ` - ${liverEvent.endAt ? hhss(liverEvent.endAt) : "終了"}` }}
+      </span>
     </div>
+    <img
+      :src="affilicationLogoMap[liverEvent.affilication]"
+      class="absolute bottom-[4px] left-[2px] w-[clamp(20px,4vw,28px)]"
+      loading="lazy"
+    />
 
     <div
       v-if="liverEvent.isLive || isFinished"
       :class="`absolute right-0 -top-4 px-4 text-white rounded-full  ${liverEvent.isLive ? 'bg-red-600' : 'bg-gray-500'}`"
     >
-      {{ liverEvent.isLive ? "ON AIR" : "終了" }}
+      {{ liverEvent.isLive ? "ON AIR" : "" }}
     </div>
 
     <a
