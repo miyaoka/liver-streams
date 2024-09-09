@@ -27,7 +27,7 @@ onMounted(() => {
 
   if (prevSection) {
     // セクションにスクロール
-    prevSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    prevSection.scrollIntoView({ behavior: "instant", block: "start" });
   }
 });
 
