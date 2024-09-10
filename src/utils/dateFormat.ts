@@ -1,4 +1,5 @@
 export const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  weekday: "short",
   year: "numeric",
   month: "2-digit",
   day: "2-digit",
