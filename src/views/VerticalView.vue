@@ -9,7 +9,7 @@ import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 const nijiUrl = "https://www.nijisanji.jp";
 const liverEventList = ref<LiverEvent[]>([]);
 
-const isDev = false;
+const isDev = true; //false;
 
 async function getStreams({
   isDev,
@@ -74,10 +74,10 @@ onMounted(async () => {
   const nijiLiverMap = await getNijiLiverMap(true);
   const iconMap: Record<string, string> = {};
   Object.values(nijiLiverMap).forEach((talent) => {
-    iconMap[talent.slug] = `${nijiUrl}${talent.image}`;
+    iconMap[talent.name] = `${nijiUrl}${talent.image}`;
   });
 
-  console.log("iconMap", iconMap);
+  console.log("iconMap", JSON.stringify(iconMap, undefined, 2));
 
   const setStreams = () => {
     getStreams({ isDev, nijiLiverMap }).then((streams) => {

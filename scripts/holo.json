@@ -1,7 +1,4 @@
-#!/bin/bash
-
-# JSONデータ (keyとURLのペア)
-json_data='{
+{
   "ときのそら": "https://yt3.ggpht.com/ytc/AIdro_kT9PiLS8BWANuBdGG_-GHsNZxFqmF0YjMnzK55jISdca4=s88-c-k-c0x00ffffff-no-rj",
   "ロボ子さん": "https://yt3.ggpht.com/GF0wbwZvZAGzYg8s8d6Yh1BDcWAE9UmLAh2uf3IMJ5l_ESi3sWeRqk2XfhW3IgzMeliHpt4cAw=s88-c-k-c0x00ffffff-no-rj",
   "AZKi": "https://yt3.ggpht.com/so69WMDlrSwil0013l7MLKIBLV--U_zjya2tG9_Sgij5NBm7raSvbZXUJiiAbQgrZosseqKDobM=s88-c-k-c0x00ffffff-no-rj",
@@ -98,11 +95,4 @@ json_data='{
   "holo ID": "https://yt3.googleusercontent.com/ytc/AIdro_nqRoQYVOioAVLFHDrRP_y8Ri4zAUoq3kxEdHrQQLyrp44=s176-c-k-c0x00ffffff-no-rj-mo",
   "hololive DEV_IS": "https://yt3.ggpht.com/KTypB1brQ2yd1KtZUBo4Y533L9kHmNeB1Q9aHZyfqWm3YE_6EOL10VYWj4LVRTwQ2jtg6hMyJQ=s176-c-k-c0x00ffffff-no-rj-mo",
   "Blue Journey": "https://yt3.googleusercontent.com/ubZvY91gHNdDphBEmd290oxau2SdYNksm0bBzjY169Vf3Ty5leTyAKpNTdhlI_RIMt3-MhykNg=s160-c-k-c0x00ffffff-no-rj"
-}'
-
-# jqを使ってJSONデータをパースし、keyとURLのペアを処理
-echo "$json_data" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r key url; do
-  # curlで画像をダウンロードしてkeyの名前で保存
-  echo "Downloading $url as $key.jpg"
-  curl -o "$key.jpg" "$url"
-done
+}
