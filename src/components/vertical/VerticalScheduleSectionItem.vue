@@ -138,11 +138,7 @@ const timeDisplay = computed(() => {
 });
 </script>
 <template>
-  <div
-    class="relative hover:scale-105 hover:z-10 transition-all"
-    @mouseover="hoverEvent(liverEvent)"
-    @mouseleave="hoverTalent(null)"
-  >
+  <div class="relative group" @mouseover="hoverEvent(liverEvent)" @mouseleave="hoverTalent(null)">
     <div
       :class="`absolute  ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
     >
@@ -169,7 +165,7 @@ const timeDisplay = computed(() => {
       <div class="w-[70px] max-sm:w-[clamp(30px,10vw,70px)]">
         <img
           :src="liverEvent.talent.image"
-          class="rounded-full w-full aspect-square border"
+          class="rounded-full w-full aspect-square border group-hover:scale-110 transition-transform"
           loading="lazy"
           @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
         />
@@ -194,7 +190,7 @@ const timeDisplay = computed(() => {
 
       <img
         :src="getThumnail(liverEvent.thumbnail, 'mq')"
-        class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)]"
+        class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)] group-hover:scale-110 transition-transform"
         loading="lazy"
       />
     </a>
