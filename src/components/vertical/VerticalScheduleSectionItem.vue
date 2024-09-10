@@ -178,7 +178,7 @@ const timeDisplay = computed(() => {
             v-for="talent in liverEvent.collaboTalents"
             :key="talent.image"
             :src="talent.image"
-            class="rounded-full w-[24px] h-[24px] -mr-1 outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
+            class="rounded-full w-[24px] h-[24px] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
             @mouseenter="hoverTalent(talent.name)"
