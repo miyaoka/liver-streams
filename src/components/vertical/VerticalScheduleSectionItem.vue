@@ -139,17 +139,6 @@ const timeDisplay = computed(() => {
 </script>
 <template>
   <div class="relative group" @mouseover="hoverEvent(liverEvent)" @mouseleave="hoverTalent(null)">
-    <div
-      :class="`absolute pointer-events-none  ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
-    >
-      <span>{{ timeDisplay }}</span>
-    </div>
-    <img
-      :src="affilicationLogoMap[liverEvent.affilication]"
-      class="absolute z-10 pointer-events-none bottom-[4px] left-[2px] w-[clamp(20px,4vw,28px)]"
-      loading="lazy"
-    />
-
     <a
       ref="button"
       :href="liverEvent.url"
@@ -162,6 +151,16 @@ const timeDisplay = computed(() => {
       }"
       @click="onClickCard"
     >
+      <div
+        :class="`absolute z-10 left-0 ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
+      >
+        <span>{{ timeDisplay }}</span>
+      </div>
+      <img
+        :src="affilicationLogoMap[liverEvent.affilication]"
+        class="absolute z-10 bottom-[4px] left-[2px] w-[clamp(20px,4vw,28px)]"
+        loading="lazy"
+      />
       <div class="w-[70px] max-sm:w-[clamp(30px,10vw,70px)]">
         <img
           :src="liverEvent.talent.image"
