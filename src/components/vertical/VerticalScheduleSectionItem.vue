@@ -97,9 +97,11 @@ const affilicationLogoMap = {
   hololive: hololive_logo,
 };
 
-function getElapsedTime(startAt: Date) {
-  return ((dateStore.date.getTime() - startAt.getTime()) / 3600000).toFixed(1);
-}
+const oneHour = 60 * 60 * 1000;
+const elapsedTime = computed(() => {
+  if (!props.liverEvent.isLive) return "";
+  return ((dateStore.date.getTime() - props.liverEvent.startAt.getTime()) / oneHour).toFixed(1);
+});
 </script>
 <template>
   <div
@@ -113,7 +115,7 @@ function getElapsedTime(startAt: Date) {
       <span
         >{{ hhss(liverEvent.startAt) }}
 
-        <span v-if="liverEvent.isLive"> - {{ getElapsedTime(liverEvent.startAt) }}hr</span>
+        <span v-if="liverEvent.isLive"> - {{ elapsedTime }}hr</span>
       </span>
       <span v-if="isFinished">
         {{ ` - ${liverEvent.endAt ? hhss(liverEvent.endAt) : "終了"}` }}
