@@ -26,20 +26,20 @@ function onClick() {
   if (filterStore.searchTerm !== "") {
     filterStore.searchTerm = "";
     searchQuery.value = "";
-    isFocused.value = false;
+    inputEl.value?.blur();
     return;
   }
   inputEl.value?.focus();
-  isFocused.value = true;
 }
 </script>
 
 <template>
-  <div class="bg-white flex flex-row">
+  <div class="flex flex-row bg-white">
     <div :class="`transition-all ${isInput ? 'w-56' : 'w-0'}`">
       <input
         class="w-full h-full p-2"
         ref="inputEl"
+        @focus="isFocused = true"
         @blur="isFocused = false"
         v-model="searchQuery"
         @input="onInput"
