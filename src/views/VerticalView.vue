@@ -5,11 +5,10 @@ import { getHoloEvents } from "@/api/hololive/schedule";
 import { getNijiLiverMap, getNijiStreams, type NijiLiverMap } from "@/api/nijisanji/nijisanji";
 import HeaderMenu from "@/components/HeaderMenu.vue";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
+import { getChannelIcon } from "@/utils/icons";
 
-const nijiUrl = "https://www.nijisanji.jp";
 const liverEventList = ref<LiverEvent[]>([]);
-
-const isDev = true; //false;
+const isDev = false;
 
 async function getStreams({
   isDev,
@@ -46,7 +45,7 @@ async function getNijiEvents({
     }
     return {
       name: talent.name,
-      image: `${nijiUrl}${talent.image}`,
+      image: getChannelIcon(talent.name),
     };
   }
 
@@ -72,12 +71,6 @@ async function getNijiEvents({
 
 onMounted(async () => {
   const nijiLiverMap = await getNijiLiverMap(true);
-  const iconMap: Record<string, string> = {};
-  Object.values(nijiLiverMap).forEach((talent) => {
-    iconMap[talent.name] = `${nijiUrl}${talent.image}`;
-  });
-
-  console.log("iconMap", JSON.stringify(iconMap, undefined, 2));
 
   const setStreams = () => {
     getStreams({ isDev, nijiLiverMap }).then((streams) => {
