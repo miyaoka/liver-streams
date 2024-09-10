@@ -4,5 +4,7 @@ export const talentIcons: Record<string, string> = icons;
 const defaultIcon = "";
 
 export function getChannelIcon(name: string) {
-  return talentIcons[name] ?? defaultIcon;
+  const path = talentIcons[name];
+
+  return path ? `/icons${path}` : defaultIcon;
 }

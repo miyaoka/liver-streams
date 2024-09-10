@@ -1,4 +1,5 @@
 export interface NijiLiver {
+  slug: string;
   name: string;
   enName: string;
   image: string;
