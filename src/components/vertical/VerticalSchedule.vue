@@ -3,7 +3,6 @@ import { onMounted, ref, watch } from "vue";
 import { useChannelFilterStore } from "../filter/channelFilterStore";
 import VerticalScheduleColumn from "./VerticalScheduleColumn.vue";
 import type { LiverEvent } from "@/api";
-import ChannelFilter from "@/components/filter/ChannelFilter.vue";
 import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -37,8 +36,22 @@ function getFilteredData(
   filterMap: Map<string, boolean>,
   filterEnabled: boolean,
   liverEventList: LiverEvent[],
+  searchTerm: string,
   focusedTalent: string | null,
 ): LiverEvent[] {
+  if (searchTerm !== "") {
+    const searchRegExp = new RegExp(searchTerm, "i");
+    return liverEventList.filter((video) => {
+      return (
+        searchRegExp.test(video.title) ||
+        searchRegExp.test(video.talent.name) ||
+        video.collaboTalents.some((collaborator) => {
+          return searchRegExp.test(collaborator.name);
+        })
+      );
+    });
+  }
+
   // 単一セレクト時
   if (focusedTalent) {
     return liverEventList.filter((video) => {
@@ -87,18 +100,18 @@ watch(
     () => props.liverEventList,
     () => channelFilterStore.map,
     () => channelFilterStore.enabled,
+    () => channelFilterStore.searchTerm,
     () => talentStore.focusedTalent,
   ],
-  ([liverEventList, filterMap, filterEnabled, focusedTalent]) => {
+  ([liverEventList, filterMap, filterEnabled, searchTerm, focusedTalent]) => {
     sectionMap.value = createSectionMap(
-      getFilteredData(filterMap, filterEnabled, liverEventList, focusedTalent),
+      getFilteredData(filterMap, filterEnabled, liverEventList, searchTerm, focusedTalent),
     );
   },
   { immediate: true, deep: true },
 );
 </script>
 <template>
-  <ChannelFilter />
   <VerticalScheduleColumn v-if="Object.keys(sectionMap).length > 0" :sectionMap="sectionMap" />
   <div v-else>no data</div>
   <button

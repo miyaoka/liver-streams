@@ -14,6 +14,7 @@ export interface Node {
 export const useChannelFilterStore = defineStore("channelFilter", () => {
   const map = useLocalStorage("talentFilter", new Map<string, boolean>());
   const enabled = useLocalStorage("talentFilterEnabled", true);
+  const searchTerm = useLocalStorage("filterSearchTerm", "");
 
   function setName(name: string, value: boolean) {
     if (value) {
@@ -32,5 +33,6 @@ export const useChannelFilterStore = defineStore("channelFilter", () => {
     setName,
     reset,
     enabled,
+    searchTerm,
   };
 });

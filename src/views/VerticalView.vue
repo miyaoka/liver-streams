@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import type { LiverEvent } from "@/api";
 import { getHoloEvents } from "@/api/hololive/schedule";
 import { getNijiLiverMap, getNijiStreams, type NijiLiverMap } from "@/api/nijisanji/nijisanji";
+import HeaderMenu from "@/components/HeaderMenu.vue";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 
 const liverEventList = ref<LiverEvent[]>([]);
@@ -86,6 +87,7 @@ onMounted(async () => {
 
 <template>
   <main class="text-[clamp(8px,3vw,16px)]">
+    <HeaderMenu />
     <VerticalSchedule v-if="liverEventList.length > 0" :liverEventList="liverEventList" />
   </main>
 </template>
