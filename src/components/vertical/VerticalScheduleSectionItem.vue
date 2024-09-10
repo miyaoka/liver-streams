@@ -257,7 +257,7 @@ const timeDisplay = computed(() => {
 
 <style scoped>
 .isLive {
-  @apply outline outline-4 -outline-offset-4 outline-red-600;
+  @apply outline outline-[3px] -outline-offset-[3px] outline-red-600;
 }
 .isHovered {
   @apply bg-pink-100;
