@@ -146,7 +146,7 @@ const timeDisplay = computed(() => {
     </div>
     <img
       :src="affilicationLogoMap[liverEvent.affilication]"
-      class="absolute bottom-[4px] left-[2px] w-[clamp(20px,4vw,28px)]"
+      class="absolute z-10 bottom-[4px] left-[2px] w-[clamp(20px,4vw,28px)]"
       loading="lazy"
     />
 
