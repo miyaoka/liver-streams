@@ -99,8 +99,42 @@ const affilicationLogoMap = {
 
 const oneHour = 60 * 60 * 1000;
 const elapsedTime = computed(() => {
-  if (!props.liverEvent.isLive) return "";
-  return ((dateStore.date.getTime() - props.liverEvent.startAt.getTime()) / oneHour).toFixed(1);
+  const { isLive, endAt } = props.liverEvent;
+
+  const time = (() => {
+    // 終了時間があれば終了時間から開始時間を引く
+    if (endAt) {
+      return endAt.getTime() - props.liverEvent.startAt.getTime();
+    }
+    // ライブ中なら現在時刻から開始時間を引く
+    if (isLive) {
+      return dateStore.date.getTime() - props.liverEvent.startAt.getTime();
+    }
+    return 0;
+  })();
+
+  return time > 0 ? (time / oneHour).toFixed(1) : null;
+});
+
+const timeDisplay = computed(() => {
+  const { isLive, startAt, endAt } = props.liverEvent;
+  const strs: string[] = [];
+
+  // 開始時刻
+  strs.push(hhss(startAt));
+  // ライブ中
+  if (isLive) {
+    strs.push("-");
+  }
+  // 終了時刻
+  if (isFinished.value) {
+    strs.push(`- ${endAt ? hhss(endAt) : "終了"}`);
+  }
+  // 経過時間
+  if (elapsedTime.value) {
+    strs.push(`(${elapsedTime.value}hr)`);
+  }
+  return strs.join(" ");
 });
 </script>
 <template>
@@ -112,14 +146,7 @@ const elapsedTime = computed(() => {
     <div
       :class="`absolute  ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
     >
-      <span
-        >{{ hhss(liverEvent.startAt) }}
-
-        <span v-if="liverEvent.isLive"> - {{ elapsedTime }}hr</span>
-      </span>
-      <span v-if="isFinished">
-        {{ ` - ${liverEvent.endAt ? hhss(liverEvent.endAt) : "終了"}` }}
-      </span>
+      <span>{{ timeDisplay }}</span>
     </div>
     <img
       :src="affilicationLogoMap[liverEvent.affilication]"
