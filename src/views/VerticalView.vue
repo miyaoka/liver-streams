@@ -85,7 +85,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="text-[clamp(8px,3vw,16px)]">
+  <main class="text-[clamp(11px,11px+0.25vw,15px)]">
     <HeaderMenu />
     <VerticalSchedule v-if="liverEventList.length > 0" :liverEventList="liverEventList" />
   </main>
