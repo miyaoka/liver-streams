@@ -1,5 +1,6 @@
 import { useLocalStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
+import { nextTick } from "vue";
 
 export interface TreeNode {
   id: string;
@@ -15,6 +16,22 @@ export const useChannelFilterStore = defineStore("channelFilter", () => {
   const map = useLocalStorage("talentFilter", new Map<string, boolean>());
   const enabled = useLocalStorage("talentFilterEnabled", true);
   const searchTerm = useLocalStorage("filterSearchTerm", "");
+
+  let scrollY = 0;
+  function setSearchTerm(term: string) {
+    // 未入力状態であればスクロール位置を保存する
+    if (searchTerm.value === "") {
+      scrollY = window.scrollY;
+    }
+    searchTerm.value = term;
+
+    // 入力がクリアされたらスクロール位置をリセットする
+    if (term === "") {
+      nextTick(() => {
+        window.scrollTo(0, scrollY);
+      });
+    }
+  }
 
   function setName(name: string, value: boolean) {
     if (value) {
@@ -34,5 +51,6 @@ export const useChannelFilterStore = defineStore("channelFilter", () => {
     reset,
     enabled,
     searchTerm,
+    setSearchTerm,
   };
 });

@@ -19,12 +19,12 @@ function onInput() {
     clearTimeout(timeout);
   }
   timeout = setTimeout(() => {
-    filterStore.searchTerm = searchQuery.value;
+    filterStore.setSearchTerm(searchQuery.value);
   }, 500);
 }
 function onClick() {
   if (filterStore.searchTerm !== "") {
-    filterStore.searchTerm = "";
+    filterStore.setSearchTerm("");
     searchQuery.value = "";
     inputEl.value?.blur();
     return;
