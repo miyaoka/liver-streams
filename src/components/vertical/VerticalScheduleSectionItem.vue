@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import type { LiverEvent } from "@/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
+import { useDateStore } from "@/store/dateStore";
 import { useTalentStore } from "@/store/talentStore";
 import { dateFormatter, hhss } from "@/utils/dateFormat";
 
@@ -11,6 +12,7 @@ const props = defineProps<{
 }>();
 
 const talentStore = useTalentStore();
+const dateStore = useDateStore();
 const dialogEl = ref<HTMLDialogElement | null>(null);
 
 // 配信終了判定
@@ -94,6 +96,10 @@ const affilicationLogoMap = {
   nijisanji: nijisanji_logo,
   hololive: hololive_logo,
 };
+
+function getElapsedTime(startAt: Date) {
+  return ((dateStore.date.getTime() - startAt.getTime()) / 3600000).toFixed(1);
+}
 </script>
 <template>
   <div
@@ -104,7 +110,11 @@ const affilicationLogoMap = {
     <div
       :class="`absolute  ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
     >
-      <span>{{ hhss(liverEvent.startAt) }}</span>
+      <span
+        >{{ hhss(liverEvent.startAt) }}
+
+        <span v-if="liverEvent.isLive"> - {{ getElapsedTime(liverEvent.startAt) }}hr</span>
+      </span>
       <span v-if="isFinished">
         {{ ` - ${liverEvent.endAt ? hhss(liverEvent.endAt) : "終了"}` }}
       </span>
