@@ -1,4 +1,5 @@
 import type { LiverEvent } from "..";
+import { getChannelIcon } from "@/utils/icons";
 
 const holoAPI = "https://schedule.hololive.tv/api/list/7";
 
@@ -52,12 +53,12 @@ export async function getHoloEvents(isDev: boolean): Promise<LiverEvent[]> {
       isLive: video.isLive,
       talent: {
         name: video.talent.name,
-        image: video.talent.iconImageUrl,
+        image: getChannelIcon(video.talent.name),
       },
       collaboTalents: video.collaboTalents.map((collaboTalent) => {
         return {
           name: collaboTalent.name,
-          image: collaboTalent.iconImageUrl,
+          image: getChannelIcon(collaboTalent.name),
         };
       }),
     };
