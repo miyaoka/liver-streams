@@ -131,7 +131,7 @@ function onClickCard(evt: MouseEvent) {
       />
 
       <div
-        class="flex flex-row justify-center items-center gap-[2px] h-[clamp(80px,80px+2vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md"
+        class="flex flex-row justify-center items-center gap-1 h-[clamp(80px,80px+1vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md pl-1"
         :class="{
           isLive: liverEvent.isLive,
           isFinished: isFinished,
@@ -146,7 +146,7 @@ function onClickCard(evt: MouseEvent) {
         />
 
         <div
-          class="flex flex-col h-full justify-center relative items-start gap-p2 flex-1 max-sm:py-1 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
+          class="flex flex-col h-full justify-center relative items-start pb-2 flex-1 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
         >
           <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
           <div class="line-clamp-2">{{ liverEvent.title }}</div>
