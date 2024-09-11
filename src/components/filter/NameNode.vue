@@ -23,12 +23,14 @@ function update() {
 }
 
 function onChange(name: string, checked: boolean) {
-  channelFilterStore.setName(name, checked);
+  channelFilterStore.setTalentFilter(name, checked);
   update();
 }
 
 onMounted(() => {
-  checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false);
+  checkList.value = props.nameList.map(
+    (name) => channelFilterStore.talentFilterMap.get(name) ?? false,
+  );
   update();
 });
 watch(
@@ -36,13 +38,15 @@ watch(
   (val) => {
     checkList.value = props.nameList.map(() => val);
     props.nameList.forEach((name) => {
-      channelFilterStore.setName(name, val);
+      channelFilterStore.setTalentFilter(name, val);
     });
   },
 );
 
-watch(channelFilterStore.map, () => {
-  checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false);
+watch(channelFilterStore.talentFilterMap, () => {
+  checkList.value = props.nameList.map(
+    (name) => channelFilterStore.talentFilterMap.get(name) ?? false,
+  );
   update();
 });
 </script>

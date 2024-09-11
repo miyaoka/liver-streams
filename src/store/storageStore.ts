@@ -13,8 +13,8 @@ export interface Node {
 }
 
 export const useStorageStore = defineStore("channelFilter", () => {
-  const map = useLocalStorage("talentFilter", new Map<string, boolean>());
-  const enabled = useLocalStorage("talentFilterEnabled", true);
+  const talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
+  const talentFilterEnabled = useLocalStorage("talentFilterEnabled", true);
   const searchTerm = useLocalStorage("filterSearchTerm", "");
   const isLiveOnly = ref(false);
 
@@ -45,23 +45,23 @@ export const useStorageStore = defineStore("channelFilter", () => {
     isLiveOnly.value = !isLiveOnly.value;
   }
 
-  function setName(name: string, value: boolean) {
-    if (value) {
-      map.value.set(name, value);
+  function setTalentFilter(name: string, enabled: boolean) {
+    if (enabled) {
+      talentFilterMap.value.set(name, enabled);
     } else {
-      map.value.delete(name);
+      talentFilterMap.value.delete(name);
     }
   }
 
-  function reset() {
-    map.value.clear();
+  function resetTalentFilter() {
+    talentFilterMap.value.clear();
   }
 
   return {
-    map,
-    setName,
-    reset,
-    enabled,
+    talentFilterMap,
+    setTalentFilter,
+    resetTalentFilter,
+    talentFilterEnabled,
     searchTerm,
     setSearchTerm,
     isLiveOnly,

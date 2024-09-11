@@ -108,8 +108,8 @@ function createSectionMap(liverEventList: LiverEvent[]): Record<number, LiverEve
 watch(
   [
     () => props.liverEventList,
-    () => channelFilterStore.map,
-    () => channelFilterStore.enabled,
+    () => channelFilterStore.talentFilterMap,
+    () => channelFilterStore.talentFilterEnabled,
     () => channelFilterStore.searchTerm,
     () => talentStore.focusedTalent,
     () => channelFilterStore.isLiveOnly,
