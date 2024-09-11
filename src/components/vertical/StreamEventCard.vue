@@ -140,7 +140,7 @@ function onClickCard(evt: MouseEvent) {
       >
         <img
           :src="liverEvent.talent.image"
-          class="rounded-full w-[clamp(36px,36px+1vw,60px)] border group-hover:scale-110"
+          class="rounded-full w-[clamp(36px,36px+1vw,60px)] group-hover:scale-110"
           loading="lazy"
           @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
         />
@@ -150,12 +150,12 @@ function onClickCard(evt: MouseEvent) {
         >
           <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
           <div class="line-clamp-2">{{ liverEvent.title }}</div>
-          <div class="absolute bottom-[4px] flex flex-row z-10">
+          <div class="absolute bottom-1 flex flex-row z-10">
             <img
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
+              class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-orange-400 outline-1 hover:outline hover:outline-red-500 hover:outline-2"
               :title="talent.name"
               loading="lazy"
               @mouseenter="talentStore.setHoveredTalents(talent.name)"
