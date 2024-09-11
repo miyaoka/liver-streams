@@ -51,43 +51,40 @@ function getFilteredData(
     });
   }
 
-  // チャンネルでフィルタリング
-  const channelFilteredList = (() => {
-    // フィルタなし
-    if (!filterEnabled || filterMap.size === 0) return liverEventList;
+  const hasTalentfilter = filterEnabled && filterMap.size > 0;
+  const searchRegExp = new RegExp(searchTerm, "i");
+  return (
+    liverEventList
+      // talentでフィルタリング
+      .filter((video) => {
+        // フィルタなし
+        if (!hasTalentfilter) return true;
 
-    // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-    return liverEventList.filter((video) => {
-      return (
-        filterMap.has(video.talent.name) ||
-        video.collaboTalents.some((collaborator) => {
-          return filterMap.has(collaborator.name);
-        })
-      );
-    });
-  })();
-
-  // live中のみ表示
-  if (isLiveOnly) {
-    return channelFilteredList.filter((video) => {
-      return video.isLive;
-    });
-  }
-  // 検索語にマッチしたイベントのみ表示
-  if (searchTerm !== "") {
-    const searchRegExp = new RegExp(searchTerm, "i");
-    return channelFilteredList.filter((video) => {
-      return (
-        searchRegExp.test(video.title) ||
-        searchRegExp.test(video.talent.name) ||
-        video.collaboTalents.some((collaborator) => {
-          return searchRegExp.test(collaborator.name);
-        })
-      );
-    });
-  }
-
-  return channelFilteredList;
+        // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
+        return (
+          filterMap.has(video.talent.name) ||
+          video.collaboTalents.some((collaborator) => {
+            return filterMap.has(collaborator.name);
+          })
+        );
+      })
+      .filter((video) => {
+        // live中のみ表示
+        if (!isLiveOnly) return true;
+        return video.isLive;
+      })
+      .filter((video) => {
+        // 検索語にマッチしたイベントのみ表示
+        if (searchTerm === "") return true;
+        return (
+          searchRegExp.test(video.title) ||
+          searchRegExp.test(video.talent.name) ||
+          video.collaboTalents.some((collaborator) => {
+            return searchRegExp.test(collaborator.name);
+          })
+        );
+      })
+  );
 }
 
 function createSectionMap(liverEventList: LiverEvent[]): Record<number, LiverEvent[]> {
