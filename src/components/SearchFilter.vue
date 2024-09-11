@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useChannelFilterStore } from "../store/channelFilterStore";
+import { useStorageStore } from "../store/storageStore";
 
-const filterStore = useChannelFilterStore();
+const filterStore = useStorageStore();
 const inputEl = ref<HTMLInputElement | null>(null);
 
 const searchQuery = ref(filterStore.searchTerm);

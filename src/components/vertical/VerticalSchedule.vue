@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useChannelFilterStore } from "../../store/channelFilterStore";
+import { useStorageStore } from "../../store/storageStore";
 import VerticalScheduleColumn from "./VerticalScheduleColumn.vue";
 import type { LiverEvent } from "@/api";
 import { useTalentStore } from "@/store/talentStore";
@@ -9,7 +9,7 @@ const props = defineProps<{
   liverEventList: LiverEvent[];
 }>();
 
-const channelFilterStore = useChannelFilterStore();
+const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
 const sectionMap = ref<Record<number, LiverEvent[]>>({});
 const hourSections = [23, 22, 21, 20, 19, 18, 12, 6, 0];

@@ -12,7 +12,7 @@ export interface Node {
   [key: string]: string[] | Node;
 }
 
-export const useChannelFilterStore = defineStore("channelFilter", () => {
+export const useStorageStore = defineStore("channelFilter", () => {
   const map = useLocalStorage("talentFilter", new Map<string, boolean>());
   const enabled = useLocalStorage("talentFilterEnabled", true);
   const searchTerm = useLocalStorage("filterSearchTerm", "");

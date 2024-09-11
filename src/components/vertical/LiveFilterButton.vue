@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useChannelFilterStore } from "../../store/channelFilterStore";
+import { useStorageStore } from "../../store/storageStore";
 
-const filterStore = useChannelFilterStore();
+const filterStore = useStorageStore();
 </script>
 
 <template>

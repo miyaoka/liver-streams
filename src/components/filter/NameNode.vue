@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useChannelFilterStore } from "../../store/channelFilterStore";
+import { useStorageStore } from "../../store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 
-const channelFilterStore = useChannelFilterStore();
+const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
 
 const props = defineProps<{

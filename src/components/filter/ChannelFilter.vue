@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useChannelFilterStore } from "../../store/channelFilterStore";
+import { useStorageStore } from "../../store/storageStore";
 import GroupNode from "./GroupNode.vue";
 import channelNames from "@/assets/channelNames.json";
 
-const channelFilterStore = useChannelFilterStore();
+const channelFilterStore = useStorageStore();
 
 const filterCount = computed(() => channelFilterStore.map.size);
 </script>
