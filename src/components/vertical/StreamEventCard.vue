@@ -17,60 +17,6 @@ const talentStore = useTalentStore();
 const dateStore = useDateStore();
 const dialogComponent = ref<InstanceType<typeof StreamEventDialog> | null>(null);
 
-// 配信終了判定
-const isFinished = computed(() => {
-  // 終了時刻が設定されているか（にじさんじのみ）
-  if (props.liverEvent.endAt) return true;
-  // 配信中か
-  if (props.liverEvent.isLive) return false;
-
-  // 配信していない場合
-  const now = Date.now();
-  const startTime = props.liverEvent.startAt.getTime();
-  // 現在時刻を過ぎていなければ開始前
-  if (now < startTime) return false;
-  // ホロライブの場合
-  if (props.liverEvent.affilication === "hololive") {
-    // startTimeの秒数が0以外あれば配信開始済み
-    if (startTime % 1000 !== 0) return true;
-
-    // 秒数が0で1時間経過していたら終了と見なす
-    if (now - startTime > 60 * 60 * 1000) return true;
-  }
-  // それ以外の場合：未終了
-  return false;
-});
-
-const isHovered = computed(() => {
-  const talentNames = [
-    props.liverEvent.talent.name,
-    ...props.liverEvent.collaboTalents.map((t) => t.name),
-  ];
-
-  // eventのタレントとhoverのタレントをマージ
-  const mergedNames = [...talentStore.hoveredTalents, ...talentNames];
-  // 重複を削除
-  const uniqueNames = new Set(mergedNames);
-
-  // 重複があればhover中
-  return uniqueNames.size !== mergedNames.length;
-});
-
-function hoverEvent(liverEvent: LiverEvent | null) {
-  if (!liverEvent) {
-    talentStore.setHoveredTalents([]);
-    return;
-  }
-  const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
-  talentStore.setHoveredTalents(names);
-}
-
-// 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
-function onClickCard(evt: MouseEvent) {
-  evt.preventDefault();
-  dialogComponent.value?.open();
-}
-
 const affilicationLogoMap = {
   nijisanji: nijisanji_logo,
   hololive: hololive_logo,
@@ -115,12 +61,62 @@ const timeDisplay = computed(() => {
   }
   return strs.join(" ");
 });
+
+// 配信終了判定
+const isFinished = computed(() => {
+  // 終了時刻が設定されているか（にじさんじのみ）
+  if (props.liverEvent.endAt) return true;
+  // 配信中か
+  if (props.liverEvent.isLive) return false;
+
+  // 配信していない場合
+  const now = Date.now();
+  const startTime = props.liverEvent.startAt.getTime();
+  // 現在時刻を過ぎていなければ開始前
+  if (now < startTime) return false;
+  // ホロライブの場合
+  if (props.liverEvent.affilication === "hololive") {
+    // startTimeの秒数が0以外あれば配信開始済み
+    if (startTime % 1000 !== 0) return true;
+
+    // 秒数が0で1時間経過していたら終了と見なす
+    if (now - startTime > 60 * 60 * 1000) return true;
+  }
+  // それ以外の場合：未終了
+  return false;
+});
+
+const isHovered = computed(() => {
+  const talentNames = [
+    props.liverEvent.talent.name,
+    ...props.liverEvent.collaboTalents.map((t) => t.name),
+  ];
+
+  // eventのタレントとhoverのタレントをマージ
+  const mergedNames = [...talentStore.hoveredTalents, ...talentNames];
+  // 重複を削除
+  const uniqueNames = new Set(mergedNames);
+
+  // 重複があればhover中
+  return uniqueNames.size !== mergedNames.length;
+});
+
+function hoverEvent(liverEvent: LiverEvent) {
+  const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
+  talentStore.setHoveredTalents(names);
+}
+
+// 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
+function onClickCard(evt: MouseEvent) {
+  evt.preventDefault();
+  dialogComponent.value?.open();
+}
 </script>
 <template>
   <div
     class="relative group"
     @mouseover="hoverEvent(liverEvent)"
-    @mouseleave="talentStore.setHoveredTalents([])"
+    @mouseleave="talentStore.clearHoveredTalents()"
   >
     <a
       ref="button"
@@ -165,8 +161,8 @@ const timeDisplay = computed(() => {
             class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
-            @mouseenter="talentStore.setHoveredTalents([talent.name])"
-            @mouseleave="talentStore.setHoveredTalents([])"
+            @mouseenter="talentStore.setHoveredTalents(talent.name)"
+            @mouseleave="talentStore.clearHoveredTalents()"
             @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
           />
         </div>

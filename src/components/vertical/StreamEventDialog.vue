@@ -60,8 +60,8 @@ defineExpose({
           :src="liverEvent.talent.image"
           class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
           loading="lazy"
-          @mouseover="talentStore.setHoveredTalents([liverEvent.talent.name])"
-          @mouseleave="talentStore.setHoveredTalents([])"
+          @mouseover="talentStore.setHoveredTalents(liverEvent.talent.name)"
+          @mouseleave="talentStore.clearHoveredTalents()"
           @click.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
           @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
         />
@@ -77,8 +77,8 @@ defineExpose({
               class="rounded-full w-[40px] hover:outline hover:outline-red-500 hover:outline-2 max-sm:w-[30px]"
               :title="talent.name"
               loading="lazy"
-              @mouseenter="talentStore.setHoveredTalents([talent.name])"
-              @mouseleave="talentStore.setHoveredTalents([])"
+              @mouseenter="talentStore.setHoveredTalents(talent.name)"
+              @mouseleave="talentStore.clearHoveredTalents()"
               @click.prevent="talentStore.setFocusedTalent(talent.name)"
               @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
             />

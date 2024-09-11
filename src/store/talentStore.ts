@@ -20,8 +20,11 @@ export const useTalentStore = defineStore("talentStore", () => {
       });
     }
   }
-  function setHoveredTalents(talents: string[]) {
-    hoveredTalents.value = talents;
+  function setHoveredTalents(talents: string | string[]) {
+    hoveredTalents.value = Array.isArray(talents) ? talents : [talents];
+  }
+  function clearHoveredTalents() {
+    hoveredTalents.value = [];
   }
 
   return {
@@ -29,5 +32,6 @@ export const useTalentStore = defineStore("talentStore", () => {
     focusedTalent,
     setFocusedTalent,
     setHoveredTalents,
+    clearHoveredTalents,
   };
 });

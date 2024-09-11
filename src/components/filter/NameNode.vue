@@ -53,8 +53,8 @@ watch(channelFilterStore.map, () => {
       v-for="(name, i) in nameList"
       :key="name"
       :title="name"
-      @mouseenter="talentStore.setHoveredTalents([name])"
-      @mouseleave="talentStore.setHoveredTalents([])"
+      @mouseenter="talentStore.setHoveredTalents(name)"
+      @mouseleave="talentStore.clearHoveredTalents()"
       :class="`${talentStore.hoveredTalents.includes(name) ? 'scale-125' : ''}`"
       @contextmenu.prevent="talentStore.setFocusedTalent(name)"
     >
