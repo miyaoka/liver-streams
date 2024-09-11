@@ -77,9 +77,9 @@ const isFinished = computed(() => {
   // ホロライブの場合
   if (props.liverEvent.affilication === "hololive") {
     // startTimeの秒数が0以外あれば配信開始済み
-    if (startTime % 1000 !== 0) return true;
+    if (props.liverEvent.startAt.getSeconds() !== 0) return true;
 
-    // 秒数が0で1時間経過していたら終了と見なす
+    // 秒数が0の場合、1時間経過していたら終了と見なす
     if (now - startTime > 60 * 60 * 1000) return true;
   }
   // それ以外の場合：未終了
