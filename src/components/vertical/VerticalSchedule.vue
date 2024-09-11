@@ -37,7 +37,15 @@ function getFilteredData(
   liverEventList: LiverEvent[],
   searchTerm: string,
   focusedTalent: string | null,
+  isLiveOnly: boolean,
 ): LiverEvent[] {
+  // liveOnly時
+  if (isLiveOnly) {
+    return liverEventList.filter((video) => {
+      return video.isLive;
+    });
+  }
+  // 検索時
   if (searchTerm !== "") {
     const searchRegExp = new RegExp(searchTerm, "i");
     return liverEventList.filter((video) => {
@@ -101,10 +109,18 @@ watch(
     () => channelFilterStore.enabled,
     () => channelFilterStore.searchTerm,
     () => talentStore.focusedTalent,
+    () => channelFilterStore.isLiveOnly,
   ],
-  ([liverEventList, filterMap, filterEnabled, searchTerm, focusedTalent]) => {
+  ([liverEventList, filterMap, filterEnabled, searchTerm, focusedTalent, isLiveOnly]) => {
     sectionMap.value = createSectionMap(
-      getFilteredData(filterMap, filterEnabled, liverEventList, searchTerm, focusedTalent),
+      getFilteredData(
+        filterMap,
+        filterEnabled,
+        liverEventList,
+        searchTerm,
+        focusedTalent,
+        isLiveOnly,
+      ),
     );
   },
   { immediate: true, deep: true },

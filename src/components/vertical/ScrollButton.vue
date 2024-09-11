@@ -20,7 +20,7 @@ function scrollToCurrentTime() {
 <template>
   <button
     title="scroll to current time"
-    class="fixed right-4 bottom-4 p-1 flex bg-white rounded shadow-md"
+    class="p-1 flex bg-white rounded shadow-md"
     @click="scrollToCurrentTime"
   >
     <i class="i-mdi-history w-8 h-8" />
