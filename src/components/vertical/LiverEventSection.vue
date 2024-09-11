@@ -3,17 +3,20 @@ import { computed, ref } from "vue";
 import LiverEventCard from "./LiverEventCard.vue";
 import type { LiverEvent } from "@/api";
 import { useDateStore } from "@/store/dateStore";
+import { mmddhhssDateFormatter } from "@/utils/dateFormat";
 
 const props = defineProps<{
-  section: [string, LiverEvent[]];
-  nextSection: [string, LiverEvent[]] | undefined;
+  section: [number, LiverEvent[]];
+  nextSection: [number, LiverEvent[]] | undefined;
 }>();
 
 const dateStore = useDateStore();
 
-const time = computed(() => Number(props.section[0]));
-const nextTime = computed(() => (props.nextSection ? Number(props.nextSection[0]) : Infinity));
-const videoList = computed(() => props.section[1]);
+const time = computed(() => {
+  return props.section[0];
+});
+const nextTime = computed(() => (props.nextSection ? props.nextSection[0] : Infinity));
+const LiverEventList = computed(() => props.section[1]);
 const isCurrent = computed(() => {
   const now = dateStore.date.getTime();
   return now >= time.value && now < nextTime.value;
@@ -23,20 +26,10 @@ const isPast = computed(() => {
   return now > time.value;
 });
 
-const dateFormatter = new Intl.DateTimeFormat("ja-JP", {
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-});
-
 const sectionEl = ref<HTMLElement | null>(null);
 
 function sectionTime(time: number) {
-  const date = new Date(time);
-
-  const str = dateFormatter.format(date);
-  return str;
+  return mmddhhssDateFormatter.format(time);
 }
 function scrollToSectionTop() {
   if (!sectionEl.value) return;
@@ -61,9 +54,9 @@ function scrollToSectionTop() {
       class="w-full grid grid-cols-[repeat(auto-fill,minmax(440px,1fr))] gap-y-[28px] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
     >
       <LiverEventCard
-        v-for="item in videoList"
-        :key="(Array.isArray(item) ? item[0] : item).url"
-        :liverEvent="item"
+        v-for="liverEvent in LiverEventList"
+        :key="liverEvent.url"
+        :liverEvent="liverEvent"
       />
     </div>
   </section>

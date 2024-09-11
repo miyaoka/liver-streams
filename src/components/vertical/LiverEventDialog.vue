@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import type { LiverEvent } from "@/api";
 import { useTalentStore } from "@/store/talentStore";
-import { dateFormatter } from "@/utils/dateFormat";
+import { fullDateFormatter } from "@/utils/dateFormat";
 import { getThumnail } from "@/utils/youtube";
 
 defineProps<{
@@ -37,7 +37,7 @@ defineExpose({
   >
     <div class="px-4 py-2">
       <div class="font-bold">
-        {{ dateFormatter.format(liverEvent.startAt) }}
+        {{ fullDateFormatter.format(liverEvent.startAt) }}
       </div>
     </div>
 

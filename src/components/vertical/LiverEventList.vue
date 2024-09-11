@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
+import LiverEventSection from "./LiverEventSection.vue";
 import type { LiverEvent } from "@/api";
 import { useStorageStore } from "@/store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
@@ -10,7 +11,7 @@ const props = defineProps<{
 
 const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
-const sectionMap = ref<Record<number, LiverEvent[]>>({});
+const sectionMap = ref<Map<number, LiverEvent[]>>(new Map());
 const hourSections = [23, 22, 21, 20, 19, 18, 12, 6, 0];
 
 onMounted(() => {
@@ -30,7 +31,7 @@ onMounted(() => {
   }
 });
 
-function getFilteredData(
+function getFilteredEventList(
   filterMap: Map<string, boolean>,
   filterEnabled: boolean,
   liverEventList: LiverEvent[],
@@ -86,8 +87,8 @@ function getFilteredData(
   );
 }
 
-function createSectionMap(liverEventList: LiverEvent[]): Record<number, LiverEvent[]> {
-  const sectionVideoList: Record<number, LiverEvent[]> = {};
+function createSectionMap(liverEventList: LiverEvent[]): Map<number, LiverEvent[]> {
+  const sectionMap: Map<number, LiverEvent[]> = new Map();
 
   liverEventList.forEach((liverEvent) => {
     const hour = liverEvent.startAt.getHours();
@@ -95,13 +96,10 @@ function createSectionMap(liverEventList: LiverEvent[]): Record<number, LiverEve
     const sectionHour = hourSections.find((sectionHour) => hour >= sectionHour) ?? 0;
     const sectionTime = new Date(liverEvent.startAt).setHours(sectionHour, 0, 0, 0);
 
-    if (!sectionVideoList[sectionTime]) {
-      sectionVideoList[sectionTime] = [];
-    }
-    sectionVideoList[sectionTime].push(liverEvent);
+    sectionMap.set(sectionTime, [...(sectionMap.get(sectionTime) ?? []), liverEvent]);
   });
 
-  return sectionVideoList;
+  return sectionMap;
 }
 
 watch(
@@ -114,27 +112,30 @@ watch(
     () => channelFilterStore.isLiveOnly,
   ],
   ([liverEventList, filterMap, filterEnabled, searchTerm, focusedTalent, isLiveOnly]) => {
-    sectionMap.value = createSectionMap(
-      getFilteredData(
-        filterMap,
-        filterEnabled,
-        liverEventList,
-        searchTerm,
-        focusedTalent,
-        isLiveOnly,
-      ),
+    const filteredEventList = getFilteredEventList(
+      filterMap,
+      filterEnabled,
+      liverEventList,
+      searchTerm,
+      focusedTalent,
+      isLiveOnly,
     );
+    sectionMap.value = createSectionMap(filteredEventList);
   },
   { immediate: true, deep: true },
 );
+
+const entries = computed(() => {
+  return [...sectionMap.value.entries()];
+});
 </script>
 <template>
-  <template v-if="Object.keys(sectionMap).length > 0">
+  <template v-if="sectionMap.size > 0">
     <LiverEventSection
-      v-for="(section, i) in sectionMap"
+      v-for="(section, i) in entries"
       :key="section[0]"
       :section="section"
-      :nextSection="sectionMap[i + 1]"
+      :nextSection="entries[i + 1]"
     />
   </template>
   <div v-else>no data</div>

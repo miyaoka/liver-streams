@@ -5,7 +5,7 @@ import { getHoloEvents } from "@/api/hololive/schedule";
 import { getNijiLiverMap, getNijiStreams, type NijiLiverMap } from "@/api/nijisanji/nijisanji";
 import FooterMenu from "@/components/menu/FooterMenu.vue";
 import HeaderMenu from "@/components/menu/HeaderMenu.vue";
-import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
+import LiverEventList from "@/components/vertical/LiverEventList.vue";
 import { getChannelIcon } from "@/utils/icons";
 
 const liverEventList = ref<LiverEvent[]>([]);
@@ -88,7 +88,7 @@ onMounted(async () => {
 <template>
   <main class="text-[clamp(11px,11px+0.25vw,15px)]" v-if="liverEventList.length > 0">
     <HeaderMenu />
-    <VerticalSchedule :liverEventList="liverEventList" />
+    <LiverEventList :liverEventList="liverEventList" />
     <FooterMenu />
   </main>
 </template>
