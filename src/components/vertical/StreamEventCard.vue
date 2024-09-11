@@ -42,18 +42,18 @@ const elapsedTime = computed(() => {
 });
 
 const timeDisplay = computed(() => {
-  const { isLive, startAt, endAt } = props.liverEvent;
+  const { isLive, startAt } = props.liverEvent;
   const strs: string[] = [];
 
   // 開始時刻
   strs.push(hhss(startAt));
   // ライブ中
   if (isLive) {
-    strs.push("-");
+    strs.push("- LIVE");
   }
   // 終了時刻
   if (isFinished.value) {
-    strs.push(`- ${endAt ? hhss(endAt) : "終了"}`);
+    strs.push("- 配信済み");
   }
   // 経過時間
   if (elapsedTime.value) {
