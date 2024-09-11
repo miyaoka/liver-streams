@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useChannelFilterStore } from "./filter/channelFilterStore";
 
 const filterStore = useChannelFilterStore();
@@ -8,12 +8,9 @@ const inputEl = ref<HTMLInputElement | null>(null);
 const searchQuery = ref(filterStore.searchTerm);
 let timeout: ReturnType<typeof setTimeout> | null = null;
 
-const isFocused = ref(false);
-const isInput = computed(() => {
-  return searchQuery.value !== "" || isFocused.value;
-});
+const isInput = ref(filterStore.searchTerm !== "");
 
-// debounce
+// 入力文字によるフィルタを遅延実行
 function onInput() {
   if (timeout) {
     clearTimeout(timeout);
@@ -22,30 +19,51 @@ function onInput() {
     filterStore.setSearchTerm(searchQuery.value);
   }, 500);
 }
+
+function onSubmit() {
+  inputEl.value?.blur();
+}
+
+// clickより先にblurが発火するためmousedownしたかを保存
+let isMouseDown = false;
+function onMousedown() {
+  isMouseDown = true;
+}
+function onBlur() {
+  // mousedownした場合はclickで処理させるためblurを無視
+  if (isMouseDown) return;
+  if (searchQuery.value === "") {
+    isInput.value = false;
+  }
+}
 function onClick() {
-  if (filterStore.searchTerm !== "") {
+  isInput.value = !isInput.value;
+  isMouseDown = false;
+  if (isInput.value) {
+    // open
+    inputEl.value?.focus();
+  } else {
+    // close
     filterStore.setSearchTerm("");
     searchQuery.value = "";
-    inputEl.value?.blur();
-    return;
   }
-  inputEl.value?.focus();
 }
 </script>
 
 <template>
   <div class="flex flex-row bg-white">
-    <div :class="`transition-all ${isInput ? 'w-56' : 'w-0'}`">
-      <input
-        class="w-full h-full p-2"
-        ref="inputEl"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-        v-model="searchQuery"
-        @input="onInput"
-      />
+    <div :class="`transition-[width] ${isInput ? 'w-56' : 'w-0'}`">
+      <form @submit.prevent="onSubmit">
+        <input
+          class="w-full h-full p-2"
+          ref="inputEl"
+          v-model="searchQuery"
+          @input="onInput"
+          @blur="onBlur"
+        />
+      </form>
     </div>
-    <button class="flex p-1 m-0 z-30 rounded" @click="onClick">
+    <button class="flex p-1 m-0 z-30 rounded" @click="onClick" @mousedown="onMousedown">
       <i :class="`${isInput ? 'i-mdi-close' : 'i-mdi-search'} h-[32px] w-[32px] text-gray-800`" />
     </button>
   </div>
