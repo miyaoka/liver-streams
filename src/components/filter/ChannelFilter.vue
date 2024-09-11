@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useChannelFilterStore } from "./channelFilterStore";
+import { useChannelFilterStore } from "../../store/channelFilterStore";
 import GroupNode from "./GroupNode.vue";
 import channelNames from "@/assets/channelNames.json";
 

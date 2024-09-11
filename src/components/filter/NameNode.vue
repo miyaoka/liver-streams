@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useChannelFilterStore } from "../filter/channelFilterStore";
+import { useChannelFilterStore } from "../../store/channelFilterStore";
 import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 

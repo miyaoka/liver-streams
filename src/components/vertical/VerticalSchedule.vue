@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useChannelFilterStore } from "../filter/channelFilterStore";
+import { useChannelFilterStore } from "../../store/channelFilterStore";
 import VerticalScheduleColumn from "./VerticalScheduleColumn.vue";
 import type { LiverEvent } from "@/api";
 import { useTalentStore } from "@/store/talentStore";

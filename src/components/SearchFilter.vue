@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useChannelFilterStore } from "./filter/channelFilterStore";
+import { useChannelFilterStore } from "../store/channelFilterStore";
 
 const filterStore = useChannelFilterStore();
 const inputEl = ref<HTMLInputElement | null>(null);

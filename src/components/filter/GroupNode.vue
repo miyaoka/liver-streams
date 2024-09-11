@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import GroupNodeItem from "./GroupNodeItem.vue";
-import type { Node } from "./channelFilterStore";
+import type { Node } from "../../store/channelFilterStore";
 
 const props = defineProps<{
   group: Node;

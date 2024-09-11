@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useChannelFilterStore } from "../filter/channelFilterStore";
+import { useChannelFilterStore } from "../../store/channelFilterStore";
 
 const filterStore = useChannelFilterStore();
 </script>

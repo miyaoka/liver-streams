@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { type Node } from "../filter/channelFilterStore";
+import { type Node } from "../../store/channelFilterStore";
 import GroupNode from "./GroupNode.vue";
 import NameNode from "./NameNode.vue";
 
