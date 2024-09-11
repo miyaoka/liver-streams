@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import VerticalScheduleSectionItem from "./VerticalScheduleSectionItem.vue";
+import StreamEventCard from "./StreamEventCard.vue";
 import type { LiverEvent } from "@/api";
 import { useDateStore } from "@/store/dateStore";
 
@@ -60,7 +60,7 @@ function scrollToSectionTop() {
     <div
       class="w-full grid grid-cols-[repeat(auto-fill,minmax(440px,1fr))] gap-y-[28px] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
     >
-      <VerticalScheduleSectionItem
+      <StreamEventCard
         v-for="item in videoList"
         :key="(Array.isArray(item) ? item[0] : item).url"
         :liverEvent="item"

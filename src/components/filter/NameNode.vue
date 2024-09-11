@@ -45,10 +45,6 @@ watch(channelFilterStore.map, () => {
   checkList.value = props.nameList.map((name) => channelFilterStore.map.get(name) ?? false);
   update();
 });
-
-function hoverTalent(name: string | null) {
-  talentStore.hoveredTalents = name ? [name] : [];
-}
 </script>
 <template>
   <div class="flex fles-row flex-wrap ml-20 gap-x-2 -mt-10">
@@ -57,8 +53,8 @@ function hoverTalent(name: string | null) {
       v-for="(name, i) in nameList"
       :key="name"
       :title="name"
-      @mouseenter="hoverTalent(name)"
-      @mouseleave="hoverTalent(null)"
+      @mouseenter="talentStore.setHoveredTalents([name])"
+      @mouseleave="talentStore.setHoveredTalents([])"
       :class="`${talentStore.hoveredTalents.includes(name) ? 'scale-125' : ''}`"
       @contextmenu.prevent="talentStore.setFocusedTalent(name)"
     >

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import StreamEventDialog from "./StreamEventDialog.vue";
 import type { LiverEvent } from "@/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { useDateStore } from "@/store/dateStore";
 import { useTalentStore } from "@/store/talentStore";
-import { dateFormatter, hhss } from "@/utils/dateFormat";
+import { hhss } from "@/utils/dateFormat";
+import { getThumnail } from "@/utils/youtube";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
@@ -13,7 +15,7 @@ const props = defineProps<{
 
 const talentStore = useTalentStore();
 const dateStore = useDateStore();
-const dialogEl = ref<HTMLDialogElement | null>(null);
+const dialogComponent = ref<InstanceType<typeof StreamEventDialog> | null>(null);
 
 // 配信終了判定
 const isFinished = computed(() => {
@@ -54,42 +56,19 @@ const isHovered = computed(() => {
   return uniqueNames.size !== mergedNames.length;
 });
 
-// 通常クリック時はダイアログを開き、ホイールクリックでリンクを開く
-function onClickCard(evt: MouseEvent) {
-  evt.preventDefault();
-  if (!dialogEl.value) return;
-  dialogEl.value.showModal();
-}
-// ダイアログ外をクリックしたら閉じる
-function onClickDialog(evt: MouseEvent) {
-  if (!dialogEl.value) return;
-  // ターゲットがダイアログならダイアログ外判定
-  if (evt.target !== dialogEl.value) return;
-  evt.preventDefault();
-  dialogEl.value.close();
-}
-
 function hoverEvent(liverEvent: LiverEvent | null) {
   if (!liverEvent) {
-    talentStore.hoveredTalents = [];
+    talentStore.setHoveredTalents([]);
     return;
   }
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
-  talentStore.hoveredTalents = names;
+  talentStore.setHoveredTalents(names);
 }
 
-function hoverTalent(name: string | null) {
-  talentStore.hoveredTalents = name ? [name] : [];
-}
-
-// サムネイルの画質を上げる
-function getThumnail(url: string, quolity: string) {
-  // , 'sd'画像がyoutubeの場合、mq(320x180)のurlになっているのでsd(640x480)に置換する
-  const groups = url.match(/^(?<base>.+\/)(?<quolity>.+default)(?<filename>(_live)?\..+)$/)?.groups;
-  if (!groups) return url;
-
-  const { base, filename } = groups;
-  return `${base}${quolity}default${filename}`;
+// 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
+function onClickCard(evt: MouseEvent) {
+  evt.preventDefault();
+  dialogComponent.value?.open();
 }
 
 const affilicationLogoMap = {
@@ -138,7 +117,11 @@ const timeDisplay = computed(() => {
 });
 </script>
 <template>
-  <div class="relative group" @mouseover="hoverEvent(liverEvent)" @mouseleave="hoverTalent(null)">
+  <div
+    class="relative group"
+    @mouseover="hoverEvent(liverEvent)"
+    @mouseleave="talentStore.setHoveredTalents([])"
+  >
     <a
       ref="button"
       :href="liverEvent.url"
@@ -182,8 +165,8 @@ const timeDisplay = computed(() => {
             class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
-            @mouseenter="hoverTalent(talent.name)"
-            @mouseleave="hoverTalent(null)"
+            @mouseenter="talentStore.setHoveredTalents([talent.name])"
+            @mouseleave="talentStore.setHoveredTalents([])"
             @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
           />
         </div>
@@ -195,64 +178,7 @@ const timeDisplay = computed(() => {
         loading="lazy"
       />
     </a>
-
-    <dialog
-      ref="dialogEl"
-      @click="onClickDialog"
-      class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl"
-    >
-      <div class="px-4 py-2">
-        <div class="font-bold">
-          {{ dateFormatter.format(liverEvent.startAt) }}
-        </div>
-      </div>
-
-      <a :href="liverEvent.url" target="_blank">
-        <img
-          :src="getThumnail(liverEvent.thumbnail, 'sd')"
-          class="w-[480px] aspect-video object-cover"
-          loading="lazy"
-        />
-      </a>
-
-      <div class="px-6 py-4 flex flex-col gap-2 max-sm:p-3">
-        <div class="font-bold text-lg">
-          <a :href="liverEvent.url" class="hover:underline" target="_blank">
-            {{ liverEvent.title }}
-          </a>
-        </div>
-        <div class="flex flex-row gap-2 items-center">
-          <img
-            :src="liverEvent.talent.image"
-            class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
-            loading="lazy"
-            @mouseover="hoverTalent(liverEvent.talent.name)"
-            @mouseleave="hoverTalent(null)"
-            @click.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
-            @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
-          />
-          <div>
-            <div class="font-bold text-base">
-              {{ liverEvent.talent.name }}
-            </div>
-            <div class="flex flex-row flex-wrap">
-              <img
-                v-for="talent in liverEvent.collaboTalents"
-                :key="talent.image"
-                :src="talent.image"
-                class="rounded-full w-[40px] hover:outline hover:outline-red-500 hover:outline-2 max-sm:w-[30px]"
-                :title="talent.name"
-                loading="lazy"
-                @mouseenter="hoverTalent(talent.name)"
-                @mouseleave="hoverTalent(null)"
-                @click.prevent="talentStore.setFocusedTalent(talent.name)"
-                @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </dialog>
+    <StreamEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
   </div>
 </template>
 

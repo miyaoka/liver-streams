@@ -20,10 +20,14 @@ export const useTalentStore = defineStore("talentStore", () => {
       });
     }
   }
+  function setHoveredTalents(talents: string[]) {
+    hoveredTalents.value = talents;
+  }
 
   return {
     hoveredTalents,
     focusedTalent,
     setFocusedTalent,
+    setHoveredTalents,
   };
 });
