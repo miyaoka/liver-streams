@@ -3,8 +3,8 @@ import { onMounted, ref } from "vue";
 import type { LiverEvent } from "@/api";
 import { getHoloEvents } from "@/api/hololive/schedule";
 import { getNijiLiverMap, getNijiStreams, type NijiLiverMap } from "@/api/nijisanji/nijisanji";
-import FooterMenu from "@/components/FooterMenu.vue";
-import HeaderMenu from "@/components/HeaderMenu.vue";
+import FooterMenu from "@/components/menu/FooterMenu.vue";
+import HeaderMenu from "@/components/menu/HeaderMenu.vue";
 import VerticalSchedule from "@/components/vertical/VerticalSchedule.vue";
 import { getChannelIcon } from "@/utils/icons";
 

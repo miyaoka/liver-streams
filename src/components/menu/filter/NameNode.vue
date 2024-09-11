@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useStorageStore } from "../../store/storageStore";
+import { useStorageStore } from "@/store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 

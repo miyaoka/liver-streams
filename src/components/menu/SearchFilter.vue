@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useStorageStore } from "../store/storageStore";
+import { useStorageStore } from "@/store/storageStore";
 
 const filterStore = useStorageStore();
 const inputEl = ref<HTMLInputElement | null>(null);
