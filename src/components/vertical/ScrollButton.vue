@@ -2,13 +2,14 @@
 function scrollToCurrentTime() {
   const now = Date.now();
   const eventList = [...document.querySelectorAll("[data-event-time]")];
-  const eventIndex = eventList.findIndex((el) => {
+  const foundIndex = eventList.findIndex((el) => {
     const time = Number(el.getAttribute("data-event-time"));
     // 現在時刻を超える最初のイベントを探す
     if (time > now) return true;
   });
-  // 現在時刻の直前のイベント
-  const prevEvent = eventList[eventIndex - 1];
+  // 現在時刻の直前のイベント or 最後のイベント
+  const prevEvent =
+    eventList[foundIndex === 0 ? 0 : foundIndex - 1] ?? eventList[eventList.length - 1];
 
   if (prevEvent) {
     // イベントにスクロール
