@@ -143,7 +143,7 @@ const timeDisplay = computed(() => {
       ref="button"
       :href="liverEvent.url"
       target="_blank"
-      class="transition-all max-w-[560px] h-[108px] shadow-md flex flex-row justify-center items-center gap-[12px] pl-2 overflow-hidden rounded-[10px] bg-white max-sm:gap-1 max-sm:pl-1 max-sm:h-auto"
+      class="h-[clamp(80px,80px+2vw,108px)] shadow-md flex flex-row justify-center items-center gap-1 pl-2 overflow-hidden rounded-[10px] bg-white max-sm:pl-1"
       :class="{
         isLive: liverEvent.isLive,
         isFinished: isFinished,
@@ -158,26 +158,28 @@ const timeDisplay = computed(() => {
       </div>
       <img
         :src="affilicationLogoMap[liverEvent.affilication]"
-        class="absolute z-10 bottom-[4px] left-[2px] w-[clamp(20px,4vw,28px)]"
+        class="absolute z-10 bottom-[4px] left-[4px] w-[clamp(14px,14px+0.4vw,20px)]"
         loading="lazy"
       />
-      <div class="w-[70px] max-sm:w-[clamp(30px,10vw,70px)]">
-        <img
-          :src="liverEvent.talent.image"
-          class="rounded-full w-full aspect-square border group-hover:scale-110 transition-transform"
-          loading="lazy"
-          @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
-        />
-      </div>
-      <div class="flex flex-col items-start gap-p2 flex-1 max-sm:py-1">
+
+      <img
+        :src="liverEvent.talent.image"
+        class="rounded-full w-[clamp(36px,36px+1vw,60px)] border group-hover:scale-110"
+        loading="lazy"
+        @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
+      />
+
+      <div
+        class="flex flex-col h-full justify-center relative items-start gap-p2 flex-1 max-sm:py-1 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
+      >
         <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
         <div class="line-clamp-2">{{ liverEvent.title }}</div>
-        <div class="flex flex-row z-10">
+        <div class="absolute bottom-[4px] flex flex-row z-10">
           <img
             v-for="talent in liverEvent.collaboTalents"
             :key="talent.image"
             :src="talent.image"
-            class="rounded-full w-[24px] h-[24px] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
+            class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
             :title="talent.name"
             loading="lazy"
             @mouseenter="hoverTalent(talent.name)"
@@ -189,7 +191,7 @@ const timeDisplay = computed(() => {
 
       <img
         :src="getThumnail(liverEvent.thumbnail, 'mq')"
-        class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)] group-hover:scale-110 transition-transform"
+        class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)] group-hover:scale-110"
         loading="lazy"
       />
     </a>

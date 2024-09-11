@@ -46,7 +46,7 @@ function scrollToSectionTop() {
 <template>
   <section
     ref="sectionEl"
-    :class="`flex flex-col items-center gap-[20px]  pt-4 ${isCurrent ? 'bg-yellow-100' : isPast ? 'bg-gray-200' : 'bg-sky-100'}`"
+    :class="`flex flex-col items-center gap-[20px] pt-4 ${isCurrent ? 'bg-yellow-100' : isPast ? 'bg-gray-200' : 'bg-sky-100'}`"
     :data-time="time"
   >
     <div class="sticky z-20 top-4">
@@ -58,7 +58,7 @@ function scrollToSectionTop() {
       </button>
     </div>
     <div
-      class="max-w-full grid grid-cols-[repeat(auto-fill,560px)] gap-x-[16px] gap-y-[28px] px-4 py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(480px,1fr))] max-sm:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] max-sm:px-2"
+      class="w-full grid grid-cols-[repeat(auto-fill,minmax(440px,1fr))] gap-y-[28px] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
     >
       <VerticalScheduleSectionItem
         v-for="item in videoList"
