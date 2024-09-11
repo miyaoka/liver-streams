@@ -118,18 +118,7 @@ function onClickCard(evt: MouseEvent) {
     @mouseover="hoverEvent(liverEvent)"
     @mouseleave="talentStore.clearHoveredTalents()"
   >
-    <a
-      ref="button"
-      :href="liverEvent.url"
-      target="_blank"
-      class="h-[clamp(80px,80px+2vw,108px)] shadow-md flex flex-row justify-center items-center gap-1 pl-2 overflow-hidden rounded-[10px] bg-white max-sm:pl-1"
-      :class="{
-        isLive: liverEvent.isLive,
-        isFinished: isFinished,
-        isHovered: isHovered,
-      }"
-      @click="onClickCard"
-    >
+    <a ref="button" :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
         :class="`absolute z-10 left-0 ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
       >
@@ -141,38 +130,47 @@ function onClickCard(evt: MouseEvent) {
         loading="lazy"
       />
 
-      <img
-        :src="liverEvent.talent.image"
-        class="rounded-full w-[clamp(36px,36px+1vw,60px)] border group-hover:scale-110"
-        loading="lazy"
-        @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
-      />
-
       <div
-        class="flex flex-col h-full justify-center relative items-start gap-p2 flex-1 max-sm:py-1 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
+        class="flex flex-row justify-center items-center gap-[2px] h-[clamp(80px,80px+2vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md"
+        :class="{
+          isLive: liverEvent.isLive,
+          isFinished: isFinished,
+          isHovered: isHovered,
+        }"
       >
-        <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
-        <div class="line-clamp-2">{{ liverEvent.title }}</div>
-        <div class="absolute bottom-[4px] flex flex-row z-10">
-          <img
-            v-for="talent in liverEvent.collaboTalents"
-            :key="talent.image"
-            :src="talent.image"
-            class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
-            :title="talent.name"
-            loading="lazy"
-            @mouseenter="talentStore.setHoveredTalents(talent.name)"
-            @mouseleave="talentStore.clearHoveredTalents()"
-            @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
-          />
-        </div>
-      </div>
+        <img
+          :src="liverEvent.talent.image"
+          class="rounded-full w-[clamp(36px,36px+1vw,60px)] border group-hover:scale-110"
+          loading="lazy"
+          @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
+        />
 
-      <img
-        :src="getThumnail(liverEvent.thumbnail, 'mq')"
-        class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)] group-hover:scale-110"
-        loading="lazy"
-      />
+        <div
+          class="flex flex-col h-full justify-center relative items-start gap-p2 flex-1 max-sm:py-1 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
+        >
+          <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
+          <div class="line-clamp-2">{{ liverEvent.title }}</div>
+          <div class="absolute bottom-[4px] flex flex-row z-10">
+            <img
+              v-for="talent in liverEvent.collaboTalents"
+              :key="talent.image"
+              :src="talent.image"
+              class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-white outline-1 hover:outline hover:outline-red-500 hover:outline-2"
+              :title="talent.name"
+              loading="lazy"
+              @mouseenter="talentStore.setHoveredTalents(talent.name)"
+              @mouseleave="talentStore.clearHoveredTalents()"
+              @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
+            />
+          </div>
+        </div>
+
+        <img
+          :src="getThumnail(liverEvent.thumbnail, 'mq')"
+          class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)] group-hover:scale-110"
+          loading="lazy"
+        />
+      </div>
     </a>
     <StreamEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
   </div>
