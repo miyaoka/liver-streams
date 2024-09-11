@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStorageStore } from "../../store/storageStore";
+import { useStorageStore } from "@/store/storageStore";
 
 const filterStore = useStorageStore();
 </script>

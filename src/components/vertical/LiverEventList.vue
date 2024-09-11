@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
-import { useStorageStore } from "../../store/storageStore";
-import VerticalScheduleColumn from "./VerticalScheduleColumn.vue";
 import type { LiverEvent } from "@/api";
+import { useStorageStore } from "@/store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
 
 const props = defineProps<{
@@ -130,6 +129,13 @@ watch(
 );
 </script>
 <template>
-  <VerticalScheduleColumn v-if="Object.keys(sectionMap).length > 0" :sectionMap="sectionMap" />
+  <template v-if="Object.keys(sectionMap).length > 0">
+    <LiverEventSection
+      v-for="(section, i) in sectionMap"
+      :key="section[0]"
+      :section="section"
+      :nextSection="sectionMap[i + 1]"
+    />
+  </template>
   <div v-else>no data</div>
 </template>

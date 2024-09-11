@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import StreamEventDialog from "./StreamEventDialog.vue";
+import LiverEventDialog from "./LiverEventDialog.vue";
 import type { LiverEvent } from "@/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
@@ -15,7 +15,7 @@ const props = defineProps<{
 
 const talentStore = useTalentStore();
 const dateStore = useDateStore();
-const dialogComponent = ref<InstanceType<typeof StreamEventDialog> | null>(null);
+const dialogComponent = ref<InstanceType<typeof LiverEventDialog> | null>(null);
 
 const affilicationLogoMap = {
   nijisanji: nijisanji_logo,
@@ -173,7 +173,7 @@ function onClickCard(evt: MouseEvent) {
         />
       </div>
     </a>
-    <StreamEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
+    <LiverEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
   </div>
 </template>
 
