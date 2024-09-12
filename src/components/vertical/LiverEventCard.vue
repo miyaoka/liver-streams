@@ -131,16 +131,15 @@ function onClickCard(evt: MouseEvent) {
       />
 
       <div
-        class="flex flex-row justify-center items-center gap-1 h-[clamp(80px,80px+1vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md pl-2"
+        class="flex flex-row justify-center items-center gap-1 h-[clamp(80px,80px+1vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md"
         :class="{
-          isLive: liverEvent.isLive,
           isFinished: isFinished,
           isHovered: isHovered,
         }"
       >
         <img
           :src="liverEvent.talent.image"
-          class="rounded-full w-[clamp(36px,36px+1vw,60px)] bg-white group-hover:scale-110"
+          class="rounded-full w-[clamp(36px,36px+1vw,60px)] bg-white ml-2 group-hover:scale-105 transition-transform"
           loading="lazy"
           @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
         />
@@ -167,9 +166,17 @@ function onClickCard(evt: MouseEvent) {
 
         <img
           :src="getThumnail(liverEvent.thumbnail, 'mq')"
-          class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)]"
+          class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)] group-hover:scale-105 transition-transform"
           loading="lazy"
         />
+
+        <div
+          class="absolute w-full h-full rounded-[10px]"
+          :class="{
+            isLive: liverEvent.isLive,
+            isHoveredOutline: isHovered,
+          }"
+        ></div>
       </div>
     </a>
     <LiverEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
@@ -178,10 +185,13 @@ function onClickCard(evt: MouseEvent) {
 
 <style scoped>
 .isLive {
-  @apply outline outline-[3px] -outline-offset-[3px] outline-red-600;
+  @apply outline outline-[3px] -outline-offset-[3px] outline-red-600 !important;
 }
 .isHovered {
   @apply bg-amber-200;
+}
+.isHoveredOutline {
+  @apply outline outline-[2px] -outline-offset-[2px] outline-amber-600;
 }
 .isFinished:not(.isHovered) {
   @apply bg-slate-50;
