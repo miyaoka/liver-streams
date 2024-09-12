@@ -49,16 +49,13 @@ const timeDisplay = computed(() => {
   strs.push(hhss(startAt));
   // ライブ中
   if (isLive) {
-    strs.push(" -");
+    strs.push("-");
   }
   // 終了時刻
   if (isFinished.value) {
     strs.push("- 配信済み");
   }
-  // 経過時間
-  if (elapsedTime.value) {
-    strs.push(`(${elapsedTime.value}hr)`);
-  }
+
   return strs.join(" ");
 });
 
@@ -125,6 +122,7 @@ function onClickCard(evt: MouseEvent) {
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle w-5 h-5" />
         <span>{{ timeDisplay }}</span>
+        <span v-if="elapsedTime" class="font-normal">{{ `(${elapsedTime}hr)` }}</span>
       </div>
       <img
         :src="affilicationLogoMap[liverEvent.affilication]"
