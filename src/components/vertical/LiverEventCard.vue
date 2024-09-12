@@ -171,7 +171,7 @@ function onClickCard(evt: MouseEvent) {
         />
 
         <div
-          class="absolute w-full h-full rounded-[10px]"
+          class="pointer-events-none absolute w-full h-full rounded-[10px]"
           :class="{
             isLive: liverEvent.isLive,
             isHoveredOutline: isHovered,
