@@ -164,10 +164,10 @@ function onClickCard(evt: MouseEvent) {
           </div>
         </div>
 
-        <div class="h-full aspect-video max-sm:w-[clamp(140px,30vw,200px)] overflow-hidden">
+        <div class="h-full aspect-video max-sm:w-[clamp(140px,30vw,200px)] overflow-hidden flex">
           <img
             :src="getThumnail(liverEvent.thumbnail, 'mq')"
-            class="group-hover:scale-125 transition-transform"
+            class="object-cover w-full h-full group-hover:scale-125 transition-transform"
             loading="lazy"
           />
         </div>
