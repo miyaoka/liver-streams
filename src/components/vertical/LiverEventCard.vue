@@ -131,7 +131,7 @@ function onClickCard(evt: MouseEvent) {
       />
 
       <div
-        class="flex flex-row justify-center items-center gap-1 h-[clamp(80px,80px+1vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md"
+        class="flex flex-row justify-center items-center gap-1 h-[clamp(80px,80px+1vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md transition-colors"
         :class="{
           isFinished: isFinished,
           isHovered: isHovered,
@@ -169,7 +169,7 @@ function onClickCard(evt: MouseEvent) {
         <div class="h-full aspect-video max-sm:w-[clamp(140px,30vw,200px)] overflow-hidden flex">
           <img
             :src="getThumnail(liverEvent.thumbnail, 'mq')"
-            class="object-cover w-full h-full group-hover:scale-125 transition-transform"
+            class="object-cover w-full h-full group-hover:scale-110 transition-transform"
             loading="lazy"
           />
         </div>
