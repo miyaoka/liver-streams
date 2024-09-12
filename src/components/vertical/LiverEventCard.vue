@@ -49,7 +49,7 @@ const timeDisplay = computed(() => {
   strs.push(hhss(startAt));
   // ライブ中
   if (isLive) {
-    strs.push("- LIVE");
+    strs.push(" -");
   }
   // 終了時刻
   if (isFinished.value) {
@@ -121,8 +121,9 @@ function onClickCard(evt: MouseEvent) {
   >
     <a ref="button" :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        :class="`absolute z-10 left-0 ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
+        :class="`absolute z-10 left-0 flex flex-row items-center gap-1 ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
       >
+        <i v-if="liverEvent.isLive" class="i-mdi-play w-4 h-4" />
         <span>{{ timeDisplay }}</span>
       </div>
       <img
