@@ -139,7 +139,7 @@ function onClickCard(evt: MouseEvent) {
       >
         <img
           :src="liverEvent.talent.image"
-          class="rounded-full w-[clamp(36px,36px+1vw,60px)] bg-white ml-2 group-hover:scale-105 transition-transform"
+          class="rounded-full w-[clamp(36px,36px+1vw,60px)] bg-white ml-2 group-hover:scale-110 transition-transform"
           loading="lazy"
           @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
         />
@@ -164,11 +164,13 @@ function onClickCard(evt: MouseEvent) {
           </div>
         </div>
 
-        <img
-          :src="getThumnail(liverEvent.thumbnail, 'mq')"
-          class="aspect-video object-cover h-full max-sm:w-[clamp(140px,30vw,200px)] group-hover:scale-105 transition-transform"
-          loading="lazy"
-        />
+        <div class="h-full aspect-video max-sm:w-[clamp(140px,30vw,200px)] overflow-hidden">
+          <img
+            :src="getThumnail(liverEvent.thumbnail, 'mq')"
+            class="group-hover:scale-125 transition-transform"
+            loading="lazy"
+          />
+        </div>
 
         <div
           class="pointer-events-none absolute w-full h-full rounded-[10px]"
