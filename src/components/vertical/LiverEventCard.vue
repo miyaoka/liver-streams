@@ -123,7 +123,7 @@ function onClickCard(evt: MouseEvent) {
       <div
         :class="`absolute z-10 left-0 flex flex-row items-center gap-1 ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
       >
-        <i v-if="liverEvent.isLive" class="i-mdi-play w-4 h-4" />
+        <i v-if="liverEvent.isLive" class="i-mdi-play-circle w-5 h-5" />
         <span>{{ timeDisplay }}</span>
       </div>
       <img
