@@ -147,7 +147,7 @@ function onClickCard(evt: MouseEvent) {
         <div
           class="flex flex-col h-full justify-center relative items-start pb-2 flex-1 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
         >
-          <h3 class="font-bold">{{ liverEvent.talent.name }}</h3>
+          <h3 class="font-bold line-clamp-1">{{ liverEvent.talent.name }}</h3>
           <div class="line-clamp-2">{{ liverEvent.title }}</div>
           <div class="absolute bottom-1 flex flex-row z-10">
             <img
