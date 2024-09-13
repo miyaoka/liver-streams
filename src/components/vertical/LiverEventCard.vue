@@ -156,7 +156,7 @@ function onClickCard(evt: MouseEvent) {
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] outline outline-orange-400 outline-1 hover:outline hover:outline-red-500 hover:outline-2"
+              class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] aspect-square outline outline-orange-400 outline-1 hover:outline hover:outline-red-500 hover:outline-2"
               :title="talent.name"
               loading="lazy"
               @mouseenter="talentStore.setHoveredTalents(talent.name)"
