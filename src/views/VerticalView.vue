@@ -10,6 +10,7 @@ import { getChannelIcon } from "@/utils/icons";
 
 const liverEventList = ref<LiverEvent[]>([]);
 const isDev = false;
+const fetchInterval = 5 * 60 * 1000; // 1min
 
 async function getStreams({
   isDev,
@@ -80,8 +81,8 @@ onMounted(async () => {
   };
   setStreams();
 
-  // 5分毎にスケジュールを再取得
-  setInterval(setStreams, 5 * 60 * 1000);
+  // 一定時間ごとにスケジュールを再取得
+  setInterval(setStreams, fetchInterval);
 });
 </script>
 
