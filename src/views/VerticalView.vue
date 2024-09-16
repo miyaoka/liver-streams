@@ -9,19 +9,12 @@ import LiverEventList from "@/components/vertical/LiverEventList.vue";
 import { getChannelIcon } from "@/utils/icons";
 
 const liverEventList = ref<LiverEvent[]>([]);
-const isDev = false;
 const fetchInterval = 5 * 60 * 1000; // 1min
 
-async function getStreams({
-  isDev,
-  nijiLiverMap,
-}: {
-  isDev: boolean;
-  nijiLiverMap: NijiLiverMap;
-}): Promise<LiverEvent[]> {
+async function getStreams({ nijiLiverMap }: { nijiLiverMap: NijiLiverMap }): Promise<LiverEvent[]> {
   const [holoEvents, nijiEvents] = await Promise.all([
-    getHoloEvents(isDev),
-    getNijiEvents({ isDev, nijiLiverMap }),
+    getHoloEvents(),
+    getNijiEvents({ nijiLiverMap }),
   ]);
 
   const wholeEvents = [...holoEvents, ...nijiEvents].sort(
@@ -31,13 +24,11 @@ async function getStreams({
 }
 
 async function getNijiEvents({
-  isDev,
   nijiLiverMap,
 }: {
-  isDev: boolean;
   nijiLiverMap: NijiLiverMap;
 }): Promise<LiverEvent[]> {
-  const nijiStreams = await getNijiStreams(isDev);
+  const nijiStreams = await getNijiStreams();
 
   function getTalent(id: string) {
     const talent = nijiLiverMap[id];
@@ -72,10 +63,10 @@ async function getNijiEvents({
 }
 
 onMounted(async () => {
-  const nijiLiverMap = await getNijiLiverMap(true);
+  const nijiLiverMap = await getNijiLiverMap();
 
   const setStreams = () => {
-    getStreams({ isDev, nijiLiverMap }).then((streams) => {
+    getStreams({ nijiLiverMap }).then((streams) => {
       liverEventList.value = streams;
     });
   };

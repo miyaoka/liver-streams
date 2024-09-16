@@ -30,15 +30,15 @@ export interface HoloTelent {
   iconImageUrl: string;
 }
 
-function getData(isDev: boolean): Promise<HoloSchedule> {
-  if (isDev) {
+function getData(): Promise<HoloSchedule> {
+  if (import.meta.env.VITE_TEST_DATA) {
     return import("./sample4.json").then((res) => res.default);
   }
   return fetch(holoAPI).then((res) => res.json());
 }
 
-export async function getHoloEvents(isDev: boolean): Promise<LiverEvent[]> {
-  const data = await getData(isDev);
+export async function getHoloEvents(): Promise<LiverEvent[]> {
+  const data = await getData();
 
   const wholeVideoList = data.dateGroupList.map((dateGroup) => dateGroup.videoList).flat();
 

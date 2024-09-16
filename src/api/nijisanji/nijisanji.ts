@@ -26,8 +26,8 @@ const proxyApiBase = import.meta.env.DEV
   ? "http://localhost:3000/api"
   : "https://nijiapi-proxy.vercel.app/api";
 
-async function _getNijiLiverMap(isDev: boolean): Promise<NijiLiverMap> {
-  if (isDev) {
+async function _getNijiLiverMap(): Promise<NijiLiverMap> {
+  if (import.meta.env.VITE_TEST_DATA) {
     return import("./sample3/livers.json").then((res) => res.default);
   }
 
@@ -35,8 +35,8 @@ async function _getNijiLiverMap(isDev: boolean): Promise<NijiLiverMap> {
   return fetch(url).then((res) => res.json());
 }
 
-export async function getNijiLiverMap(isDev: boolean): Promise<NijiLiverMap> {
-  const liverMap = await _getNijiLiverMap(isDev);
+export async function getNijiLiverMap(): Promise<NijiLiverMap> {
+  const liverMap = await _getNijiLiverMap();
 
   // Reduce image size
   return Object.entries(liverMap).reduce(
@@ -52,8 +52,8 @@ export async function getNijiLiverMap(isDev: boolean): Promise<NijiLiverMap> {
   );
 }
 
-export async function getNijiStreams(isDev: boolean): Promise<NijiStream[]> {
-  if (isDev) {
+export async function getNijiStreams(): Promise<NijiStream[]> {
+  if (import.meta.env.VITE_TEST_DATA) {
     return await import("./sample3/streams.json").then((res) => res.default);
   }
 
