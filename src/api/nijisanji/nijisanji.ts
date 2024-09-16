@@ -22,8 +22,9 @@ export interface NijiLiverMap {
   [talentId: string]: NijiLiver;
 }
 
-// const proxyApiBase = "http://localhost:3000/api";
-const proxyApiBase = "https://nijiapi-proxy.vercel.app/api";
+const proxyApiBase = import.meta.env.DEV
+  ? "http://localhost:3000/api"
+  : "https://nijiapi-proxy.vercel.app/api";
 
 async function _getNijiLiverMap(isDev: boolean): Promise<NijiLiverMap> {
   if (isDev) {
