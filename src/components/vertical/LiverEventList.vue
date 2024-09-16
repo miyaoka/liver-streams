@@ -138,5 +138,11 @@ const entries = computed(() => {
       :nextSection="entries[i + 1]"
     />
   </template>
-  <div v-else>no data</div>
+  <div
+    v-else
+    class="px-4 py-20 flex flex-col h-screen items-center bg-gradient-to-b from-zinc-200 to-white"
+  >
+    <i class="i-mdi-file-document-error w-16 h-16 text-zinc-400" />
+    <p class="text-base font-bold text-zinc-400">no data</p>
+  </div>
 </template>
