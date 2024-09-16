@@ -27,12 +27,13 @@ const proxyApiBase = import.meta.env.DEV
   : "https://nijiapi-proxy.vercel.app/api";
 
 async function _getNijiLiverMap(): Promise<NijiLiverMap> {
-  if (import.meta.env.VITE_TEST_DATA) {
-    return import("./sample3/livers.json").then((res) => res.default);
-  }
+  // if (import.meta.env.VITE_TEST_DATA) {
+  // 重いのでローカルファイルから取得する
+  return import("./sample3/livers.json").then((res) => res.default);
+  // }
 
-  const url = new URL(`${proxyApiBase}/livers`);
-  return fetch(url).then((res) => res.json());
+  // const url = new URL(`${proxyApiBase}/livers`);
+  // return fetch(url).then((res) => res.json());
 }
 
 export async function getNijiLiverMap(): Promise<NijiLiverMap> {
