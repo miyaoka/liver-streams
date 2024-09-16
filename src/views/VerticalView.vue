@@ -2,7 +2,12 @@
 import { onMounted, ref } from "vue";
 import type { LiverEvent } from "@/api";
 import { getHoloEvents } from "@/api/hololive/schedule";
-import { getNijiLiverMap, getNijiStreams, type NijiLiverMap } from "@/api/nijisanji/nijisanji";
+import {
+  getNijiLiverMap,
+  getNijiStreams,
+  type NijiLiverMap,
+  type NijiStream,
+} from "@/api/nijisanji/nijisanji";
 import FooterMenu from "@/components/menu/FooterMenu.vue";
 import HeaderMenu from "@/components/menu/HeaderMenu.vue";
 import LiverEventList from "@/components/vertical/LiverEventList.vue";
@@ -11,25 +16,25 @@ import { getChannelIcon } from "@/utils/icons";
 const liverEventList = ref<LiverEvent[]>([]);
 const fetchInterval = 1 * 60 * 1000; // 1min
 
+// ホロライブとにじさんじの配信情報を取得
 async function getStreams({ nijiLiverMap }: { nijiLiverMap: NijiLiverMap }): Promise<LiverEvent[]> {
-  const [holoEvents, nijiEvents] = await Promise.all([
-    getHoloEvents(),
-    getNijiEvents({ nijiLiverMap }),
-  ]);
+  const [holoEvents, nijiStreams] = await Promise.all([getHoloEvents(), getNijiStreams()]);
 
+  const nijiEvents = getNijiEvents({ nijiLiverMap, nijiStreams });
   const wholeEvents = [...holoEvents, ...nijiEvents].sort(
     (a, b) => a.startAt.getTime() - b.startAt.getTime(),
   );
   return wholeEvents;
 }
 
-async function getNijiEvents({
+// 配信情報のtalentIdからtalentMapを参照して変換
+function getNijiEvents({
   nijiLiverMap,
+  nijiStreams,
 }: {
   nijiLiverMap: NijiLiverMap;
-}): Promise<LiverEvent[]> {
-  const nijiStreams = await getNijiStreams();
-
+  nijiStreams: NijiStream[];
+}): LiverEvent[] {
   function getTalent(id: string) {
     const talent = nijiLiverMap[id];
     if (!talent) {
@@ -63,17 +68,21 @@ async function getNijiEvents({
 }
 
 onMounted(async () => {
+  // にじさんじのライバー情報を取得
   const nijiLiverMap = await getNijiLiverMap();
 
-  const setStreams = () => {
+  // イベント情報を更新
+  const updateStreams = () => {
     getStreams({ nijiLiverMap }).then((streams) => {
       liverEventList.value = streams;
     });
   };
-  setStreams();
 
   // 一定時間ごとにスケジュールを再取得
-  setInterval(setStreams, fetchInterval);
+  setInterval(updateStreams, fetchInterval);
+
+  // 初回取得
+  updateStreams();
 });
 </script>
 
