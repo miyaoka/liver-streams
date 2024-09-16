@@ -9,7 +9,7 @@ import LiverEventList from "@/components/vertical/LiverEventList.vue";
 import { getChannelIcon } from "@/utils/icons";
 
 const liverEventList = ref<LiverEvent[]>([]);
-const fetchInterval = 5 * 60 * 1000; // 1min
+const fetchInterval = 1 * 60 * 1000; // 1min
 
 async function getStreams({ nijiLiverMap }: { nijiLiverMap: NijiLiverMap }): Promise<LiverEvent[]> {
   const [holoEvents, nijiEvents] = await Promise.all([
