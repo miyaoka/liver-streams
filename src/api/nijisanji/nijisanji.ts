@@ -1,10 +1,10 @@
 export interface NijiLiver {
-  slug: string;
+  // slug: string;
   name: string;
-  enName: string;
-  image: string;
-  subscriberCount: number;
-  hidden: boolean;
+  // enName: string;
+  // image: string;
+  // subscriberCount: number;
+  // hidden: boolean;
 }
 
 export interface NijiStream {
@@ -38,19 +38,20 @@ async function _getNijiLiverMap(): Promise<NijiLiverMap> {
 
 export async function getNijiLiverMap(): Promise<NijiLiverMap> {
   const liverMap = await _getNijiLiverMap();
+  return liverMap;
 
   // Reduce image size
-  return Object.entries(liverMap).reduce(
-    (acc, [id, liver]) => {
-      const reducedImage = `${liver.image}&w=200&fm=webp`;
-      acc[id] = {
-        ...liver,
-        image: reducedImage,
-      };
-      return acc;
-    },
-    {} as Record<string, NijiLiver>,
-  );
+  // return Object.entries(liverMap).reduce(
+  //   (acc, [id, liver]) => {
+  //     const reducedImage = `${liver.image}&w=200&fm=webp`;
+  //     acc[id] = {
+  //       ...liver,
+  //       image: reducedImage,
+  //     };
+  //     return acc;
+  //   },
+  //   {} as Record<string, NijiLiver>,
+  // );
 }
 
 export async function getNijiStreams(): Promise<NijiStream[]> {
