@@ -35,7 +35,7 @@ function getFilteredEventList(
   filterMap: Map<string, boolean>,
   filterEnabled: boolean,
   liverEventList: LiverEvent[],
-  searchTerm: string,
+  searchTerms: string[],
   focusedTalent: string | null,
   isLiveOnly: boolean,
 ): LiverEvent[] {
@@ -52,7 +52,9 @@ function getFilteredEventList(
   }
 
   const hasTalentfilter = filterEnabled && filterMap.size > 0;
-  const searchRegExp = new RegExp(searchTerm, "i");
+  // 検索語をスペースで分割してOR検索
+  const searchRegExp = searchTerms.length > 0 ? new RegExp(searchTerms.join("|"), "i") : null;
+
   return (
     liverEventList
       // talentでフィルタリング
@@ -75,7 +77,7 @@ function getFilteredEventList(
       })
       .filter((video) => {
         // 検索語にマッチしたイベントのみ表示
-        if (searchTerm === "") return true;
+        if (!searchRegExp) return true;
         return (
           searchRegExp.test(video.title) ||
           searchRegExp.test(video.talent.name) ||
@@ -102,21 +104,25 @@ function createSectionMap(liverEventList: LiverEvent[]): Map<number, LiverEvent[
   return sectionMap;
 }
 
+const searchTerms = computed(() => {
+  return channelFilterStore.searchTerm.split(/\s+/).filter((term) => term !== "");
+});
+
 watch(
   [
     () => props.liverEventList,
     () => channelFilterStore.talentFilterMap,
     () => channelFilterStore.talentFilterEnabled,
-    () => channelFilterStore.searchTerm,
+    searchTerms,
     () => talentStore.focusedTalent,
     () => channelFilterStore.isLiveOnly,
   ],
-  ([liverEventList, filterMap, filterEnabled, searchTerm, focusedTalent, isLiveOnly]) => {
+  ([liverEventList, filterMap, filterEnabled, searchTerms, focusedTalent, isLiveOnly]) => {
     const filteredEventList = getFilteredEventList(
       filterMap,
       filterEnabled,
       liverEventList,
-      searchTerm,
+      searchTerms,
       focusedTalent,
       isLiveOnly,
     );
