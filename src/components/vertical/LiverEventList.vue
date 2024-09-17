@@ -136,14 +136,14 @@ const entries = computed(() => {
 });
 </script>
 <template>
-  <template v-if="sectionMap.size > 0">
+  <div v-if="sectionMap.size > 0" class="bg-slate-100 min-h-screen pb-96">
     <LiverEventSection
       v-for="(section, i) in entries"
       :key="section[0]"
       :section="section"
       :nextSection="entries[i + 1]"
     />
-  </template>
+  </div>
   <div
     v-else
     class="px-4 py-20 flex flex-col h-screen items-center bg-gradient-to-b from-zinc-200 to-white"
