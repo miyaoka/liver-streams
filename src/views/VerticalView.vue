@@ -21,9 +21,13 @@ async function getStreams({ nijiLiverMap }: { nijiLiverMap: NijiLiverMap }): Pro
   const [holoEvents, nijiStreams] = await Promise.all([getHoloEvents(), getNijiStreams()]);
 
   const nijiEvents = getNijiEvents({ nijiLiverMap, nijiStreams });
-  const wholeEvents = [...holoEvents, ...nijiEvents].sort(
-    (a, b) => a.startAt.getTime() - b.startAt.getTime(),
-  );
+  const wholeEvents = [...holoEvents, ...nijiEvents].sort((a, b) => {
+    const diff = a.startAt.getTime() - b.startAt.getTime();
+    if (diff !== 0) return diff;
+
+    // 同時間の場合はtalent名でソート
+    return a.talent.name.localeCompare(b.talent.name);
+  });
   return wholeEvents;
 }
 
