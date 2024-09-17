@@ -51,7 +51,7 @@ function onClick() {
 </script>
 
 <template>
-  <div class="flex flex-row items-center bg-white rounded">
+  <div class="flex flex-row items-center bg-white rounded shadow-md">
     <form
       @submit.prevent="onSubmit"
       :class="`h-full transition-[width] ${isInput ? 'w-56' : 'w-0'}`"
