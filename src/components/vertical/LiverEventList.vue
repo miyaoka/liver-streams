@@ -161,8 +161,6 @@ let resizeTimeout: number | null = null;
 
 // window resize時にcurrentTimeTopを再計算
 useEventListener("resize", () => {
-  // resize中はnullにしておく
-  currentTimeTop.value = null;
   if (resizeTimeout) {
     clearTimeout(resizeTimeout);
   }
