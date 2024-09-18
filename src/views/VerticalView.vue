@@ -24,8 +24,10 @@ async function getStreams({ nijiLiverMap }: { nijiLiverMap: NijiLiverMap }): Pro
   const wholeEvents = [...holoEvents, ...nijiEvents].sort((a, b) => {
     const diff = a.startAt.getTime() - b.startAt.getTime();
     if (diff !== 0) return diff;
+    // 同時間の場合はまずaffilicationでソート
+    if (a.affilication !== b.affilication) return a.affilication.localeCompare(b.affilication);
 
-    // 同時間の場合はtalent名でソート
+    // 同affilicationの場合はtalent名でソート
     return a.talent.name.localeCompare(b.talent.name);
   });
   return wholeEvents;
