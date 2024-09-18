@@ -168,7 +168,7 @@ useEventListener("resize", () => {
   }
 
   // resize終了時に再計算
-  resizeTimeout = setTimeout(() => {
+  resizeTimeout = window.setTimeout(() => {
     currentTimeTop.value = getCurrentTop(dateStore.date);
   }, 100);
 });
