@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
+import { useEventListener } from "@vueuse/core";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import LiverEventSection from "./LiverEventSection.vue";
 import type { LiverEvent } from "@/api";
+import { useDateStore } from "@/store/dateStore";
 import { useStorageStore } from "@/store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
 
@@ -13,6 +15,7 @@ const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
 const sectionMap = ref<Map<number, LiverEvent[]>>(new Map());
 const hourSections = [23, 22, 21, 20, 19, 18, 12, 6, 0];
+const dateStore = useDateStore();
 
 onMounted(() => {
   const now = Date.now();
@@ -108,25 +111,24 @@ const searchTerms = computed(() => {
   return channelFilterStore.searchTerm.split(/\s+/).filter((term) => term !== "");
 });
 
+const filteredEventList = computed(() => {
+  return getFilteredEventList(
+    channelFilterStore.talentFilterMap,
+    channelFilterStore.talentFilterEnabled,
+    props.liverEventList,
+    searchTerms.value,
+    talentStore.focusedTalent,
+    channelFilterStore.isLiveOnly,
+  );
+});
+
 watch(
-  [
-    () => props.liverEventList,
-    () => channelFilterStore.talentFilterMap,
-    () => channelFilterStore.talentFilterEnabled,
-    searchTerms,
-    () => talentStore.focusedTalent,
-    () => channelFilterStore.isLiveOnly,
-  ],
-  ([liverEventList, filterMap, filterEnabled, searchTerms, focusedTalent, isLiveOnly]) => {
-    const filteredEventList = getFilteredEventList(
-      filterMap,
-      filterEnabled,
-      liverEventList,
-      searchTerms,
-      focusedTalent,
-      isLiveOnly,
-    );
-    sectionMap.value = createSectionMap(filteredEventList);
+  filteredEventList,
+  async (list) => {
+    sectionMap.value = createSectionMap(list);
+
+    await nextTick();
+    currentTimeTop.value = getCurrentTop(dateStore.date);
   },
   { immediate: true, deep: true },
 );
@@ -134,6 +136,49 @@ watch(
 const entries = computed(() => {
   return [...sectionMap.value.entries()];
 });
+
+const currentTimeTop = ref<number | null>(null);
+
+function getCurrentTop(date: Date) {
+  const time = date.getTime();
+  // 現在時刻の直後のイベントを探す
+  let currentEvent = filteredEventList.value.find((liverEvent) => {
+    const eventTime = liverEvent.startAt.getTime();
+    if (eventTime > time) {
+      return liverEvent;
+    }
+  });
+
+  if (!currentEvent) return null;
+  const currentEventEl = document.querySelector(`a[href="${currentEvent.url}"]`);
+  if (!currentEventEl) return null;
+
+  const currentEventRect = currentEventEl.getBoundingClientRect();
+  return currentEventRect.top + window.scrollY;
+}
+
+let resizeTimeout: number | null = null;
+
+// window resize時にcurrentTimeTopを再計算
+useEventListener("resize", () => {
+  // resize中はnullにしておく
+  currentTimeTop.value = null;
+  if (resizeTimeout) {
+    clearTimeout(resizeTimeout);
+  }
+
+  // resize終了時に再計算
+  resizeTimeout = setTimeout(() => {
+    currentTimeTop.value = getCurrentTop(dateStore.date);
+  }, 100);
+});
+
+watch(
+  () => dateStore.date,
+  (date) => {
+    currentTimeTop.value = getCurrentTop(date);
+  },
+);
 </script>
 <template>
   <div v-if="sectionMap.size > 0" class="bg-slate-100 min-h-screen pb-96">
@@ -143,6 +188,16 @@ const entries = computed(() => {
       :section="section"
       :nextSection="entries[i + 1]"
     />
+    <div
+      v-if="currentTimeTop !== null"
+      class="absolute w-full z-10 pointer-events-none"
+      :style="{ top: currentTimeTop + 'px' }"
+    >
+      <div class="absolute -top-[24px] w-full flex flex-col items-center">
+        <div class="bg-sky-500 bg-opacity-100 w-full h-[10px] text-center shadow-lg"></div>
+        <p class="text-base font-bold bg-sky-500 text-white px-2 -mt-2 rounded-b-xl">now</p>
+      </div>
+    </div>
   </div>
   <div
     v-else
