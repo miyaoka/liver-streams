@@ -53,7 +53,7 @@ const sectionDate = computed(() => {
 });
 
 const dateMap = new Map<number, string>([
-  [0, "today"],
+  // [0, "today"],
   [-1, "yesterday"],
   [1, "tomorrow"],
 ]);
@@ -112,14 +112,14 @@ const nextSectionBgColor = computed(() => {
 <template>
   <section
     ref="sectionEl"
-    class="flex flex-col items-center gap-[20px] pt-4"
+    class="flex flex-col items-center gap-[20px] pt-4 min-h-6"
     :data-time="time"
     :style="{ background: `linear-gradient(${sectionBgColor}, ${nextSectionBgColor})` }"
   >
     <template v-if="LiverEventList.length > 0">
       <div class="sticky z-20 top-4">
         <button
-          :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionTime.dateDiff < 0 ? 'bg-gray-200 text-gray-700' : sectionTime.dateDiff === 0 ? 'bg-gray-700 text-gray-200' : 'bg-sky-200 text-sky-700'}`"
+          :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionTime.dateDiff < 0 ? 'bg-gray-700 text-gray-400' : sectionTime.dateDiff === 0 ? 'bg-gray-800 text-white' : 'bg-gray-500 text-gray-100'}`"
           @click="scrollToSectionTop"
         >
           {{ sectionTime.dateLabel }} {{ sectionTime.hhss }}
