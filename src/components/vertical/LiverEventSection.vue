@@ -71,44 +71,50 @@ function scrollToSectionTop() {
   sectionEl.value.scrollIntoView({ behavior: "smooth" });
 }
 
-const bgColorMap: Record<string, string> = {
-  0: "#1a1c4d",
-  1: "#1b1f52",
-  2: "#1c2257",
-  3: "#1d255c",
-  4: "#1e2861",
-  5: "#1f3067",
-  6: "#4a6a64",
-  7: "#678a7b",
-  8: "#90b5aa",
-  9: "#b2d4cc",
-  10: "#cde7e5",
-  11: "#e2f4f3",
-  12: "#f5fcff",
-  13: "#dfeff9",
-  14: "#c9d5e6",
-  15: "#b2bbcc",
-  16: "#a2a5b6",
-  17: "#f7b89a",
-  18: "#ffb188",
-  19: "#e08e7d",
-  20: "#9a6f88",
-  21: "#78577d",
-  22: "#5d4a7d",
-  23: "#3a386a",
-};
+const bgColorMap = new Map<number, string>([
+  [0, "#1a1c4d"],
+  [1, "#1b1f52"],
+  [2, "#1c2257"],
+  [3, "#1d255c"],
+  [4, "#1e2861"],
+  [5, "#1f3067"],
+  [6, "#4a6a64"],
+  [7, "#678a7b"],
+  [8, "#90b5aa"],
+  [9, "#b2d4cc"],
+  [10, "#cde7e5"],
+  [11, "#e2f4f3"],
+  [12, "#f5fcff"],
+  [13, "#dfeff9"],
+  [14, "#c9d5e6"],
+  [15, "#b2bbcc"],
+  [16, "#a2a5b6"],
+  [17, "#f7b89a"],
+  [18, "#ffb188"],
+  [19, "#e08e7d"],
+  [20, "#9a6f88"],
+  [21, "#78577d"],
+  [22, "#5d4a7d"],
+  [23, "#3a386a"],
+]);
 
 const sectionBgColor = computed(() => {
   const hour = new Date(time.value).getHours();
-  return bgColorMap[hour.toString()];
+  return bgColorMap.get(hour);
+});
+
+const nextSectionBgColor = computed(() => {
+  if (!props.nextSection) return bgColorMap.get(0);
+  const nextHour = new Date(props.nextSection.time).getHours();
+  return bgColorMap.get(nextHour);
 });
 </script>
 <template>
   <section
     ref="sectionEl"
-    :class="`flex flex-col items-center gap-[20px] pt-4`"
+    class="flex flex-col items-center gap-[20px] pt-4"
     :data-time="time"
-    :style="{ backgroundColor: sectionBgColor }"
+    :style="{ background: `linear-gradient(${sectionBgColor}, ${nextSectionBgColor})` }"
   >
     <template v-if="LiverEventList.length > 0">
       <div class="sticky z-20 top-4">
