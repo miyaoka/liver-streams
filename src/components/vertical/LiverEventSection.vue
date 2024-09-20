@@ -71,42 +71,42 @@ function scrollToSectionTop() {
   sectionEl.value.scrollIntoView({ behavior: "smooth" });
 }
 
-const bgColorMap = new Map<number, string>([
-  [0, "#2a2c5d"],
-  [1, "#2a2e60"],
-  [2, "#2b3064"],
-  [3, "#2c3368"],
-  [4, "#2d366c"],
-  [5, "#2e3970"],
-  [6, "#3a4a7d"], // sunrise
-  [7, "#b0c8e0"], // morning
-  [8, "#b4cce4"],
-  [9, "#b8d0e8"],
-  [10, "#bcd4ec"],
-  [11, "#c0d8f0"],
-  [12, "#c4dcf4"], // noon (brighter)
-  [13, "#c0d8f0"],
-  [14, "#bcd4ec"],
-  [15, "#b8d0e8"],
-  [16, "#b4cce4"],
-  [17, "#b0c8e0"], // evening
-  [18, "#d4a4a0"], // sunset transition (red hue)
-  [19, "#d48884"], // sunset (red hue)
-  [20, "#a07070"], // post-sunset (red hue)
-  [21, "#505070"],
-  [22, "#404060"],
-  [23, "#2a2c5d"],
+const hourColorMap = new Map<number, string>([
+  [0, "#3a3c6d"],
+  [1, "#3a3e70"],
+  [2, "#3b4064"],
+  [3, "#3c4368"],
+  [4, "#3d466c"],
+  [5, "#3e4970"],
+  [6, "#4a5a7d"], // sunrise
+  [7, "#c0d8e0"], // morning
+  [8, "#c4dce4"],
+  [9, "#c8e0e8"],
+  [10, "#cce4ec"],
+  [11, "#d0e8f0"],
+  [12, "#d4ecf4"], // noon (brighter)
+  [13, "#d0e8f0"],
+  [14, "#cce4ec"],
+  [15, "#c8e0e8"],
+  [16, "#c4dce4"],
+  [17, "#c0d8e0"], // evening
+  [18, "#e4b4b0"], // sunset transition (red hue)
+  [19, "#e49894"], // sunset (red hue)
+  [20, "#b08080"], // post-sunset (red hue)
+  [21, "#606080"],
+  [22, "#505070"],
+  [23, "#3a3c6d"],
 ]);
 
 const sectionBgColor = computed(() => {
   const hour = new Date(time.value).getHours();
-  return bgColorMap.get(hour);
+  return hourColorMap.get(hour);
 });
 
 const nextSectionBgColor = computed(() => {
-  if (!props.nextSection) return bgColorMap.get(0);
+  if (!props.nextSection) return hourColorMap.get(0);
   const nextHour = new Date(props.nextSection.time).getHours();
-  return bgColorMap.get(nextHour);
+  return hourColorMap.get(nextHour);
 });
 </script>
 <template>
