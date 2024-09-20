@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useEventListener } from "@vueuse/core";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import LiverEventSection from "./LiverEventSection.vue";
+import LiverEventSection, { type Section } from "./LiverEventSection.vue";
 import type { LiverEvent } from "@/api";
 import { useDateStore } from "@/store/dateStore";
 import { useStorageStore } from "@/store/storageStore";
@@ -13,8 +13,8 @@ const props = defineProps<{
 
 const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
-const sectionMap = ref<Map<number, LiverEvent[]>>(new Map());
-const hourSections = [23, 22, 21, 20, 19, 18, 12, 6, 0];
+const sectionList = ref<Section[]>([]);
+
 const dateStore = useDateStore();
 
 onMounted(() => {
@@ -92,19 +92,31 @@ function getFilteredEventList(
   );
 }
 
-function createSectionMap(liverEventList: LiverEvent[]): Map<number, LiverEvent[]> {
-  const sectionMap: Map<number, LiverEvent[]> = new Map();
+function createSectionList(liverEventList: LiverEvent[]): Section[] {
+  const sectionList: Section[] = [];
+  if (liverEventList.length === 0) return [];
+  const firstEvent = liverEventList[0];
+  const lastEvent = liverEventList[liverEventList.length - 1];
 
-  liverEventList.forEach((liverEvent) => {
-    const hour = liverEvent.startAt.getHours();
-    // 区切った時間に丸める
-    const sectionHour = hourSections.find((sectionHour) => hour >= sectionHour) ?? 0;
-    const sectionTime = new Date(liverEvent.startAt).setHours(sectionHour, 0, 0, 0);
+  function getSectionTime(date: Date) {
+    const hour = date.getHours();
+    return new Date(date).setHours(hour, 0, 0, 0);
+  }
 
-    sectionMap.set(sectionTime, [...(sectionMap.get(sectionTime) ?? []), liverEvent]);
-  });
+  const firstSectionTime = getSectionTime(firstEvent.startAt);
+  const lastSectionTime = getSectionTime(lastEvent.startAt);
+  const oneHour = 3600000;
 
-  return sectionMap;
+  for (let time = firstSectionTime; time <= lastSectionTime; time += oneHour) {
+    const events = liverEventList.filter((event) => {
+      const eventTime = getSectionTime(event.startAt);
+      return eventTime === time;
+    });
+
+    sectionList.push({ time, events });
+  }
+
+  return sectionList;
 }
 
 const searchTerms = computed(() => {
@@ -125,17 +137,13 @@ const filteredEventList = computed(() => {
 watch(
   filteredEventList,
   async (list) => {
-    sectionMap.value = createSectionMap(list);
+    sectionList.value = createSectionList(list);
 
     await nextTick();
     currentTimeTop.value = getCurrentTop(dateStore.date);
   },
   { immediate: true, deep: true },
 );
-
-const entries = computed(() => {
-  return [...sectionMap.value.entries()];
-});
 
 const currentTimeTop = ref<number | null>(null);
 
@@ -179,12 +187,12 @@ watch(
 );
 </script>
 <template>
-  <div v-if="sectionMap.size > 0" class="bg-slate-100 min-h-screen pb-96">
+  <div v-if="sectionList.length > 0" class="min-h-screen pb-60 bg-[#0b0d33]">
     <LiverEventSection
-      v-for="(section, i) in entries"
-      :key="section[0]"
+      v-for="(section, i) in sectionList"
+      :key="section.time"
       :section="section"
-      :nextSection="entries[i + 1]"
+      :nextSection="sectionList[i + 1]"
     />
     <div
       v-if="currentTimeTop !== null"
