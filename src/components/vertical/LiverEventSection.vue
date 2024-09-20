@@ -73,29 +73,29 @@ function scrollToSectionTop() {
 
 const bgColorMap = new Map<number, string>([
   [0, "#2a2c5d"],
-  [1, "#2b2f62"],
-  [2, "#2c3267"],
-  [3, "#2d356c"],
-  [4, "#2e3871"],
-  [5, "#2f4077"],
-  [6, "#5a7a74"],
-  [7, "#779a8b"],
-  [8, "#a0c5ba"],
-  [9, "#c2e4dc"],
-  [10, "#ddf7f3"],
-  [11, "#f2fefb"],
-  [12, "#ffffff"],
-  [13, "#eff2f9"],
-  [14, "#d9e8e6"],
-  [15, "#c2cecc"],
-  [16, "#b2b8b6"],
-  [17, "#f7c8aa"],
-  [18, "#ffc198"],
-  [19, "#e09e8d"],
-  [20, "#aa7f98"],
-  [21, "#88678d"],
-  [22, "#6d5a8d"],
-  [23, "#4a486a"],
+  [1, "#2a2e60"],
+  [2, "#2b3064"],
+  [3, "#2c3368"],
+  [4, "#2d366c"],
+  [5, "#2e3970"],
+  [6, "#3a4a7d"], // sunrise
+  [7, "#b0c8e0"], // morning
+  [8, "#b4cce4"],
+  [9, "#b8d0e8"],
+  [10, "#bcd4ec"],
+  [11, "#c0d8f0"],
+  [12, "#c4dcf4"], // noon (brighter)
+  [13, "#c0d8f0"],
+  [14, "#bcd4ec"],
+  [15, "#b8d0e8"],
+  [16, "#b4cce4"],
+  [17, "#b0c8e0"], // evening
+  [18, "#d4a4a0"], // sunset transition (red hue)
+  [19, "#d48884"], // sunset (red hue)
+  [20, "#a07070"], // post-sunset (red hue)
+  [21, "#505070"],
+  [22, "#404060"],
+  [23, "#2a2c5d"],
 ]);
 
 const sectionBgColor = computed(() => {
