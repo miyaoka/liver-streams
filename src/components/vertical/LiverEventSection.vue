@@ -14,63 +14,6 @@ const props = defineProps<{
   nextSection: Section | undefined;
 }>();
 
-const dateStore = useDateStore();
-
-const time = computed(() => {
-  return props.section.time;
-});
-const nextTime = computed(() => (props.nextSection ? props.nextSection.time : Infinity));
-const LiverEventList = computed(() => props.section.events);
-const isCurrent = computed(() => {
-  const now = dateStore.date.getTime();
-  return now >= time.value && now < nextTime.value;
-});
-const isPast = computed(() => {
-  const now = dateStore.date.getTime();
-  return now > time.value;
-});
-
-const sectionEl = ref<HTMLElement | null>(null);
-
-// 日付の時刻をリセット
-function resetTime(date: Date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
-
-function compareDate(baseDate: Date, targetDate: Date): number {
-  const base = resetTime(baseDate);
-  const target = resetTime(targetDate);
-  const oneDay = 24 * 60 * 60 * 1000;
-
-  // 日数差を計算
-  const differenceInDays = (target.getTime() - base.getTime()) / oneDay;
-
-  return differenceInDays;
-}
-
-const sectionDate = computed(() => {
-  return new Date(time.value);
-});
-
-const dateMap = new Map<number, string>([
-  // [0, "today"],
-  [-1, "yesterday"],
-  [1, "tomorrow"],
-]);
-const sectionTime = computed(() => {
-  const dateDiff = compareDate(dateStore.date, sectionDate.value);
-
-  return {
-    dateDiff,
-    dateLabel: dateMap.get(dateDiff),
-    hhss: hhss(sectionDate.value),
-  };
-});
-function scrollToSectionTop() {
-  if (!sectionEl.value) return;
-  sectionEl.value.scrollIntoView({ behavior: "smooth" });
-}
-
 const hourColorMap = new Map<number, string>([
   [0, "#3a3c6d"],
   [1, "#3a3e70"],
@@ -97,9 +40,17 @@ const hourColorMap = new Map<number, string>([
   [22, "#505070"],
   [23, "#3a3c6d"],
 ]);
+const dateMap = new Map<number, string>([
+  [0, "today"],
+  [-1, "yesterday"],
+  [1, "tomorrow"],
+]);
+
+const dateStore = useDateStore();
+const sectionEl = ref<HTMLElement | null>(null);
 
 const sectionBgColor = computed(() => {
-  const hour = new Date(time.value).getHours();
+  const hour = new Date(props.section.time).getHours();
   return hourColorMap.get(hour);
 });
 
@@ -108,28 +59,63 @@ const nextSectionBgColor = computed(() => {
   const nextHour = new Date(props.nextSection.time).getHours();
   return hourColorMap.get(nextHour);
 });
+
+const sectionDate = computed(() => {
+  return new Date(props.section.time);
+});
+
+const sectionInfo = computed(() => {
+  const dateDiff = compareDate(dateStore.date, sectionDate.value);
+
+  return {
+    dateDiff,
+    dateLabel: dateMap.get(dateDiff),
+    hhss: hhss(sectionDate.value),
+  };
+});
+
+// 日付の時刻をリセット
+function resetTime(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function compareDate(baseDate: Date, targetDate: Date): number {
+  const base = resetTime(baseDate);
+  const target = resetTime(targetDate);
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  // 日数差を計算
+  const differenceInDays = (target.getTime() - base.getTime()) / oneDay;
+
+  return differenceInDays;
+}
+
+function scrollToSectionTop() {
+  if (!sectionEl.value) return;
+  sectionEl.value.scrollIntoView({ behavior: "smooth" });
+}
 </script>
 <template>
   <section
     ref="sectionEl"
     class="flex flex-col items-center gap-[20px] pt-4 min-h-6"
-    :data-time="time"
+    :data-time="props.section.time"
     :style="{ background: `linear-gradient(${sectionBgColor}, ${nextSectionBgColor})` }"
   >
-    <template v-if="LiverEventList.length > 0">
+    <template v-if="props.section.events.length > 0">
       <div class="sticky z-20 top-4">
         <button
-          :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionTime.dateDiff < 0 ? 'bg-gray-700 text-gray-400' : sectionTime.dateDiff === 0 ? 'bg-gray-800 text-white' : 'bg-gray-500 text-gray-100'}`"
+          :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionInfo.dateDiff < 0 ? 'bg-gray-700 text-gray-400' : sectionInfo.dateDiff === 0 ? 'bg-gray-800 text-white' : 'bg-gray-500 text-gray-100'}`"
           @click="scrollToSectionTop"
         >
-          {{ sectionTime.dateLabel }} {{ sectionTime.hhss }}
+          {{ sectionInfo.dateLabel }} {{ sectionInfo.hhss }}
         </button>
       </div>
       <div
         class="w-full grid grid-cols-[repeat(auto-fill,minmax(440px,1fr))] gap-y-[28px] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
       >
         <LiverEventCard
-          v-for="liverEvent in LiverEventList"
+          v-for="liverEvent in props.section.events"
           :key="liverEvent.url"
           :liverEvent="liverEvent"
         />
