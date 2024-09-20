@@ -5,13 +5,13 @@ import type { LiverEvent } from "@/api";
 import { useDateStore } from "@/store/dateStore";
 import { hhss } from "@/utils/dateFormat";
 
-export interface Section {
+export interface TimeSection {
   time: number;
   events: LiverEvent[];
 }
 const props = defineProps<{
-  section: Section;
-  nextSection: Section | undefined;
+  section: TimeSection;
+  nextSection: TimeSection | undefined;
 }>();
 
 const hourColorMap = new Map<number, string>([
