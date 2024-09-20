@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
-import LiverEventSection, { type TimeSection } from "./LiverEventSection.vue";
+import LiverEventDateSection from "./LiverEventDateSection.vue";
+import { type TimeSection } from "./LiverEventTimeSection.vue";
+import type { DateSection } from "./LiverEventDateSection.vue";
 import type { LiverEvent } from "@/api";
 import { useStorageStore } from "@/store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
@@ -27,9 +29,8 @@ const filteredEventList = computed(() => {
   });
 });
 
-const timeSectionList = computed<TimeSection[]>(() => {
-  const list = createTimeSectionList(filteredEventList.value);
-  return list;
+const dateSectionList = computed<DateSection[]>(() => {
+  return createDateSectionList(filteredEventList.value);
 });
 
 function getFilteredEventList({
@@ -97,8 +98,7 @@ function getFilteredEventList({
   );
 }
 
-function createTimeSectionList(liverEventList: LiverEvent[]): TimeSection[] {
-  const sectionList: TimeSection[] = [];
+function createDateSectionList(liverEventList: LiverEvent[]): DateSection[] {
   if (liverEventList.length === 0) return [];
   const firstEvent = liverEventList[0];
   const lastEvent = liverEventList[liverEventList.length - 1];
@@ -127,17 +127,29 @@ function createTimeSectionList(liverEventList: LiverEvent[]): TimeSection[] {
     liverEventMap.get(time)?.push(event);
   });
 
-  // 最初の日から最後の日まで1時間ずつセクションを作成し、該当するイベントをセクションに追加
-  for (let time = firstDateTime; time < lastDateTime; time += oneHour) {
-    const events = liverEventMap.get(time) || [];
+  const dateSectionList: DateSection[] = [];
 
-    sectionList.push({
+  // 最初の日から最後の日まで1時間ずつセクションを作成し、該当するイベントをセクションに追加
+  for (let time = firstDateTime; time < lastDateTime; time += oneDay) {
+    const timeSectionList: TimeSection[] = [];
+
+    for (let i = 0; i < 24; i++) {
+      const hourTime = time + i * oneHour;
+      const events = liverEventMap.get(hourTime) || [];
+
+      timeSectionList.push({
+        time: hourTime,
+        events,
+      });
+    }
+    dateSectionList.push({
       time,
-      events,
+      date: new Date(time),
+      timeSectionList,
     });
   }
 
-  return sectionList;
+  return dateSectionList;
 }
 
 onMounted(() => {
@@ -158,12 +170,11 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="timeSectionList.length > 0" class="min-h-screen pb-60 bg-[#3a3c6d]">
-    <LiverEventSection
-      v-for="(section, i) in timeSectionList"
-      :key="section.time"
-      :section="section"
-      :nextSection="timeSectionList[i + 1]"
+  <div class="min-h-screen pb-60 bg-[#3a3c6d]" v-if="filteredEventList.length > 0">
+    <LiverEventDateSection
+      v-for="dateSection in dateSectionList"
+      :key="dateSection.time"
+      :dateSection="dateSection"
     />
   </div>
   <div

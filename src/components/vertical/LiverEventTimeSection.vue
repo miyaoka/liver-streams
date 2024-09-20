@@ -103,12 +103,12 @@ function scrollToSectionTop() {
     :style="{ background: `linear-gradient(${sectionBgColor}, ${nextSectionBgColor})` }"
   >
     <template v-if="props.section.events.length > 0">
-      <div class="sticky z-20 top-4">
+      <div class="sticky z-20 top-8">
         <button
           :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionInfo.dateDiff < 0 ? 'bg-gray-700 text-gray-400' : sectionInfo.dateDiff === 0 ? 'bg-gray-800 text-white' : 'bg-gray-500 text-gray-100'}`"
           @click="scrollToSectionTop"
         >
-          {{ sectionInfo.dateLabel }} {{ sectionInfo.hhss }}
+          {{ sectionInfo.hhss }}
         </button>
       </div>
       <div
