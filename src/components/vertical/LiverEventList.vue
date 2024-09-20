@@ -17,28 +17,35 @@ const searchTerms = computed(() => {
 });
 
 const filteredEventList = computed(() => {
-  return getFilteredEventList(
-    channelFilterStore.talentFilterMap,
-    channelFilterStore.talentFilterEnabled,
-    props.liverEventList,
-    searchTerms.value,
-    talentStore.focusedTalent,
-    channelFilterStore.isLiveOnly,
-  );
+  return getFilteredEventList({
+    liverEventList: props.liverEventList,
+    filterMap: channelFilterStore.talentFilterMap,
+    filterEnabled: channelFilterStore.talentFilterEnabled,
+    searchTerms: searchTerms.value,
+    focusedTalent: talentStore.focusedTalent,
+    isLiveOnly: channelFilterStore.isLiveOnly,
+  });
 });
 
 const sectionList = computed<Section[]>(() => {
   return createSectionList(filteredEventList.value);
 });
 
-function getFilteredEventList(
-  filterMap: Map<string, boolean>,
-  filterEnabled: boolean,
-  liverEventList: LiverEvent[],
-  searchTerms: string[],
-  focusedTalent: string | null,
-  isLiveOnly: boolean,
-): LiverEvent[] {
+function getFilteredEventList({
+  liverEventList,
+  filterMap,
+  filterEnabled,
+  searchTerms,
+  focusedTalent,
+  isLiveOnly,
+}: {
+  liverEventList: LiverEvent[];
+  filterMap: Map<string, boolean>;
+  filterEnabled: boolean;
+  searchTerms: string[];
+  focusedTalent: string | null;
+  isLiveOnly: boolean;
+}): LiverEvent[] {
   // 単一セレクト時
   if (focusedTalent) {
     return liverEventList.filter((video) => {
