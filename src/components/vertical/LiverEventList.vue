@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useEventListener } from "@vueuse/core";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import LiverEventSection, { type Section } from "./LiverEventSection.vue";
 import type { LiverEvent } from "@/api";
-import { useDateStore } from "@/store/dateStore";
 import { useStorageStore } from "@/store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
 
@@ -14,8 +12,6 @@ const props = defineProps<{
 const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
 const sectionList = ref<Section[]>([]);
-
-const dateStore = useDateStore();
 
 onMounted(() => {
   const now = Date.now();
@@ -140,50 +136,8 @@ watch(
     sectionList.value = createSectionList(list);
 
     await nextTick();
-    currentTimeTop.value = getCurrentTop(dateStore.date);
   },
   { immediate: true, deep: true },
-);
-
-const currentTimeTop = ref<number | null>(null);
-
-function getCurrentTop(date: Date) {
-  const time = date.getTime();
-  // 現在時刻の直後のイベントを探す
-  let currentEvent = filteredEventList.value.find((liverEvent) => {
-    const eventTime = liverEvent.startAt.getTime();
-    if (eventTime > time) {
-      return liverEvent;
-    }
-  });
-
-  if (!currentEvent) return null;
-  const currentEventEl = document.querySelector(`a[href="${currentEvent.url}"]`);
-  if (!currentEventEl) return null;
-
-  const currentEventRect = currentEventEl.getBoundingClientRect();
-  return currentEventRect.top + window.scrollY;
-}
-
-let resizeTimeout: number | null = null;
-
-// window resize時にcurrentTimeTopを再計算
-useEventListener("resize", () => {
-  if (resizeTimeout) {
-    clearTimeout(resizeTimeout);
-  }
-
-  // resize終了時に再計算
-  resizeTimeout = window.setTimeout(() => {
-    currentTimeTop.value = getCurrentTop(dateStore.date);
-  }, 100);
-});
-
-watch(
-  () => dateStore.date,
-  (date) => {
-    currentTimeTop.value = getCurrentTop(date);
-  },
 );
 </script>
 <template>
@@ -194,16 +148,6 @@ watch(
       :section="section"
       :nextSection="sectionList[i + 1]"
     />
-    <div
-      v-if="currentTimeTop !== null"
-      class="absolute w-full z-10 pointer-events-none"
-      :style="{ top: currentTimeTop + 'px' }"
-    >
-      <div class="absolute -top-[24px] w-full flex flex-col items-center">
-        <div class="bg-sky-500 bg-opacity-100 w-full h-[10px] text-center shadow-lg"></div>
-        <p class="text-base font-bold bg-sky-500 text-white px-2 -mt-2 rounded-b-xl">now</p>
-      </div>
-    </div>
   </div>
   <div
     v-else
