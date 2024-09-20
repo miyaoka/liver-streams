@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 import LiverEventCard from "./LiverEventCard.vue";
 import type { LiverEvent } from "@/api";
 import { useDateStore } from "@/store/dateStore";
-import { mmddhhssDateFormatter } from "@/utils/dateFormat";
+import { hhss } from "@/utils/dateFormat";
 
 export interface Section {
   time: number;
@@ -32,9 +32,40 @@ const isPast = computed(() => {
 
 const sectionEl = ref<HTMLElement | null>(null);
 
-function sectionTime(time: number) {
-  return mmddhhssDateFormatter.format(time);
+// 日付の時刻をリセット
+function resetTime(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
+
+function compareDate(baseDate: Date, targetDate: Date): number {
+  const base = resetTime(baseDate);
+  const target = resetTime(targetDate);
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  // 日数差を計算
+  const differenceInDays = (target.getTime() - base.getTime()) / oneDay;
+
+  return differenceInDays;
+}
+
+const sectionDate = computed(() => {
+  return new Date(time.value);
+});
+
+const dateMap = new Map<number, string>([
+  [0, "today"],
+  [-1, "yesterday"],
+  [1, "tomorrow"],
+]);
+const sectionTime = computed(() => {
+  const dateDiff = compareDate(dateStore.date, sectionDate.value);
+
+  return {
+    dateDiff,
+    dateLabel: dateMap.get(dateDiff),
+    hhss: hhss(sectionDate.value),
+  };
+});
 function scrollToSectionTop() {
   if (!sectionEl.value) return;
   sectionEl.value.scrollIntoView({ behavior: "smooth" });
@@ -82,10 +113,10 @@ const sectionBgColor = computed(() => {
     <template v-if="LiverEventList.length > 0">
       <div class="sticky z-20 top-4">
         <button
-          :class="` text-gray-100 font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${isCurrent ? 'bg-red-600' : 'bg-slate-700'}`"
+          :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionTime.dateDiff < 0 ? 'bg-gray-200 text-gray-700' : sectionTime.dateDiff === 0 ? 'bg-gray-700 text-gray-200' : 'bg-sky-200 text-sky-700'}`"
           @click="scrollToSectionTop"
         >
-          {{ sectionTime(time) }}
+          {{ sectionTime.dateLabel }} {{ sectionTime.hhss }}
         </button>
       </div>
       <div
