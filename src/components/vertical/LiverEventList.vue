@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { computed, onMounted } from "vue";
 import LiverEventSection, { type Section } from "./LiverEventSection.vue";
 import type { LiverEvent } from "@/api";
 import { useStorageStore } from "@/store/storageStore";
@@ -11,7 +11,6 @@ const props = defineProps<{
 
 const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
-const sectionList = ref<Section[]>([]);
 
 onMounted(() => {
   const now = Date.now();
@@ -130,15 +129,9 @@ const filteredEventList = computed(() => {
   );
 });
 
-watch(
-  filteredEventList,
-  async (list) => {
-    sectionList.value = createSectionList(list);
-
-    await nextTick();
-  },
-  { immediate: true, deep: true },
-);
+const sectionList = computed<Section[]>(() => {
+  return createSectionList(filteredEventList.value);
+});
 </script>
 <template>
   <div v-if="sectionList.length > 0" class="min-h-screen pb-60 bg-[#3a3c6d]">
