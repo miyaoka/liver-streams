@@ -12,21 +12,23 @@ const props = defineProps<{
 const channelFilterStore = useStorageStore();
 const talentStore = useTalentStore();
 
-onMounted(() => {
-  const now = Date.now();
-  const sections = [...document.querySelectorAll("section[data-time]")];
-  const sectionIndex = sections.findIndex((el) => {
-    const time = Number(el.getAttribute("data-time"));
-    // 現在時刻を超える最初のセクションを探す
-    if (time > now) return true;
-  });
-  // 現在時刻の直前のセクション
-  const prevSection = sections[sectionIndex - 1];
+const searchTerms = computed(() => {
+  return channelFilterStore.searchTerm.split(/\s+/).filter((term) => term !== "");
+});
 
-  if (prevSection) {
-    // セクションにスクロール
-    prevSection.scrollIntoView({ behavior: "instant", block: "start" });
-  }
+const filteredEventList = computed(() => {
+  return getFilteredEventList(
+    channelFilterStore.talentFilterMap,
+    channelFilterStore.talentFilterEnabled,
+    props.liverEventList,
+    searchTerms.value,
+    talentStore.focusedTalent,
+    channelFilterStore.isLiveOnly,
+  );
+});
+
+const sectionList = computed<Section[]>(() => {
+  return createSectionList(filteredEventList.value);
 });
 
 function getFilteredEventList(
@@ -114,23 +116,21 @@ function createSectionList(liverEventList: LiverEvent[]): Section[] {
   return sectionList;
 }
 
-const searchTerms = computed(() => {
-  return channelFilterStore.searchTerm.split(/\s+/).filter((term) => term !== "");
-});
+onMounted(() => {
+  const now = Date.now();
+  const sections = [...document.querySelectorAll("section[data-time]")];
+  const sectionIndex = sections.findIndex((el) => {
+    const time = Number(el.getAttribute("data-time"));
+    // 現在時刻を超える最初のセクションを探す
+    if (time > now) return true;
+  });
+  // 現在時刻の直前のセクション
+  const prevSection = sections[sectionIndex - 1];
 
-const filteredEventList = computed(() => {
-  return getFilteredEventList(
-    channelFilterStore.talentFilterMap,
-    channelFilterStore.talentFilterEnabled,
-    props.liverEventList,
-    searchTerms.value,
-    talentStore.focusedTalent,
-    channelFilterStore.isLiveOnly,
-  );
-});
-
-const sectionList = computed<Section[]>(() => {
-  return createSectionList(filteredEventList.value);
+  if (prevSection) {
+    // セクションにスクロール
+    prevSection.scrollIntoView({ behavior: "instant", block: "start" });
+  }
 });
 </script>
 <template>
