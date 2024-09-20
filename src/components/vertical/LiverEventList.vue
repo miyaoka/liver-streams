@@ -187,7 +187,7 @@ watch(
 );
 </script>
 <template>
-  <div v-if="sectionList.length > 0" class="min-h-screen pb-60 bg-[#0b0d33]">
+  <div v-if="sectionList.length > 0" class="min-h-screen pb-60 bg-[#2a2c5d]">
     <LiverEventSection
       v-for="(section, i) in sectionList"
       :key="section.time"
