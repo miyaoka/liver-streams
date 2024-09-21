@@ -49,15 +49,24 @@ const dateMap = new Map<number, string>([
 const dateStore = useDateStore();
 const sectionEl = ref<HTMLElement | null>(null);
 
-const sectionBgColor = computed(() => {
+const hasEvents = computed(() => props.section.events.length > 0);
+const sectionColor = computed(() => {
   const hour = new Date(props.section.time).getHours();
   return hourColorMap.get(hour);
 });
 
-const nextSectionBgColor = computed(() => {
+const nextSectionColor = computed(() => {
   if (!props.nextSection) return hourColorMap.get(0);
   const nextHour = new Date(props.nextSection.time).getHours();
   return hourColorMap.get(nextHour);
+});
+
+const sectionBackground = computed(() => {
+  // イベントがあればグラデーションで繋ぎ、なければ単色
+  if (hasEvents.value) {
+    return `linear-gradient(${sectionColor.value}, ${nextSectionColor.value})`;
+  }
+  return sectionColor.value;
 });
 
 const sectionDate = computed(() => {
@@ -98,11 +107,13 @@ function scrollToSectionTop() {
 <template>
   <section
     ref="sectionEl"
-    class="flex flex-col items-center gap-[20px] pt-4 min-h-6"
+    class="flex flex-col items-center gap-[20px] pt-4"
     :data-time="props.section.time"
-    :style="{ background: `linear-gradient(${sectionBgColor}, ${nextSectionBgColor})` }"
+    :style="{
+      background: sectionBackground,
+    }"
   >
-    <template v-if="props.section.events.length > 0">
+    <template v-if="hasEvents">
       <div class="sticky z-20 top-8">
         <button
           :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionInfo.dateDiff < 0 ? 'bg-gray-700 text-gray-400' : sectionInfo.dateDiff === 0 ? 'bg-gray-800 text-white' : 'bg-gray-500 text-gray-100'}`"
