@@ -49,6 +49,14 @@ function scrollToSectionTop(time: number) {
     >
       <div class="relative pointer-events-auto flex flex-row items-center">
         <button
+          v-if="prevSection"
+          class="absolute right-full w-5 h-5 mr-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
+          @click="scrollToSectionTop(prevSection.time)"
+        >
+          <i class="i-mdi-chevron-up text-white h-5 w-5" />
+        </button>
+
+        <button
           :class="`px-2 py-1 rounded-2xl flex flex-row gap-1 items-center shadow-md border border-gray-300 border-1 ${sectionInfo.dateDiff === 0 ? 'text-white bg-blue-700' : 'text-white bg-gray-800'}`"
           @click="scrollToSectionTop(dateSection.time)"
         >
@@ -57,13 +65,6 @@ function scrollToSectionTop(time: number) {
           </span>
         </button>
 
-        <button
-          v-if="prevSection"
-          class="absolute right-full w-5 h-5 mr-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
-          @click="scrollToSectionTop(prevSection.time)"
-        >
-          <i class="i-mdi-chevron-up text-white h-5 w-5" />
-        </button>
         <button
           v-if="nextSection"
           class="absolute left-full w-5 h-5 ml-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
