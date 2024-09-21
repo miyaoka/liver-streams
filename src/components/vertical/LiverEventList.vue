@@ -37,29 +37,35 @@ html {
   scrollbar-width: none;
 }
 :root {
-  --hour0: #121450;
-  --hour1: #13184d;
-  --hour2: #141e4f;
-  --hour3: #161f53;
-  --hour4: #182457;
-  --hour5: #192751;
-  --hour6: #505fab;
-  --hour7: #9ecae6;
-  --hour8: #a3cddd;
-  --hour9: #b2ced7;
-  --hour10: #b4d4df;
-  --hour11: #c8ecf9;
-  --hour12: #d8eaeb;
-  --hour13: #cce5ee;
-  --hour14: #cde6ee;
-  --hour15: #b7cce3;
-  --hour16: #7f86b7;
-  --hour17: #ab81a4;
-  --hour18: #da9c9e;
-  --hour19: #a47fae;
-  --hour20: #6d6b97;
-  --hour21: #44446a;
-  --hour22: #40407b;
-  --hour23: #292b66;
+  --midnight: #627ea3;
+  --morning: #97cce6;
+  --noon: #bef2f9;
+  --evening: #f8b074;
+  --night: #f6f3be;
+
+  --hour0: var(--midnight);
+  --hour1: var(--midnight);
+  --hour2: var(--midnight);
+  --hour3: var(--midnight);
+  --hour4: var(--midnight);
+  --hour5: var(--morning);
+  --hour6: var(--morning);
+  --hour7: var(--morning);
+  --hour8: var(--morning);
+  --hour9: var(--morning);
+  --hour10: var(--noon);
+  --hour11: var(--noon);
+  --hour12: var(--noon);
+  --hour13: var(--noon);
+  --hour14: var(--noon);
+  --hour15: var(--noon);
+  --hour16: var(--noon);
+  --hour17: var(--evening);
+  --hour18: var(--evening);
+  --hour19: var(--night);
+  --hour20: var(--night);
+  --hour21: var(--night);
+  --hour22: var(--night);
+  --hour23: var(--midnight);
 }
 </style>

@@ -25,9 +25,9 @@ const nextSectionColor = computed(() => {
 
 const sectionBackground = computed(() => {
   // イベントがあればグラデーションで繋ぎ、なければ単色
-  if (hasEvents.value) {
-    return `linear-gradient(${sectionColor.value}, ${nextSectionColor.value})`;
-  }
+  // if (hasEvents.value) {
+  //   return `linear-gradient(${sectionColor.value}, ${nextSectionColor.value})`;
+  // }
   return sectionColor.value;
 });
 
