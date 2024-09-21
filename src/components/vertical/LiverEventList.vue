@@ -1,27 +1,16 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import LiverEventDateSection from "./LiverEventDateSection.vue";
-import type { DateSection } from "@/store/eventListStore";
+import { useEventListStore, type DateSection } from "@/store/eventListStore";
 
 const props = defineProps<{
   dateSectionList: DateSection[];
 }>();
 
-onMounted(() => {
-  const now = Date.now();
-  const sections = [...document.querySelectorAll("section[data-time]")];
-  const sectionIndex = sections.findIndex((el) => {
-    const time = Number(el.getAttribute("data-time"));
-    // 現在時刻を超える最初のセクションを探す
-    if (time > now) return true;
-  });
-  // 現在時刻の直前のセクション
-  const prevSection = sections[sectionIndex - 1];
+const eventListStore = useEventListStore();
 
-  if (prevSection) {
-    // セクションにスクロール
-    prevSection.scrollIntoView({ behavior: "instant", block: "start" });
-  }
+onMounted(() => {
+  eventListStore.scrollToCurrentTime({ behavior: "instant" });
 });
 </script>
 <template>
