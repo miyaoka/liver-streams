@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { acceptHMRUpdate, defineStore } from "pinia";
 import { nextTick, ref } from "vue";
 
 export const useTalentStore = defineStore("talentStore", () => {
@@ -35,3 +35,7 @@ export const useTalentStore = defineStore("talentStore", () => {
     clearHoveredTalents,
   };
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useTalentStore, import.meta.hot));
+}

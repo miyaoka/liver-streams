@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useStorageStore } from "./storageStore";
 import { useTalentStore } from "./talentStore";
@@ -270,3 +270,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     scrollToCurrentTime,
   };
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useEventListStore, import.meta.hot));
+}

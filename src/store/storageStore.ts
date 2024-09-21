@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@vueuse/core";
-import { defineStore } from "pinia";
+import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 
 export interface TreeNode {
@@ -83,3 +83,7 @@ export const useStorageStore = defineStore("storageStore", () => {
     toggleLiveOnly,
   };
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useStorageStore, import.meta.hot));
+}

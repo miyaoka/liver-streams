@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 
 export const useDateStore = defineStore("dateStore", () => {
@@ -20,3 +20,7 @@ export const useDateStore = defineStore("dateStore", () => {
     currentDateWithoutTime,
   };
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useDateStore, import.meta.hot));
+}
