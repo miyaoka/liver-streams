@@ -8,11 +8,16 @@ export const fullDateFormatter = new Intl.DateTimeFormat(undefined, {
   second: "2-digit",
 });
 
-export const mmddhhssDateFormatter = new Intl.DateTimeFormat("ja-JP", {
+export const mmddhhssDateFormatter = new Intl.DateTimeFormat(undefined, {
   month: "2-digit",
   day: "2-digit",
   hour: "2-digit",
   minute: "2-digit",
+});
+
+export const mmddDateFormatter = new Intl.DateTimeFormat(undefined, {
+  month: "2-digit",
+  day: "2-digit",
 });
 
 export function hhss(date: Date) {

@@ -33,7 +33,7 @@ const elapsedTime = computed(() => {
     }
     // ライブ中なら現在時刻から開始時間を引く
     if (isLive) {
-      return dateStore.date.getTime() - props.liverEvent.startAt.getTime();
+      return dateStore.currentTime - props.liverEvent.startAt.getTime();
     }
     return 0;
   })();

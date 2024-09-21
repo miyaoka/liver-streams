@@ -149,7 +149,10 @@ function createDateSectionList(liverEventList: LiverEvent[]): DateSection[] {
     });
   }
 
-  return dateSectionList;
+  // イベントがある日のみに絞り込む
+  return dateSectionList.filter((dateSection) => {
+    return dateSection.timeSectionList.some((section) => section.events.length > 0);
+  });
 }
 
 onMounted(() => {

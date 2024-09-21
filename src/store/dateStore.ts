@@ -1,14 +1,22 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 export const useDateStore = defineStore("dateStore", () => {
-  const date = ref(new Date());
+  const currentDate = ref(new Date());
 
   setInterval(() => {
-    date.value = new Date();
+    currentDate.value = new Date();
   }, 5000);
 
+  const currentTime = computed(() => currentDate.value.getTime());
+  const currentDateWithoutTime = computed(() => {
+    const date = currentDate.value;
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  });
+
   return {
-    date,
+    currentDate,
+    currentTime,
+    currentDateWithoutTime,
   };
 });
