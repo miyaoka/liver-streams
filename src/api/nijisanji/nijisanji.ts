@@ -26,7 +26,7 @@ const proxyApiBase = import.meta.env.DEV
   ? "http://localhost:3000/api"
   : "https://nijiapi-proxy.vercel.app/api";
 
-async function _getNijiLiverMap(): Promise<NijiLiverMap> {
+async function _fetchNijiLiverMap(): Promise<NijiLiverMap> {
   // if (import.meta.env.VITE_TEST_DATA) {
   // 重いのでローカルファイルから取得する
   return import("./sample3/livers.json").then((res) => res.default);
@@ -36,8 +36,8 @@ async function _getNijiLiverMap(): Promise<NijiLiverMap> {
   // return fetch(url).then((res) => res.json());
 }
 
-export async function getNijiLiverMap(): Promise<NijiLiverMap> {
-  const liverMap = await _getNijiLiverMap();
+export async function fetchNijiLiverMap(): Promise<NijiLiverMap> {
+  const liverMap = await _fetchNijiLiverMap();
   return liverMap;
 
   // Reduce image size
@@ -54,7 +54,7 @@ export async function getNijiLiverMap(): Promise<NijiLiverMap> {
   // );
 }
 
-export async function getNijiStreams(): Promise<NijiStream[]> {
+export async function fetchNijiStreamList(): Promise<NijiStream[]> {
   if (import.meta.env.VITE_TEST_DATA) {
     return await import("./sample3/streams.json").then((res) => res.default);
   }

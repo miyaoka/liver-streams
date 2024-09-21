@@ -1,6 +1,6 @@
 import { useLocalStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 export interface TreeNode {
   id: string;
@@ -12,11 +12,15 @@ export interface Node {
   [key: string]: string[] | Node;
 }
 
-export const useStorageStore = defineStore("channelFilter", () => {
+export const useStorageStore = defineStore("storageStore", () => {
   const talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
   const talentFilterEnabled = useLocalStorage("talentFilterEnabled", true);
   const searchTerm = useLocalStorage("filterSearchTerm", "");
   const isLiveOnly = ref(false);
+
+  const searchTerms = computed(() => {
+    return searchTerm.value.split(/\s+/).filter((term) => term !== "");
+  });
 
   let scrollY = 0;
   function setSearchTerm(term: string) {
@@ -63,6 +67,7 @@ export const useStorageStore = defineStore("channelFilter", () => {
     resetTalentFilter,
     talentFilterEnabled,
     searchTerm,
+    searchTerms,
     setSearchTerm,
     isLiveOnly,
     toggleLiveOnly,

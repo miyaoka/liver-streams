@@ -4,99 +4,14 @@ import LiverEventDateSection from "./LiverEventDateSection.vue";
 import { type TimeSection } from "./LiverEventTimeSection.vue";
 import type { DateSection } from "./LiverEventDateSection.vue";
 import type { LiverEvent } from "@/api";
-import { useStorageStore } from "@/store/storageStore";
-import { useTalentStore } from "@/store/talentStore";
 
 const props = defineProps<{
   liverEventList: LiverEvent[];
 }>();
 
-const channelFilterStore = useStorageStore();
-const talentStore = useTalentStore();
-
-const searchTerms = computed(() => {
-  return channelFilterStore.searchTerm.split(/\s+/).filter((term) => term !== "");
-});
-
-const filteredEventList = computed(() => {
-  return getFilteredEventList({
-    liverEventList: props.liverEventList,
-    filterMap: channelFilterStore.talentFilterMap,
-    filterEnabled: channelFilterStore.talentFilterEnabled,
-    searchTerms: searchTerms.value,
-    focusedTalent: talentStore.focusedTalent,
-    isLiveOnly: channelFilterStore.isLiveOnly,
-  });
-});
-
 const dateSectionList = computed<DateSection[]>(() => {
-  return createDateSectionList(filteredEventList.value);
+  return createDateSectionList(props.liverEventList);
 });
-
-function getFilteredEventList({
-  liverEventList,
-  filterMap,
-  filterEnabled,
-  searchTerms,
-  focusedTalent,
-  isLiveOnly,
-}: {
-  liverEventList: LiverEvent[];
-  filterMap: Map<string, boolean>;
-  filterEnabled: boolean;
-  searchTerms: string[];
-  focusedTalent: string | null;
-  isLiveOnly: boolean;
-}): LiverEvent[] {
-  // 単一セレクト時
-  if (focusedTalent) {
-    return liverEventList.filter((video) => {
-      return (
-        video.talent.name === focusedTalent ||
-        video.collaboTalents.some((collaborator) => {
-          return collaborator.name === focusedTalent;
-        })
-      );
-    });
-  }
-
-  const hasTalentfilter = filterEnabled && filterMap.size > 0;
-  // 検索語をスペースで分割してOR検索
-  const searchRegExp = searchTerms.length > 0 ? new RegExp(searchTerms.join("|"), "i") : null;
-
-  return (
-    liverEventList
-      // talentでフィルタリング
-      .filter((video) => {
-        // フィルタなし
-        if (!hasTalentfilter) return true;
-
-        // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-        return (
-          filterMap.has(video.talent.name) ||
-          video.collaboTalents.some((collaborator) => {
-            return filterMap.has(collaborator.name);
-          })
-        );
-      })
-      .filter((video) => {
-        // live中のみ表示
-        if (!isLiveOnly) return true;
-        return video.isLive;
-      })
-      .filter((video) => {
-        // 検索語にマッチしたイベントのみ表示
-        if (!searchRegExp) return true;
-        return (
-          searchRegExp.test(video.title) ||
-          searchRegExp.test(video.talent.name) ||
-          video.collaboTalents.some((collaborator) => {
-            return searchRegExp.test(collaborator.name);
-          })
-        );
-      })
-  );
-}
 
 function createDateSectionList(liverEventList: LiverEvent[]): DateSection[] {
   if (liverEventList.length === 0) return [];
@@ -173,7 +88,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="min-h-screen pb-60 bg-[#3a3c6d]" v-if="filteredEventList.length > 0">
+  <div class="min-h-screen pb-60 bg-[#3a3c6d]" v-if="props.liverEventList.length > 0">
     <LiverEventDateSection
       v-for="(dateSection, i) in dateSectionList"
       :key="dateSection.time"
