@@ -44,7 +44,7 @@ function scrollToSectionTop(time: number) {
 <template>
   <section class="relative pt-4 pb-12" data-id="date-section" :data-time="`${dateSection.time}`">
     <div class="absolute w-full -top-1 border-t-2 border-dashed border-white border-opacity-80" />
-    <div
+    <header
       class="sticky z-20 top-4 mb-8 flex flex-col items-center justify-center pointer-events-none"
     >
       <div class="relative pointer-events-auto flex flex-row items-center">
@@ -72,7 +72,7 @@ function scrollToSectionTop(time: number) {
           <i class="i-mdi-chevron-down text-white h-5 w-5" />
         </button>
       </div>
-    </div>
+    </header>
     <LiverEventTimeSection
       v-for="(section, i) in dateSection.timeSectionList"
       :key="section.time"
