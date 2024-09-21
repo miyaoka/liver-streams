@@ -67,7 +67,7 @@ const isFinished = computed(() => {
   if (props.liverEvent.isLive) return false;
 
   // 配信していない場合
-  const now = Date.now();
+  const now = dateStore.currentTime;
   const startTime = props.liverEvent.startAt.getTime();
   // 現在時刻を過ぎていなければ開始前
   if (now < startTime) return false;
@@ -77,7 +77,7 @@ const isFinished = computed(() => {
     if (props.liverEvent.startAt.getSeconds() !== 0) return true;
 
     // 秒数が0の場合、1時間経過していたら終了と見なす
-    if (now - startTime > 60 * 60 * 1000) return true;
+    if (now - startTime > oneHour) return true;
   }
   // それ以外の場合：未終了
   return false;
