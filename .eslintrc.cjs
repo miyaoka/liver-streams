@@ -14,7 +14,6 @@ module.exports = {
   },
   plugins: ["import", "unused-imports"],
   rules: {
-    "no-console": "warn",
     "vue/no-ref-as-operand": "error",
     "vue/multi-word-component-names": "warn",
 
