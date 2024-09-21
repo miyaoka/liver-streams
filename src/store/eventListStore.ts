@@ -152,6 +152,10 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
+  const liveEventList = computed(() => {
+    return filteredEventList.value.filter((event) => event.isLive);
+  });
+
   function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
     fetchLiverEventList({ nijiLiverMap }).then((events) => {
       liverEventList.value = events;
@@ -161,6 +165,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
   return {
     liverEventList,
     filteredEventList,
+    liveEventList,
     updateLiverEventList,
   };
 });
