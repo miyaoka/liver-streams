@@ -47,7 +47,7 @@ function getTimeColor(hour: number) {
   >
     <div v-if="isCurrentTime" class="w-full pointer-events-none flex">
       <div
-        class="bg-black text-white mt-8 pl-2 pr-12 [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);] font-bold text-base flex items-center gap-2 py-1"
+        class="bg-black bg-opacity-70 text-white mt-8 pl-2 pr-12 [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);] font-bold text-base flex items-center gap-2 py-1"
       >
         <i class="i-mdi-clock-outline h-6 w-6" />
         <p>now</p>
