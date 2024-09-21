@@ -2,8 +2,6 @@
 import { computed, ref } from "vue";
 import LiverEventCard from "./LiverEventCard.vue";
 import type { LiverEvent } from "@/api";
-import { useDateStore } from "@/store/dateStore";
-import { hhss } from "@/utils/dateFormat";
 
 export interface TimeSection {
   time: number;
@@ -41,7 +39,6 @@ const hourColorMap = new Map<number, string>([
   [23, "#3a3c6d"],
 ]);
 
-const dateStore = useDateStore();
 const sectionEl = ref<HTMLElement | null>(null);
 
 const hasEvents = computed(() => props.section.events.length > 0);
@@ -63,41 +60,6 @@ const sectionBackground = computed(() => {
   }
   return sectionColor.value;
 });
-
-const sectionDate = computed(() => {
-  return new Date(props.section.time);
-});
-
-const sectionInfo = computed(() => {
-  const dateDiff = compareDate(dateStore.currentDate, sectionDate.value);
-
-  return {
-    dateDiff,
-    // dateLabel: dateMap.get(dateDiff),
-    hhss: hhss(sectionDate.value),
-  };
-});
-
-// 日付の時刻をリセット
-function resetTime(date: Date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-}
-
-function compareDate(baseDate: Date, targetDate: Date): number {
-  const base = resetTime(baseDate);
-  const target = resetTime(targetDate);
-  const oneDay = 24 * 60 * 60 * 1000;
-
-  // 日数差を計算
-  const differenceInDays = (target.getTime() - base.getTime()) / oneDay;
-
-  return differenceInDays;
-}
-
-function scrollToSectionTop() {
-  if (!sectionEl.value) return;
-  sectionEl.value.scrollIntoView({ behavior: "smooth" });
-}
 </script>
 <template>
   <section
@@ -109,14 +71,6 @@ function scrollToSectionTop() {
     }"
   >
     <template v-if="hasEvents">
-      <!-- <div class="sticky z-20 top-8">
-        <button
-          :class="`font-bold px-3 py-1 rounded-full shadow-md outline outline-white outline-1 ${sectionInfo.dateDiff < 0 ? 'bg-gray-700 text-gray-400' : sectionInfo.dateDiff === 0 ? 'bg-gray-800 text-white' : 'bg-gray-500 text-gray-100'}`"
-          @click="scrollToSectionTop"
-        >
-          {{ sectionInfo.hhss }}
-        </button>
-      </div> -->
       <div
         class="w-full grid grid-cols-[repeat(auto-fill,minmax(440px,1fr))] gap-y-[28px] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
       >

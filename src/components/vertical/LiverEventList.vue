@@ -175,9 +175,11 @@ onMounted(() => {
 <template>
   <div class="min-h-screen pb-60 bg-[#3a3c6d]" v-if="filteredEventList.length > 0">
     <LiverEventDateSection
-      v-for="dateSection in dateSectionList"
+      v-for="(dateSection, i) in dateSectionList"
       :key="dateSection.time"
       :dateSection="dateSection"
+      :prevSection="dateSectionList[i - 1]"
+      :nextSection="dateSectionList[i + 1]"
     />
   </div>
   <div
