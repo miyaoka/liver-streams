@@ -55,7 +55,7 @@ function getTimeColor(hour: number) {
     </div>
     <template v-if="hasEvents">
       <div
-        class="w-full grid grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-y-[28px] pt-4 pb-12 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
+        class="w-full grid grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-y-[28px] pt-8 pb-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
       >
         <LiverEventCard
           v-for="liverEvent in props.section.events"
