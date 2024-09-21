@@ -14,10 +14,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div
-    class="eventList h-screen w-screen overflow-y-scroll pb-60 bg-[#3a3c6d]"
-    v-if="props.dateSectionList.length > 0"
-  >
+  <div class="pb-60 bg-[#3a3c6d]" v-if="props.dateSectionList.length > 0">
     <LiverEventDateSection
       v-for="(dateSection, i) in dateSectionList"
       :key="dateSection.time"
@@ -35,8 +32,8 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-.eventList {
+<style>
+html {
   scrollbar-width: none;
 }
 </style>

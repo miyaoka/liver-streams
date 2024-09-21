@@ -253,7 +253,9 @@ export const useEventListStore = defineStore("eventListStore", () => {
 
     if (!targetTimeSection) return;
 
-    const target = document.querySelector(`[data-time="${targetTimeSection.time}"]`);
+    const target = document.querySelector(
+      `[data-id="time-section"][data-time="${targetTimeSection.time}"]`,
+    );
     if (!target) return;
 
     target.scrollIntoView(option);

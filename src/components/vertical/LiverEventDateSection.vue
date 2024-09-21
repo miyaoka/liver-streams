@@ -35,14 +35,14 @@ function compareDate({ base, target }: { base: Date; target: Date }): number {
 }
 
 function scrollToSectionTop(time: number) {
-  const targetSectionEl = document.querySelector(`[data-date-section-time="${time}"]`);
+  const targetSectionEl = document.querySelector(`[data-id="date-section"][data-time="${time}"]`);
   if (!targetSectionEl) return;
   targetSectionEl.scrollIntoView({ behavior: "smooth" });
 }
 </script>
 
 <template>
-  <section class="relative pt-4 pb-12" :data-date-section-time="`${dateSection.time}`">
+  <section class="relative pt-4 pb-12" data-id="date-section" :data-time="`${dateSection.time}`">
     <div class="absolute w-full -top-1 border-t-2 border-dashed border-white border-opacity-80" />
     <div
       class="sticky z-20 top-4 mb-8 flex flex-col items-center justify-center pointer-events-none"

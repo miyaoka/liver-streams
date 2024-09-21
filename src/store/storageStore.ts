@@ -41,6 +41,16 @@ export const useStorageStore = defineStore("storageStore", () => {
     // falseであればスクロール位置を保存する
     if (!isLiveOnly.value) {
       scrollY = window.scrollY;
+
+      // ライブ中のイベントのtimeSectionの先頭にスクロールする
+      requestAnimationFrame(() => {
+        const onLiveEvent = document.querySelector(
+          "[data-id=time-section]:has([data-id=liver-event-card])",
+        );
+        if (onLiveEvent) {
+          onLiveEvent.scrollIntoView({ behavior: "instant" });
+        }
+      });
     } else {
       requestAnimationFrame(() => {
         window.scrollTo(0, scrollY);

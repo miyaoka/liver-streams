@@ -112,7 +112,7 @@ function onClickCard(evt: MouseEvent) {
 <template>
   <div
     class="relative group"
-    :data-event-time="props.liverEvent.startAt.getTime()"
+    data-id="liver-event-card"
     @mouseover="hoverEvent(liverEvent)"
     @mouseleave="talentStore.clearHoveredTalents()"
   >
