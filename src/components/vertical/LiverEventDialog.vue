@@ -33,7 +33,7 @@ defineExpose({
   <dialog
     ref="dialogEl"
     @click="onClickDialog"
-    class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl"
+    class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl top-auto bottom-4"
   >
     <div class="px-4 py-2">
       <div class="font-bold">
@@ -88,3 +88,20 @@ defineExpose({
     </div>
   </dialog>
 </template>
+
+<style scoped>
+dialog {
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  &[open] {
+    animation: fadeIn 0.2s forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    translate: 0 50%;
+  }
+}
+</style>

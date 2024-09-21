@@ -204,26 +204,4 @@ function onClickCard(evt: MouseEvent) {
 .isFinished:not(.isHovered) {
   @apply bg-slate-50;
 }
-
-dialog {
-  &::backdrop {
-    animation: backdropFadeIn 0.4s forwards;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  &[open] {
-    animation: fadeIn 0.2s forwards;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    scale: 0.8;
-  }
-}
-@keyframes backdropFadeIn {
-  from {
-    opacity: 0;
-  }
-}
 </style>
