@@ -2,13 +2,13 @@
 import { ref } from "vue";
 import { useStorageStore } from "@/store/storageStore";
 
-const filterStore = useStorageStore();
+const storageStore = useStorageStore();
 const inputEl = ref<HTMLInputElement | null>(null);
 
-const searchQuery = ref(filterStore.searchTerm);
+const searchQuery = ref(storageStore.searchTerm);
 let timeout: ReturnType<typeof setTimeout> | null = null;
 
-const isInput = ref(filterStore.searchTerm !== "");
+const isInput = ref(storageStore.searchTerm !== "");
 
 // 入力文字によるフィルタを遅延実行
 function onInput() {
@@ -16,7 +16,7 @@ function onInput() {
     clearTimeout(timeout);
   }
   timeout = setTimeout(() => {
-    filterStore.setSearchTerm(searchQuery.value);
+    storageStore.setSearchTerm(searchQuery.value);
   }, 500);
 }
 
@@ -44,7 +44,7 @@ function onClick() {
     inputEl.value?.focus();
   } else {
     // close
-    filterStore.setSearchTerm("");
+    storageStore.setSearchTerm("");
     searchQuery.value = "";
   }
 }

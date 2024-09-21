@@ -137,26 +137,26 @@ function getFilteredEventList({
 }
 
 export const useEventListStore = defineStore("eventListStore", () => {
-  const channelFilterStore = useStorageStore();
+  const storageStore = useStorageStore();
   const talentStore = useTalentStore();
   const liverEventList = ref<LiverEvent[]>([]);
+
+  const filteredEventList = computed(() => {
+    return getFilteredEventList({
+      liverEventList: liverEventList.value,
+      filterMap: storageStore.talentFilterMap,
+      filterEnabled: storageStore.talentFilterEnabled,
+      searchTerms: storageStore.searchTerms,
+      focusedTalent: talentStore.focusedTalent,
+      isLiveOnly: storageStore.isLiveOnly,
+    });
+  });
 
   function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
     fetchLiverEventList({ nijiLiverMap }).then((events) => {
       liverEventList.value = events;
     });
   }
-
-  const filteredEventList = computed(() => {
-    return getFilteredEventList({
-      liverEventList: liverEventList.value,
-      filterMap: channelFilterStore.talentFilterMap,
-      filterEnabled: channelFilterStore.talentFilterEnabled,
-      searchTerms: channelFilterStore.searchTerms,
-      focusedTalent: talentStore.focusedTalent,
-      isLiveOnly: channelFilterStore.isLiveOnly,
-    });
-  });
 
   return {
     liverEventList,

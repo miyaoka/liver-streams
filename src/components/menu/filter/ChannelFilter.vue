@@ -4,9 +4,9 @@ import GroupNode from "./GroupNode.vue";
 import channelNames from "@/assets/channelNames.json";
 import { useStorageStore } from "@/store/storageStore";
 
-const channelFilterStore = useStorageStore();
+const storageStore = useStorageStore();
 
-const filterCount = computed(() => channelFilterStore.talentFilterMap.size);
+const filterCount = computed(() => storageStore.talentFilterMap.size);
 </script>
 <template>
   <button class="flex p-1 bg-white rounded shadow-md" popovertarget="filter">
@@ -25,7 +25,7 @@ const filterCount = computed(() => channelFilterStore.talentFilterMap.size);
       <div class="flex flex-row gap-2 items-center w-full">
         <button
           class="px-2 py-1 bg-slate-200 rounded-lg border border-solid border-slate-500"
-          @click="channelFilterStore.resetTalentFilter()"
+          @click="storageStore.resetTalentFilter()"
         >
           reset
         </button>
@@ -35,12 +35,12 @@ const filterCount = computed(() => channelFilterStore.talentFilterMap.size);
 
         <label>
           フィルタ適用
-          <input type="checkbox" v-model="channelFilterStore.talentFilterEnabled" />
+          <input type="checkbox" v-model="storageStore.talentFilterEnabled" />
         </label>
       </div>
       <GroupNode
         class="-ml-6"
-        :class="`${!channelFilterStore.talentFilterEnabled ? 'opacity-50 grayscale' : ''}`"
+        :class="`${!storageStore.talentFilterEnabled ? 'opacity-50 grayscale' : ''}`"
         :group="channelNames"
       />
     </div>

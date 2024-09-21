@@ -4,7 +4,7 @@ import { useStorageStore } from "@/store/storageStore";
 import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 
-const channelFilterStore = useStorageStore();
+const storageStore = useStorageStore();
 const talentStore = useTalentStore();
 
 const props = defineProps<{
@@ -23,14 +23,12 @@ function update() {
 }
 
 function onChange(name: string, checked: boolean) {
-  channelFilterStore.setTalentFilter(name, checked);
+  storageStore.setTalentFilter(name, checked);
   update();
 }
 
 onMounted(() => {
-  checkList.value = props.nameList.map(
-    (name) => channelFilterStore.talentFilterMap.get(name) ?? false,
-  );
+  checkList.value = props.nameList.map((name) => storageStore.talentFilterMap.get(name) ?? false);
   update();
 });
 watch(
@@ -38,15 +36,13 @@ watch(
   (val) => {
     checkList.value = props.nameList.map(() => val);
     props.nameList.forEach((name) => {
-      channelFilterStore.setTalentFilter(name, val);
+      storageStore.setTalentFilter(name, val);
     });
   },
 );
 
-watch(channelFilterStore.talentFilterMap, () => {
-  checkList.value = props.nameList.map(
-    (name) => channelFilterStore.talentFilterMap.get(name) ?? false,
-  );
+watch(storageStore.talentFilterMap, () => {
+  checkList.value = props.nameList.map((name) => storageStore.talentFilterMap.get(name) ?? false);
   update();
 });
 </script>
