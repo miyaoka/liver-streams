@@ -116,7 +116,7 @@ function onClickCard(evt: MouseEvent) {
     @mouseover="hoverEvent(liverEvent)"
     @mouseleave="talentStore.clearHoveredTalents()"
   >
-    <a ref="button" :href="liverEvent.url" target="_blank" @click="onClickCard">
+    <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
         :class="`absolute z-10 left-0 flex flex-row items-center gap-1 ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
       >
