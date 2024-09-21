@@ -9,45 +9,18 @@ const props = defineProps<{
   isCurrentTime: boolean;
 }>();
 
-const hourColorMap = new Map<number, string>([
-  [0, "#3a3c6d"],
-  [1, "#3a3e70"],
-  [2, "#3b4064"],
-  [3, "#3c4368"],
-  [4, "#3d466c"],
-  [5, "#3e4970"],
-  [6, "#4a5a7d"], // sunrise
-  [7, "#c0d8e0"], // morning
-  [8, "#c4dce4"],
-  [9, "#c8e0e8"],
-  [10, "#cce4ec"],
-  [11, "#d0e8f0"],
-  [12, "#d4ecf4"], // noon (brighter)
-  [13, "#d0e8f0"],
-  [14, "#cce4ec"],
-  [15, "#c8e0e8"],
-  [16, "#c4dce4"],
-  [17, "#c0d8e0"], // evening
-  [18, "#e4b4b0"], // sunset transition (red hue)
-  [19, "#e49894"], // sunset (red hue)
-  [20, "#b08080"], // post-sunset (red hue)
-  [21, "#606080"],
-  [22, "#505070"],
-  [23, "#3a3c6d"],
-]);
-
 const sectionEl = ref<HTMLElement | null>(null);
 
 const hasEvents = computed(() => props.section.events.length > 0);
 const sectionColor = computed(() => {
   const hour = new Date(props.section.time).getHours();
-  return hourColorMap.get(hour);
+  return getTimeColor(hour);
 });
 
 const nextSectionColor = computed(() => {
-  if (!props.nextSection) return hourColorMap.get(0);
+  if (!props.nextSection) return getTimeColor(0);
   const nextHour = new Date(props.nextSection.time).getHours();
-  return hourColorMap.get(nextHour);
+  return getTimeColor(nextHour);
 });
 
 const sectionBackground = computed(() => {
@@ -57,6 +30,10 @@ const sectionBackground = computed(() => {
   }
   return sectionColor.value;
 });
+
+function getTimeColor(hour: number) {
+  return "var(--hour" + hour + ")";
+}
 </script>
 <template>
   <section
