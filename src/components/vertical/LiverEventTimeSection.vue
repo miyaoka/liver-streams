@@ -6,6 +6,7 @@ import type { TimeSection } from "@/store/eventListStore";
 const props = defineProps<{
   section: TimeSection;
   nextSection: TimeSection | undefined;
+  isCurrentTime: boolean;
 }>();
 
 const hourColorMap = new Map<number, string>([
@@ -60,16 +61,24 @@ const sectionBackground = computed(() => {
 <template>
   <section
     ref="sectionEl"
-    class="flex flex-col items-center gap-[20px] pt-0 min-h-2 scroll-m-8"
+    class="flex flex-col items-center gap-[20px] min-h-2 scroll-m-8"
     data-id="time-section"
     :data-time="props.section.time"
     :style="{
       background: sectionBackground,
     }"
   >
+    <div v-if="isCurrentTime" class="w-full pointer-events-none flex">
+      <div
+        class="bg-black text-white pl-2 pr-12 rounded-e-full font-bold text-base flex items-center gap-2 py-1"
+      >
+        <i class="i-mdi-clock-outline h-6 w-6" />
+        now
+      </div>
+    </div>
     <template v-if="hasEvents">
       <div
-        class="w-full grid grid-cols-[repeat(auto-fill,minmax(440px,1fr))] gap-y-[28px] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
+        class="w-full grid grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-y-[28px] pt-4 pb-12 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
       >
         <LiverEventCard
           v-for="liverEvent in props.section.events"

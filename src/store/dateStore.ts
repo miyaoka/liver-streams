@@ -13,11 +13,16 @@ export const useDateStore = defineStore("dateStore", () => {
     const date = currentDate.value;
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   });
+  const currentHourTime = computed(() => {
+    const date = currentDate.value;
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours()).getTime();
+  });
 
   return {
     currentDate,
     currentTime,
     currentDateWithoutTime,
+    currentHourTime,
   };
 });
 

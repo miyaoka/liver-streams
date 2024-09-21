@@ -78,6 +78,7 @@ function scrollToSectionTop(time: number) {
       :key="section.time"
       :section="section"
       :nextSection="dateSection.timeSectionList[i + 1]"
+      :isCurrentTime="section.time === dateStore.currentHourTime"
     />
   </section>
 </template>
