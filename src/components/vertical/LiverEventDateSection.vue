@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import LiverEventTimeSection, { type TimeSection } from "./LiverEventTimeSection.vue";
 import { useDateStore } from "@/store/dateStore";
-import { mmddDateFormatter } from "@/utils/dateFormat";
+import { mdwdayDateFormatter } from "@/utils/dateFormat";
 
 export interface DateSection {
   time: number;
@@ -18,12 +18,6 @@ const props = defineProps<{
 
 const dateStore = useDateStore();
 
-const dateMap = new Map<number, string>([
-  [0, "today"],
-  [-1, "yesterday"],
-  [1, "tomorrow"],
-]);
-
 const sectionInfo = computed(() => {
   const dateDiff = compareDate({
     base: dateStore.currentDateWithoutTime,
@@ -32,8 +26,7 @@ const sectionInfo = computed(() => {
 
   return {
     dateDiff,
-    dateLabel: dateMap.get(dateDiff),
-    mmdd: mmddDateFormatter.format(props.dateSection.date),
+    mmdd: mdwdayDateFormatter.format(props.dateSection.date),
   };
 });
 
@@ -55,9 +48,7 @@ function scrollToSectionTop(time: number) {
 
 <template>
   <section class="relative pt-4 pb-12" :data-date-section-time="`${dateSection.time}`">
-    <!-- date divider -->
     <div class="absolute w-full -top-1 border-t-2 border-dashed border-white border-opacity-80" />
-    <!-- date button -->
     <div
       class="sticky z-20 top-4 mb-8 flex flex-col items-center justify-center pointer-events-none"
     >
@@ -66,9 +57,6 @@ function scrollToSectionTop(time: number) {
           :class="`px-2 py-1 rounded-2xl flex flex-row gap-1 items-center shadow-md border border-gray-300 border-1 ${sectionInfo.dateDiff === 0 ? 'text-white bg-blue-700' : 'text-white bg-gray-800'}`"
           @click="scrollToSectionTop(dateSection.time)"
         >
-          <span class="text-xs" v-if="sectionInfo.dateLabel">
-            {{ sectionInfo.dateLabel }}
-          </span>
           <span class="text-base font-bold">
             {{ sectionInfo.mmdd }}
           </span>
@@ -76,21 +64,20 @@ function scrollToSectionTop(time: number) {
 
         <button
           v-if="prevSection"
-          class="absolute right-full w-6 h-6 mr-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
+          class="absolute right-full w-5 h-5 mr-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
           @click="scrollToSectionTop(prevSection.time)"
         >
-          <i class="i-mdi-chevron-up text-white h-6 w-6" />
+          <i class="i-mdi-chevron-up text-white h-5 w-5" />
         </button>
         <button
           v-if="nextSection"
-          class="absolute left-full w-6 h-6 ml-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
+          class="absolute left-full w-5 h-5 ml-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
           @click="scrollToSectionTop(nextSection.time)"
         >
-          <i class="i-mdi-chevron-down text-white h-6 w-6" />
+          <i class="i-mdi-chevron-down text-white h-5 w-5" />
         </button>
       </div>
     </div>
-    <!-- event list -->
     <LiverEventTimeSection
       v-for="(section, i) in dateSection.timeSectionList"
       :key="section.time"
