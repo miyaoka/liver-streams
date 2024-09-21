@@ -47,10 +47,10 @@ function getTimeColor(hour: number) {
   >
     <div v-if="isCurrentTime" class="w-full pointer-events-none flex">
       <div
-        class="bg-black text-white pl-2 pr-12 rounded-e-full font-bold text-base flex items-center gap-2 py-1"
+        class="bg-black text-white mt-8 pl-2 pr-12 rounded-e-full font-bold text-base flex items-center gap-2 py-1"
       >
         <i class="i-mdi-clock-outline h-6 w-6" />
-        now
+        <p>now</p>
       </div>
     </div>
     <template v-if="hasEvents">
