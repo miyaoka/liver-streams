@@ -1,20 +1,31 @@
 <script setup lang="ts">
+import { useEventListStore } from "@/store/eventListStore";
+
+const eventListStore = useEventListStore();
+
 function scrollToCurrentTime() {
   const now = Date.now();
-  const eventList = [...document.querySelectorAll("[data-event-time]")];
-  const foundIndex = eventList.findIndex((el) => {
-    const time = Number(el.getAttribute("data-event-time"));
-    // 現在時刻を超える最初のイベントを探す
-    if (time > now) return true;
-  });
-  // 現在時刻の直前のイベント or 最後のイベント
-  const prevEvent =
-    eventList[foundIndex === 0 ? 0 : foundIndex - 1] ?? eventList[eventList.length - 1];
+  // dateSection内のtimeSectionをflat化
+  const timeSectionList = eventListStore.dateSectionList.flatMap(
+    (section) => section.timeSectionList,
+  );
+  // 現在時刻より後のtimeSectionを取得
+  const afterNowIndex = timeSectionList.findIndex((timeSection) => timeSection.time > now);
 
-  if (prevEvent) {
-    // イベントにスクロール
-    prevEvent.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  // 現在より後のsectionがあればその手前、またはそのsection
+  // 現在より後が無ければイベントが有る最後のsection
+  const targetTimeSection =
+    afterNowIndex > 0
+      ? (timeSectionList[afterNowIndex - 1] ?? timeSectionList[afterNowIndex])
+      : timeSectionList.filter((timeSection) => timeSection.events.length > 0).at(-1);
+
+  if (!targetTimeSection) return;
+
+  let target = document.querySelector(`[data-time="${targetTimeSection.time}"]`);
+  if (!target) return;
+  console.log("target", target);
+
+  target.scrollIntoView({ behavior: "smooth" });
 }
 </script>
 

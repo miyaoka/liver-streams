@@ -60,7 +60,7 @@ const sectionBackground = computed(() => {
 <template>
   <section
     ref="sectionEl"
-    class="flex flex-col items-center gap-[20px] pt-0 min-h-2"
+    class="flex flex-col items-center gap-[20px] pt-0 min-h-2 scroll-m-8"
     :data-time="props.section.time"
     :style="{
       background: sectionBackground,

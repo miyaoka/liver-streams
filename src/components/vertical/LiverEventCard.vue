@@ -111,7 +111,7 @@ function onClickCard(evt: MouseEvent) {
 </script>
 <template>
   <div
-    class="relative group scroll-m-16"
+    class="relative group"
     :data-event-time="props.liverEvent.startAt.getTime()"
     @mouseover="hoverEvent(liverEvent)"
     @mouseleave="talentStore.clearHoveredTalents()"
