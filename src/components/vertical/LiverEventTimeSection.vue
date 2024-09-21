@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import LiverEventCard from "./LiverEventCard.vue";
-import type { LiverEvent } from "@/api";
+import type { TimeSection } from "@/store/eventListStore";
 
-export interface TimeSection {
-  time: number;
-  events: LiverEvent[];
-}
 const props = defineProps<{
   section: TimeSection;
   nextSection: TimeSection | undefined;

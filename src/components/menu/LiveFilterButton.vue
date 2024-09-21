@@ -17,7 +17,7 @@ const eventListStore = useEventListStore();
     <p
       class="absolute bg-red-700 text-white text-xs rounded-xl px-1 -right-2 -top-2 min-w-5 h-5 flex items-center justify-center"
     >
-      {{ eventListStore.liveEventList.length }}
+      {{ eventListStore.onLiveEventList.length }}
     </p>
   </button>
 </template>

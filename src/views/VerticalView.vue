@@ -14,23 +14,20 @@ onMounted(async () => {
   const nijiLiverMap = await fetchNijiLiverMap();
 
   // イベント情報を更新
-  const updateStreams = () => eventListStore.updateLiverEventList(nijiLiverMap);
+  const updateList = () => eventListStore.updateLiverEventList(nijiLiverMap);
 
   // 一定時間ごとにスケジュールを再取得
-  setInterval(updateStreams, fetchInterval);
+  setInterval(updateList, fetchInterval);
 
   // 初回取得
-  updateStreams();
+  updateList();
 });
 </script>
 
 <template>
-  <main
-    class="text-[clamp(11px,11px+0.25vw,15px)]"
-    v-if="eventListStore.filteredEventList.length > 0"
-  >
+  <main class="text-[clamp(11px,11px+0.25vw,15px)]" v-if="eventListStore.liverEventList">
     <HeaderMenu />
-    <LiverEventList :liverEventList="eventListStore.filteredEventList" />
+    <LiverEventList :dateSectionList="eventListStore.dateSectionList" />
     <FooterMenu />
   </main>
 </template>

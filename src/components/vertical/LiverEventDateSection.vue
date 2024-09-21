@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import LiverEventTimeSection, { type TimeSection } from "./LiverEventTimeSection.vue";
+import LiverEventTimeSection from "./LiverEventTimeSection.vue";
+import type { DateSection } from "@/store/eventListStore";
 import { useDateStore } from "@/store/dateStore";
 import { mdwdayDateFormatter } from "@/utils/dateFormat";
-
-export interface DateSection {
-  time: number;
-  date: Date;
-  timeSectionList: TimeSection[];
-}
 
 const props = defineProps<{
   dateSection: DateSection;
