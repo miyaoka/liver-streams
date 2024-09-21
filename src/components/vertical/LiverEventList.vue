@@ -37,29 +37,29 @@ html {
   scrollbar-width: none;
 }
 :root {
-  --hour0: #3a3c6d;
-  --hour1: #3a3e70;
-  --hour2: #3b4064;
-  --hour3: #3c4368;
-  --hour4: #3d466c;
-  --hour5: #3e4970;
-  --hour6: #4a5a7d;
-  --hour7: #c0d8e0;
-  --hour8: #c4dce4;
-  --hour9: #c8e0e8;
-  --hour10: #cce4ec;
-  --hour11: #d0e8f0;
-  --hour12: #d4ecf4;
-  --hour13: #d0e8f0;
-  --hour14: #cce4ec;
-  --hour15: #c8e0e8;
-  --hour16: #c4dce4;
-  --hour17: #c0d8e0;
-  --hour18: #e4b4b0;
-  --hour19: #e49894;
-  --hour20: #606080;
-  --hour21: #585878;
-  --hour22: #505070;
-  --hour23: #3a3c6d;
+  --hour0: #121450;
+  --hour1: #13184d;
+  --hour2: #141e4f;
+  --hour3: #161f53;
+  --hour4: #182457;
+  --hour5: #192751;
+  --hour6: #505fab;
+  --hour7: #9ecae6;
+  --hour8: #a3cddd;
+  --hour9: #b2ced7;
+  --hour10: #b4d4df;
+  --hour11: #c8ecf9;
+  --hour12: #d8eaeb;
+  --hour13: #cce5ee;
+  --hour14: #cde6ee;
+  --hour15: #b7cce3;
+  --hour16: #7f86b7;
+  --hour17: #ab81a4;
+  --hour18: #da9c9e;
+  --hour19: #a47fae;
+  --hour20: #6d6b97;
+  --hour21: #44446a;
+  --hour22: #40407b;
+  --hour23: #292b66;
 }
 </style>
