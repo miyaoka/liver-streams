@@ -39,7 +39,7 @@ html {
 :root {
   --midnight: #627ea3;
   --morning: #97cce6;
-  --noon: #bef2f9;
+  --noon: #dff7f9;
   --evening: #f8b074;
   --night: #f6f3be;
 
