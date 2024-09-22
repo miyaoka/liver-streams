@@ -105,6 +105,12 @@ const firstHash = computed(() => {
 function hoverEvent(liverEvent: LiverEvent) {
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
   focusStore.setHoveredTalents(names);
+  focusStore.setHoveredHashList(liverEvent.hashList);
+}
+
+function unhoverEvent() {
+  focusStore.clearHoveredTalents();
+  focusStore.clearHoveredHashList();
 }
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
@@ -118,7 +124,7 @@ function onClickCard(evt: MouseEvent) {
     class="relative group"
     data-id="liver-event-card"
     @mouseover="hoverEvent(liverEvent)"
-    @mouseleave="focusStore.clearHoveredTalents()"
+    @mouseleave="unhoverEvent"
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div

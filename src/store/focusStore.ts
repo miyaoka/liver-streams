@@ -3,9 +3,11 @@ import { ref } from "vue";
 import { useScrollStore } from "./scrollStore";
 
 export const useFocusStore = defineStore("focusStore", () => {
+  const scrollStore = useScrollStore();
+
   const hoveredTalents = ref<string[]>([]);
   const focusedTalent = ref<string | null>(null);
-  const scrollStore = useScrollStore();
+  const hoveredHashList = ref<string[]>([]);
 
   function setFocusedTalent(talent: string | null) {
     // 非選択状態であればスクロール位置を保存する
@@ -26,13 +28,22 @@ export const useFocusStore = defineStore("focusStore", () => {
   function clearHoveredTalents() {
     hoveredTalents.value = [];
   }
+  function setHoveredHashList(hashList: string[]) {
+    hoveredHashList.value = hashList;
+  }
+  function clearHoveredHashList() {
+    hoveredHashList.value = [];
+  }
 
   return {
     hoveredTalents,
     focusedTalent,
+    hoveredHashList,
     setFocusedTalent,
     setHoveredTalents,
     clearHoveredTalents,
+    setHoveredHashList,
+    clearHoveredHashList,
   };
 });
 
