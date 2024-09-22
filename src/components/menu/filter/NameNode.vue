@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
+import { useFocusStore } from "@/store/focusStore";
 import { useStorageStore } from "@/store/storageStore";
-import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 
 const storageStore = useStorageStore();
-const talentStore = useTalentStore();
+const focusStore = useFocusStore();
 
 const props = defineProps<{
   nameList: string[];
@@ -53,10 +53,10 @@ watch(storageStore.talentFilterMap, () => {
       v-for="(name, i) in nameList"
       :key="name"
       :title="name"
-      @mouseenter="talentStore.setHoveredTalents(name)"
-      @mouseleave="talentStore.clearHoveredTalents()"
-      :class="`${talentStore.hoveredTalents.includes(name) ? 'scale-125' : ''}`"
-      @contextmenu.prevent="talentStore.setFocusedTalent(name)"
+      @mouseenter="focusStore.setHoveredTalents(name)"
+      @mouseleave="focusStore.clearHoveredTalents()"
+      :class="`${focusStore.hoveredTalents.includes(name) ? 'scale-125' : ''}`"
+      @contextmenu.prevent="focusStore.setFocusedTalent(name)"
     >
       <input
         type="checkbox"

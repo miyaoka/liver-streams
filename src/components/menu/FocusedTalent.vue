@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { useTalentStore } from "@/store/talentStore";
+import { useFocusStore } from "@/store/focusStore";
 import { getChannelIcon } from "@/utils/icons";
 
-const talentStore = useTalentStore();
+const focusStore = useFocusStore();
 </script>
 
 <template>
   <button
-    v-if="talentStore.focusedTalent != null"
+    v-if="focusStore.focusedTalent != null"
     class="fixed inset-0 bottom-6 m-auto top-auto w-fit h-fit z-20 flex flex-row justify-center items-center gap-4 px-3 py-1 rounded-full shadow-md bg-blue-800 text-white outline outline-white"
-    @click="talentStore.setFocusedTalent(null)"
+    @click="focusStore.setFocusedTalent(null)"
   >
     focused:
     <img
-      :src="getChannelIcon(talentStore.focusedTalent)"
+      :src="getChannelIcon(focusStore.focusedTalent)"
       loading="lazy"
       class="rounded-full w-[32px] bg-white"
     />
-    {{ talentStore.focusedTalent }}
+    {{ focusStore.focusedTalent }}
 
     <div class="i-mdi-cross-circle w-[32px] h-[32px]" />
   </button>

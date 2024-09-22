@@ -2,10 +2,12 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { ref } from "vue";
 import { useScrollStore } from "./scrollStore";
 
-export const useTalentStore = defineStore("talentStore", () => {
+export const useFocusStore = defineStore("focusStore", () => {
+  const scrollStore = useScrollStore();
+
   const hoveredTalents = ref<string[]>([]);
   const focusedTalent = ref<string | null>(null);
-  const scrollStore = useScrollStore();
+  const hoveredHashSet = ref<Set<string>>(new Set());
 
   function setFocusedTalent(talent: string | null) {
     // 非選択状態であればスクロール位置を保存する
@@ -27,15 +29,27 @@ export const useTalentStore = defineStore("talentStore", () => {
     hoveredTalents.value = [];
   }
 
+  // shortsなどはマッチさせないように除く
+  const ignoreHashList = ["#shorts", "#hololive"];
+  function setHoveredHashSet(hashSet: Set<string>) {
+    hoveredHashSet.value = new Set([...hashSet].filter((hash) => !ignoreHashList.includes(hash)));
+  }
+  function clearHoveredHashSet() {
+    hoveredHashSet.value = new Set();
+  }
+
   return {
     hoveredTalents,
     focusedTalent,
+    hoveredHashSet,
     setFocusedTalent,
     setHoveredTalents,
     clearHoveredTalents,
+    setHoveredHashSet,
+    clearHoveredHashSet,
   };
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useTalentStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useFocusStore, import.meta.hot));
 }

@@ -4,16 +4,16 @@ import LiverEventDialog from "./LiverEventDialog.vue";
 import type { LiverEvent } from "@/services/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
+import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
-import { useTalentStore } from "@/store/talentStore";
+import { useFocusStore } from "@/store/focusStore";
 import { hhss } from "@/utils/dateFormat";
-import { getThumnail } from "@/utils/youtube";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
 }>();
 
-const talentStore = useTalentStore();
+const focusStore = useFocusStore();
 const dateStore = useDateStore();
 const dialogComponent = ref<InstanceType<typeof LiverEventDialog> | null>(null);
 
@@ -90,7 +90,7 @@ const isHovered = computed(() => {
   ];
 
   // eventのタレントとhoverのタレントをマージ
-  const mergedNames = [...talentStore.hoveredTalents, ...talentNames];
+  const mergedNames = [...focusStore.hoveredTalents, ...talentNames];
   // 重複を削除
   const uniqueNames = new Set(mergedNames);
 
@@ -98,9 +98,32 @@ const isHovered = computed(() => {
   return uniqueNames.size !== mergedNames.length;
 });
 
+const firstHash = computed(() => {
+  return props.liverEvent.hashList[0];
+});
+
+// hoveredHashSetにhashSetが含まれているか
+const hasHoveredHash = computed(() => {
+  if (focusStore.hoveredHashSet.size === 0) return false;
+  // todo: vue-tscで型エラーになるのでいったん無視
+  // TS2339: Property 'intersection' does not exist on type 'Set<string>'
+  // @ts-ignore
+  return hashSet.value.intersection(focusStore.hoveredHashSet).size > 0;
+});
+
+// listからSetを作成
+// 大文字・小文字を区別せずマッチするように小文字に変換してからSetに変換
+const hashSet = computed(() => new Set(props.liverEvent.hashList.map((h) => h.toLowerCase())));
+
 function hoverEvent(liverEvent: LiverEvent) {
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
-  talentStore.setHoveredTalents(names);
+  focusStore.setHoveredTalents(names);
+  focusStore.setHoveredHashSet(hashSet.value);
+}
+
+function unhoverEvent() {
+  focusStore.clearHoveredTalents();
+  focusStore.clearHoveredHashSet();
 }
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
@@ -114,7 +137,7 @@ function onClickCard(evt: MouseEvent) {
     class="relative group"
     data-id="liver-event-card"
     @mouseover="hoverEvent(liverEvent)"
-    @mouseleave="talentStore.clearHoveredTalents()"
+    @mouseleave="unhoverEvent"
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
@@ -141,7 +164,7 @@ function onClickCard(evt: MouseEvent) {
           :src="liverEvent.talent.image"
           class="rounded-full w-[clamp(36px,36px+1vw,60px)] bg-white ml-2 group-hover:scale-110 transition-transform"
           loading="lazy"
-          @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
+          @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
         />
 
         <div
@@ -159,9 +182,9 @@ function onClickCard(evt: MouseEvent) {
               class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] aspect-square outline outline-orange-400 outline-1 hover:outline hover:outline-red-500 hover:outline-2"
               :title="talent.name"
               loading="lazy"
-              @mouseenter="talentStore.setHoveredTalents(talent.name)"
-              @mouseleave="talentStore.clearHoveredTalents()"
-              @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
+              @mouseenter="focusStore.setHoveredTalents(talent.name)"
+              @mouseleave="focusStore.clearHoveredTalents()"
+              @contextmenu.prevent="focusStore.setFocusedTalent(talent.name)"
             />
           </div>
         </div>
@@ -181,8 +204,17 @@ function onClickCard(evt: MouseEvent) {
             isHoveredOutline: isHovered,
           }"
         ></div>
+
+        <div
+          v-if="firstHash"
+          class="absolute bottom-0 right-0 flex flex-row gap-1 p-1 rounded-tl-[10px] shadow-md max-w-[50%] overflow-hidden"
+          :class="`${hasHoveredHash ? 'bg-orange-600 text-orange-100' : 'bg-blue-600 text-blue-100'}`"
+        >
+          <span class="text-xs whitespace-nowrap">{{ firstHash }}</span>
+        </div>
       </div>
     </a>
+
     <LiverEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
   </div>
 </template>

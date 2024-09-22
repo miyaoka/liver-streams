@@ -1,14 +1,14 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { useFocusStore } from "./focusStore";
 import { useStorageStore } from "./storageStore";
-import { useTalentStore } from "./talentStore";
 import { createDateSectionList } from "@/lib/section";
 import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
-  const talentStore = useTalentStore();
+  const focusStore = useFocusStore();
   const liverEventList = ref<LiverEvent[] | null>(null);
 
   const filteredEventList = computed(() => {
@@ -18,7 +18,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
       filterMap: storageStore.talentFilterMap,
       filterEnabled: storageStore.talentFilterEnabled,
       searchTerms: storageStore.searchTerms,
-      focusedTalent: talentStore.focusedTalent,
+      focusedTalent: focusStore.focusedTalent,
       isLiveOnly: storageStore.isLiveOnly,
     });
   });

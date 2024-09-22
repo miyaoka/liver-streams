@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { LiverEvent } from "@/services/api";
-import { useTalentStore } from "@/store/talentStore";
+import { getThumnail } from "@/lib/youtube";
+import { useFocusStore } from "@/store/focusStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
-import { getThumnail } from "@/utils/youtube";
 
 defineProps<{
   liverEvent: LiverEvent;
 }>();
 
-const talentStore = useTalentStore();
+const focusStore = useFocusStore();
 const dialogEl = ref<HTMLDialogElement | null>(null);
 
 function open() {
@@ -60,10 +60,10 @@ defineExpose({
           :src="liverEvent.talent.image"
           class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
           loading="lazy"
-          @mouseover="talentStore.setHoveredTalents(liverEvent.talent.name)"
-          @mouseleave="talentStore.clearHoveredTalents()"
-          @click.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
-          @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
+          @mouseover="focusStore.setHoveredTalents(liverEvent.talent.name)"
+          @mouseleave="focusStore.clearHoveredTalents()"
+          @click.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
+          @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
         />
         <div>
           <div class="font-bold text-base">
@@ -77,10 +77,10 @@ defineExpose({
               class="rounded-full w-[40px] hover:outline hover:outline-red-500 hover:outline-2 max-sm:w-[30px]"
               :title="talent.name"
               loading="lazy"
-              @mouseenter="talentStore.setHoveredTalents(talent.name)"
-              @mouseleave="talentStore.clearHoveredTalents()"
-              @click.prevent="talentStore.setFocusedTalent(talent.name)"
-              @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
+              @mouseenter="focusStore.setHoveredTalents(talent.name)"
+              @mouseleave="focusStore.clearHoveredTalents()"
+              @click.prevent="focusStore.setFocusedTalent(talent.name)"
+              @contextmenu.prevent="focusStore.setFocusedTalent(talent.name)"
             />
           </div>
         </div>
