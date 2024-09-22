@@ -44,11 +44,11 @@
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.12",
-    "typescript": "~5.4.5",
+    "typescript": "^5.6.2",
     "vite": "^5.4.7",
     "vite-plugin-vue-devtools": "^7.4.5",
     "vitest": "^1.6.0",
-    "vue-tsc": "2.0.29"
+    "vue-tsc": "^2.1.6"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --cache --fix",
