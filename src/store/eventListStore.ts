@@ -3,21 +3,21 @@ import { computed, ref } from "vue";
 import { useFocusStore } from "./focusStore";
 import { useStorageStore } from "./storageStore";
 import { createDateSectionList } from "@/lib/section";
-import {
-  compareLiverEvent,
-  fetchLiverEventList,
-  getFilteredEventList,
-  type LiverEvent,
-} from "@/services/api";
+import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
+
+interface AddedEvent {
+  url: string;
+  addedTime: number;
+}
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
   const focusStore = useFocusStore();
 
   const liverEventList = ref<LiverEvent[] | null>(null);
-  const eventUrlSet = ref<Set<string>>(new Set());
-  const addedUrlSet = ref<Set<string>>(new Set());
+  const prevUrlSet = ref<Set<string>>(new Set());
+  const addedEventList = ref<AddedEvent[]>([]);
 
   const filteredEventList = computed(() => {
     if (!liverEventList.value) return [];
@@ -51,16 +51,6 @@ export const useEventListStore = defineStore("eventListStore", () => {
     return map;
   });
 
-  const newEventList = computed(() => {
-    const eventList: LiverEvent[] = [];
-    addedUrlSet.value.forEach((url) => {
-      const event = liverEventMap.value.get(url);
-      if (!event) return;
-      eventList.push(event);
-    });
-    return eventList.sort(compareLiverEvent);
-  });
-
   async function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
     const eventList = await fetchLiverEventList({ nijiLiverMap });
     const currUrlSet = new Set(eventList.map((event) => event.url));
@@ -68,11 +58,24 @@ export const useEventListStore = defineStore("eventListStore", () => {
     // setを比較して足されたものを算出
     // 初回の場合は何もしない
     if (liverEventList.value) {
-      addedUrlSet.value = currUrlSet.difference(eventUrlSet.value);
+      const addedTime = Date.now();
+      const diff = currUrlSet.difference(prevUrlSet.value);
+      const addedItems: AddedEvent[] = Array.from(diff).map((url) => {
+        return {
+          url,
+          addedTime,
+        };
+      });
+
+      addedEventList.value.push(...addedItems);
     }
 
     liverEventList.value = eventList;
-    eventUrlSet.value = currUrlSet;
+    prevUrlSet.value = currUrlSet;
+  }
+
+  function clearAddedEventList() {
+    addedEventList.value = [];
   }
 
   return {
@@ -80,11 +83,11 @@ export const useEventListStore = defineStore("eventListStore", () => {
     filteredEventList,
     onLiveEventList,
     dateSectionList,
-    eventUrlSet,
-    addedUrlSet,
+    eventUrlSet: prevUrlSet,
     liverEventMap,
-    newEventList,
+    addedEventList,
     updateLiverEventList,
+    clearAddedEventList,
   };
 });
 
