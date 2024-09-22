@@ -102,15 +102,23 @@ const firstHash = computed(() => {
   return props.liverEvent.hashList[0];
 });
 
+// hoveredHashSetにhashSetが含まれているか
+const hasHoveredHash = computed(() => {
+  if (focusStore.hoveredHashSet.size === 0) return false;
+  return hashSet.value.intersection(focusStore.hoveredHashSet).size > 0;
+});
+
+const hashSet = computed(() => new Set(props.liverEvent.hashList));
+
 function hoverEvent(liverEvent: LiverEvent) {
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
   focusStore.setHoveredTalents(names);
-  focusStore.setHoveredHashList(liverEvent.hashList);
+  focusStore.setHoveredHashSet(hashSet.value);
 }
 
 function unhoverEvent() {
   focusStore.clearHoveredTalents();
-  focusStore.clearHoveredHashList();
+  focusStore.clearHoveredHashSet();
 }
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
@@ -194,9 +202,10 @@ function onClickCard(evt: MouseEvent) {
 
         <div
           v-if="firstHash"
-          class="absolute bottom-0 right-0 flex flex-row gap-1 p-1 bg-blue-600 rounded-tl-[10px] shadow-md max-w-[50%] overflow-hidden"
+          class="absolute bottom-0 right-0 flex flex-row gap-1 p-1 rounded-tl-[10px] shadow-md max-w-[50%] overflow-hidden"
+          :class="`${hasHoveredHash ? 'bg-orange-600 text-orange-100' : 'bg-blue-600 text-blue-100'}`"
         >
-          <span class="text-xs text-blue-100 whitespace-nowrap">{{ firstHash }}</span>
+          <span class="text-xs whitespace-nowrap">{{ firstHash }}</span>
         </div>
       </div>
     </a>

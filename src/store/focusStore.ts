@@ -7,7 +7,7 @@ export const useFocusStore = defineStore("focusStore", () => {
 
   const hoveredTalents = ref<string[]>([]);
   const focusedTalent = ref<string | null>(null);
-  const hoveredHashList = ref<string[]>([]);
+  const hoveredHashSet = ref<Set<string>>(new Set());
 
   function setFocusedTalent(talent: string | null) {
     // 非選択状態であればスクロール位置を保存する
@@ -28,22 +28,22 @@ export const useFocusStore = defineStore("focusStore", () => {
   function clearHoveredTalents() {
     hoveredTalents.value = [];
   }
-  function setHoveredHashList(hashList: string[]) {
-    hoveredHashList.value = hashList;
+  function setHoveredHashSet(hashSet: Set<string>) {
+    hoveredHashSet.value = hashSet;
   }
-  function clearHoveredHashList() {
-    hoveredHashList.value = [];
+  function clearHoveredHashSet() {
+    hoveredHashSet.value = new Set();
   }
 
   return {
     hoveredTalents,
     focusedTalent,
-    hoveredHashList,
+    hoveredHashSet,
     setFocusedTalent,
     setHoveredTalents,
     clearHoveredTalents,
-    setHoveredHashList,
-    clearHoveredHashList,
+    setHoveredHashSet,
+    clearHoveredHashSet,
   };
 });
 
