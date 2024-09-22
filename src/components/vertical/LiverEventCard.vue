@@ -6,14 +6,14 @@ import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
-import { useTalentStore } from "@/store/talentStore";
+import { useFocusStore } from "@/store/focusStore";
 import { hhss } from "@/utils/dateFormat";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
 }>();
 
-const talentStore = useTalentStore();
+const talentStore = useFocusStore();
 const dateStore = useDateStore();
 const dialogComponent = ref<InstanceType<typeof LiverEventDialog> | null>(null);
 

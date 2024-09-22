@@ -2,7 +2,7 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { ref } from "vue";
 import { useScrollStore } from "./scrollStore";
 
-export const useTalentStore = defineStore("talentStore", () => {
+export const useFocusStore = defineStore("focusStore", () => {
   const hoveredTalents = ref<string[]>([]);
   const focusedTalent = ref<string | null>(null);
   const scrollStore = useScrollStore();
@@ -37,5 +37,5 @@ export const useTalentStore = defineStore("talentStore", () => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useTalentStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useFocusStore, import.meta.hot));
 }

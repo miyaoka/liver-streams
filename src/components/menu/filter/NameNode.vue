@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
+import { useFocusStore } from "@/store/focusStore";
 import { useStorageStore } from "@/store/storageStore";
-import { useTalentStore } from "@/store/talentStore";
 import { getChannelIcon } from "@/utils/icons";
 
 const storageStore = useStorageStore();
-const talentStore = useTalentStore();
+const talentStore = useFocusStore();
 
 const props = defineProps<{
   nameList: string[];

@@ -2,14 +2,14 @@
 import { ref } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { getThumnail } from "@/lib/youtube";
-import { useTalentStore } from "@/store/talentStore";
+import { useFocusStore } from "@/store/focusStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
 
 defineProps<{
   liverEvent: LiverEvent;
 }>();
 
-const talentStore = useTalentStore();
+const talentStore = useFocusStore();
 const dialogEl = ref<HTMLDialogElement | null>(null);
 
 function open() {

@@ -1,14 +1,14 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { useFocusStore } from "./focusStore";
 import { useStorageStore } from "./storageStore";
-import { useTalentStore } from "./talentStore";
 import { createDateSectionList } from "@/lib/section";
 import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
-  const talentStore = useTalentStore();
+  const talentStore = useFocusStore();
   const liverEventList = ref<LiverEvent[] | null>(null);
 
   const filteredEventList = computed(() => {

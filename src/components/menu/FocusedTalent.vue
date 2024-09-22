@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useTalentStore } from "@/store/talentStore";
+import { useFocusStore } from "@/store/focusStore";
 import { getChannelIcon } from "@/utils/icons";
 
-const talentStore = useTalentStore();
+const talentStore = useFocusStore();
 </script>
 
 <template>
