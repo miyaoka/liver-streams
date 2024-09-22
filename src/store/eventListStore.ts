@@ -16,7 +16,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
   const focusStore = useFocusStore();
 
   const liverEventList = ref<LiverEvent[] | null>(null);
-  const prevUrlSet = ref<Set<string>>(new Set());
+  const eventUrlSet = ref<Set<string>>(new Set());
   const addedEventList = ref<AddedEvent[]>([]);
 
   const filteredEventList = computed(() => {
@@ -56,10 +56,15 @@ export const useEventListStore = defineStore("eventListStore", () => {
     const currUrlSet = new Set(eventList.map((event) => event.url));
 
     // setを比較して足されたものを算出
-    // 初回の場合は何もしない
+    // 初回の場合は差分抽出せずスキップ
     if (liverEventList.value) {
       const addedTime = Date.now();
-      const diff = currUrlSet.difference(prevUrlSet.value);
+
+      // todo: vue-tscでエラーが出るので一旦無視
+      // TS2339: Property 'difference' does not exist on type 'Set<string>'.
+      // @ts-ignore
+      const diff = currUrlSet.difference(eventUrlSet.value);
+      // @ts-ignore
       const addedItems: AddedEvent[] = Array.from(diff).map((url) => {
         return {
           url,
@@ -71,7 +76,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     }
 
     liverEventList.value = eventList;
-    prevUrlSet.value = currUrlSet;
+    eventUrlSet.value = currUrlSet;
   }
 
   function clearAddedEventList() {
@@ -83,7 +88,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     filteredEventList,
     onLiveEventList,
     dateSectionList,
-    eventUrlSet: prevUrlSet,
+    eventUrlSet: eventUrlSet,
     liverEventMap,
     addedEventList,
     updateLiverEventList,
