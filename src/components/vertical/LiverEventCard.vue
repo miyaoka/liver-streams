@@ -108,7 +108,9 @@ const hasHoveredHash = computed(() => {
   return hashSet.value.intersection(focusStore.hoveredHashSet).size > 0;
 });
 
-const hashSet = computed(() => new Set(props.liverEvent.hashList));
+// listからSetを作成
+// 大文字・小文字を区別せずマッチするように小文字に変換してからSetに変換
+const hashSet = computed(() => new Set(props.liverEvent.hashList.map((h) => h.toLowerCase())));
 
 function hoverEvent(liverEvent: LiverEvent) {
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];

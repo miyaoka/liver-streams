@@ -28,8 +28,11 @@ export const useFocusStore = defineStore("focusStore", () => {
   function clearHoveredTalents() {
     hoveredTalents.value = [];
   }
+
+  // shortsなどはマッチさせないように除く
+  const ignoreHashList = ["#shorts", "#hololive"];
   function setHoveredHashSet(hashSet: Set<string>) {
-    hoveredHashSet.value = hashSet;
+    hoveredHashSet.value = new Set([...hashSet].filter((hash) => !ignoreHashList.includes(hash)));
   }
   function clearHoveredHashSet() {
     hoveredHashSet.value = new Set();
