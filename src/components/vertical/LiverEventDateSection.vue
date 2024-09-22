@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import LiverEventTimeSection from "./LiverEventTimeSection.vue";
 import type { DateSection } from "@/lib/section";
+import { scrollToSectionTop } from "@/lib/scroll";
 import { useDateStore } from "@/store/dateStore";
 import { mdwdayDateFormatter } from "@/utils/dateFormat";
 
@@ -32,12 +33,6 @@ function compareDate({ base, target }: { base: Date; target: Date }): number {
   const differenceInDays = (target.getTime() - base.getTime()) / oneDay;
 
   return differenceInDays;
-}
-
-function scrollToSectionTop(time: number) {
-  const targetSectionEl = document.querySelector(`[data-id="date-section"][data-time="${time}"]`);
-  if (!targetSectionEl) return;
-  targetSectionEl.scrollIntoView({ behavior: "smooth" });
 }
 </script>
 

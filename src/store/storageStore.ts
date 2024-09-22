@@ -1,6 +1,7 @@
 import { useLocalStorage } from "@vueuse/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { useScrollStore } from "./scrollStore";
 
 export interface TreeNode {
   id: string;
@@ -16,31 +17,30 @@ export const useStorageStore = defineStore("storageStore", () => {
   const talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
   const talentFilterEnabled = useLocalStorage("talentFilterEnabled", true);
   const searchTerm = useLocalStorage("filterSearchTerm", "");
+  const scrollStore = useScrollStore();
+
   const isLiveOnly = ref(false);
 
   const searchTerms = computed(() => {
     return searchTerm.value.split(/\s+/).filter((term) => term !== "");
   });
 
-  let scrollY = 0;
   function setSearchTerm(term: string) {
     // 未入力状態であればスクロール位置を保存する
     if (searchTerm.value === "") {
-      scrollY = window.scrollY;
+      scrollStore.savePosition();
     }
     searchTerm.value = term;
 
     // 入力がクリアされたらスクロール位置をリセットする
     if (term === "") {
-      requestAnimationFrame(() => {
-        window.scrollTo(0, scrollY);
-      });
+      scrollStore.restorePosition();
     }
   }
   function toggleLiveOnly() {
     // falseであればスクロール位置を保存する
     if (!isLiveOnly.value) {
-      scrollY = window.scrollY;
+      scrollStore.savePosition();
 
       // ライブ中のイベントのtimeSectionの先頭にスクロールする
       requestAnimationFrame(() => {
@@ -52,9 +52,7 @@ export const useStorageStore = defineStore("storageStore", () => {
         }
       });
     } else {
-      requestAnimationFrame(() => {
-        window.scrollTo(0, scrollY);
-      });
+      scrollStore.restorePosition();
     }
     isLiveOnly.value = !isLiveOnly.value;
   }

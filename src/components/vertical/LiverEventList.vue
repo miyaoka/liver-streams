@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import LiverEventDateSection from "./LiverEventDateSection.vue";
 import type { DateSection } from "@/lib/section";
+import { scrollToCurrentTime } from "@/lib/scroll";
 import { useEventListStore } from "@/store/eventListStore";
 
 const props = defineProps<{
@@ -11,7 +12,7 @@ const props = defineProps<{
 const eventListStore = useEventListStore();
 
 onMounted(() => {
-  eventListStore.scrollToCurrentTime({ behavior: "instant" });
+  scrollToCurrentTime(eventListStore.dateSectionList, { behavior: "instant" });
 });
 </script>
 <template>
