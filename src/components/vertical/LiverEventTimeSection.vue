@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import LiverEventCard from "./LiverEventCard.vue";
-import type { TimeSection } from "@/store/eventListStore";
+import type { TimeSection } from "@/lib/section";
 
 const props = defineProps<{
   section: TimeSection;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import LiverEventTimeSection from "./LiverEventTimeSection.vue";
-import type { DateSection } from "@/store/eventListStore";
+import type { DateSection } from "@/lib/section";
 import { useDateStore } from "@/store/dateStore";
 import { mdwdayDateFormatter } from "@/utils/dateFormat";
 

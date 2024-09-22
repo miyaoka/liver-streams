@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import LiverEventDateSection from "./LiverEventDateSection.vue";
-import { useEventListStore, type DateSection } from "@/store/eventListStore";
+import type { DateSection } from "@/lib/section";
+import { useEventListStore } from "@/store/eventListStore";
 
 const props = defineProps<{
   dateSectionList: DateSection[];
