@@ -14,12 +14,17 @@ const hasLiveEvents = computed(() => eventListStore.onLiveEventList.length > 0);
     class="relative p-1 flex flex-col items-center bg-white rounded shadow-md"
     @click="storageStore.toggleLiveOnly"
   >
-    <p v-if="storageStore.isLiveOnly" class="bg-white text-red-500 font-bold">live</p>
-    <i :class="`i-mdi-radio-tower w-8 h-8 ${storageStore.isLiveOnly ? 'bg-red-500' : ''}`" />
+    <i :class="`i-mdi-radio-tower w-8 h-8 ${storageStore.isLiveOnly ? 'bg-red-600' : ''}`" />
     <p
-      :class="`absolute ${hasLiveEvents ? 'bg-red-700' : 'bg-gray-700'} text-white text-xs rounded-xl px-1 -right-2 -top-2 min-w-5 h-5 flex items-center justify-center`"
+      :class="`absolute ${hasLiveEvents ? 'bg-red-600' : 'bg-gray-700'} text-white text-xs rounded-xl px-1 -right-2 -top-2 min-w-5 h-5 flex items-center justify-center`"
     >
       {{ eventListStore.onLiveEventList.length }}
+    </p>
+    <p
+      v-if="storageStore.isLiveOnly"
+      class="absolute inset-0 top-auto rounded-b text-xs bg-red-600 text-white font-bold"
+    >
+      live
     </p>
   </button>
 </template>
