@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { LiverEvent } from "@/services/api";
+import { getThumnail } from "@/lib/youtube";
 import { useTalentStore } from "@/store/talentStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
-import { getThumnail } from "@/utils/youtube";
 
 defineProps<{
   liverEvent: LiverEvent;

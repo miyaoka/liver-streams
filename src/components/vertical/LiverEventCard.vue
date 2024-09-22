@@ -4,10 +4,10 @@ import LiverEventDialog from "./LiverEventDialog.vue";
 import type { LiverEvent } from "@/services/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
+import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
 import { useTalentStore } from "@/store/talentStore";
 import { hhss } from "@/utils/dateFormat";
-import { getThumnail } from "@/utils/youtube";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
@@ -98,6 +98,10 @@ const isHovered = computed(() => {
   return uniqueNames.size !== mergedNames.length;
 });
 
+const firstHash = computed(() => {
+  return props.liverEvent.hashList[0];
+});
+
 function hoverEvent(liverEvent: LiverEvent) {
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
   talentStore.setHoveredTalents(names);
@@ -181,8 +185,16 @@ function onClickCard(evt: MouseEvent) {
             isHoveredOutline: isHovered,
           }"
         ></div>
+
+        <div
+          v-if="firstHash"
+          class="absolute bottom-0 right-0 flex flex-row gap-1 p-1 bg-blue-600 rounded-tl-[10px] shadow-md max-w-[50%] overflow-hidden"
+        >
+          <span class="text-xs text-blue-100 whitespace-nowrap">{{ firstHash }}</span>
+        </div>
       </div>
     </a>
+
     <LiverEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
   </div>
 </template>
