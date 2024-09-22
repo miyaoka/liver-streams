@@ -36,9 +36,11 @@ const addedEvent = computed(() => {
     </p>
   </button>
   <div id="addedEvent" popover class="top-auto left-auto max-h-[500px] w-[400px]">
-    <div class="bg-white rounded-lg shadow-lg p-2 flex flex-col gap-2">
-      <div class="sticky bg-black text-white">新着</div>
+    <div class="bg-white rounded-lg shadow-lg p-2 flex flex-col gap-2 pb-10">
+      <div class="sticky bg-black text-white">直近1時間</div>
+      <div v-if="addedEvent.length === 0">なし</div>
       <div
+        v-else
         v-for="{ liverEvent, addedTime } in addedEvent"
         :key="liverEvent.url"
         class="flex flex-row gap-2 items-center"
