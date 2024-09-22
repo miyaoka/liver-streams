@@ -1,5 +1,5 @@
-import { fetchHoloEventList } from "./hololive/schedule";
-import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji/nijisanji";
+import { fetchHoloEventList } from "./hololive";
+import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
 import { getChannelIcon } from "@/utils/icons";
 
 export interface LiverEvent {

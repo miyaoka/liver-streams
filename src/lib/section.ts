@@ -1,4 +1,4 @@
-import type { LiverEvent } from "@/services";
+import type { LiverEvent } from "@/services/api";
 
 export interface DateSection {
   time: number;

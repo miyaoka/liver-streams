@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { type HoloSchedule } from "@/api/hololive/schedule";
+import type { HoloSchedule } from "@/services/hololive";
 import HorizontalSchedule from "@/components/horizontal/HorizontalSchedule.vue";
 
 const data = ref<HoloSchedule | null>(null);

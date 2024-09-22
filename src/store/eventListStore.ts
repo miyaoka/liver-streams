@@ -3,8 +3,8 @@ import { computed, ref } from "vue";
 import { useStorageStore } from "./storageStore";
 import { useTalentStore } from "./talentStore";
 import { createDateSectionList } from "@/lib/section";
-import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services";
-import { type NijiLiverMap } from "@/services/nijisanji/nijisanji";
+import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services/api";
+import { type NijiLiverMap } from "@/services/nijisanji";
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();

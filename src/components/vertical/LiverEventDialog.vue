@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { LiverEvent } from "@/services";
+import type { LiverEvent } from "@/services/api";
 import { useTalentStore } from "@/store/talentStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
 import { getThumnail } from "@/utils/youtube";

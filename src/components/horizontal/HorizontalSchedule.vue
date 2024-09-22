@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import type { HoloSchedule, HoloVideoDetail } from "@/api/hololive/schedule";
+import type { HoloSchedule, HoloVideoDetail } from "@/services/hololive";
 
 interface VideoWithDuration extends HoloVideoDetail {
   startTime: Date;

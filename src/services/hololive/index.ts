@@ -1,4 +1,4 @@
-import type { LiverEvent } from "..";
+import type { LiverEvent } from "../api";
 import { getChannelIcon } from "@/utils/icons";
 
 const holoAPI = "https://schedule.hololive.tv/api/list/7";

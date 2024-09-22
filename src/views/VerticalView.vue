@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { fetchNijiLiverMap } from "@/api/nijisanji/nijisanji";
 import FooterMenu from "@/components/menu/FooterMenu.vue";
 import HeaderMenu from "@/components/menu/HeaderMenu.vue";
 import LiverEventList from "@/components/vertical/LiverEventList.vue";
+import { fetchNijiLiverMap } from "@/services/nijisanji";
 import { useEventListStore } from "@/store/eventListStore";
 
 const fetchInterval = 1 * 60 * 1000; // 1min
