@@ -1,6 +1,5 @@
-import { fetchHoloEventList } from "./hololive";
-import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
-import { getHashList } from "@/lib/youtube";
+import { fetchHoloEventList } from "./hololive/schedule";
+import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji/nijisanji";
 import { getChannelIcon } from "@/utils/icons";
 
 export interface LiverEvent {
@@ -13,23 +12,11 @@ export interface LiverEvent {
   talent: LiverTalent;
   collaboTalents: LiverTalent[];
   affilication: "hololive" | "nijisanji";
-  hashList: string[];
 }
 
 export interface LiverTalent {
   name: string;
   image: string;
-}
-
-export function compareLiverEvent(a: LiverEvent, b: LiverEvent) {
-  const diff = a.startAt.getTime() - b.startAt.getTime();
-  if (diff !== 0) return diff;
-
-  // 同時間の場合はまずaffilicationでソート
-  if (a.affilication !== b.affilication) return a.affilication.localeCompare(b.affilication);
-
-  // 同affilicationの場合はtalent名でソート
-  return a.talent.name.localeCompare(b.talent.name);
 }
 
 // ホロライブとにじさんじの配信情報を取得
@@ -44,7 +31,15 @@ export async function fetchLiverEventList({
   ]);
 
   const nijiEvents = getNijiEvents({ nijiLiverMap, nijiStreams });
-  const wholeEvents = [...holoEvents, ...nijiEvents].sort(compareLiverEvent);
+  const wholeEvents = [...holoEvents, ...nijiEvents].sort((a, b) => {
+    const diff = a.startAt.getTime() - b.startAt.getTime();
+    if (diff !== 0) return diff;
+    // 同時間の場合はまずaffilicationでソート
+    if (a.affilication !== b.affilication) return a.affilication.localeCompare(b.affilication);
+
+    // 同affilicationの場合はtalent名でソート
+    return a.talent.name.localeCompare(b.talent.name);
+  });
   return wholeEvents;
 }
 
@@ -82,7 +77,6 @@ function getNijiEvents({
       isLive,
       talent,
       collaboTalents: collaboTalentIds.flatMap((id) => getTalent(id) ?? []),
-      hashList: getHashList(title),
     };
   });
 
