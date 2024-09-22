@@ -105,6 +105,9 @@ const firstHash = computed(() => {
 // hoveredHashSetにhashSetが含まれているか
 const hasHoveredHash = computed(() => {
   if (focusStore.hoveredHashSet.size === 0) return false;
+  // todo: vue-tscで型エラーになるのでいったん無視
+  // TS2339: Property 'intersection' does not exist on type 'Set<string>'
+  // @ts-ignore
   return hashSet.value.intersection(focusStore.hoveredHashSet).size > 0;
 });
 
