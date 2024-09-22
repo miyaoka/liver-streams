@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import AddedEventCard from "./AddedEventCard.vue";
 import { useEventListStore } from "@/store/eventListStore";
-import { fullDateFormatter } from "@/utils/dateFormat";
 
 const eventListStore = useEventListStore();
 
@@ -37,18 +37,17 @@ const addedEvent = computed(() => {
   </button>
   <div id="addedEvent" popover class="top-auto left-auto max-h-[500px] w-[400px]">
     <div class="bg-white rounded-lg shadow-lg p-2 flex flex-col gap-2 pb-10">
-      <div class="sticky bg-black text-white">直近1時間</div>
+      <div class="sticky bg-black text-white">最近追加されたイベント</div>
       <div v-if="addedEvent.length === 0">なし</div>
-      <div
-        v-else
-        v-for="{ liverEvent, addedTime } in addedEvent"
-        :key="liverEvent.url"
-        class="flex flex-row gap-2 items-center"
-      >
-        <img :src="liverEvent.talent.image" loading="lazy" class="h-8 w-8 rounded-full" />
-        <p class="text-sm flex-1 line-clamp-2">{{ liverEvent.title }}</p>
-        <p class="text-xs w-20">{{ fullDateFormatter.format(addedTime) }}</p>
-      </div>
+
+      <template v-else>
+        <AddedEventCard
+          v-for="{ liverEvent, addedTime } in addedEvent"
+          :key="liverEvent.url"
+          :addedTime="addedTime"
+          :liverEvent="liverEvent"
+        />
+      </template>
     </div>
   </div>
 </template>
