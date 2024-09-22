@@ -13,7 +13,7 @@ const props = defineProps<{
   liverEvent: LiverEvent;
 }>();
 
-const talentStore = useFocusStore();
+const focusStore = useFocusStore();
 const dateStore = useDateStore();
 const dialogComponent = ref<InstanceType<typeof LiverEventDialog> | null>(null);
 
@@ -90,7 +90,7 @@ const isHovered = computed(() => {
   ];
 
   // eventのタレントとhoverのタレントをマージ
-  const mergedNames = [...talentStore.hoveredTalents, ...talentNames];
+  const mergedNames = [...focusStore.hoveredTalents, ...talentNames];
   // 重複を削除
   const uniqueNames = new Set(mergedNames);
 
@@ -104,7 +104,7 @@ const firstHash = computed(() => {
 
 function hoverEvent(liverEvent: LiverEvent) {
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
-  talentStore.setHoveredTalents(names);
+  focusStore.setHoveredTalents(names);
 }
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
@@ -118,7 +118,7 @@ function onClickCard(evt: MouseEvent) {
     class="relative group"
     data-id="liver-event-card"
     @mouseover="hoverEvent(liverEvent)"
-    @mouseleave="talentStore.clearHoveredTalents()"
+    @mouseleave="focusStore.clearHoveredTalents()"
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
@@ -145,7 +145,7 @@ function onClickCard(evt: MouseEvent) {
           :src="liverEvent.talent.image"
           class="rounded-full w-[clamp(36px,36px+1vw,60px)] bg-white ml-2 group-hover:scale-110 transition-transform"
           loading="lazy"
-          @contextmenu.prevent="talentStore.setFocusedTalent(liverEvent.talent.name)"
+          @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
         />
 
         <div
@@ -163,9 +163,9 @@ function onClickCard(evt: MouseEvent) {
               class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] aspect-square outline outline-orange-400 outline-1 hover:outline hover:outline-red-500 hover:outline-2"
               :title="talent.name"
               loading="lazy"
-              @mouseenter="talentStore.setHoveredTalents(talent.name)"
-              @mouseleave="talentStore.clearHoveredTalents()"
-              @contextmenu.prevent="talentStore.setFocusedTalent(talent.name)"
+              @mouseenter="focusStore.setHoveredTalents(talent.name)"
+              @mouseleave="focusStore.clearHoveredTalents()"
+              @contextmenu.prevent="focusStore.setFocusedTalent(talent.name)"
             />
           </div>
         </div>

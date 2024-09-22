@@ -8,7 +8,7 @@ import { type NijiLiverMap } from "@/services/nijisanji";
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
-  const talentStore = useFocusStore();
+  const focusStore = useFocusStore();
   const liverEventList = ref<LiverEvent[] | null>(null);
 
   const filteredEventList = computed(() => {
@@ -18,7 +18,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
       filterMap: storageStore.talentFilterMap,
       filterEnabled: storageStore.talentFilterEnabled,
       searchTerms: storageStore.searchTerms,
-      focusedTalent: talentStore.focusedTalent,
+      focusedTalent: focusStore.focusedTalent,
       isLiveOnly: storageStore.isLiveOnly,
     });
   });
