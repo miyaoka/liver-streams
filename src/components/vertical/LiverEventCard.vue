@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import LiverEventDialog from "./LiverEventDialog.vue";
-import type { LiverEvent } from "@/api";
+import type { LiverEvent } from "@/services";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { useDateStore } from "@/store/dateStore";

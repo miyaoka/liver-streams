@@ -2,9 +2,9 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useStorageStore } from "./storageStore";
 import { useTalentStore } from "./talentStore";
-import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/api";
-import { type NijiLiverMap } from "@/api/nijisanji/nijisanji";
 import { createDateSectionList } from "@/lib/section";
+import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services";
+import { type NijiLiverMap } from "@/services/nijisanji/nijisanji";
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
