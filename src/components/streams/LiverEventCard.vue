@@ -201,7 +201,7 @@ function onClickCard(evt: MouseEvent) {
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-orange-400 hover:outline hover:outline-2 hover:outline-red-500"
+              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-amber-400 hover:outline hover:outline-2 hover:outline-red-500"
               :title="talent.name"
               loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
@@ -222,7 +222,7 @@ function onClickCard(evt: MouseEvent) {
         <div
           v-if="firstHash"
           class="absolute bottom-0 right-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
-          :class="`${hasHoveredHash ? 'bg-orange-600 text-orange-100' : 'bg-blue-600 text-blue-100'}`"
+          :class="`${hasHoveredHash ? 'bg-amber-600 text-amber-100' : 'bg-blue-600 text-blue-100'}`"
         >
           <span class="whitespace-nowrap text-xs">{{ firstHash }}</span>
         </div>
