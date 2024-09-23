@@ -4,6 +4,7 @@ import LiverEventTimeSection from "./LiverEventTimeSection.vue";
 import type { DateSection } from "@/lib/section";
 import { scrollToSectionTop } from "@/lib/scroll";
 import { useDateStore } from "@/store/dateStore";
+import { compareDate } from "@/utils/date";
 import { mdwdayDateFormatter } from "@/utils/dateFormat";
 
 const props = defineProps<{
@@ -16,8 +17,8 @@ const dateStore = useDateStore();
 
 const sectionInfo = computed(() => {
   const dateDiff = compareDate({
-    base: dateStore.currentDateWithoutTime,
-    target: props.dateSection.date,
+    baseDateTime: dateStore.currentDateTime,
+    targetDateTime: props.dateSection.date.getTime(),
   });
 
   return {
@@ -25,15 +26,6 @@ const sectionInfo = computed(() => {
     mmdd: mdwdayDateFormatter.format(props.dateSection.date),
   };
 });
-
-function compareDate({ base, target }: { base: Date; target: Date }): number {
-  const oneDay = 24 * 60 * 60 * 1000;
-
-  // 日数差を計算
-  const differenceInDays = (target.getTime() - base.getTime()) / oneDay;
-
-  return differenceInDays;
-}
 </script>
 
 <template>

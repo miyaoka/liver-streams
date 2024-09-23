@@ -1,5 +1,6 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { getDateTime, getHourTime } from "@/utils/date";
 
 export const useDateStore = defineStore("dateStore", () => {
   const currentDate = ref(new Date());
@@ -9,19 +10,17 @@ export const useDateStore = defineStore("dateStore", () => {
   }, 5000);
 
   const currentTime = computed(() => currentDate.value.getTime());
-  const currentDateWithoutTime = computed(() => {
-    const date = currentDate.value;
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const currentDateTime = computed(() => {
+    return getDateTime(currentDate.value);
   });
   const currentHourTime = computed(() => {
-    const date = currentDate.value;
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours()).getTime();
+    return getHourTime(currentDate.value);
   });
 
   return {
     currentDate,
     currentTime,
-    currentDateWithoutTime,
+    currentDateTime,
     currentHourTime,
   };
 });
