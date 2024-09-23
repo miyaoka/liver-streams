@@ -13,6 +13,12 @@ const focusStore = useFocusStore();
 </script>
 
 <template>
+  <button
+    class="absolute -right-2 -top-2 flex h-11 w-11 items-center justify-center rounded-full bg-gray-300 text-gray-500 shadow-md active:bg-gray-400"
+    @click="closePopover"
+  >
+    <i class="i-mdi-close h-8 w-8" />
+  </button>
   <div class="w-[480px] max-w-full overflow-hidden rounded-[20px] bg-white shadow-xl">
     <div class="px-4 py-2">
       <div class="font-bold">
@@ -30,46 +36,38 @@ const focusStore = useFocusStore();
 
     <div class="flex flex-col gap-2 px-6 py-4 max-sm:p-3">
       <div class="text-lg font-bold">
-        <a :href="liverEvent.url" class="hover:underline" target="_blank">
-          {{ liverEvent.title }}
-        </a>
+        {{ liverEvent.title }}
       </div>
       <div class="flex flex-row items-center gap-2">
-        <img
-          :src="liverEvent.talent.image"
-          class="h-[70px] w-[70px] rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
-          loading="lazy"
+        <button
+          class="h-[70px] w-[70px] overflow-hidden rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
           @mouseover="focusStore.setHoveredTalents(liverEvent.talent.name)"
           @mouseleave="focusStore.clearHoveredTalents()"
           @click.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
           @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
-        />
-        <div>
+        >
+          <img :src="liverEvent.talent.image" class="h-full w-full" loading="lazy" />
+        </button>
+        <div class="flex-1">
           <div class="text-base font-bold">
             {{ liverEvent.talent.name }}
           </div>
           <div class="flex flex-row flex-wrap">
-            <img
+            <button
+              class="w-[40px] overflow-hidden rounded-full hover:outline hover:outline-2 hover:outline-red-500 max-sm:w-[30px]"
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
-              :src="talent.image"
-              class="w-[40px] rounded-full hover:outline hover:outline-2 hover:outline-red-500 max-sm:w-[30px]"
               :title="talent.name"
-              loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
               @mouseleave="focusStore.clearHoveredTalents()"
               @click.prevent="focusStore.setFocusedTalent(talent.name)"
               @contextmenu.prevent="focusStore.setFocusedTalent(talent.name)"
-            />
+            >
+              <img class="h-full w-full" :src="talent.image" loading="lazy" />
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <button
-    class="position absolute -right-2 -top-2 flex h-11 w-11 items-center justify-center rounded-full bg-gray-300 text-gray-500 active:bg-gray-400"
-    @click="closePopover"
-  >
-    <i class="i-mdi-close h-8 w-8" />
-  </button>
 </template>
