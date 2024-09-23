@@ -58,7 +58,9 @@ function showPopover() {
         </button>
       </div>
       <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">
-        <div v-if="eventCount === 0">なし</div>
+        <div v-if="eventCount === 0" class="p-2">
+          ブラウザを開いてから追加されたイベントがここに載ります
+        </div>
 
         <!-- 逆順表示 -->
         <div v-else class="flex flex-col-reverse">
