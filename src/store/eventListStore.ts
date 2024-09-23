@@ -3,7 +3,12 @@ import { computed, ref } from "vue";
 import { useFocusStore } from "./focusStore";
 import { useStorageStore } from "./storageStore";
 import { createDateSectionList } from "@/lib/section";
-import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services/api";
+import {
+  fetchLiverEventList,
+  getFilteredEventList,
+  talentFilter,
+  type LiverEvent,
+} from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
 
 interface AddedEvent {
@@ -29,6 +34,29 @@ export const useEventListStore = defineStore("eventListStore", () => {
       focusedTalent: focusStore.focusedTalent,
       isLiveOnly: storageStore.isLiveOnly,
     });
+  });
+
+  const filteredAddedEventList = computed(() => {
+    if (!addedEventList.value) return [];
+
+    const filterMap = storageStore.talentFilterMap;
+    const hasTalentfilter = storageStore.talentFilterEnabled;
+
+    const list = addedEventList.value.flatMap((addedEvent) => {
+      const liverEvent = liverEventMap.value.get(addedEvent.url);
+      if (!liverEvent) return [];
+      return {
+        addedTime: addedEvent.addedTime,
+        liverEvent,
+      };
+    });
+    return list.filter((item) =>
+      talentFilter({
+        liverEvent: item.liverEvent,
+        filterMap,
+        hasTalentfilter,
+      }),
+    );
   });
 
   const onLiveEventList = computed(() => {
@@ -91,6 +119,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     eventUrlSet: eventUrlSet,
     liverEventMap,
     addedEventList,
+    filteredAddedEventList,
     updateLiverEventList,
     clearAddedEventList,
   };

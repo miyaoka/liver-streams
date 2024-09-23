@@ -89,6 +89,27 @@ function getNijiEvents({
   return events;
 }
 
+export function talentFilter({
+  hasTalentfilter,
+  filterMap,
+  liverEvent,
+}: {
+  hasTalentfilter: boolean;
+  filterMap: Map<string, boolean>;
+  liverEvent: LiverEvent;
+}) {
+  // フィルタなし
+  if (!hasTalentfilter) return true;
+
+  // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
+  return (
+    filterMap.has(liverEvent.talent.name) ||
+    liverEvent.collaboTalents.some((collaborator) => {
+      return filterMap.has(collaborator.name);
+    })
+  );
+}
+
 export function getFilteredEventList({
   liverEventList,
   filterMap,
@@ -123,30 +144,19 @@ export function getFilteredEventList({
   return (
     liverEventList
       // talentでフィルタリング
-      .filter((video) => {
-        // フィルタなし
-        if (!hasTalentfilter) return true;
-
-        // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-        return (
-          filterMap.has(video.talent.name) ||
-          video.collaboTalents.some((collaborator) => {
-            return filterMap.has(collaborator.name);
-          })
-        );
-      })
-      .filter((video) => {
+      .filter((liverEvent) => talentFilter({ hasTalentfilter, filterMap, liverEvent }))
+      .filter((liverEvent) => {
         // live中のみ表示
         if (!isLiveOnly) return true;
-        return video.isLive;
+        return liverEvent.isLive;
       })
-      .filter((video) => {
+      .filter((liverEvent) => {
         // 検索語にマッチしたイベントのみ表示
         if (!searchRegExp) return true;
         return (
-          searchRegExp.test(video.title) ||
-          searchRegExp.test(video.talent.name) ||
-          video.collaboTalents.some((collaborator) => {
+          searchRegExp.test(liverEvent.title) ||
+          searchRegExp.test(liverEvent.talent.name) ||
+          liverEvent.collaboTalents.some((collaborator) => {
             return searchRegExp.test(collaborator.name);
           })
         );
