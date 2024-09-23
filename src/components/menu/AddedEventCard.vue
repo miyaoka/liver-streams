@@ -54,6 +54,6 @@ function onClickEvent() {
     />
     <p class="line-clamp-2 flex-1 text-xs">{{ liverEvent.title }}</p>
     <p class="w-12 text-right text-xs">{{ eventTime }}</p>
-    <i class="i-mdi-circle absolute right-0 top-0 h-2 w-2 text-red-700" v-if="isUnread" />
+    <i class="i-mdi-circle absolute right-0 top-2 h-2 w-2 text-red-700" v-if="isUnread" />
   </button>
 </template>
