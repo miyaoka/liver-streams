@@ -8,7 +8,7 @@ const eventListStore = useEventListStore();
 <template>
   <button
     title="scroll to current time"
-    class="flex h-11 w-11 items-center justify-center rounded bg-white shadow-md hover:bg-gray-200"
+    class="flex h-11 w-11 items-center justify-center rounded border bg-white shadow-md hover:bg-gray-200"
     @click="scrollToCurrentTime(eventListStore.dateSectionList)"
   >
     <i class="i-mdi-history h-8 w-8" />

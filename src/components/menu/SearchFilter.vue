@@ -65,7 +65,7 @@ function onClick() {
       />
     </form>
     <button
-      class="z-30 flex h-11 w-11 items-center justify-center rounded hover:bg-gray-100"
+      class="z-30 flex h-11 w-11 items-center justify-center rounded border hover:bg-gray-100"
       @click="onClick"
       @mousedown="onMousedown"
     >
