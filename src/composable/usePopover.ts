@@ -9,7 +9,7 @@ interface PopoverOptions {
 }
 export function usePopover(options: PopoverOptions = {}) {
   const { mountAtOpen = false } = options;
-  const popoverId = options.popoverId ? options.popoverId : `p-${crypto.randomUUID()}`;
+  const popoverId = options.popoverId || `p-${crypto.randomUUID()}`;
   const popoverEl = ref<HTMLElement | null>(null);
   const isOpen = ref(false);
 
