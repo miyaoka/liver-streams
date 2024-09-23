@@ -39,7 +39,7 @@ function onClickEvent() {
   >
     <img :src="liverEvent.talent.image" loading="lazy" class="h-8 w-8 rounded-full" />
     <p class="line-clamp-2 flex-1 text-sm">{{ liverEvent.title }}</p>
-    <p class="w-10 text-right text-xs">{{ pastTime }}</p>
+    <p class="w-12 text-right text-xs">{{ pastTime }}</p>
     <i class="i-mdi-circle absolute right-0 top-0 h-2 w-2 text-red-700" v-if="isUnread" />
   </button>
   <popover.PopOver
