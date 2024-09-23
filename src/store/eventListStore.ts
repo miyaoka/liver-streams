@@ -24,6 +24,10 @@ export const useEventListStore = defineStore("eventListStore", () => {
   const eventIdSet = ref<Set<string>>(new Set());
   const addedEventList = ref<AddedEvent[]>([]);
 
+  const addedEventIdSet = computed(() => {
+    return new Set(addedEventList.value.map((addedEvent) => addedEvent.id));
+  });
+
   const filteredEventList = computed(() => {
     if (!liverEventList.value) return [];
     return getFilteredEventList({
@@ -120,6 +124,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     liverEventMap,
     addedEventList,
     filteredAddedEventList,
+    addedEventIdSet,
     updateLiverEventList,
     clearAddedEventList,
   };

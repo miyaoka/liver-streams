@@ -7,6 +7,7 @@ import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { usePopover } from "@/composable/usePopover";
 import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
+import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
 import { hhss } from "@/utils/dateFormat";
 
@@ -20,6 +21,7 @@ const popover = usePopover({
   mountAtOpen: true,
   popoverId: props.liverEvent.id,
 });
+const eventListStore = useEventListStore();
 
 const affilicationLogoMap = {
   nijisanji: nijisanji_logo,
@@ -119,6 +121,10 @@ const hasHoveredHash = computed(() => {
 // 大文字・小文字を区別せずマッチするように小文字に変換してからSetに変換
 const hashSet = computed(() => new Set(props.liverEvent.hashList.map((h) => h.toLowerCase())));
 
+const isNew = computed(() => {
+  return eventListStore.addedEventIdSet.has(props.liverEvent.id);
+});
+
 function hoverEvent(liverEvent: LiverEvent) {
   const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
   focusStore.setHoveredTalents(names);
@@ -152,6 +158,16 @@ function onClickCard(evt: MouseEvent) {
         <span>{{ timeDisplay }}</span>
         <span v-if="elapsedTime" class="font-normal">{{ `(${elapsedTime}hr)` }}</span>
       </div>
+
+      <div
+        v-if="isNew"
+        class="absolute bottom-full right-0 z-10 flex flex-row items-center justify-center gap-1 bg-black bg-opacity-70 px-1"
+      >
+        <p class="text-xs text-white">new</p>
+
+        <i class="i-mdi-creation h-4 w-4 bg-yellow-300" />
+      </div>
+
       <img
         :src="affilicationLogoMap[liverEvent.affilication]"
         class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
