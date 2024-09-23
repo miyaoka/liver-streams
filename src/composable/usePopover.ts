@@ -45,6 +45,9 @@ export function usePopover(options: PopoverOptions = {}) {
   function hidePopover() {
     popoverEl.value?.hidePopover();
   }
+  function togglePopover() {
+    popoverEl.value?.togglePopover();
+  }
 
   const PopOver = defineComponent({
     setup() {
@@ -77,5 +80,6 @@ export function usePopover(options: PopoverOptions = {}) {
     popoverId,
     showPopover,
     hidePopover,
+    togglePopover,
   };
 }
