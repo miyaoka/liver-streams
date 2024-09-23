@@ -11,7 +11,7 @@ const hasLiveEvents = computed(() => eventListStore.onLiveEventList.length > 0);
 <template>
   <button
     title="show only live events"
-    class="relative flex h-11 w-11 flex-col items-center justify-center rounded bg-white shadow-md"
+    class="relative flex h-11 w-11 flex-col items-center justify-center rounded bg-white shadow-md hover:bg-gray-200"
     @click="storageStore.toggleLiveOnly"
   >
     <i :class="`i-mdi-radio-tower h-8 w-8 ${storageStore.isLiveOnly ? 'bg-red-700' : ''}`" />
