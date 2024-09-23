@@ -176,7 +176,7 @@ function onClickCard(evt: MouseEvent) {
           class="relative flex h-full flex-1 flex-col items-start justify-center pb-2 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
         >
           <h3 class="line-clamp-1 font-bold">{{ liverEvent.talent.name }}</h3>
-          <div class="title line-clamp-2">
+          <div class="line-clamp-2 [overflow-wrap:anywhere]">
             {{ liverEvent.title }}
           </div>
           <div class="absolute bottom-1 z-10 flex flex-row">
@@ -228,10 +228,6 @@ function onClickCard(evt: MouseEvent) {
 </template>
 
 <style scoped>
-.title {
-  overflow-wrap: anywhere;
-}
-
 .isLive {
   @apply outline outline-[3px] -outline-offset-[3px] outline-red-600 !important;
 }
