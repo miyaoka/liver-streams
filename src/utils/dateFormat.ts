@@ -30,7 +30,10 @@ export function hhss(date: Date) {
   return date.toTimeString().slice(0, 5);
 }
 
-const relativeTimeFormatter = new Intl.RelativeTimeFormat(undefined, { style: "narrow" });
+const relativeTimeFormatter = new Intl.RelativeTimeFormat(undefined, {
+  style: "narrow",
+  numeric: "auto",
+});
 
 function getTimeUnitAndValue(ms: number): { value: number; unit: Intl.RelativeTimeFormatUnit } {
   const absSec = Math.abs(ms) / 1000;
