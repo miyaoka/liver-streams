@@ -21,6 +21,11 @@ export const mdwdayDateFormatter = new Intl.DateTimeFormat(undefined, {
   weekday: "short",
 });
 
+export const hhssDateFormatter = new Intl.DateTimeFormat(undefined, {
+  hour: "numeric",
+  minute: "numeric",
+});
+
 export function hhss(date: Date) {
   return date.toTimeString().slice(0, 5);
 }
