@@ -13,7 +13,7 @@ const focusStore = useFocusStore();
 </script>
 
 <template>
-  <div class="w-[480px] max-w-full overflow-hidden rounded-md bg-white shadow-xl">
+  <div class="w-[480px] max-w-full overflow-hidden rounded-lg bg-white shadow-xl">
     <div class="flex items-center px-4 py-2">
       <div class="font-bold">
         {{ fullDateFormatter.format(liverEvent.startAt) }}
@@ -26,10 +26,10 @@ const focusStore = useFocusStore();
       </button>
     </div>
 
-    <a :href="liverEvent.url" target="_blank">
+    <a :href="liverEvent.url" target="_blank" class="hover:border-4">
       <img
         :src="getThumnail(liverEvent.thumbnail, 'sd')"
-        class="aspect-video w-[480px] object-cover"
+        class="aspect-video w-[480px] bg-gray-200 object-cover p-2 transition-colors hover:bg-sky-300"
         loading="lazy"
       />
     </a>
