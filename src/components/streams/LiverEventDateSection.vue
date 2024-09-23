@@ -37,10 +37,12 @@ const sectionInfo = computed(() => {
       <div class="pointer-events-auto relative flex flex-row items-center">
         <button
           v-if="prevSection"
-          class="absolute right-full mr-1 flex h-5 w-5 items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
+          class="absolute right-full flex h-11 w-11 items-center justify-center"
           @click="scrollToSectionTop(prevSection.time)"
         >
-          <i class="i-mdi-chevron-up h-5 w-5 text-white" />
+          <div class="h-5 w-5 rounded-full bg-gray-700 bg-opacity-80">
+            <i class="i-mdi-chevron-up h-5 w-5 text-white" />
+          </div>
         </button>
 
         <button
@@ -54,10 +56,12 @@ const sectionInfo = computed(() => {
 
         <button
           v-if="nextSection"
-          class="absolute left-full ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
+          class="absolute left-full flex h-11 w-11 items-center justify-center"
           @click="scrollToSectionTop(nextSection.time)"
         >
-          <i class="i-mdi-chevron-down h-5 w-5 text-white" />
+          <div class="h-5 w-5 rounded-full bg-gray-700 bg-opacity-80">
+            <i class="i-mdi-chevron-down h-5 w-5 text-white" />
+          </div>
         </button>
       </div>
     </header>
