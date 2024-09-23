@@ -28,20 +28,20 @@ function showPopover() {
 
 <template>
   <button
-    class="relative rounded-lg shadow-lg h-10 w-10 flex items-center justify-center bg-white"
+    class="relative flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-lg"
     @click="showPopover"
   >
     <i class="i-mdi-new-box h-8 w-8" />
     <p
       v-if="unreadCount > 0"
-      :class="`absolute bg-red-700 text-white text-xs rounded-xl px-1 -right-2 -top-2 min-w-5 h-5 flex items-center justify-center`"
+      :class="`absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white`"
     >
       {{ unreadCount }}
     </p>
   </button>
 
-  <popover.PopOver class="top-auto left-auto max-h-[500px] w-[400px]">
-    <div class="bg-white rounded-lg shadow-lg p-2 flex flex-col gap-2 pb-10">
+  <popover.PopOver class="left-auto top-auto max-h-[500px] w-[400px]">
+    <div class="flex flex-col gap-2 rounded-lg bg-white p-2 pb-10 shadow-lg">
       <div class="bg-black text-white">最近追加されたイベント ({{ eventCount }})</div>
       <div v-if="eventCount === 0">なし</div>
 

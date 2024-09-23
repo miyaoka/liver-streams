@@ -34,9 +34,9 @@ watch(checked, (val) => {
 });
 </script>
 <template>
-  <div class="flex flex-col items-start ml-6 gap-3">
+  <div class="ml-6 flex flex-col items-start gap-3">
     <label
-      :class="`cursor-pointer px-2 py-1 rounded-lg text-sm font-bold outline outline-2 ${checked ? '  outline-red-400 bg-red-500 text-white' : 'outline-slate-400'}`"
+      :class="`cursor-pointer rounded-lg px-2 py-1 text-sm font-bold outline outline-2 ${checked ? 'bg-red-500 text-white outline-red-400' : 'outline-slate-400'}`"
     >
       <input type="checkbox" v-model="checked" @change="onClick" class="hidden" />
       {{ name }}

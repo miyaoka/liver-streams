@@ -9,22 +9,22 @@ const storageStore = useStorageStore();
 const filterCount = computed(() => storageStore.talentFilterMap.size);
 </script>
 <template>
-  <button class="flex p-1 bg-white rounded shadow-md" popovertarget="filter">
+  <button class="flex rounded bg-white p-1 shadow-md" popovertarget="filter">
     <i class="i-mdi-menu h-[32px] w-[32px] text-gray-800" />
   </button>
 
   <div
     id="filter"
     popover
-    class="fixed transition-all top-4 right-4 left-auto bottom-auto px-8 py-8 rounded-xl outline outline-1 shadow-lg h-4/5 b-10 bg-white"
+    class="b-10 fixed bottom-auto left-auto right-4 top-4 h-4/5 rounded-xl bg-white px-8 py-8 shadow-lg outline outline-1 transition-all"
     :style="{
       scrollbarWidth: 'thin',
     }"
   >
     <div class="flex flex-col items-start gap-8">
-      <div class="flex flex-row gap-2 items-center w-full">
+      <div class="flex w-full flex-row items-center gap-2">
         <button
-          class="px-2 py-1 bg-slate-200 rounded-lg border border-solid border-slate-500"
+          class="rounded-lg border border-solid border-slate-500 bg-slate-200 px-2 py-1"
           @click="storageStore.resetTalentFilter()"
         >
           reset

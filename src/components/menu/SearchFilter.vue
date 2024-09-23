@@ -51,20 +51,20 @@ function onClick() {
 </script>
 
 <template>
-  <div class="flex flex-row items-center bg-white rounded shadow-md">
+  <div class="flex flex-row items-center rounded bg-white shadow-md">
     <form
       @submit.prevent="onSubmit"
       :class="`h-full transition-[width] ${isInput ? 'w-56' : 'w-0'}`"
     >
       <input
-        class="w-full h-full p-2 rounded"
+        class="h-full w-full rounded p-2"
         ref="inputEl"
         v-model="searchQuery"
         @input="onInput"
         @blur="onBlur"
       />
     </form>
-    <button class="flex p-1 m-0 z-30 rounded" @click="onClick" @mousedown="onMousedown">
+    <button class="z-30 m-0 flex rounded p-1" @click="onClick" @mousedown="onMousedown">
       <i :class="`${isInput ? 'i-mdi-close' : 'i-mdi-search'} h-[32px] w-[32px] text-gray-800`" />
     </button>
   </div>

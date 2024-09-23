@@ -8,18 +8,18 @@ const focusStore = useFocusStore();
 <template>
   <button
     v-if="focusStore.focusedTalent != null"
-    class="fixed inset-0 bottom-6 m-auto top-auto w-fit h-fit z-20 flex flex-row justify-center items-center gap-4 px-3 py-1 rounded-full shadow-md bg-blue-800 text-white outline outline-white"
+    class="fixed inset-0 bottom-6 top-auto z-20 m-auto flex h-fit w-fit flex-row items-center justify-center gap-4 rounded-full bg-blue-800 px-3 py-1 text-white shadow-md outline outline-white"
     @click="focusStore.setFocusedTalent(null)"
   >
     focused:
     <img
       :src="getChannelIcon(focusStore.focusedTalent)"
       loading="lazy"
-      class="rounded-full w-[32px] bg-white"
+      class="w-[32px] rounded-full bg-white"
     />
     {{ focusStore.focusedTalent }}
 
-    <div class="i-mdi-cross-circle w-[32px] h-[32px]" />
+    <div class="i-mdi-cross-circle h-[32px] w-[32px]" />
   </button>
 </template>
 
