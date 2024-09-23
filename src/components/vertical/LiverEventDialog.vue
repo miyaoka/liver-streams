@@ -12,7 +12,7 @@ const focusStore = useFocusStore();
 </script>
 
 <template>
-  <div class="w-[480px] overflow-hidden rounded-[20px] bg-white shadow-xl outline">
+  <div class="w-[480px] max-w-full overflow-hidden rounded-[20px] bg-white shadow-xl">
     <div class="px-4 py-2">
       <div class="font-bold">
         {{ fullDateFormatter.format(liverEvent.startAt) }}
