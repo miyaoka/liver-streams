@@ -33,7 +33,7 @@ defineExpose({
   <dialog
     ref="dialogEl"
     @click="onClickDialog"
-    class="fixed w-[480px] rounded-[20px] overflow-hidden shadow-xl top-auto bottom-4"
+    class="fixed bottom-4 top-auto w-[480px] overflow-hidden rounded-[20px] shadow-xl"
   >
     <div class="px-4 py-2">
       <div class="font-bold">
@@ -44,21 +44,21 @@ defineExpose({
     <a :href="liverEvent.url" target="_blank">
       <img
         :src="getThumnail(liverEvent.thumbnail, 'sd')"
-        class="w-[480px] aspect-video object-cover"
+        class="aspect-video w-[480px] object-cover"
         loading="lazy"
       />
     </a>
 
-    <div class="px-6 py-4 flex flex-col gap-2 max-sm:p-3">
-      <div class="font-bold text-lg">
+    <div class="flex flex-col gap-2 px-6 py-4 max-sm:p-3">
+      <div class="text-lg font-bold">
         <a :href="liverEvent.url" class="hover:underline" target="_blank">
           {{ liverEvent.title }}
         </a>
       </div>
-      <div class="flex flex-row gap-2 items-center">
+      <div class="flex flex-row items-center gap-2">
         <img
           :src="liverEvent.talent.image"
-          class="rounded-full w-[70px] h-[70px] border hover:outline hover:outline-red-500 hover:outline-2"
+          class="h-[70px] w-[70px] rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
           loading="lazy"
           @mouseover="focusStore.setHoveredTalents(liverEvent.talent.name)"
           @mouseleave="focusStore.clearHoveredTalents()"
@@ -66,7 +66,7 @@ defineExpose({
           @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
         />
         <div>
-          <div class="font-bold text-base">
+          <div class="text-base font-bold">
             {{ liverEvent.talent.name }}
           </div>
           <div class="flex flex-row flex-wrap">
@@ -74,7 +74,7 @@ defineExpose({
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="rounded-full w-[40px] hover:outline hover:outline-red-500 hover:outline-2 max-sm:w-[30px]"
+              class="w-[40px] rounded-full hover:outline hover:outline-2 hover:outline-red-500 max-sm:w-[30px]"
               :title="talent.name"
               loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"

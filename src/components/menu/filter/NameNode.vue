@@ -47,9 +47,9 @@ watch(storageStore.talentFilterMap, () => {
 });
 </script>
 <template>
-  <div class="flex fles-row flex-wrap ml-20 gap-x-2 -mt-10">
+  <div class="fles-row -mt-10 ml-20 flex flex-wrap gap-x-2">
     <label
-      class="flex flex-col items-center min-w-[30px] cursor-pointer w-[60px]"
+      class="flex w-[60px] min-w-[30px] cursor-pointer flex-col items-center"
       v-for="(name, i) in nameList"
       :key="name"
       :title="name"
@@ -66,11 +66,11 @@ watch(storageStore.talentFilterMap, () => {
       />
       <img
         :src="getChannelIcon(name)"
-        :class="`w-[44px] h-[44px] rounded-full transition ${checkList[i] ? 'outline outline-2 outline-red-400 outline-offset-2' : ''} `"
+        :class="`h-[44px] w-[44px] rounded-full transition ${checkList[i] ? 'outline outline-2 outline-offset-2 outline-red-400' : ''} `"
         loading="lazy"
       />
       <div
-        :class="`text-xs tracking-tight ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'}  -mt-2 px-1  rounded-full`"
+        :class="`text-xs tracking-tight ${checkList[i] ? 'bg-red-500 text-white' : 'bg-slate-50 text-slate-900'} -mt-2 rounded-full px-1`"
       >
         <p class="line-clamp-1">
           {{ name }}

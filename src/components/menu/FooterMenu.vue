@@ -8,7 +8,7 @@ import ScrollButton from "./ScrollButton.vue";
 <template>
   <div class="z-10">
     <FocusedTalent />
-    <div class="fixed bottom-4 right-4 flex flex-row gap-2 items-end">
+    <div class="fixed bottom-4 right-4 flex flex-row items-end gap-2">
       <AddedEventButton />
       <LiveFilterButton />
       <ScrollButton />

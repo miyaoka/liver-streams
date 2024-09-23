@@ -37,22 +37,22 @@ function compareDate({ base, target }: { base: Date; target: Date }): number {
 </script>
 
 <template>
-  <section class="relative pt-4 pb-12" data-id="date-section" :data-time="`${dateSection.time}`">
-    <div class="absolute w-full -top-1 border-t-2 border-dashed border-white border-opacity-80" />
+  <section class="relative pb-12 pt-4" data-id="date-section" :data-time="`${dateSection.time}`">
+    <div class="absolute -top-1 w-full border-t-2 border-dashed border-white border-opacity-80" />
     <header
-      class="sticky z-20 top-4 mb-8 flex flex-col items-center justify-center pointer-events-none"
+      class="pointer-events-none sticky top-4 z-20 mb-8 flex flex-col items-center justify-center"
     >
-      <div class="relative pointer-events-auto flex flex-row items-center">
+      <div class="pointer-events-auto relative flex flex-row items-center">
         <button
           v-if="prevSection"
-          class="absolute right-full w-5 h-5 mr-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
+          class="absolute right-full mr-1 flex h-5 w-5 items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
           @click="scrollToSectionTop(prevSection.time)"
         >
-          <i class="i-mdi-chevron-up text-white h-5 w-5" />
+          <i class="i-mdi-chevron-up h-5 w-5 text-white" />
         </button>
 
         <button
-          :class="`px-2 py-1 rounded-2xl flex flex-row gap-1 items-center shadow-md border border-gray-300 border-1 ${sectionInfo.dateDiff === 0 ? 'text-white bg-blue-700' : 'text-white bg-gray-800'}`"
+          :class="`border-1 flex flex-row items-center gap-1 rounded-2xl border border-gray-300 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-blue-700 text-white' : 'bg-gray-800 text-white'}`"
           @click="scrollToSectionTop(dateSection.time)"
         >
           <span class="text-base font-bold">
@@ -62,10 +62,10 @@ function compareDate({ base, target }: { base: Date; target: Date }): number {
 
         <button
           v-if="nextSection"
-          class="absolute left-full w-5 h-5 ml-1 flex items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
+          class="absolute left-full ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-gray-700 bg-opacity-80"
           @click="scrollToSectionTop(nextSection.time)"
         >
-          <i class="i-mdi-chevron-down text-white h-5 w-5" />
+          <i class="i-mdi-chevron-down h-5 w-5 text-white" />
         </button>
       </div>
     </header>

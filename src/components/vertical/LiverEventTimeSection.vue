@@ -38,16 +38,16 @@ function getTimeColor(hour: number) {
 <template>
   <section
     ref="sectionEl"
-    class="flex flex-col items-center gap-[20px] min-h-2 scroll-m-8"
+    class="flex min-h-2 scroll-m-8 flex-col items-center gap-[20px]"
     data-id="time-section"
     :data-time="props.section.time"
     :style="{
       background: sectionBackground,
     }"
   >
-    <div v-if="isCurrentTime" class="w-full pointer-events-none flex">
+    <div v-if="isCurrentTime" class="pointer-events-none flex w-full">
       <div
-        class="bg-black bg-opacity-70 text-white mt-8 pl-2 pr-12 [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);] font-bold text-base flex items-center gap-2 py-1 select-none"
+        class="mt-8 flex select-none items-center gap-2 bg-black bg-opacity-70 py-1 pl-2 pr-12 text-base font-bold text-white [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);]"
       >
         <i class="i-mdi-clock-outline h-6 w-6" />
         <p>now</p>
@@ -55,7 +55,7 @@ function getTimeColor(hour: number) {
     </div>
     <template v-if="hasEvents">
       <div
-        class="w-full grid grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-y-[28px] pt-8 pb-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))] px-[clamp(2px,2px+0.5vw,16px)] gap-x-[clamp(2px,2px+0.5vw,12px)]"
+        class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] pb-8 pt-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
       >
         <LiverEventCard
           v-for="liverEvent in props.section.events"

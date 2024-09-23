@@ -134,27 +134,27 @@ function onClickCard(evt: MouseEvent) {
 </script>
 <template>
   <div
-    class="relative group"
+    class="group relative"
     data-id="liver-event-card"
     @mouseover="hoverEvent(liverEvent)"
     @mouseleave="unhoverEvent"
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        :class="`absolute z-10 left-0 flex flex-row items-center gap-1 ${isFinished ? 'text-gray-700 bg-gray-300' : liverEvent.isLive ? 'text-white bg-red-500' : 'text-blue-500 bg-white'} font-bold px-2 -top-1 -translate-y-1/2 shadow rounded-full`"
+        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-gray-300 text-gray-700' : liverEvent.isLive ? 'bg-red-500 text-white' : 'bg-white text-blue-500'} -top-1 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
       >
-        <i v-if="liverEvent.isLive" class="i-mdi-play-circle w-5 h-5" />
+        <i v-if="liverEvent.isLive" class="i-mdi-play-circle h-5 w-5" />
         <span>{{ timeDisplay }}</span>
         <span v-if="elapsedTime" class="font-normal">{{ `(${elapsedTime}hr)` }}</span>
       </div>
       <img
         :src="affilicationLogoMap[liverEvent.affilication]"
-        class="absolute z-10 bottom-[4px] left-[4px] w-[clamp(14px,14px+0.4vw,20px)]"
+        class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
         loading="lazy"
       />
 
       <div
-        class="flex flex-row justify-center items-center gap-1 h-[clamp(80px,80px+1vw,108px)] bg-white rounded-[10px] overflow-hidden shadow-md transition-colors"
+        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-[10px] bg-white shadow-md transition-colors"
         :class="{
           isFinished: isFinished,
           isHovered: isHovered,
@@ -162,24 +162,24 @@ function onClickCard(evt: MouseEvent) {
       >
         <img
           :src="liverEvent.talent.image"
-          class="rounded-full w-[clamp(36px,36px+1vw,60px)] bg-white ml-2 group-hover:scale-110 transition-transform"
+          class="ml-2 w-[clamp(36px,36px+1vw,60px)] rounded-full bg-white transition-transform group-hover:scale-110"
           loading="lazy"
           @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
         />
 
         <div
-          class="flex flex-col h-full justify-center relative items-start pb-2 flex-1 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
+          class="relative flex h-full flex-1 flex-col items-start justify-center pb-2 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
         >
-          <h3 class="font-bold line-clamp-1">{{ liverEvent.talent.name }}</h3>
+          <h3 class="line-clamp-1 font-bold">{{ liverEvent.talent.name }}</h3>
           <div class="title line-clamp-2">
             {{ liverEvent.title }}
           </div>
-          <div class="absolute bottom-1 flex flex-row z-10">
+          <div class="absolute bottom-1 z-10 flex flex-row">
             <img
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="rounded-full w-[clamp(12px,12px+0.4vw,20px)] aspect-square outline outline-orange-400 outline-1 hover:outline hover:outline-red-500 hover:outline-2"
+              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-orange-400 hover:outline hover:outline-2 hover:outline-red-500"
               :title="talent.name"
               loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
@@ -189,16 +189,16 @@ function onClickCard(evt: MouseEvent) {
           </div>
         </div>
 
-        <div class="h-full aspect-video max-sm:w-[clamp(140px,30vw,200px)] overflow-hidden flex">
+        <div class="flex aspect-video h-full overflow-hidden max-sm:w-[clamp(140px,30vw,200px)]">
           <img
             :src="getThumnail(liverEvent.thumbnail, 'mq')"
-            class="object-cover w-full h-full group-hover:scale-110 transition-transform"
+            class="h-full w-full object-cover transition-transform group-hover:scale-110"
             loading="lazy"
           />
         </div>
 
         <div
-          class="pointer-events-none absolute w-full h-full rounded-[10px]"
+          class="pointer-events-none absolute h-full w-full rounded-[10px]"
           :class="{
             isLive: liverEvent.isLive,
             isHoveredOutline: isHovered,
@@ -207,10 +207,10 @@ function onClickCard(evt: MouseEvent) {
 
         <div
           v-if="firstHash"
-          class="absolute bottom-0 right-0 flex flex-row gap-1 p-1 rounded-tl-[10px] shadow-md max-w-[50%] overflow-hidden"
+          class="absolute bottom-0 right-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
           :class="`${hasHoveredHash ? 'bg-orange-600 text-orange-100' : 'bg-blue-600 text-blue-100'}`"
         >
-          <span class="text-xs whitespace-nowrap">{{ firstHash }}</span>
+          <span class="whitespace-nowrap text-xs">{{ firstHash }}</span>
         </div>
       </div>
     </a>

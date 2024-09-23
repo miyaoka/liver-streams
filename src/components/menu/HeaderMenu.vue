@@ -4,7 +4,7 @@ import SearchFilter from "./SearchFilter.vue";
 </script>
 
 <template>
-  <div class="fixed top-4 right-4 flex flex-row gap-2 z-30">
+  <div class="fixed right-4 top-4 z-30 flex flex-row gap-2">
     <SearchFilter />
     <ChannelFilter />
   </div>
