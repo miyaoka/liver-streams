@@ -13,17 +13,17 @@ const focusStore = useFocusStore();
 </script>
 
 <template>
-  <button
-    class="absolute -right-2 -top-2 flex h-11 w-11 items-center justify-center rounded-full bg-gray-300 text-gray-500 shadow-md active:bg-gray-400"
-    @click="closePopover"
-  >
-    <i class="i-mdi-close h-8 w-8" />
-  </button>
-  <div class="w-[480px] max-w-full overflow-hidden rounded-[20px] bg-white shadow-xl">
-    <div class="px-4 py-2">
+  <div class="w-[480px] max-w-full overflow-hidden rounded-md bg-white shadow-xl">
+    <div class="flex items-center px-4 py-2">
       <div class="font-bold">
         {{ fullDateFormatter.format(liverEvent.startAt) }}
       </div>
+      <button
+        class="absolute right-0 flex h-11 w-11 items-center justify-center text-gray-500 hover:text-gray-800"
+        @click="closePopover"
+      >
+        <i class="i-mdi-close h-5 w-5" />
+      </button>
     </div>
 
     <a :href="liverEvent.url" target="_blank">

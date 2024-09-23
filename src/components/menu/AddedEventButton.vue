@@ -45,15 +45,18 @@ function showPopover() {
     class="bottom-2 left-auto right-1 top-auto flex max-w-[calc(100%-8px)] justify-center overflow-visible bg-transparent p-0"
   >
     <div
-      class="flex max-h-[500px] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-xl bg-white outline outline-2"
+      class="flex max-h-[500px] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
     >
-      <button
-        class="absolute -right-2 -top-2 z-10 m-auto flex h-11 w-11 items-center justify-center rounded-full bg-gray-300 text-gray-500 shadow-md active:bg-gray-400"
-        @click="closePopover"
-      >
-        <i class="i-mdi-close h-8 w-8" />
-      </button>
-      <div class="bg-black px-2 py-1 text-white">最近追加されたイベント ({{ eventCount }})</div>
+      <div class="flex items-center justify-start bg-black px-2 py-2 text-white">
+        最近追加されたイベント ({{ eventCount }})
+
+        <button
+          class="absolute -right-2 z-10 flex h-11 w-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
+          @click="closePopover"
+        >
+          <i class="i-mdi-close h-5 w-5" />
+        </button>
+      </div>
       <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">
         <div v-if="eventCount === 0">なし</div>
 
