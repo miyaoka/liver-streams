@@ -15,7 +15,7 @@ export function usePopover(options: PopoverOptions = {}) {
 
   let removeClickOutsideListener: (() => void) | null = null;
 
-  useEventListener(popoverEl, "beforetoggle", (evt: ToggleEvent) => {
+  useEventListener(popoverEl, "beforetoggle", async (evt: ToggleEvent) => {
     isOpen.value = evt.newState === "open";
     removeClickOutsideListener?.();
 
@@ -27,14 +27,14 @@ export function usePopover(options: PopoverOptions = {}) {
     options.onShow?.();
 
     // popoverの描画を待つ
-    requestAnimationFrame(() => {
-      // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
-      removeClickOutsideListener = useEventListener(document, "click", (e) => {
-        // popover内のクリックは無視
-        if (!popoverEl.value?.contains(e.target as Node)) {
-          hidePopover();
-        }
-      });
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+
+    // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
+    removeClickOutsideListener = useEventListener(document, "click", (e) => {
+      // popover内のクリックは無視
+      if (!popoverEl.value?.contains(e.target as Node)) {
+        hidePopover();
+      }
     });
   });
 
