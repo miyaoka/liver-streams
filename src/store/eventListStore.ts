@@ -3,13 +3,26 @@ import { computed, ref } from "vue";
 import { useFocusStore } from "./focusStore";
 import { useStorageStore } from "./storageStore";
 import { createDateSectionList } from "@/lib/section";
-import { fetchLiverEventList, getFilteredEventList, type LiverEvent } from "@/services/api";
+import {
+  fetchLiverEventList,
+  getFilteredEventList,
+  talentFilter,
+  type LiverEvent,
+} from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
+
+interface AddedEvent {
+  url: string;
+  addedTime: number;
+}
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
   const focusStore = useFocusStore();
+
   const liverEventList = ref<LiverEvent[] | null>(null);
+  const eventUrlSet = ref<Set<string>>(new Set());
+  const addedEventList = ref<AddedEvent[]>([]);
 
   const filteredEventList = computed(() => {
     if (!liverEventList.value) return [];
@@ -23,6 +36,29 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
+  const filteredAddedEventList = computed(() => {
+    if (!addedEventList.value) return [];
+
+    const filterMap = storageStore.talentFilterMap;
+    const hasTalentfilter = storageStore.talentFilterEnabled;
+
+    const list = addedEventList.value.flatMap((addedEvent) => {
+      const liverEvent = liverEventMap.value.get(addedEvent.url);
+      if (!liverEvent) return [];
+      return {
+        addedTime: addedEvent.addedTime,
+        liverEvent,
+      };
+    });
+    return list.filter((item) =>
+      talentFilter({
+        liverEvent: item.liverEvent,
+        filterMap,
+        hasTalentfilter,
+      }),
+    );
+  });
+
   const onLiveEventList = computed(() => {
     return filteredEventList.value.filter((event) => event.isLive);
   });
@@ -33,10 +69,46 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
-  function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
-    fetchLiverEventList({ nijiLiverMap }).then((events) => {
-      liverEventList.value = events;
+  // urlをキーにしたLiverEventのMap
+  const liverEventMap = computed(() => {
+    const map = new Map<string, LiverEvent>();
+    if (!liverEventList.value) return map;
+    liverEventList.value.forEach((liverEvent) => {
+      map.set(liverEvent.url, liverEvent);
     });
+    return map;
+  });
+
+  async function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
+    const eventList = await fetchLiverEventList({ nijiLiverMap });
+    const currUrlSet = new Set(eventList.map((event) => event.url));
+
+    // setを比較して足されたものを算出
+    // 初回の場合は差分抽出せずスキップ
+    if (liverEventList.value) {
+      const addedTime = Date.now();
+
+      // todo: vue-tscでエラーが出るので一旦無視
+      // TS2339: Property 'difference' does not exist on type 'Set<string>'.
+      // @ts-ignore
+      const diff = currUrlSet.difference(eventUrlSet.value);
+      // @ts-ignore
+      const addedItems: AddedEvent[] = Array.from(diff).map((url) => {
+        return {
+          url,
+          addedTime,
+        };
+      });
+
+      addedEventList.value.push(...addedItems);
+    }
+
+    liverEventList.value = eventList;
+    eventUrlSet.value = currUrlSet;
+  }
+
+  function clearAddedEventList() {
+    addedEventList.value = [];
   }
 
   return {
@@ -44,7 +116,12 @@ export const useEventListStore = defineStore("eventListStore", () => {
     filteredEventList,
     onLiveEventList,
     dateSectionList,
+    eventUrlSet: eventUrlSet,
+    liverEventMap,
+    addedEventList,
+    filteredAddedEventList,
     updateLiverEventList,
+    clearAddedEventList,
   };
 });
 

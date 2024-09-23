@@ -1,6 +1,5 @@
-import { fetchHoloEventList } from "./hololive";
-import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
-import { getHashList } from "@/lib/youtube";
+import { fetchHoloEventList } from "./hololive/schedule";
+import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji/nijisanji";
 import { getChannelIcon } from "@/utils/icons";
 
 export interface LiverEvent {
@@ -13,23 +12,11 @@ export interface LiverEvent {
   talent: LiverTalent;
   collaboTalents: LiverTalent[];
   affilication: "hololive" | "nijisanji";
-  hashList: string[];
 }
 
 export interface LiverTalent {
   name: string;
   image: string;
-}
-
-export function compareLiverEvent(a: LiverEvent, b: LiverEvent) {
-  const diff = a.startAt.getTime() - b.startAt.getTime();
-  if (diff !== 0) return diff;
-
-  // 同時間の場合はまずaffilicationでソート
-  if (a.affilication !== b.affilication) return a.affilication.localeCompare(b.affilication);
-
-  // 同affilicationの場合はtalent名でソート
-  return a.talent.name.localeCompare(b.talent.name);
 }
 
 // ホロライブとにじさんじの配信情報を取得
@@ -44,7 +31,15 @@ export async function fetchLiverEventList({
   ]);
 
   const nijiEvents = getNijiEvents({ nijiLiverMap, nijiStreams });
-  const wholeEvents = [...holoEvents, ...nijiEvents].sort(compareLiverEvent);
+  const wholeEvents = [...holoEvents, ...nijiEvents].sort((a, b) => {
+    const diff = a.startAt.getTime() - b.startAt.getTime();
+    if (diff !== 0) return diff;
+    // 同時間の場合はまずaffilicationでソート
+    if (a.affilication !== b.affilication) return a.affilication.localeCompare(b.affilication);
+
+    // 同affilicationの場合はtalent名でソート
+    return a.talent.name.localeCompare(b.talent.name);
+  });
   return wholeEvents;
 }
 
@@ -82,32 +77,10 @@ function getNijiEvents({
       isLive,
       talent,
       collaboTalents: collaboTalentIds.flatMap((id) => getTalent(id) ?? []),
-      hashList: getHashList(title),
     };
   });
 
   return events;
-}
-
-export function talentFilter({
-  hasTalentfilter,
-  filterMap,
-  liverEvent,
-}: {
-  hasTalentfilter: boolean;
-  filterMap: Map<string, boolean>;
-  liverEvent: LiverEvent;
-}) {
-  // フィルタなし
-  if (!hasTalentfilter) return true;
-
-  // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-  return (
-    filterMap.has(liverEvent.talent.name) ||
-    liverEvent.collaboTalents.some((collaborator) => {
-      return filterMap.has(collaborator.name);
-    })
-  );
 }
 
 export function getFilteredEventList({
@@ -144,19 +117,30 @@ export function getFilteredEventList({
   return (
     liverEventList
       // talentでフィルタリング
-      .filter((liverEvent) => talentFilter({ hasTalentfilter, filterMap, liverEvent }))
-      .filter((liverEvent) => {
+      .filter((video) => {
+        // フィルタなし
+        if (!hasTalentfilter) return true;
+
+        // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
+        return (
+          filterMap.has(video.talent.name) ||
+          video.collaboTalents.some((collaborator) => {
+            return filterMap.has(collaborator.name);
+          })
+        );
+      })
+      .filter((video) => {
         // live中のみ表示
         if (!isLiveOnly) return true;
-        return liverEvent.isLive;
+        return video.isLive;
       })
-      .filter((liverEvent) => {
+      .filter((video) => {
         // 検索語にマッチしたイベントのみ表示
         if (!searchRegExp) return true;
         return (
-          searchRegExp.test(liverEvent.title) ||
-          searchRegExp.test(liverEvent.talent.name) ||
-          liverEvent.collaboTalents.some((collaborator) => {
+          searchRegExp.test(video.title) ||
+          searchRegExp.test(video.talent.name) ||
+          video.collaboTalents.some((collaborator) => {
             return searchRegExp.test(collaborator.name);
           })
         );
