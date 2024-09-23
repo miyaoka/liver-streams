@@ -13,23 +13,25 @@ const focusStore = useFocusStore();
 </script>
 
 <template>
-  <div class="w-[480px] max-w-full overflow-hidden rounded-lg bg-white shadow-xl">
-    <div class="flex items-center px-4 py-2">
+  <div
+    class="w-[480px] max-w-full overflow-hidden rounded-lg border border-gray-500 bg-white pb-2 shadow-xl"
+  >
+    <div class="flex items-center bg-gray-800 px-4 py-2 text-gray-200">
       <div class="font-bold">
         {{ fullDateFormatter.format(liverEvent.startAt) }}
       </div>
       <button
-        class="absolute right-0 flex h-11 w-11 items-center justify-center text-gray-500 hover:text-gray-800"
+        class="absolute right-0 flex h-11 w-11 items-center justify-center text-gray-400 hover:text-gray-200"
         @click="closePopover"
       >
         <i class="i-mdi-close h-5 w-5" />
       </button>
     </div>
 
-    <a :href="liverEvent.url" target="_blank" class="hover:border-4">
+    <a :href="liverEvent.url" target="_blank">
       <img
         :src="getThumnail(liverEvent.thumbnail, 'sd')"
-        class="aspect-video w-[480px] bg-gray-200 object-cover p-2 transition-colors hover:bg-sky-300"
+        class="thumb aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
         loading="lazy"
       />
     </a>
@@ -71,3 +73,12 @@ const focusStore = useFocusStore();
     </div>
   </div>
 </template>
+
+<style scoped>
+.thumb {
+  transition: all 0.4s;
+  @starting-style {
+    opacity: 0;
+  }
+}
+</style>

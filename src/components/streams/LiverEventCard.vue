@@ -221,7 +221,7 @@ function onClickCard(evt: MouseEvent) {
     </a>
   </div>
   <popover.PopOver
-    class="bottom-2 top-auto max-w-[calc(100%-16px)] overflow-visible bg-transparent"
+    class="bottom-2 top-auto max-w-[calc(100%-16px)] overflow-visible bg-transparent p-0"
   >
     <LiverEventDialog :liverEvent="liverEvent" />
   </popover.PopOver>
@@ -246,7 +246,7 @@ function onClickCard(evt: MouseEvent) {
     background-color: rgba(0, 0, 0, 0.4);
   }
   &:popover-open {
-    animation: fadeIn 0.2s forwards;
+    animation: fadeIn 0.2s ease-in-out forwards;
   }
 }
 
