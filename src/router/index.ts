@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 const VerticalView = () => import("@/views/VerticalView.vue");
-const HorizontalView = () => import("@/views/HorizontalView.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,11 +9,7 @@ const router = createRouter({
       name: "vertical",
       component: VerticalView,
     },
-    {
-      path: "/h",
-      name: "horizontal",
-      component: HorizontalView,
-    },
+
     // fallback
     {
       path: "/:pathMatch(.*)*",
