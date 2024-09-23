@@ -21,7 +21,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
   const focusStore = useFocusStore();
 
   const liverEventList = ref<LiverEvent[] | null>(null);
-  const eventUrlSet = ref<Set<string>>(new Set());
+  const eventIdSet = ref<Set<string>>(new Set());
   const addedEventList = ref<AddedEvent[]>([]);
 
   const filteredEventList = computed(() => {
@@ -43,7 +43,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     const filterEnabled = storageStore.talentFilterEnabled;
 
     const list = addedEventList.value.flatMap((addedEvent) => {
-      const liverEvent = liverEventMap.value.get(addedEvent.url);
+      const liverEvent = liverEventMap.value.get(addedEvent.id);
       if (!liverEvent) return [];
       return {
         addedTime: addedEvent.addedTime,
@@ -69,19 +69,19 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
-  // urlをキーにしたLiverEventのMap
+  // idをキーにしたLiverEventのMap
   const liverEventMap = computed(() => {
     const map = new Map<string, LiverEvent>();
     if (!liverEventList.value) return map;
     liverEventList.value.forEach((liverEvent) => {
-      map.set(liverEvent.url, liverEvent);
+      map.set(liverEvent.id, liverEvent);
     });
     return map;
   });
 
   async function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
     const eventList = await fetchLiverEventList({ nijiLiverMap });
-    const currUrlSet = new Set(eventList.map((event) => event.url));
+    const currIdSet = new Set(eventList.map((event) => event.id));
 
     // setを比較して足されたものを算出
     // 初回の場合は差分抽出せずスキップ
@@ -91,11 +91,11 @@ export const useEventListStore = defineStore("eventListStore", () => {
       // todo: vue-tscでエラーが出るので一旦無視
       // TS2339: Property 'difference' does not exist on type 'Set<string>'.
       // @ts-ignore
-      const diff = currUrlSet.difference(eventUrlSet.value);
+      const diff = currIdSet.difference(eventIdSet.value);
       // @ts-ignore
-      const addedItems: AddedEvent[] = Array.from(diff).map((url) => {
+      const addedItems: AddedEvent[] = Array.from(diff).map((id) => {
         return {
-          url,
+          id,
           addedTime,
         };
       });
@@ -104,7 +104,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     }
 
     liverEventList.value = eventList;
-    eventUrlSet.value = currUrlSet;
+    eventIdSet.value = currIdSet;
   }
 
   function clearAddedEventList() {
@@ -116,7 +116,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     filteredEventList,
     onLiveEventList,
     dateSectionList,
-    eventUrlSet: eventUrlSet,
+    eventIdSet,
     liverEventMap,
     addedEventList,
     filteredAddedEventList,

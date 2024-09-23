@@ -11,6 +11,12 @@ export interface TimeSection {
   events: LiverEvent[];
 }
 
+export function createId(url: string, startAt: Date) {
+  // /:.?=- を取り除く
+  const escapedUrl = url.replace(/[/:.?=-]/g, "");
+  return `${escapedUrl}-${startAt.getTime()}`;
+}
+
 export function createDateSectionList(liverEventList: LiverEvent[]): DateSection[] {
   if (liverEventList.length === 0) return [];
   const firstEvent = liverEventList[0];

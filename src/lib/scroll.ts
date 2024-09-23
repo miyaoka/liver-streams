@@ -33,10 +33,8 @@ export function scrollToSectionTop(time: number) {
   targetSectionEl.scrollIntoView({ behavior: "smooth" });
 }
 
-export function scrollToLiverEventTop(url: string) {
-  const targetEventEl = document.querySelector(
-    `[data-id="liver-event-card"]:has(a[href="${url}"])`,
-  );
+export function scrollToLiverEventTop(id: string) {
+  const targetEventEl = document.querySelector(`[data-event-id="${id}"]`);
   if (!targetEventEl) return;
   targetEventEl.scrollIntoView({ behavior: "smooth" });
 }

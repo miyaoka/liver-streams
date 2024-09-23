@@ -1,4 +1,5 @@
 import type { LiverEvent } from "../api";
+import { createId } from "@/lib/section";
 import { getHashList } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -44,10 +45,11 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
   const wholeVideoList = data.dateGroupList.map((dateGroup) => dateGroup.videoList).flat();
 
   const events: LiverEvent[] = wholeVideoList.map((video) => {
+    const startAtDate = new Date(video.datetime);
     return {
-      id: `${video.url}-${video.datetime}`,
+      id: createId(video.url, startAtDate),
       affilication: "hololive",
-      startAt: new Date(video.datetime),
+      startAt: startAtDate,
       title: video.title,
       url: video.url,
       thumbnail: video.thumbnail,

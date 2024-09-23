@@ -18,7 +18,7 @@ const focusStore = useFocusStore();
 const dateStore = useDateStore();
 const popover = usePopover({
   mountAtOpen: true,
-  popoverId: props.liverEvent.url,
+  popoverId: props.liverEvent.id,
 });
 
 const affilicationLogoMap = {
@@ -140,6 +140,7 @@ function onClickCard(evt: MouseEvent) {
   <div
     class="group relative scroll-mt-16"
     data-id="liver-event-card"
+    :data-event-id="`${liverEvent.id}`"
     @mouseover="hoverEvent(liverEvent)"
     @mouseleave="unhoverEvent"
   >

@@ -35,16 +35,16 @@ const eventTime = computed(() => {
 const isUnread = computed(() => props.addedTime > props.lastOpenTime);
 
 function onClickEvent() {
-  scrollToLiverEventTop(props.liverEvent.url);
+  scrollToLiverEventTop(props.liverEvent.id);
 }
 </script>
 
 <template>
   <button
-    :key="liverEvent.url"
+    :key="liverEvent.id"
     class="relative flex flex-row items-center gap-2 p-2 text-start hover:bg-slate-200"
     @click="onClickEvent"
-    :popovertarget="liverEvent.url"
+    :popovertarget="liverEvent.id"
   >
     <img
       :src="liverEvent.talent.image"

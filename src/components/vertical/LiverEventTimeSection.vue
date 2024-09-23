@@ -59,7 +59,7 @@ function getTimeColor(hour: number) {
       >
         <LiverEventCard
           v-for="liverEvent in props.section.events"
-          :key="liverEvent.url"
+          :key="liverEvent.id"
           :liverEvent="liverEvent"
         />
       </div>

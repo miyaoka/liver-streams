@@ -1,5 +1,6 @@
 import { fetchHoloEventList } from "./hololive";
 import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
+import { createId } from "@/lib/section";
 import { getHashList } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -73,10 +74,11 @@ function getNijiEvents({
     const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
     const talent = getTalent(talentId);
     if (!talent) return [];
+    const startAtDate = new Date(startAt);
     return {
-      id: `${url}-${startAt}`,
+      id: createId(url, startAtDate),
       affilication: "nijisanji",
-      startAt: new Date(startAt),
+      startAt: startAtDate,
       title,
       url,
       thumbnail,

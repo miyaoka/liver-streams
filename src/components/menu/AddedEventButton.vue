@@ -61,7 +61,7 @@ function showPopover() {
         <div v-else class="flex flex-col-reverse">
           <AddedEventCard
             v-for="{ liverEvent, addedTime } in eventListStore.filteredAddedEventList"
-            :key="liverEvent.url"
+            :key="liverEvent.id"
             :addedTime="addedTime"
             :lastOpenTime="lastOpenTime"
             :liverEvent="liverEvent"
