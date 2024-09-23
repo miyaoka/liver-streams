@@ -3,6 +3,7 @@ import type { LiverEvent } from "@/services/api";
 import { getThumnail } from "@/lib/youtube";
 import { useFocusStore } from "@/store/focusStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
+import { closePopover } from "@/utils/popover";
 
 defineProps<{
   liverEvent: LiverEvent;
@@ -65,4 +66,10 @@ const focusStore = useFocusStore();
       </div>
     </div>
   </div>
+  <button
+    class="position absolute -right-2 -top-2 flex h-11 w-11 items-center justify-center rounded-full bg-gray-300 text-gray-500 active:bg-gray-400"
+    @click="closePopover"
+  >
+    <i class="i-mdi-close h-8 w-8" />
+  </button>
 </template>

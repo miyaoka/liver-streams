@@ -217,11 +217,12 @@ function onClickCard(evt: MouseEvent) {
         </div>
       </div>
     </a>
-
-    <popover.PopOver class="bottom-2 top-auto max-w-[calc(100%-16px)] bg-transparent">
-      <LiverEventDialog :liverEvent="liverEvent" />
-    </popover.PopOver>
   </div>
+  <popover.PopOver
+    class="bottom-2 top-auto max-w-[calc(100%-16px)] overflow-visible bg-transparent"
+  >
+    <LiverEventDialog :liverEvent="liverEvent" />
+  </popover.PopOver>
 </template>
 
 <style scoped>
