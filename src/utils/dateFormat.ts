@@ -42,7 +42,7 @@ function getTimeUnitAndValue(ms: number): { value: number; unit: Intl.RelativeTi
     if (absSec < threshold.max) {
       return {
         unit: threshold.unit,
-        value: Math.floor(ms / threshold.min / 1000),
+        value: Math.trunc(ms / threshold.min / 1000),
       };
     }
   }
@@ -50,7 +50,7 @@ function getTimeUnitAndValue(ms: number): { value: number; unit: Intl.RelativeTi
   // Default return in case all thresholds are exceeded
   return {
     unit: "day",
-    value: Math.floor(ms / 86400 / 1000),
+    value: Math.trunc(ms / 86400 / 1000),
   };
 }
 
