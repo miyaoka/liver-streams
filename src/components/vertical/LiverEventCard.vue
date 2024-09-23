@@ -137,7 +137,7 @@ function onClickCard(evt: MouseEvent) {
 </script>
 <template>
   <div
-    class="group relative"
+    class="group relative scroll-m-8"
     data-id="liver-event-card"
     @mouseover="hoverEvent(liverEvent)"
     @mouseleave="unhoverEvent"

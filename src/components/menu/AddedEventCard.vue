@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import LiverEventDialog from "../vertical/LiverEventDialog.vue";
 import type { LiverEvent } from "@/services/api";
+import { usePopover } from "@/composable/usePopover";
+import { scrollToLiverEventTop } from "@/lib/scroll";
 import { useDateStore } from "@/store/dateStore";
 import { toRelativeTime } from "@/utils/dateFormat";
 
@@ -11,6 +14,9 @@ const props = defineProps<{
 }>();
 
 const dateStore = useDateStore();
+const popover = usePopover({
+  mountAtOpen: true,
+});
 
 const pastTime = computed(() => {
   const past = props.addedTime - dateStore.currentTime;
@@ -18,13 +24,44 @@ const pastTime = computed(() => {
 });
 
 const isUnread = computed(() => props.addedTime > props.lastOpenTime);
+
+function onClickEvent() {
+  scrollToLiverEventTop(props.liverEvent.url);
+  popover.showPopover();
+}
 </script>
 
 <template>
-  <div :key="liverEvent.url" class="relative flex flex-row items-center gap-2">
+  <button
+    :key="liverEvent.url"
+    class="relative flex flex-row items-center gap-2 text-start hover:bg-slate-200"
+    @click="onClickEvent"
+  >
     <img :src="liverEvent.talent.image" loading="lazy" class="h-8 w-8 rounded-full" />
     <p class="line-clamp-2 flex-1 text-sm">{{ liverEvent.title }}</p>
     <p class="w-10 text-right text-xs">{{ pastTime }}</p>
     <i class="i-mdi-circle absolute right-0 top-0 h-2 w-2 text-red-700" v-if="isUnread" />
-  </div>
+  </button>
+  <popover.PopOver
+    class="bottom-2 top-auto max-w-[calc(100%-16px)] overflow-visible bg-transparent"
+  >
+    <LiverEventDialog :liverEvent="liverEvent" />
+  </popover.PopOver>
 </template>
+
+<style scoped>
+[popover] {
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  &:popover-open {
+    animation: fadeIn 0.2s forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    translate: 0 50%;
+  }
+}
+</style>
