@@ -13,32 +13,29 @@ export function usePopover(options: PopoverOptions = {}) {
   const popoverEl = ref<HTMLElement | null>(null);
   const isOpen = ref(false);
 
-  // iOS safariではoutsideクリックで閉じないバグがあるのでハンドリングする
   let removeClickOutsideListener: (() => void) | null = null;
 
-  useEventListener(popoverEl, "beforetoggle", (evt: ToggleEvent) => {
+  useEventListener(popoverEl, "beforetoggle", async (evt: ToggleEvent) => {
     isOpen.value = evt.newState === "open";
     removeClickOutsideListener?.();
 
-    if (isOpen.value) {
-      options.onShow?.();
-
-      // popover出現後にoutsideクリックで閉じる処理を追加
-      requestAnimationFrame(() => {
-        removeClickOutsideListener = useEventListener(
-          document,
-          "click",
-          (e) => {
-            if (!popoverEl.value?.contains(e.target as Node)) {
-              hidePopover();
-            }
-          },
-          { once: true },
-        );
-      });
-    } else {
+    // 開閉時のハンドラ処理
+    if (!isOpen.value) {
       options.onHide?.();
+      return;
     }
+    options.onShow?.();
+
+    // popoverの描画を待つ
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+
+    // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
+    removeClickOutsideListener = useEventListener("click", (e) => {
+      // popover内のクリックは無視
+      if (popoverEl.value?.contains(e.target as Node)) return;
+
+      hidePopover();
+    });
   });
 
   function showPopover() {
