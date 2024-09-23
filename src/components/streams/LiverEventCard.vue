@@ -152,7 +152,7 @@ function onClickCard(evt: MouseEvent) {
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-gray-300 text-gray-700' : liverEvent.isLive ? 'bg-red-500 text-white' : 'bg-white text-blue-500'} -top-1 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
+        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-gray-300 text-gray-700' : liverEvent.isLive ? 'bg-red-600 text-white' : 'bg-white text-blue-500'} -top-0 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle h-5 w-5" />
         <span>{{ timeDisplay }}</span>
@@ -175,15 +175,16 @@ function onClickCard(evt: MouseEvent) {
       />
 
       <div
-        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-[10px] bg-white shadow-md transition-colors"
+        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-[3px] bg-white shadow-md transition-colors"
         :class="{
           isFinished: isFinished,
           isHovered: isHovered,
+          isLive: liverEvent.isLive,
         }"
       >
         <img
           :src="liverEvent.talent.image"
-          class="ml-2 w-[clamp(36px,36px+1vw,60px)] rounded-full bg-white transition-transform group-hover:scale-110"
+          class="ml-1 w-[clamp(36px,36px+1vw,60px)] rounded-full bg-white transition-transform group-hover:scale-110"
           loading="lazy"
           @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
         />
@@ -195,7 +196,7 @@ function onClickCard(evt: MouseEvent) {
           <div class="line-clamp-2 [overflow-wrap:anywhere]">
             {{ liverEvent.title }}
           </div>
-          <div class="absolute bottom-1 z-10 flex flex-row">
+          <div class="absolute bottom-0 z-10 flex flex-row">
             <img
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
@@ -219,14 +220,6 @@ function onClickCard(evt: MouseEvent) {
         </div>
 
         <div
-          class="pointer-events-none absolute h-full w-full rounded-[10px]"
-          :class="{
-            isLive: liverEvent.isLive,
-            isHoveredOutline: isHovered,
-          }"
-        ></div>
-
-        <div
           v-if="firstHash"
           class="absolute bottom-0 right-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
           :class="`${hasHoveredHash ? 'bg-orange-600 text-orange-100' : 'bg-blue-600 text-blue-100'}`"
@@ -244,14 +237,11 @@ function onClickCard(evt: MouseEvent) {
 </template>
 
 <style scoped>
-.isLive {
-  @apply outline outline-[3px] -outline-offset-[3px] outline-red-600 !important;
-}
 .isHovered {
-  @apply bg-amber-200;
+  @apply border-amber-600 bg-amber-200;
 }
-.isHoveredOutline {
-  @apply outline outline-[2px] -outline-offset-[2px] outline-amber-600;
+.isLive {
+  @apply border-red-600;
 }
 .isFinished:not(.isHovered) {
   @apply bg-slate-50;
