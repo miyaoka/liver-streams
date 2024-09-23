@@ -2,13 +2,13 @@ import { useEventListener } from "@vueuse/core";
 import { computed, defineComponent, ref } from "vue";
 
 interface PopoverOptions {
-  mountAfterOpen?: boolean;
+  mountAtOpen?: boolean;
   popoverId?: string;
   onShow?: () => void;
   onHide?: () => void;
 }
 export function usePopover(options: PopoverOptions = {}) {
-  const { mountAfterOpen = false } = options;
+  const { mountAtOpen = false } = options;
   const popoverId = options.popoverId ? options.popoverId : `p-${crypto.randomUUID()}`;
   const popoverEl = ref<HTMLElement | null>(null);
   const isOpen = ref(false);
@@ -34,7 +34,7 @@ export function usePopover(options: PopoverOptions = {}) {
   const PopOver = defineComponent({
     setup() {
       const isMountable = computed(() => {
-        if (!mountAfterOpen) return true;
+        if (!mountAtOpen) return true;
         return isOpen.value;
       });
 
