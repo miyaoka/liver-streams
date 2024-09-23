@@ -3,7 +3,8 @@ import { computed } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { scrollToLiverEventTop } from "@/lib/scroll";
 import { useDateStore } from "@/store/dateStore";
-import { toRelativeTime } from "@/utils/dateFormat";
+import { compareDate, getDateTime } from "@/utils/date";
+import { hhssDateFormatter, toRelativeTime } from "@/utils/dateFormat";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
@@ -13,9 +14,22 @@ const props = defineProps<{
 
 const dateStore = useDateStore();
 
-const pastTime = computed(() => {
-  const past = props.addedTime - dateStore.currentTime;
-  return toRelativeTime(past);
+const eventTime = computed(() => {
+  const startAt = props.liverEvent.startAt;
+  const startDateTime = getDateTime(startAt);
+
+  const dateDiff = compareDate({
+    baseDateTime: dateStore.currentDateTime,
+    targetDateTime: startDateTime,
+  });
+
+  // 今日なら時刻を返す
+  if (dateDiff === 0) {
+    return hhssDateFormatter.format(startAt);
+  }
+
+  // 別の日なら相対時刻を返す
+  return toRelativeTime(startDateTime - dateStore.currentDateTime);
 });
 
 const isUnread = computed(() => props.addedTime > props.lastOpenTime);
@@ -39,7 +53,7 @@ function onClickEvent() {
       :title="liverEvent.talent.name"
     />
     <p class="line-clamp-2 flex-1 text-xs">{{ liverEvent.title }}</p>
-    <p class="w-12 text-right text-xs">{{ pastTime }}</p>
+    <p class="w-12 text-right text-xs">{{ eventTime }}</p>
     <i class="i-mdi-circle absolute right-0 top-0 h-2 w-2 text-red-700" v-if="isUnread" />
   </button>
 </template>
