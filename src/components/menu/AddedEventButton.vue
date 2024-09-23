@@ -9,11 +9,7 @@ const eventListStore = useEventListStore();
 let lastOpenTime = ref(0);
 const popover = usePopover({
   mountAtOpen: true,
-  onShow: () => {
-    console.log("show");
-  },
   onHide: () => {
-    console.log("hide");
     lastOpenTime.value = Date.now();
   },
 });
@@ -46,10 +42,7 @@ function showPopover() {
 
   <popover.PopOver class="top-auto left-auto max-h-[500px] w-[400px]">
     <div class="bg-white rounded-lg shadow-lg p-2 flex flex-col gap-2 pb-10">
-      <div class="sticky bg-black text-white">
-        最近追加されたイベント ({{ eventCount }})
-        {{ lastOpenTime }}
-      </div>
+      <div class="bg-black text-white">最近追加されたイベント ({{ eventCount }})</div>
       <div v-if="eventCount === 0">なし</div>
 
       <!-- 逆順表示 -->
