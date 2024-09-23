@@ -4,6 +4,7 @@ import { getHashList } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
 export interface LiverEvent {
+  id: string;
   title: string;
   url: string;
   thumbnail: string;
@@ -73,6 +74,7 @@ function getNijiEvents({
     const talent = getTalent(talentId);
     if (!talent) return [];
     return {
+      id: `${url}-${startAt}`,
       affilication: "nijisanji",
       startAt: new Date(startAt),
       title,

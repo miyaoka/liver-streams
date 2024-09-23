@@ -45,6 +45,7 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
 
   const events: LiverEvent[] = wholeVideoList.map((video) => {
     return {
+      id: `${video.url}-${video.datetime}`,
       affilication: "hololive",
       startAt: new Date(video.datetime),
       title: video.title,
