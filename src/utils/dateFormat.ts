@@ -32,7 +32,7 @@ function getTimeUnitAndValue(ms: number): { value: number; unit: Intl.RelativeTi
 
   // 境界値のリスト
   const thresholds = [
-    { unit: "second", min: 1, max: 60 },
+    // { unit: "second", min: 1, max: 60 }, // 1分未満はnowにする
     { unit: "minute", min: 60, max: 3600 },
     { unit: "hour", min: 3600, max: 86400 },
   ] as const;
@@ -56,7 +56,7 @@ function getTimeUnitAndValue(ms: number): { value: number; unit: Intl.RelativeTi
 
 export function toRelativeTime(time: number) {
   const { unit, value } = getTimeUnitAndValue(time);
-  if (value === 0) return "just now";
+  if (value === 0) return "now";
 
   return relativeTimeFormatter.format(value, unit);
 }
