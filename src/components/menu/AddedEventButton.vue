@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import AddedEventCard from "./AddedEventCard.vue";
 import { usePopover } from "@/composable/usePopover";
 import { useEventListStore } from "@/store/eventListStore";
+import { closePopover } from "@/utils/popover";
 
 const eventListStore = useEventListStore();
 
@@ -40,21 +41,47 @@ function showPopover() {
     </p>
   </button>
 
-  <popover.PopOver class="left-auto top-auto max-h-[500px] w-[400px]">
-    <div class="flex flex-col gap-2 rounded-lg bg-white p-2 pb-10 shadow-lg">
-      <div class="bg-black text-white">最近追加されたイベント ({{ eventCount }})</div>
-      <div v-if="eventCount === 0">なし</div>
+  <popover.PopOver
+    class="bottom-2 left-auto right-1 top-auto flex max-w-[calc(100%-8px)] justify-center overflow-visible bg-transparent p-0"
+  >
+    <div
+      class="flex max-h-[500px] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-xl bg-white outline outline-2"
+    >
+      <button
+        class="absolute -right-2 -top-2 z-10 m-auto flex h-11 w-11 items-center justify-center rounded-full bg-gray-300 text-gray-500 shadow-md active:bg-gray-400"
+        @click="closePopover"
+      >
+        <i class="i-mdi-close h-8 w-8" />
+      </button>
+      <div class="bg-black px-2 py-1 text-white">最近追加されたイベント ({{ eventCount }})</div>
+      <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">
+        <div v-if="eventCount === 0">なし</div>
 
-      <!-- 逆順表示 -->
-      <div v-else class="flex flex-col-reverse">
-        <AddedEventCard
-          v-for="{ liverEvent, addedTime } in eventListStore.filteredAddedEventList"
-          :key="liverEvent.url"
-          :addedTime="addedTime"
-          :lastOpenTime="lastOpenTime"
-          :liverEvent="liverEvent"
-        />
+        <!-- 逆順表示 -->
+        <div v-else class="flex flex-col-reverse">
+          <AddedEventCard
+            v-for="{ liverEvent, addedTime } in eventListStore.filteredAddedEventList"
+            :key="liverEvent.url"
+            :addedTime="addedTime"
+            :lastOpenTime="lastOpenTime"
+            :liverEvent="liverEvent"
+          />
+        </div>
       </div>
     </div>
   </popover.PopOver>
 </template>
+
+<style scoped>
+[popover] {
+  &:popover-open {
+    animation: fadeIn 0.2s forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    translate: 0 50%;
+  }
+}
+</style>
