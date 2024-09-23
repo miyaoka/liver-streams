@@ -17,7 +17,7 @@ export function getThumnail(url: string, quality: YoutubeImageQuality) {
 }
 
 // タイトルからhash部分を抜き出す
-const excludedChars = "()（）［］｛｝「」『』〈〉《》【】〔〕〖〗/\\|";
+const excludedChars = "()（）［］｛｝「」『』〈〉《》【】〔〕〖〗｜/\\|";
 const hashRegExp = new RegExp(`#(?![\\d０-９])[^\\s${excludedChars.split("").join("\\")}]+`, "g");
 
 export function getHashList(input: string): string[] {
