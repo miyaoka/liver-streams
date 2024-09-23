@@ -2,7 +2,7 @@
 import { onMounted } from "vue";
 import FooterMenu from "@/components/menu/FooterMenu.vue";
 import HeaderMenu from "@/components/menu/HeaderMenu.vue";
-import LiverEventList from "@/components/vertical/LiverEventList.vue";
+import LiverEventDateSectionList from "@/components/streams/LiverEventDateSectionList.vue";
 import { fetchNijiLiverMap } from "@/services/nijisanji";
 import { useEventListStore } from "@/store/eventListStore";
 
@@ -27,7 +27,7 @@ onMounted(async () => {
 <template>
   <main class="text-[clamp(11px,11px+0.25vw,15px)]" v-if="eventListStore.liverEventList">
     <HeaderMenu />
-    <LiverEventList :dateSectionList="eventListStore.dateSectionList" />
+    <LiverEventDateSectionList :dateSectionList="eventListStore.dateSectionList" />
     <FooterMenu />
   </main>
 </template>
