@@ -12,7 +12,7 @@ import {
 import { type NijiLiverMap } from "@/services/nijisanji";
 
 interface AddedEvent {
-  url: string;
+  id: string;
   addedTime: number;
 }
 
