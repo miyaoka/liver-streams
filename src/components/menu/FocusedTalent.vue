@@ -8,7 +8,7 @@ const focusStore = useFocusStore();
 <template>
   <button
     v-if="focusStore.focusedTalent != null"
-    class="fixed inset-0 bottom-6 top-auto z-20 m-auto flex h-fit w-fit flex-row items-center justify-center gap-4 rounded-full bg-blue-700 px-3 py-1 text-white shadow-md outline outline-1 outline-white hover:bg-blue-900"
+    class="fixed inset-0 bottom-6 top-auto z-20 m-auto flex h-fit w-fit flex-row items-center justify-center gap-4 rounded-full border-2 bg-white px-3 py-1 font-bold text-black shadow-md hover:bg-gray-200"
     @click="focusStore.setFocusedTalent(null)"
   >
     focused:
@@ -25,7 +25,7 @@ const focusStore = useFocusStore();
 
 <style scoped>
 button {
-  transition: all 0.3s;
+  transition: translate 0.3s;
   @starting-style {
     opacity: 0;
     translate: 0 100px;
