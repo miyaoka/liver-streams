@@ -51,7 +51,7 @@ function onClick() {
 </script>
 
 <template>
-  <div class="flex flex-row items-center rounded bg-white shadow-md">
+  <div class="flex flex-row items-center justify-center rounded bg-white shadow-md">
     <form
       @submit.prevent="onSubmit"
       :class="`h-full transition-[width] ${isInput ? 'w-56' : 'w-0'}`"
@@ -64,7 +64,11 @@ function onClick() {
         @blur="onBlur"
       />
     </form>
-    <button class="z-30 m-0 flex rounded p-1" @click="onClick" @mousedown="onMousedown">
+    <button
+      class="z-30 flex h-11 w-11 items-center justify-center rounded"
+      @click="onClick"
+      @mousedown="onMousedown"
+    >
       <i :class="`${isInput ? 'i-mdi-close' : 'i-mdi-search'} h-[32px] w-[32px] text-gray-800`" />
     </button>
   </div>

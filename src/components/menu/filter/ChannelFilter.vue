@@ -9,7 +9,10 @@ const storageStore = useStorageStore();
 const filterCount = computed(() => storageStore.talentFilterMap.size);
 </script>
 <template>
-  <button class="flex rounded bg-white p-1 shadow-md" popovertarget="filter">
+  <button
+    class="flex h-11 w-11 items-center justify-center rounded bg-white shadow-md"
+    popovertarget="filter"
+  >
     <i class="i-mdi-menu h-[32px] w-[32px] text-gray-800" />
   </button>
 
