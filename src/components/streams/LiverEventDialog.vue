@@ -76,7 +76,7 @@ const focusStore = useFocusStore();
 
 <style scoped>
 .thumb {
-  transition: all 0.4s;
+  transition: opacity 1s;
   @starting-style {
     opacity: 0;
   }
