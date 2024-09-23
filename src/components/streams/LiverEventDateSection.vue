@@ -40,13 +40,15 @@ const sectionInfo = computed(() => {
           class="absolute right-full flex h-11 w-11 items-center justify-center"
           @click="scrollToSectionTop(prevSection.time)"
         >
-          <div class="h-5 w-5 rounded-full bg-gray-700 bg-opacity-80">
+          <div
+            class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-700 bg-opacity-70 hover:bg-gray-900"
+          >
             <i class="i-mdi-chevron-up h-5 w-5 text-white" />
           </div>
         </button>
 
         <button
-          :class="`border-1 flex flex-row items-center gap-1 rounded-2xl border border-gray-300 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-blue-700 text-white' : 'bg-gray-800 text-white'}`"
+          :class="`border-1 flex flex-row items-center gap-1 rounded-2xl border border-gray-300 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-blue-700 text-white hover:bg-blue-900' : 'bg-gray-700 text-white hover:bg-gray-900'}`"
           @click="scrollToSectionTop(dateSection.time)"
         >
           <span class="text-base font-bold">
@@ -59,7 +61,9 @@ const sectionInfo = computed(() => {
           class="absolute left-full flex h-11 w-11 items-center justify-center"
           @click="scrollToSectionTop(nextSection.time)"
         >
-          <div class="h-5 w-5 rounded-full bg-gray-700 bg-opacity-80">
+          <div
+            class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-700 bg-opacity-70 hover:bg-gray-900"
+          >
             <i class="i-mdi-chevron-down h-5 w-5 text-white" />
           </div>
         </button>

@@ -51,7 +51,7 @@ function showPopover() {
         最近追加されたイベント ({{ eventCount }})
 
         <button
-          class="absolute -right-2 z-10 flex h-11 w-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
+          class="absolute -right-1 z-10 flex h-11 w-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
           @click="closePopover"
         >
           <i class="i-mdi-close h-5 w-5" />
