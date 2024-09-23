@@ -40,7 +40,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     if (!addedEventList.value) return [];
 
     const filterMap = storageStore.talentFilterMap;
-    const hasTalentfilter = storageStore.talentFilterEnabled;
+    const filterEnabled = storageStore.talentFilterEnabled;
 
     const list = addedEventList.value.flatMap((addedEvent) => {
       const liverEvent = liverEventMap.value.get(addedEvent.url);
@@ -54,7 +54,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
       talentFilter({
         liverEvent: item.liverEvent,
         filterMap,
-        hasTalentfilter,
+        filterEnabled,
       }),
     );
   });

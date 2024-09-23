@@ -90,16 +90,16 @@ function getNijiEvents({
 }
 
 export function talentFilter({
-  hasTalentfilter,
+  filterEnabled,
   filterMap,
   liverEvent,
 }: {
-  hasTalentfilter: boolean;
+  filterEnabled: boolean;
   filterMap: Map<string, boolean>;
   liverEvent: LiverEvent;
 }) {
   // フィルタなし
-  if (!hasTalentfilter) return true;
+  if (!filterEnabled || filterMap.size === 0) return true;
 
   // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
   return (
@@ -137,14 +137,13 @@ export function getFilteredEventList({
     });
   }
 
-  const hasTalentfilter = filterEnabled && filterMap.size > 0;
   // 検索語をスペースで分割してOR検索
   const searchRegExp = searchTerms.length > 0 ? new RegExp(searchTerms.join("|"), "i") : null;
 
   return (
     liverEventList
       // talentでフィルタリング
-      .filter((liverEvent) => talentFilter({ hasTalentfilter, filterMap, liverEvent }))
+      .filter((liverEvent) => talentFilter({ filterEnabled, filterMap, liverEvent }))
       .filter((liverEvent) => {
         // live中のみ表示
         if (!isLiveOnly) return true;
