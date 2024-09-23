@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { getThumnail } from "@/lib/youtube";
 import { useFocusStore } from "@/store/focusStore";
@@ -10,31 +9,10 @@ defineProps<{
 }>();
 
 const focusStore = useFocusStore();
-const dialogEl = ref<HTMLDialogElement | null>(null);
-
-function open() {
-  dialogEl.value?.showModal();
-}
-// ダイアログ外をクリックしたら閉じる
-function onClickDialog(evt: MouseEvent) {
-  if (!dialogEl.value) return;
-  // ターゲットがダイアログならダイアログ外判定
-  if (evt.target !== dialogEl.value) return;
-  evt.preventDefault();
-  dialogEl.value.close();
-}
-
-defineExpose({
-  open,
-});
 </script>
 
 <template>
-  <dialog
-    ref="dialogEl"
-    @click="onClickDialog"
-    class="fixed bottom-4 top-auto w-[480px] overflow-hidden rounded-[20px] shadow-xl"
-  >
+  <div class="w-[480px] overflow-hidden rounded-[20px] bg-white shadow-xl outline">
     <div class="px-4 py-2">
       <div class="font-bold">
         {{ fullDateFormatter.format(liverEvent.startAt) }}
@@ -86,22 +64,5 @@ defineExpose({
         </div>
       </div>
     </div>
-  </dialog>
+  </div>
 </template>
-
-<style scoped>
-dialog {
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  &[open] {
-    animation: fadeIn 0.2s forwards;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    translate: 0 50%;
-  }
-}
-</style>

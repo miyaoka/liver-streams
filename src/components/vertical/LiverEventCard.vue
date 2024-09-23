@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import LiverEventDialog from "./LiverEventDialog.vue";
 import type { LiverEvent } from "@/services/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
+import { usePopover } from "@/composable/usePopover";
 import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
 import { useFocusStore } from "@/store/focusStore";
@@ -15,7 +16,9 @@ const props = defineProps<{
 
 const focusStore = useFocusStore();
 const dateStore = useDateStore();
-const dialogComponent = ref<InstanceType<typeof LiverEventDialog> | null>(null);
+const popover = usePopover({
+  mountAtOpen: true,
+});
 
 const affilicationLogoMap = {
   nijisanji: nijisanji_logo,
@@ -129,7 +132,7 @@ function unhoverEvent() {
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
 function onClickCard(evt: MouseEvent) {
   evt.preventDefault();
-  dialogComponent.value?.open();
+  popover.showPopover();
 }
 </script>
 <template>
@@ -215,7 +218,9 @@ function onClickCard(evt: MouseEvent) {
       </div>
     </a>
 
-    <LiverEventDialog ref="dialogComponent" :liverEvent="liverEvent" />
+    <popover.PopOver class="fixed bottom-4 top-auto flex bg-transparent">
+      <LiverEventDialog :liverEvent="liverEvent" />
+    </popover.PopOver>
   </div>
 </template>
 
@@ -235,5 +240,20 @@ function onClickCard(evt: MouseEvent) {
 }
 .isFinished:not(.isHovered) {
   @apply bg-slate-50;
+}
+
+[popover] {
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  &:popover-open {
+    animation: fadeIn 0.2s forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    translate: 0 50%;
+  }
 }
 </style>
