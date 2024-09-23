@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { LiverEvent } from "@/services";
+import type { LiverEvent } from "@/services/api";
 import { useDateStore } from "@/store/dateStore";
 import { toRelativeTime } from "@/utils/dateFormat";
 
