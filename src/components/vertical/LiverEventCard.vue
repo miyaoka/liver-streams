@@ -18,6 +18,7 @@ const focusStore = useFocusStore();
 const dateStore = useDateStore();
 const popover = usePopover({
   mountAtOpen: true,
+  popoverId: props.liverEvent.url,
 });
 
 const affilicationLogoMap = {
