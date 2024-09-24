@@ -152,7 +152,7 @@ function onClickCard(evt: MouseEvent) {
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-gray-300 text-gray-700' : liverEvent.isLive ? 'bg-red-600 text-white' : 'bg-white text-blue-500'} -top-0 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
+        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-slate-300 text-slate-700' : liverEvent.isLive ? 'bg-red-600 text-white' : 'bg-slate-800 text-white'} -top-0 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle h-5 w-5" />
         <span>{{ timeDisplay }}</span>
@@ -175,7 +175,7 @@ function onClickCard(evt: MouseEvent) {
       />
 
       <div
-        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-[3px] bg-white shadow-md transition-colors"
+        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-2 border-slate-800 bg-white shadow-md transition-colors"
         :class="{
           isFinished: isFinished,
           isHovered: isHovered,
@@ -244,7 +244,7 @@ function onClickCard(evt: MouseEvent) {
   @apply border-red-600;
 }
 .isFinished:not(.isHovered) {
-  @apply bg-slate-50;
+  @apply border-slate-500 bg-slate-50;
 }
 
 [popover] {
