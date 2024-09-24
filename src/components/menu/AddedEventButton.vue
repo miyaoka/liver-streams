@@ -29,7 +29,7 @@ function showPopover() {
 
 <template>
   <button
-    class="relative flex h-11 w-11 items-center justify-center rounded border bg-white shadow-lg hover:bg-gray-200"
+    class="relative flex h-11 w-11 items-center justify-center rounded-full border bg-white shadow-lg hover:bg-gray-200"
     @click="showPopover"
   >
     <i class="i-mdi-new-box h-8 w-8" />
