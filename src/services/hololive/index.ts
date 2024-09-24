@@ -18,7 +18,7 @@ export interface HoloVideoDetail {
   displayDate: string;
   datetime: string;
   isLive: boolean;
-  platformType: number;
+  platformType: 0 | 1 | number; // 0: 他チャンネル, 1: 自チャンネル
   url: string;
   thumbnail: string;
   title: string;
@@ -45,12 +45,14 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
   const wholeVideoList = data.dateGroupList.map((dateGroup) => dateGroup.videoList).flat();
 
   const events: LiverEvent[] = wholeVideoList.map((video) => {
+    const title = video.platformType === 0 ? `(他チャンネルでの配信)` : video.title;
+
     const startAtDate = new Date(video.datetime);
     return {
       id: createId(video.url, startAtDate),
       affilication: "hololive",
       startAt: startAtDate,
-      title: video.title,
+      title,
       url: video.url,
       thumbnail: video.thumbnail,
       endAt: null,
