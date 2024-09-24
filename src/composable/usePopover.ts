@@ -30,7 +30,7 @@ export function usePopover(options: PopoverOptions = {}) {
     await new Promise((resolve) => requestAnimationFrame(resolve));
 
     // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
-    removeClickOutsideListener = useEventListener(document, "mousedown", (e) => {
+    removeClickOutsideListener = useEventListener(document, "click", (e) => {
       const target = e.target as HTMLElement;
       const popover = target.closest("[popover]") as HTMLElement;
       // popover内なら無視する（別のpopover内でも閉じないようにする）
