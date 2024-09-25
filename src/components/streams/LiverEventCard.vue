@@ -257,7 +257,7 @@ function onClickCard(evt: MouseEvent) {
   @apply border-red-600;
 }
 .isFinished:not(.isHovered) {
-  @apply border-slate-500 bg-slate-50;
+  @apply border-slate-600 bg-slate-50;
 }
 
 [popover] {
