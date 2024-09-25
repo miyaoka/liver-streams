@@ -44,7 +44,9 @@ const elapsedTime = computed(() => {
     return 0;
   })();
 
-  return time > 0 ? (time / oneHour).toFixed(1) : null;
+  if (time === 0) return null;
+
+  return (time / oneHour).toFixed(1) + "h";
 });
 
 const timeDisplay = computed(() => {
@@ -156,7 +158,7 @@ function onClickCard(evt: MouseEvent) {
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle h-5 w-5" />
         <span>{{ timeDisplay }}</span>
-        <span v-if="elapsedTime" class="font-normal">{{ `(${elapsedTime}hr)` }}</span>
+        <span v-if="elapsedTime" class="font-normal">{{ `(${elapsedTime})` }}</span>
       </div>
 
       <div
