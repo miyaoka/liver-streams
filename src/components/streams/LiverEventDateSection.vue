@@ -5,7 +5,7 @@ import type { DateSection } from "@/lib/section";
 import { scrollToSectionTop } from "@/lib/scroll";
 import { useDateStore } from "@/store/dateStore";
 import { compareDate } from "@/utils/date";
-import { mdwdayDateFormatter } from "@/utils/dateFormat";
+import { mdDateFormatter, relativeDateFormatter } from "@/utils/dateFormat";
 
 const props = defineProps<{
   dateSection: DateSection;
@@ -23,7 +23,8 @@ const sectionInfo = computed(() => {
 
   return {
     dateDiff,
-    mmdd: mdwdayDateFormatter.format(props.dateSection.date),
+    relative: relativeDateFormatter.format(dateDiff, "days"),
+    mmdd: mdDateFormatter.format(props.dateSection.date),
   };
 });
 </script>
@@ -52,7 +53,7 @@ const sectionInfo = computed(() => {
           @click="scrollToSectionTop(dateSection.time)"
         >
           <span class="text-base font-bold">
-            {{ sectionInfo.mmdd }}
+            {{ sectionInfo.mmdd }} {{ sectionInfo.relative }}
           </span>
         </button>
 
