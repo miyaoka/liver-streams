@@ -46,7 +46,11 @@ const elapsedTime = computed(() => {
 
   if (time === 0) return null;
 
-  return (time / oneHour).toFixed(1) + "h";
+  const hour = time / oneHour;
+  return {
+    fixed: hour.toFixed(1),
+    ceil: Math.ceil(hour),
+  };
 });
 
 const timeDisplay = computed(() => {
@@ -158,7 +162,14 @@ function onClickCard(evt: MouseEvent) {
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle h-5 w-5" />
         <span>{{ timeDisplay }}</span>
-        <span v-if="elapsedTime" class="font-normal">{{ `(${elapsedTime})` }}</span>
+        <template v-if="elapsedTime">
+          <span class="font-normal">
+            {{ `(${elapsedTime.fixed}h)` }}
+          </span>
+          <div class="flex items-center opacity-70">
+            <i v-for="time in elapsedTime.ceil" :key="time" :class="`i-mdi-clock h-4 w-4`" />
+          </div>
+        </template>
       </div>
 
       <div
