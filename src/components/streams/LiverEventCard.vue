@@ -49,7 +49,7 @@ const elapsedTime = computed(() => {
   const hour = time / oneHour;
   return {
     fixed: hour.toFixed(1),
-    ceil: Math.ceil(hour),
+    count: Math.max(1, Math.round(hour)),
   };
 });
 
@@ -166,8 +166,8 @@ function onClickCard(evt: MouseEvent) {
           <span class="font-normal">
             {{ `(${elapsedTime.fixed}h)` }}
           </span>
-          <div class="flex items-center opacity-70">
-            <i v-for="time in elapsedTime.ceil" :key="time" :class="`i-mdi-clock h-4 w-4`" />
+          <div class="flex items-center opacity-50">
+            <i v-for="time in elapsedTime.count" :key="time" :class="`i-mdi-clock h-4 w-4`" />
           </div>
         </template>
       </div>
