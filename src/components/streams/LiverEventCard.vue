@@ -209,12 +209,12 @@ function onClickCard(evt: MouseEvent) {
           <div class="line-clamp-2 [overflow-wrap:anywhere]">
             {{ liverEvent.title }}
           </div>
-          <div class="absolute bottom-0 z-10 flex flex-row">
+          <div class="absolute bottom-[1px] z-10 flex flex-row">
             <img
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-amber-400 hover:outline hover:outline-2 hover:outline-red-500"
+              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-slate-300 hover:outline hover:outline-2 hover:outline-red-500"
               :title="talent.name"
               loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
