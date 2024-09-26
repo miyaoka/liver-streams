@@ -47,7 +47,7 @@ watch(storageStore.talentFilterMap, () => {
 });
 </script>
 <template>
-  <div class="fles-row -mt-10 ml-20 flex flex-wrap gap-x-2">
+  <div class="-mt-10 ml-20 flex flex-row flex-wrap gap-x-2">
     <label
       class="flex w-[60px] min-w-[30px] cursor-pointer flex-col items-center"
       v-for="(name, i) in nameList"

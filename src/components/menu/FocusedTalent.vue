@@ -8,7 +8,7 @@ const focusStore = useFocusStore();
 <template>
   <button
     v-if="focusStore.focusedTalent != null"
-    class="fixed inset-0 bottom-6 top-auto z-20 m-auto flex h-fit w-fit flex-row items-center justify-center gap-4 rounded-full border-2 bg-white px-3 py-1 font-bold text-black shadow-md hover:bg-gray-200"
+    class="fixed inset-0 bottom-6 top-auto z-20 m-auto flex size-fit flex-row items-center justify-center gap-4 rounded-full border-2 bg-white px-3 py-1 font-bold text-black shadow-md hover:bg-gray-200"
     @click="focusStore.setFocusedTalent(null)"
   >
     focused:
@@ -19,7 +19,7 @@ const focusStore = useFocusStore();
     />
     {{ focusStore.focusedTalent }}
 
-    <div class="i-mdi-cross-circle h-[32px] w-[32px]" />
+    <div class="i-mdi-cross-circle size-[32px]" />
   </button>
 </template>
 

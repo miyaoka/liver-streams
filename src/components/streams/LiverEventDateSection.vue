@@ -31,20 +31,20 @@ const sectionInfo = computed(() => {
 
 <template>
   <section class="relative pb-12 pt-4" data-id="date-section" :data-time="`${dateSection.time}`">
-    <div class="absolute -top-1 w-full border-t-2 border-dashed border-white border-opacity-80" />
+    <div class="absolute -top-1 w-full border-t-2 border-dashed border-white/80" />
     <header
       class="pointer-events-none sticky top-4 z-20 mb-8 flex flex-col items-center justify-center"
     >
       <div class="pointer-events-auto relative flex flex-row items-center">
         <button
           v-if="prevSection"
-          class="absolute right-full flex h-11 w-11 items-center justify-center"
+          class="absolute right-full flex size-11 items-center justify-center"
           @click="scrollToSectionTop(prevSection.time)"
         >
           <div
-            class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-700 bg-opacity-70 hover:bg-gray-900"
+            class="flex size-6 items-center justify-center rounded-full bg-gray-700/70 hover:bg-gray-900/70"
           >
-            <i class="i-mdi-chevron-up h-5 w-5 text-white" />
+            <i class="i-mdi-chevron-up size-5 text-white" />
           </div>
         </button>
 
@@ -59,13 +59,13 @@ const sectionInfo = computed(() => {
 
         <button
           v-if="nextSection"
-          class="absolute left-full flex h-11 w-11 items-center justify-center"
+          class="absolute left-full flex size-11 items-center justify-center"
           @click="scrollToSectionTop(nextSection.time)"
         >
           <div
-            class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-700 bg-opacity-70 hover:bg-gray-900"
+            class="flex size-6 items-center justify-center rounded-full bg-gray-700/70 hover:bg-gray-900/70"
           >
-            <i class="i-mdi-chevron-down h-5 w-5 text-white" />
+            <i class="i-mdi-chevron-down size-5 text-white" />
           </div>
         </button>
       </div>

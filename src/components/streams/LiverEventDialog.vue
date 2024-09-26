@@ -21,17 +21,17 @@ const focusStore = useFocusStore();
         {{ fullDateFormatter.format(liverEvent.startAt) }}
       </div>
       <button
-        class="absolute right-0 flex h-11 w-11 items-center justify-center text-gray-400 hover:text-gray-200"
+        class="absolute right-0 flex size-11 items-center justify-center text-gray-400 hover:text-gray-200"
         @click="closePopover"
       >
-        <i class="i-mdi-close h-5 w-5" />
+        <i class="i-mdi-close size-5" />
       </button>
     </div>
 
     <a :href="liverEvent.url" target="_blank">
       <img
         :src="getThumnail(liverEvent.thumbnail, 'sd')"
-        class="thumb aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
+        class="_thumb aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
         loading="lazy"
       />
     </a>
@@ -42,13 +42,13 @@ const focusStore = useFocusStore();
       </div>
       <div class="flex flex-row items-center gap-2">
         <button
-          class="h-[70px] w-[70px] overflow-hidden rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
+          class="size-[70px] overflow-hidden rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
           @mouseover="focusStore.setHoveredTalents(liverEvent.talent.name)"
           @mouseleave="focusStore.clearHoveredTalents()"
           @click.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
           @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
         >
-          <img :src="liverEvent.talent.image" class="h-full w-full" loading="lazy" />
+          <img :src="liverEvent.talent.image" class="size-full" loading="lazy" />
         </button>
         <div class="flex-1">
           <div class="text-base font-bold">
@@ -65,7 +65,7 @@ const focusStore = useFocusStore();
               @click.prevent="focusStore.setFocusedTalent(talent.name)"
               @contextmenu.prevent="focusStore.setFocusedTalent(talent.name)"
             >
-              <img class="h-full w-full" :src="talent.image" loading="lazy" />
+              <img class="size-full" :src="talent.image" loading="lazy" />
             </button>
           </div>
         </div>
@@ -75,7 +75,7 @@ const focusStore = useFocusStore();
 </template>
 
 <style scoped>
-.thumb {
+._thumb {
   transition: opacity 1s;
   @starting-style {
     opacity: 0;

@@ -47,15 +47,15 @@ function getTimeColor(hour: number) {
   >
     <div v-if="isCurrentTime" class="pointer-events-none flex w-full">
       <div
-        class="mt-8 flex select-none items-center gap-2 bg-black bg-opacity-70 py-1 pl-2 pr-12 text-base font-bold text-white [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);]"
+        class="mt-8 flex select-none items-center gap-2 bg-black/70 py-1 pl-2 pr-12 text-base font-bold text-white [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);]"
       >
-        <i class="i-mdi-clock-outline h-6 w-6" />
+        <i class="i-mdi-clock-outline size-6" />
         <p>now</p>
       </div>
     </div>
     <template v-if="hasEvents">
       <div
-        class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] pb-8 pt-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
+        class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
       >
         <LiverEventCard
           v-for="liverEvent in props.section.events"

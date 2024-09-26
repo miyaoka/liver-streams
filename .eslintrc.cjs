@@ -8,6 +8,7 @@ module.exports = {
     "eslint:recommended",
     "@vue/eslint-config-typescript",
     "@vue/eslint-config-prettier/skip-formatting",
+    "plugin:tailwindcss/recommended",
   ],
   parserOptions: {
     ecmaVersion: "latest",
@@ -37,6 +38,12 @@ module.exports = {
         groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
         pathGroupsExcludedImportTypes: ["builtin"],
         alphabetize: { order: "asc", caseInsensitive: true },
+      },
+    ],
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        whitelist: ["_.*"],
       },
     ],
   },

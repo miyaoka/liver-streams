@@ -29,7 +29,7 @@ onMounted(() => {
     v-else
     class="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-zinc-200 to-white px-4 py-20"
   >
-    <i class="i-mdi-file-document-error h-16 w-16 text-zinc-400" />
+    <i class="i-mdi-file-document-error size-16 text-zinc-400" />
     <p class="text-base font-bold text-zinc-400">no data</p>
   </div>
 </template>
