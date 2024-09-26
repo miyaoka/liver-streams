@@ -29,10 +29,10 @@ function showPopover() {
 
 <template>
   <button
-    class="relative flex h-11 w-11 items-center justify-center rounded-full border bg-white shadow-lg hover:bg-gray-200"
+    class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-lg hover:bg-gray-200"
     @click="showPopover"
   >
-    <i class="i-mdi-new-box h-8 w-8" />
+    <i class="i-mdi-new-box size-8" />
     <p
       v-if="unreadCount > 0"
       :class="`absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white`"
@@ -47,14 +47,14 @@ function showPopover() {
     <div
       class="flex max-h-[500px] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
     >
-      <div class="flex items-center justify-start bg-black px-2 py-2 text-white">
+      <div class="flex items-center justify-start bg-black p-2 text-white">
         最近追加されたイベント ({{ eventCount }})
 
         <button
-          class="absolute -right-1 z-10 flex h-11 w-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
+          class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
           @click="closePopover"
         >
-          <i class="i-mdi-close h-5 w-5" />
+          <i class="i-mdi-close size-5" />
         </button>
       </div>
       <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">

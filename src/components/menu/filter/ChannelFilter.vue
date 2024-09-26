@@ -10,16 +10,16 @@ const filterCount = computed(() => storageStore.talentFilterMap.size);
 </script>
 <template>
   <button
-    class="flex h-11 w-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-100"
+    class="flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-100"
     popovertarget="filter"
   >
-    <i class="i-mdi-menu h-[32px] w-[32px] text-gray-800" />
+    <i class="i-mdi-menu size-[32px] text-gray-800" />
   </button>
 
   <div
     id="filter"
     popover
-    class="b-10 fixed bottom-auto left-auto right-4 top-4 h-4/5 rounded-xl bg-white px-8 py-8 shadow-lg outline outline-1 transition-all"
+    class="fixed bottom-auto left-auto right-4 top-4 h-4/5 rounded-xl bg-white p-8 shadow-lg outline outline-1 transition-all"
     :style="{
       scrollbarWidth: 'thin',
     }"
@@ -32,7 +32,7 @@ const filterCount = computed(() => storageStore.talentFilterMap.size);
         >
           reset
         </button>
-        <div class="flex-grow">
+        <div class="grow">
           {{ filterCount === 0 ? "no filter" : `filter count: ${filterCount}` }}
         </div>
 

@@ -160,7 +160,7 @@ function onClickCard(evt: MouseEvent) {
       <div
         :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-slate-300 text-slate-700' : liverEvent.isLive ? 'bg-red-600 text-white' : 'bg-slate-800 text-white'} -top-0 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
       >
-        <i v-if="liverEvent.isLive" class="i-mdi-play-circle h-5 w-5" />
+        <i v-if="liverEvent.isLive" class="i-mdi-play-circle size-5" />
         <span>{{ timeDisplay }}</span>
         <template v-if="elapsedTime">
           <span class="font-normal">
@@ -174,11 +174,11 @@ function onClickCard(evt: MouseEvent) {
 
       <div
         v-if="isNew"
-        class="absolute bottom-full right-0 z-10 flex flex-row items-center justify-center gap-1 bg-black bg-opacity-70 px-1"
+        class="absolute bottom-full right-0 z-10 flex flex-row items-center justify-center gap-1 bg-black/70 px-1"
       >
         <p class="text-xs text-white">new</p>
 
-        <i class="i-mdi-creation h-4 w-4 bg-yellow-300" />
+        <i class="i-mdi-creation size-4 bg-yellow-300" />
       </div>
 
       <img
@@ -209,7 +209,7 @@ function onClickCard(evt: MouseEvent) {
           <div class="line-clamp-2 [overflow-wrap:anywhere]">
             {{ liverEvent.title }}
           </div>
-          <div class="absolute bottom-[1px] z-10 flex flex-row">
+          <div class="absolute bottom-px z-10 flex flex-row">
             <img
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
@@ -227,7 +227,7 @@ function onClickCard(evt: MouseEvent) {
         <div class="flex aspect-video h-full overflow-hidden max-sm:w-[clamp(140px,30vw,200px)]">
           <img
             :src="getThumnail(liverEvent.thumbnail, 'mq')"
-            class="h-full w-full object-cover transition-transform group-hover:scale-110"
+            class="size-full object-cover transition-transform group-hover:scale-110"
             loading="lazy"
           />
         </div>

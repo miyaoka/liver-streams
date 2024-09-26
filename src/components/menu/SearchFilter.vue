@@ -59,7 +59,7 @@ function onClick() {
       :class="`h-full transition-[width] ${isInput ? 'w-56' : 'w-0'}`"
     >
       <input
-        class="h-full w-full rounded-l-full p-2 pl-4"
+        class="size-full rounded-l-full p-2 pl-4"
         ref="inputEl"
         v-model="searchQuery"
         @input="onInput"
@@ -67,7 +67,7 @@ function onClick() {
       />
     </form>
     <button
-      class="z-30 flex h-11 w-11 items-center justify-center rounded-full group-hover:bg-gray-100"
+      class="z-30 flex size-11 items-center justify-center rounded-full group-hover:bg-gray-100"
       @click="onClick"
       @mousedown="onMousedown"
     >
