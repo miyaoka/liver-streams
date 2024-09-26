@@ -1,5 +1,4 @@
-import type { LiverEvent } from "../api";
-import { createId } from "@/lib/section";
+import { createId, type LiverEvent } from "../api";
 import { getHashList } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -44,12 +43,13 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
 
   const wholeVideoList = data.dateGroupList.map((dateGroup) => dateGroup.videoList).flat();
 
-  const events: LiverEvent[] = wholeVideoList.map((video) => {
+  const events = wholeVideoList.map(async (video) => {
     const title = video.platformType === 0 ? `(他チャンネルでの配信)` : video.title;
-
     const startAtDate = new Date(video.datetime);
+    const id = await createId(video.url, video.thumbnail);
+
     return {
-      id: createId(video.url, startAtDate),
+      id,
       affilication: "hololive",
       startAt: startAtDate,
       title,
@@ -68,7 +68,7 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
         };
       }),
       hashList: getHashList(video.title),
-    };
+    } as const;
   });
-  return events;
+  return await Promise.all(events);
 }

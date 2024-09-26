@@ -1,6 +1,5 @@
 import { fetchHoloEventList } from "./hololive";
 import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
-import { createId } from "@/lib/section";
 import { getHashList } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -45,19 +44,39 @@ export async function fetchLiverEventList({
     fetchNijiStreamList(),
   ]);
 
-  const nijiEvents = getNijiEvents({ nijiLiverMap, nijiStreams });
+  const nijiEvents = await getNijiEvents({ nijiLiverMap, nijiStreams });
   const wholeEvents = [...holoEvents, ...nijiEvents].sort(compareLiverEvent);
   return wholeEvents;
 }
 
+export function getPathname(url: string): string {
+  return new URL(url).pathname;
+}
+
+export async function createId(url: string, thumbnail: string): Promise<string> {
+  const uniqueStr = `${url}${thumbnail}`;
+  const id = await digestMessage(uniqueStr);
+
+  // 8文字のハッシュ+先頭にアルファベットを付与
+  return `e${id.substring(0, 8)}`;
+}
+
+async function digestMessage(message: string) {
+  const msgUint8 = new TextEncoder().encode(message); // (utf-8 の) Uint8Array にエンコードする
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // メッセージをハッシュする
+  const hashArray = Array.from(new Uint8Array(hashBuffer)); // バッファーをバイト列に変換する
+  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join(""); // バイト列を 16 進文字列に変換する
+  return hashHex;
+}
+
 // 配信情報のtalentIdからtalentMapを参照して変換
-function getNijiEvents({
+async function getNijiEvents({
   nijiLiverMap,
   nijiStreams,
 }: {
   nijiLiverMap: NijiLiverMap;
   nijiStreams: NijiStream[];
-}): LiverEvent[] {
+}): Promise<LiverEvent[]> {
   function getTalent(id: string) {
     const talent = nijiLiverMap[id];
     if (!talent) {
@@ -70,13 +89,16 @@ function getNijiEvents({
     };
   }
 
-  const events: LiverEvent[] = nijiStreams.flatMap((stream) => {
+  // const events: LiverEvent[] =
+
+  const events = nijiStreams.map(async (stream) => {
     const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
     const talent = getTalent(talentId);
-    if (!talent) return [];
+    if (!talent) return null;
     const startAtDate = new Date(startAt);
+    const id = await createId(url, thumbnail);
     return {
-      id: createId(url, startAtDate),
+      id: id,
       affilication: "nijisanji",
       startAt: startAtDate,
       title,
@@ -87,10 +109,11 @@ function getNijiEvents({
       talent,
       collaboTalents: collaboTalentIds.flatMap((id) => getTalent(id) ?? []),
       hashList: getHashList(title),
-    };
+    } as const;
   });
 
-  return events;
+  const result = (await Promise.all(events)).filter((event) => event !== null);
+  return result;
 }
 
 export function talentFilter({
