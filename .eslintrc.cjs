@@ -40,5 +40,11 @@ module.exports = {
         alphabetize: { order: "asc", caseInsensitive: true },
       },
     ],
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        whitelist: ["_.*"],
+      },
+    ],
   },
 };
