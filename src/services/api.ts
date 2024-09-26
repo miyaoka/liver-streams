@@ -1,6 +1,6 @@
 import { fetchHoloEventList } from "./hololive";
 import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
-import { getHashList } from "@/lib/youtube";
+import { getHashList, getYouTubeVideoId } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
 export interface LiverEvent {
@@ -53,12 +53,25 @@ export function getPathname(url: string): string {
   return new URL(url).pathname;
 }
 
-export async function createId(url: string, thumbnail: string): Promise<string> {
-  const uniqueStr = `${url}${thumbnail}`;
+export async function createId({
+  url,
+  thumbnail,
+  talentName,
+}: {
+  url: string;
+  thumbnail: string;
+  talentName: string;
+}): Promise<string> {
+  // youtubeの動画idがあればそれを使う
+  const videoId = getYouTubeVideoId(url);
+  if (videoId) return videoId;
+
+  // それ以外はurl, thumbnail, talentNameを結合してハッシュ化
+  const uniqueStr = `${url}_${thumbnail}_${talentName}`;
   const id = await digestMessage(uniqueStr);
 
-  // 8文字のハッシュ+先頭にアルファベットを付与
-  return `e${id.substring(0, 8)}`;
+  // 8文字のハッシュ
+  return id.substring(0, 8);
 }
 
 async function digestMessage(message: string) {
@@ -89,14 +102,12 @@ async function getNijiEvents({
     };
   }
 
-  // const events: LiverEvent[] =
-
   const events = nijiStreams.map(async (stream) => {
     const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
     const talent = getTalent(talentId);
     if (!talent) return null;
     const startAtDate = new Date(startAt);
-    const id = await createId(url, thumbnail);
+    const id = await createId({ url, thumbnail, talentName: talent.name });
     return {
       id: id,
       affilication: "nijisanji",

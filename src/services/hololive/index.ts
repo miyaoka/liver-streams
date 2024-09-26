@@ -46,7 +46,15 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
   const events = wholeVideoList.map(async (video) => {
     const title = video.platformType === 0 ? `(他チャンネルでの配信)` : video.title;
     const startAtDate = new Date(video.datetime);
-    const id = await createId(video.url, video.thumbnail);
+    const talent = {
+      name: video.name,
+      image: video.talent.iconImageUrl,
+    };
+    const id = await createId({
+      url: video.url,
+      thumbnail: video.thumbnail,
+      talentName: talent.name,
+    });
 
     return {
       id,
@@ -57,10 +65,7 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
       thumbnail: video.thumbnail,
       endAt: null,
       isLive: video.isLive,
-      talent: {
-        name: video.talent.name,
-        image: getChannelIcon(video.talent.name),
-      },
+      talent,
       collaboTalents: video.collaboTalents.map((collaboTalent) => {
         return {
           name: collaboTalent.name,
