@@ -83,6 +83,48 @@ async function digestMessage(message: string) {
   return hashHex;
 }
 
+export async function createLiverEvent({
+  affilication,
+  startAt,
+  title,
+  url,
+  thumbnail,
+  endAt,
+  isLive,
+  talent,
+  collaboTalents,
+}: {
+  affilication: "hololive" | "nijisanji";
+  startAt: string;
+  title: string;
+  url: string;
+  thumbnail: string;
+  endAt: string | null;
+  isLive: boolean;
+  talent: LiverTalent;
+  collaboTalents: LiverTalent[];
+}): Promise<LiverEvent> {
+  const startAtDate = new Date(startAt);
+  const endAtDate = endAt ? new Date(endAt) : null;
+  const id = await createId({ url, thumbnail, talentName: talent.name });
+  const hashList = getHashTagList(title);
+  const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
+  return {
+    id: id,
+    affilication,
+    startAt: startAtDate,
+    title,
+    url,
+    thumbnail,
+    endAt: endAtDate,
+    isLive,
+    talent,
+    collaboTalents,
+    hashList,
+    hashSet,
+  } as const;
+}
+
 // 配信情報のtalentIdからtalentMapを参照して変換
 async function getNijiEvents({
   nijiLiverMap,
@@ -107,24 +149,22 @@ async function getNijiEvents({
     const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
     const talent = getTalent(talentId);
     if (!talent) return null;
-    const startAtDate = new Date(startAt);
-    const id = await createId({ url, thumbnail, talentName: talent.name });
-    const hashList = getHashTagList(title);
-    const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
-    return {
-      id: id,
+    const collaboTalents = collaboTalentIds.flatMap((id) => {
+      const collaboTalent = getTalent(id);
+      if (!collaboTalent) return [];
+      return collaboTalent;
+    });
+    return createLiverEvent({
       affilication: "nijisanji",
-      startAt: startAtDate,
+      startAt,
       title,
       url,
       thumbnail,
-      endAt: endAt ? new Date(endAt) : null,
+      endAt,
       isLive,
       talent,
-      collaboTalents: collaboTalentIds.flatMap((id) => getTalent(id) ?? []),
-      hashList,
-      hashSet,
-    } as const;
+      collaboTalents,
+    });
   });
 
   const result = (await Promise.all(events)).filter((event) => event !== null);

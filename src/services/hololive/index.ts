@@ -1,6 +1,4 @@
-import { createId, type LiverEvent } from "../api";
-import { getHashTagList } from "@/lib/youtube";
-import { getChannelIcon } from "@/utils/icons";
+import { createLiverEvent, type LiverEvent } from "../api";
 
 const holoAPI = "https://schedule.hololive.tv/api/list/7";
 
@@ -45,38 +43,28 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
 
   const events = wholeVideoList.map(async (video) => {
     const title = video.platformType === 0 ? `(他チャンネルでの配信)` : video.title;
-    const startAtDate = new Date(video.datetime);
     const talent = {
       name: video.name,
       image: video.talent.iconImageUrl,
     };
-    const id = await createId({
-      url: video.url,
-      thumbnail: video.thumbnail,
-      talentName: talent.name,
+    const collaboTalents = video.collaboTalents.map((collaboTalent) => {
+      return {
+        name: collaboTalent.name,
+        image: collaboTalent.iconImageUrl,
+      };
     });
-    const hashList = getHashTagList(video.title);
-    const hashSet = new Set(hashList.map((hash) => hash.toLowerCase()));
 
-    return {
-      id,
+    return createLiverEvent({
       affilication: "hololive",
-      startAt: startAtDate,
+      startAt: video.datetime,
       title,
       url: video.url,
       thumbnail: video.thumbnail,
       endAt: null,
       isLive: video.isLive,
       talent,
-      collaboTalents: video.collaboTalents.map((collaboTalent) => {
-        return {
-          name: collaboTalent.name,
-          image: getChannelIcon(collaboTalent.name),
-        };
-      }),
-      hashList,
-      hashSet,
-    } as const;
+      collaboTalents,
+    });
   });
   return await Promise.all(events);
 }
