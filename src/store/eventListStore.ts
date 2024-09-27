@@ -21,7 +21,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
   const focusStore = useFocusStore();
 
   const liverEventList = ref<LiverEvent[] | null>(null);
-  const eventIdSet = ref<Set<string>>(new Set());
+  const liverEventIdSet = ref<Set<string>>(new Set());
   const addedEventList = ref<AddedEvent[]>([]);
 
   const addedEventIdSet = computed(() => {
@@ -84,31 +84,59 @@ export const useEventListStore = defineStore("eventListStore", () => {
   });
 
   async function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
-    const eventList = await fetchLiverEventList({ nijiLiverMap });
-    const currIdSet = new Set(eventList.map((event) => event.id));
+    const currLiverEventList = await fetchLiverEventList({ nijiLiverMap });
+    const currLiverEventIdSet = new Set(currLiverEventList.map((event) => event.id));
 
     // setを比較して足されたものを算出
     // 初回の場合は差分抽出せずスキップ
     if (liverEventList.value) {
-      const addedTime = Date.now();
+      const now = Date.now();
+
+      // 新着としてキープする時間(ms)
+      const addedEventKeepTime = 1000 * 60 * 60 * 2;
 
       // todo: vue-tscでエラーが出るので一旦無視
       // TS2339: Property 'difference' does not exist on type 'Set<string>'.
       // @ts-ignore
-      const diff = currIdSet.difference(eventIdSet.value);
+      const diff = currLiverEventIdSet.difference(liverEventIdSet.value);
       // @ts-ignore
-      const addedItems: AddedEvent[] = Array.from(diff).map((id) => {
+      const currAddedEventList: AddedEvent[] = Array.from(diff).map((id) => {
         return {
           id,
-          addedTime,
+          addedTime: now,
         };
       });
 
-      addedEventList.value.push(...addedItems);
+      const mergedEventList = [
+        ...addedEventList.value.filter((addedEvent) => {
+          // 追加後から一定時間経ったものは新着から削除
+          return now - addedEvent.addedTime < addedEventKeepTime;
+        }),
+        ...currAddedEventList,
+      ];
+
+      const snapshot = {
+        liverEvent: {
+          curr: currLiverEventList,
+          prev: liverEventList.value,
+        },
+        idSet: {
+          curr: [...currLiverEventIdSet.keys()],
+          prev: [...liverEventIdSet.value.keys()],
+        },
+        addedEventList: {
+          curr: currAddedEventList,
+          prev: addedEventList.value,
+          merged: mergedEventList,
+        },
+      };
+      console.log("diff:", diff.size, JSON.parse(JSON.stringify(snapshot)));
+
+      addedEventList.value = mergedEventList;
     }
 
-    liverEventList.value = eventList;
-    eventIdSet.value = currIdSet;
+    liverEventList.value = currLiverEventList;
+    liverEventIdSet.value = currLiverEventIdSet;
   }
 
   function clearAddedEventList() {
@@ -120,7 +148,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     filteredEventList,
     onLiveEventList,
     dateSectionList,
-    eventIdSet,
+    liverEventIdSet,
     liverEventMap,
     addedEventList,
     filteredAddedEventList,
