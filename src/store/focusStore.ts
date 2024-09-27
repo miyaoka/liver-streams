@@ -6,7 +6,8 @@ import type { LiverEvent } from "@/services/api";
 export const useFocusStore = defineStore("focusStore", () => {
   const scrollStore = useScrollStore();
 
-  const hoveredTalents = ref<string[]>([]);
+  const hoveredTalent = ref<string | null>(null);
+  const hoveredCollaboTalentSet = ref<Set<string>>(new Set());
   const focusedTalent = ref<string | null>(null);
   const hoveredHashSet = ref<Set<string>>(new Set());
 
@@ -23,11 +24,13 @@ export const useFocusStore = defineStore("focusStore", () => {
       scrollStore.restorePosition();
     }
   }
-  function setHoveredTalents(talents: string | string[]) {
-    hoveredTalents.value = Array.isArray(talents) ? talents : [talents];
+  function setHoveredTalents(talent: string, collaboTalents: string[] = []) {
+    hoveredTalent.value = talent;
+    hoveredCollaboTalentSet.value = new Set(collaboTalents);
   }
   function clearHoveredTalents() {
-    hoveredTalents.value = [];
+    hoveredTalent.value = null;
+    hoveredCollaboTalentSet.value = new Set();
   }
 
   // shortsなどはマッチさせないように除く
@@ -40,8 +43,10 @@ export const useFocusStore = defineStore("focusStore", () => {
   }
 
   function hoverEvent(liverEvent: LiverEvent) {
-    const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
-    setHoveredTalents(names);
+    setHoveredTalents(
+      liverEvent.talent.name,
+      liverEvent.collaboTalents.map((t) => t.name),
+    );
     setHoveredHashSet(liverEvent.hashSet);
   }
 
@@ -51,7 +56,8 @@ export const useFocusStore = defineStore("focusStore", () => {
   }
 
   return {
-    hoveredTalents,
+    hoveredTalent,
+    hoveredCollaboTalentSet,
     focusedTalent,
     hoveredHashSet,
     setFocusedTalent,

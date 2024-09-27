@@ -55,7 +55,7 @@ watch(storageStore.talentFilterMap, () => {
       :title="name"
       @mouseenter="focusStore.setHoveredTalents(name)"
       @mouseleave="focusStore.clearHoveredTalents()"
-      :class="`${focusStore.hoveredTalents.includes(name) ? 'scale-125' : ''}`"
+      :class="`${focusStore.hoveredTalent === name || focusStore.hoveredCollaboTalentSet.has(name) ? 'scale-125' : ''}`"
       @contextmenu.prevent="focusStore.setFocusedTalent(name)"
     >
       <input

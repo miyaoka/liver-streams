@@ -96,18 +96,17 @@ const isFinished = computed(() => {
 });
 
 const isHovered = computed(() => {
-  const talentNames = [
-    props.liverEvent.talent.name,
-    ...props.liverEvent.collaboTalents.map((t) => t.name),
-  ];
+  if (!focusStore.hoveredTalent) return false;
 
-  // eventのタレントとhoverのタレントをマージ
-  const mergedNames = [...focusStore.hoveredTalents, ...talentNames];
-  // 重複を削除
-  const uniqueNames = new Set(mergedNames);
+  // 自身がホバー中のタレントか
+  if (focusStore.hoveredTalent === props.liverEvent.talent.name) return true;
 
-  // 重複があればhover中
-  return uniqueNames.size !== mergedNames.length;
+  // ホバー中のタレントがコラボタレントに含まれているか
+  const collaboTalentSet = toRaw(props.liverEvent.collaboTalentSet);
+  if (collaboTalentSet.has(focusStore.hoveredTalent)) return true;
+
+  // ホバー中のコラボタレントにタレントが含まれているか
+  return focusStore.hoveredCollaboTalentSet.has(props.liverEvent.talent.name);
 });
 
 const firstHash = computed(() => {

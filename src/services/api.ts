@@ -16,6 +16,7 @@ export interface LiverEvent {
   affilication: "hololive" | "nijisanji";
   hashList: string[];
   hashSet: Set<string>;
+  collaboTalentSet: Set<string>;
 }
 
 export interface LiverTalent {
@@ -109,6 +110,7 @@ export async function createLiverEvent({
   const id = await createId({ url, thumbnail, talentName: talent.name });
   const hashList = getHashTagList(title);
   const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
+  const collaboTalentSet = new Set(collaboTalents.map((t) => t.name));
   return {
     id: id,
     affilication,
@@ -122,7 +124,8 @@ export async function createLiverEvent({
     collaboTalents,
     hashList,
     hashSet,
-  } as const;
+    collaboTalentSet,
+  };
 }
 
 // 配信情報のtalentIdからtalentMapを参照して変換
