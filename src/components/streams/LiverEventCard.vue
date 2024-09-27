@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, toRaw } from "vue";
 import LiverEventDialog from "./LiverEventDialog.vue";
 import type { LiverEvent } from "@/services/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
@@ -117,10 +117,12 @@ const firstHash = computed(() => {
 // hoveredHashSetにhashSetが含まれているか
 const hasHoveredHash = computed(() => {
   if (focusStore.hoveredHashSet.size === 0) return false;
+
+  const hashSet = toRaw(props.liverEvent.hashSet);
   // todo: vue-tscで型エラーになるのでいったん無視
   // TS2339: Property 'intersection' does not exist on type 'Set<string>'
   // @ts-ignore
-  return hashSet.value.intersection(focusStore.hoveredHashSet).size > 0;
+  return hashSet.intersection(focusStore.hoveredHashSet).size > 0;
 });
 
 const isNew = computed(() => {
