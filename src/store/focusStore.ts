@@ -1,6 +1,7 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { ref } from "vue";
 import { useScrollStore } from "./scrollStore";
+import type { LiverEvent } from "@/services/api";
 
 export const useFocusStore = defineStore("focusStore", () => {
   const scrollStore = useScrollStore();
@@ -38,6 +39,17 @@ export const useFocusStore = defineStore("focusStore", () => {
     hoveredHashSet.value = new Set();
   }
 
+  function hoverEvent(liverEvent: LiverEvent) {
+    const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
+    setHoveredTalents(names);
+    setHoveredHashSet(liverEvent.hashSet);
+  }
+
+  function unhoverEvent() {
+    clearHoveredTalents();
+    clearHoveredHashSet();
+  }
+
   return {
     hoveredTalents,
     focusedTalent,
@@ -47,6 +59,8 @@ export const useFocusStore = defineStore("focusStore", () => {
     clearHoveredTalents,
     setHoveredHashSet,
     clearHoveredHashSet,
+    hoverEvent,
+    unhoverEvent,
   };
 });
 

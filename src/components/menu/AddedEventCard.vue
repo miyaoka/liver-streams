@@ -3,6 +3,7 @@ import { computed } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { scrollToLiverEventTop } from "@/lib/scroll";
 import { useDateStore } from "@/store/dateStore";
+import { useFocusStore } from "@/store/focusStore";
 import { compareDate, getDateTime } from "@/utils/date";
 import { hhssDateFormatter, toRelativeTime } from "@/utils/dateFormat";
 
@@ -13,6 +14,7 @@ const props = defineProps<{
 }>();
 
 const dateStore = useDateStore();
+const focusStore = useFocusStore();
 
 const eventTime = computed(() => {
   const startAt = props.liverEvent.startAt;
@@ -43,8 +45,10 @@ function onClickEvent() {
   <button
     :key="liverEvent.id"
     class="relative flex flex-row items-center gap-2 p-2 text-start hover:bg-slate-200"
-    @click="onClickEvent"
     :popovertarget="liverEvent.id"
+    @click="onClickEvent"
+    @mouseover="focusStore.hoverEvent(liverEvent)"
+    @mouseleave="focusStore.unhoverEvent"
   >
     <img
       :src="liverEvent.talent.image"

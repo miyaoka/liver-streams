@@ -123,24 +123,9 @@ const hasHoveredHash = computed(() => {
   return hashSet.value.intersection(focusStore.hoveredHashSet).size > 0;
 });
 
-// listからSetを作成
-// 大文字・小文字を区別せずマッチするように小文字に変換してからSetに変換
-const hashSet = computed(() => new Set(props.liverEvent.hashList.map((h) => h.toLowerCase())));
-
 const isNew = computed(() => {
   return eventListStore.addedEventIdSet.has(props.liverEvent.id);
 });
-
-function hoverEvent(liverEvent: LiverEvent) {
-  const names = [liverEvent.talent.name, ...liverEvent.collaboTalents.map((t) => t.name)];
-  focusStore.setHoveredTalents(names);
-  focusStore.setHoveredHashSet(hashSet.value);
-}
-
-function unhoverEvent() {
-  focusStore.clearHoveredTalents();
-  focusStore.clearHoveredHashSet();
-}
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
 function onClickCard(evt: MouseEvent) {
@@ -153,8 +138,8 @@ function onClickCard(evt: MouseEvent) {
     class="group relative scroll-mt-16"
     data-id="liver-event-card"
     :data-event-id="`${liverEvent.id}`"
-    @mouseover="hoverEvent(liverEvent)"
-    @mouseleave="unhoverEvent"
+    @mouseover="focusStore.hoverEvent(liverEvent)"
+    @mouseleave="focusStore.unhoverEvent"
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
