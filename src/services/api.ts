@@ -15,6 +15,7 @@ export interface LiverEvent {
   collaboTalents: LiverTalent[];
   affilication: "hololive" | "nijisanji";
   hashList: string[];
+  hashSet: Set<string>;
 }
 
 export interface LiverTalent {
@@ -108,6 +109,8 @@ async function getNijiEvents({
     if (!talent) return null;
     const startAtDate = new Date(startAt);
     const id = await createId({ url, thumbnail, talentName: talent.name });
+    const hashList = getHashTagList(title);
+    const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
     return {
       id: id,
       affilication: "nijisanji",
@@ -119,7 +122,8 @@ async function getNijiEvents({
       isLive,
       talent,
       collaboTalents: collaboTalentIds.flatMap((id) => getTalent(id) ?? []),
-      hashList: getHashTagList(title),
+      hashList,
+      hashSet,
     } as const;
   });
 

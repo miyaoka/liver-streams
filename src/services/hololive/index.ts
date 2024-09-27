@@ -55,6 +55,8 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
       thumbnail: video.thumbnail,
       talentName: talent.name,
     });
+    const hashList = getHashTagList(video.title);
+    const hashSet = new Set(hashList.map((hash) => hash.toLowerCase()));
 
     return {
       id,
@@ -72,7 +74,8 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
           image: getChannelIcon(collaboTalent.name),
         };
       }),
-      hashList: getHashTagList(video.title),
+      hashList,
+      hashSet,
     } as const;
   });
   return await Promise.all(events);
