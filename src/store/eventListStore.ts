@@ -115,23 +115,6 @@ export const useEventListStore = defineStore("eventListStore", () => {
         ...currAddedEventList,
       ];
 
-      const snapshot = {
-        liverEvent: {
-          curr: currLiverEventList,
-          prev: liverEventList.value,
-        },
-        idSet: {
-          curr: [...currLiverEventIdSet.keys()],
-          prev: [...liverEventIdSet.value.keys()],
-        },
-        addedEventList: {
-          curr: currAddedEventList,
-          prev: addedEventList.value,
-          merged: mergedEventList,
-        },
-      };
-      console.log("diff:", diff.size, JSON.parse(JSON.stringify(snapshot)));
-
       addedEventList.value = mergedEventList;
     }
 
