@@ -79,4 +79,16 @@ describe("getHashTagList", () => {
     const expected = ["#hash", "#validhashtag"];
     expect(getHashTagList(input)).toEqual(expected);
   });
+
+  it("should handle hashtags with emoji characters correctly", () => {
+    const input = "This is a test #aaa🔥bbb #aaa🚀bbb #aaa🌟bbb";
+    const expected = ["#aaa🔥bbb", "#aaa🚀bbb", "#aaa🌟bbb"];
+    expect(getHashTagList(input)).toEqual(expected);
+  });
+
+  // it("should never match there is valid character before #", () => {
+  //   const input = "This is a test #valid#invalid";
+  //   const expected = ["#valid"];
+  //   expect(getHashTagList(input)).toEqual(expected);
+  // });
 });
