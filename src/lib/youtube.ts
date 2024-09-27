@@ -26,7 +26,7 @@ const excludedChars = `${spaceChars}${delimiterChars.split("").join("\\")}`;
 const hashRegExp = new RegExp(`#[^${excludedChars}]{3,}`, "g");
 
 // タイトルからhash部分を抜き出す
-export function getHashList(input: string): string[] {
+export function getHashTagList(input: string): string[] {
   const list = input.match(hashRegExp) ?? [];
   // ハッシュタグの重複を削除
   return [...new Set(list)];

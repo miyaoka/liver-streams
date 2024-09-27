@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getHashList, getYouTubeVideoId } from "./youtube";
+import { getHashTagList, getYouTubeVideoId } from "./youtube";
 
 describe("getYouTubeVideoId", () => {
   it("should return the video ID from a standard YouTube URL", () => {
@@ -44,39 +44,39 @@ describe("getYouTubeVideoId", () => {
   });
 });
 
-describe("getHashList", () => {
+describe("getHashTagList", () => {
   it("should return an array of hashtags from a string with multiple hashtags", () => {
     const input = "This is a test #hashtag1 and another #hashtag2";
     const expected = ["#hashtag1", "#hashtag2"];
-    expect(getHashList(input)).toEqual(expected);
+    expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("should return an empty array if there are no hashtags", () => {
     const input = "This is a test with no hashtags";
-    expect(getHashList(input)).toEqual([]);
+    expect(getHashTagList(input)).toEqual([]);
   });
 
   it("should ignore hashtags that are too short", () => {
     const input = "This is a test #ha #validhashtag";
     const expected = ["#validhashtag"];
-    expect(getHashList(input)).toEqual(expected);
+    expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("should handle hashtags with special characters correctly", () => {
     const input = "This is a test #hashtag1 #hash_tag2 #hash-tag3";
     const expected = ["#hashtag1", "#hash_tag2", "#hash-tag3"];
-    expect(getHashList(input)).toEqual(expected);
+    expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("should return an array of hashtags from a string with Japanese characters", () => {
     const input = "これはテストです #ハッシュタグ1 #ハッシュタグ2";
     const expected = ["#ハッシュタグ1", "#ハッシュタグ2"];
-    expect(getHashList(input)).toEqual(expected);
+    expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("should ignore hashtags with excluded characters", () => {
     const input = "This is a test #hash(tag) #hash[tag] #validhashtag";
     const expected = ["#hash", "#validhashtag"];
-    expect(getHashList(input)).toEqual(expected);
+    expect(getHashTagList(input)).toEqual(expected);
   });
 });

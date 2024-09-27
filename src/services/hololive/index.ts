@@ -1,5 +1,5 @@
 import { createId, type LiverEvent } from "../api";
-import { getHashList } from "@/lib/youtube";
+import { getHashTagList } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
 const holoAPI = "https://schedule.hololive.tv/api/list/7";
@@ -72,7 +72,7 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
           image: getChannelIcon(collaboTalent.name),
         };
       }),
-      hashList: getHashList(video.title),
+      hashList: getHashTagList(video.title),
     } as const;
   });
   return await Promise.all(events);

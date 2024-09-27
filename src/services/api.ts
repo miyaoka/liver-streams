@@ -1,6 +1,6 @@
 import { fetchHoloEventList } from "./hololive";
 import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
-import { getHashList, getYouTubeVideoId } from "@/lib/youtube";
+import { getHashTagList, getYouTubeVideoId } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
 export interface LiverEvent {
@@ -119,7 +119,7 @@ async function getNijiEvents({
       isLive,
       talent,
       collaboTalents: collaboTalentIds.flatMap((id) => getTalent(id) ?? []),
-      hashList: getHashList(title),
+      hashList: getHashTagList(title),
     } as const;
   });
 
