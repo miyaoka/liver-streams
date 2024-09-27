@@ -19,17 +19,17 @@ export function getThumnail(url: string, quality: YoutubeImageQuality) {
 // スペース文字
 const spaceChars = "\\s\\u3000\\u00A0\\u2000-\\u200F\\u2028\\u2029\\u202F";
 // 区切り文字
-const delimiterChars = "()（）［］｛｝「」『』〈〉《》【】〔〕〖〗｜/\\|";
+const delimiterChars = "()（）［］｛｝「」『』〈〉《》【】〔〕〖〗[]｜/\\|";
 // マッチさせない文字
 const excludedChars = `${spaceChars}${delimiterChars.split("").join("\\")}`;
-// 数字
-const digitChars = "\\d０-９";
 // ハッシュタグの正規表現
-const hashRegExp = new RegExp(`#(?![${digitChars}])[^${excludedChars}]+`, "g");
+const hashRegExp = new RegExp(`#[^${excludedChars}]{3,}`, "g");
 
 // タイトルからhash部分を抜き出す
 export function getHashList(input: string): string[] {
-  return input.match(hashRegExp) ?? [];
+  const list = input.match(hashRegExp) ?? [];
+  // ハッシュタグの重複を削除
+  return [...new Set(list)];
 }
 
 // YouTubeのURLから動画IDを取得する
