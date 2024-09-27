@@ -70,12 +70,24 @@ const sectionInfo = computed(() => {
         </button>
       </div>
     </header>
-    <LiverEventTimeSection
-      v-for="(section, i) in dateSection.timeSectionList"
-      :key="section.time"
-      :section="section"
-      :nextSection="dateSection.timeSectionList[i + 1]"
-      :isCurrentTime="section.time === dateStore.currentHourTime"
-    />
+    <TransitionGroup name="time">
+      <LiverEventTimeSection
+        v-for="(section, i) in dateSection.timeSectionList"
+        :key="section.time"
+        :section="section"
+        :nextSection="dateSection.timeSectionList[i + 1]"
+        :isCurrentTime="section.time === dateStore.currentHourTime"
+      />
+    </TransitionGroup>
   </section>
 </template>
+
+<style scoped>
+.time-move {
+  transition: all 0.2s ease;
+}
+
+.time-leave-active {
+  position: absolute;
+}
+</style>

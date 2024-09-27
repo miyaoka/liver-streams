@@ -57,12 +57,36 @@ function getTimeColor(hour: number) {
       <div
         class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
       >
-        <LiverEventCard
-          v-for="liverEvent in props.section.events"
-          :key="liverEvent.id"
-          :liverEvent="liverEvent"
-        />
+        <TransitionGroup name="card">
+          <LiverEventCard
+            v-for="liverEvent in props.section.events"
+            :key="liverEvent.id"
+            :liverEvent="liverEvent"
+          />
+        </TransitionGroup>
       </div>
     </template>
   </section>
 </template>
+
+<style scoped>
+.card-move {
+  transition: all 0.4s ease;
+}
+.card-enter-active {
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 2.55);
+}
+.card-leave-active {
+  display: none;
+}
+
+.card-enter-from {
+  opacity: 0;
+  scale: 0.8;
+  translate: 0 50%;
+}
+
+.card-leave-active {
+  position: absolute;
+}
+</style>

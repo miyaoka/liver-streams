@@ -17,13 +17,15 @@ onMounted(() => {
 </script>
 <template>
   <div class="bg-[var(--hour0)] pb-60" v-if="props.dateSectionList.length > 0" data-id="event-list">
-    <LiverEventDateSection
-      v-for="(dateSection, i) in dateSectionList"
-      :key="dateSection.time"
-      :dateSection="dateSection"
-      :prevSection="dateSectionList[i - 1]"
-      :nextSection="dateSectionList[i + 1]"
-    />
+    <TransitionGroup name="date">
+      <LiverEventDateSection
+        v-for="(dateSection, i) in dateSectionList"
+        :key="dateSection.time"
+        :dateSection="dateSection"
+        :prevSection="dateSectionList[i - 1]"
+        :nextSection="dateSectionList[i + 1]"
+      />
+    </TransitionGroup>
   </div>
   <div
     v-else
@@ -69,5 +71,15 @@ html {
   --hour21: var(--night);
   --hour22: var(--night);
   --hour23: var(--midnight);
+}
+</style>
+
+<style scoped>
+.date-move {
+  transition: all 0.2s ease;
+}
+
+.date-leave-active {
+  position: absolute;
 }
 </style>
