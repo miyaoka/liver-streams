@@ -42,7 +42,7 @@ function reset() {
   </button>
 
   <popover.PopOver class="bottom-auto left-auto right-0 top-0 w-[350px] overflow-visible p-0">
-    <div class="flex max-h-svh flex-col overflow-hidden">
+    <div class="flex max-h-dvh flex-col overflow-hidden">
       <div class="flex place-items-center bg-gray-200 p-4 font-bold">
         <p>フィルター（{{ filterCount }}）</p>
 
