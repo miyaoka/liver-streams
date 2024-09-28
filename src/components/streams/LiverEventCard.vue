@@ -6,6 +6,7 @@ import { useDateStore } from "@/store/dateStore";
 import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
 import { hhss } from "@/utils/dateFormat";
+import { getChannelIcon } from "@/utils/icons";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
@@ -15,13 +16,6 @@ const focusStore = useFocusStore();
 const dateStore = useDateStore();
 
 const eventListStore = useEventListStore();
-
-const affilicationLogoMap = {
-  nijisanji:
-    "https://raw.githubusercontent.com/miyaoka/liver-streams/refs/heads/main/public/icons/nijisanji_logo.png",
-  hololive:
-    "https://raw.githubusercontent.com/miyaoka/liver-streams/refs/heads/main/public/icons/hololive_logo.png",
-};
 
 const oneHour = 60 * 60 * 1000;
 const elapsedTime = computed(() => {
@@ -167,7 +161,7 @@ function onClickCard(evt: MouseEvent) {
       </div>
 
       <img
-        :src="affilicationLogoMap[liverEvent.affilication]"
+        :src="getChannelIcon(`${liverEvent.affilication}_logo`)"
         class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
         loading="lazy"
       />
