@@ -54,7 +54,7 @@ function reset() {
         </button>
       </div>
 
-      <div class="flex place-content-between p-4 shadow-md">
+      <div class="flex place-content-between p-4 shadow">
         <div class="flex gap-2">
           <label
             :class="`size-11 grid place-items-center  rounded-lg hover:bg-gray-200 cursor-pointer
@@ -81,8 +81,6 @@ function reset() {
           <span>reset</span>
         </button>
       </div>
-
-      <hr />
 
       <div
         class="-ml-4 flex-1 overflow-auto p-2 pb-12 pt-4"
