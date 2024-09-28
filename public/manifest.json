@@ -1,0 +1,15 @@
+{
+  "name": "Liver Streams",
+  "icons": [
+    { "src": "/icons/site/192.png", "type": "image/png", "sizes": "192x192" },
+    {
+      "src": "/icons/site/512mask.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    { "src": "/icons/site/512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "start_url": "/",
+  "display": "standalone"
+}
