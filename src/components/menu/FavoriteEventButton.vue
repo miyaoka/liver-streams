@@ -102,14 +102,16 @@ function showPopover() {
             @mouseleave="focusStore.unhoverEvent"
             class="hover:bg-gray-200"
           >
-            <div class="flex gap-2 p-2">
+            <div class="flex items-center gap-2 p-2 text-start">
               <img
                 :src="getThumnail(liverEvent.thumbnail, 'mq')"
-                class="_thumb aspect-video h-[45px] w-[80px] bg-gray-800 object-cover p-0 transition-colors"
+                class="_thumb aspect-video h-[36px] w-[64px] bg-gray-800 object-cover p-0 transition-colors"
                 loading="lazy"
               />
-              <p class="line-clamp-2 flex-1 text-start text-sm">{{ liverEvent.title }}</p>
-              <div>
+              <p class="line-clamp-2 flex-1 text-sm [overflow-wrap:anywhere]">
+                {{ liverEvent.title }}
+              </p>
+              <div class="w-12 text-center text-sm">
                 {{ getEventTime(liverEvent) }}
                 <p v-if="liverEvent.isLive" class="bg-red-600 text-center text-sm text-white">
                   live
