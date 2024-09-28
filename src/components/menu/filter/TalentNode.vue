@@ -11,7 +11,7 @@ const emit = defineEmits<{
   change: [];
 }>();
 
-const channelFilterStore = useStorageStore();
+const storageStore = useStorageStore();
 
 const children = computed(() => {
   const names: string[] = [];
@@ -31,8 +31,7 @@ const namesEl = ref<HTMLElement | null>(null);
 const childNodeEl = ref<HTMLElement | null>(null);
 function onNameCheck(evt: Event, name: string) {
   const input = evt.target as HTMLInputElement;
-  channelFilterStore.setTalentFilter(name, input.checked);
-  // console.log("onNameCheck", name, input.checked);
+  storageStore.setTalentFilter(name, input.checked);
 
   update();
 }
@@ -58,16 +57,8 @@ function onGroupClick(e: Event) {
   const group = e.target as HTMLInputElement;
   emit("change");
 
-  // if (namesEl.value) {
-  //   const inputs = [...namesEl.value.querySelectorAll("input")];
-
-  //   inputs.forEach((input) => {
-  //     input.checked = group.checked;
-  //   });
-  // }
-
   children.value.names.forEach((name) => {
-    channelFilterStore.setTalentFilter(name, group.checked);
+    storageStore.setTalentFilter(name, group.checked);
   });
 
   if (childNodeEl.value) {
@@ -132,7 +123,7 @@ async function onNodeChange() {
             type="checkbox"
             class="sr-only"
             @change="($event) => onNameCheck($event, name)"
-            :checked="channelFilterStore.talentFilterMap.get(name)"
+            :checked="storageStore.talentFilterMap.get(name)"
           />
           <!-- <p class="absolute right-full p-2 opacity-40">
             <i

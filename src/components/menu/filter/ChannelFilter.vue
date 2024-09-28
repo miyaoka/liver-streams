@@ -12,18 +12,26 @@ const popover = usePopover({
   popoverId: "filter",
 });
 
-const filterCount = computed(() => storageStore.talentFilterMap.size);
-
 const groups = [
   { key: "hololive", icon: "hololive_logo" },
   { key: "にじさんじ", icon: "nijisanji_logo" },
 ] as const;
 
 const selectedGroup = ref<string>("hololive");
+const talentNodeEl = ref<HTMLElement | null>(null);
+
+const filterCount = computed(() => storageStore.talentFilterMap.size);
 
 const selectedNode = computed(() => {
   return talents.filter((talent) => talent.name === selectedGroup.value);
 });
+
+function reset() {
+  storageStore.resetTalentFilter();
+  talentNodeEl.value?.querySelectorAll("input").forEach((input) => {
+    input.checked = false;
+  });
+}
 </script>
 
 <template>
@@ -46,29 +54,37 @@ const selectedNode = computed(() => {
       </button>
     </div>
 
-    <div class="_tabs flex gap-2 p-2">
-      <label
-        :class="`size-11 grid place-items-center  rounded-lg hover:bg-gray-200
+    <div class="flex place-content-end"></div>
+
+    <div class="flex place-content-between p-4">
+      <div class="flex gap-2">
+        <label
+          :class="`size-11 grid place-items-center  rounded-lg hover:bg-gray-200 cursor-pointer
         ${selectedGroup === group.key ? 'bg-gray-200' : ''}`"
-        v-for="group in groups"
-        :key="group.key"
-      >
-        <input
-          type="radio"
-          v-model="selectedGroup"
-          :value="group.key"
-          name="channel"
-          class="sr-only"
-        />
-        <img
-          :src="getChannelIcon(group.icon)"
-          alt="icon"
-          class="size-[32px] rounded-full bg-white"
-        />
-      </label>
+          v-for="group in groups"
+          :key="group.key"
+        >
+          <input
+            type="radio"
+            v-model="selectedGroup"
+            :value="group.key"
+            name="channel"
+            class="sr-only"
+          />
+          <img
+            :src="getChannelIcon(group.icon)"
+            alt="icon"
+            class="size-[32px] rounded-full bg-white"
+          />
+        </label>
+      </div>
+      <button class="flex h-11 place-items-center rounded-full bg-slate-100 px-2" @click="reset">
+        <i class="i-mdi-refresh size-8 text-gray-400" />
+        <span>reset</span>
+      </button>
     </div>
 
-    <div class="-ml-4 flex-1 overflow-y-auto p-2 pb-12 pt-4">
+    <div class="-ml-4 flex-1 overflow-y-auto p-2 pb-12 pt-4" ref="talentNodeEl">
       <TalentNode v-for="talent in selectedNode" :node="talent" :key="talent.name" />
     </div>
   </popover.PopOver>
