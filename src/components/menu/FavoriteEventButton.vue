@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, nextTick } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { usePopover } from "@/composable/usePopover";
 import { scrollToLiverEventTop } from "@/lib/scroll";
@@ -18,6 +18,20 @@ const focusStore = useFocusStore();
 
 const popover = usePopover({
   mountAtOpen: true,
+  onShow: async () => {
+    await nextTick();
+
+    const now = Date.now();
+    // 現在より後で最も近いイベントにスクロールする
+    const nextEvent =
+      favoriteEventList.value.find((event) => event.startAt.getTime() > now) ??
+      favoriteEventList.value.at(-1);
+    if (!nextEvent) return;
+
+    const targetEl = document.querySelector(`[data-fav-event-id=${nextEvent.id}]`);
+    if (!targetEl) return;
+    targetEl.scrollIntoView({ behavior: "instant", block: "center" });
+  },
 });
 
 const dateStore = useDateStore();
@@ -101,6 +115,7 @@ function showPopover() {
             @mouseover="focusStore.hoverEvent(liverEvent)"
             @mouseleave="focusStore.unhoverEvent"
             class="hover:bg-gray-200"
+            :data-fav-event-id="liverEvent.id"
           >
             <div class="flex items-center gap-2 p-2 text-start">
               <img
