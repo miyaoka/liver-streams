@@ -17,6 +17,8 @@ export const useStorageStore = defineStore("storageStore", () => {
   const talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
   const talentFilterEnabled = useLocalStorage("talentFilterEnabled", true);
   const searchTerm = useLocalStorage("filterSearchTerm", "");
+  const favoriteEventSet = useLocalStorage("favoriteEventSet", new Set<string>());
+
   const scrollStore = useScrollStore();
 
   const isLiveOnly = ref(false);
@@ -69,6 +71,17 @@ export const useStorageStore = defineStore("storageStore", () => {
     talentFilterMap.value.clear();
   }
 
+  function toggleFavoriteEvent(id: string) {
+    if (favoriteEventSet.value.has(id)) {
+      favoriteEventSet.value.delete(id);
+    } else {
+      favoriteEventSet.value.add(id);
+    }
+  }
+  function resetFavoriteEventSet() {
+    favoriteEventSet.value.clear();
+  }
+
   return {
     talentFilterMap,
     setTalentFilter,
@@ -79,6 +92,9 @@ export const useStorageStore = defineStore("storageStore", () => {
     setSearchTerm,
     isLiveOnly,
     toggleLiveOnly,
+    favoriteEventSet,
+    toggleFavoriteEvent,
+    resetFavoriteEventSet,
   };
 });
 

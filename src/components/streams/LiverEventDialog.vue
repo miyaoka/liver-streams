@@ -1,15 +1,22 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { getThumnail } from "@/lib/youtube";
 import { useFocusStore } from "@/store/focusStore";
+import { useStorageStore } from "@/store/storageStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
 import { closePopover } from "@/utils/popover";
 
-defineProps<{
+const props = defineProps<{
   liverEvent: LiverEvent;
 }>();
 
 const focusStore = useFocusStore();
+const storageStore = useStorageStore();
+
+const isFavorite = computed(() => {
+  return storageStore.favoriteEventSet.has(props.liverEvent.id);
+});
 </script>
 
 <template>
@@ -21,7 +28,7 @@ const focusStore = useFocusStore();
         {{ fullDateFormatter.format(liverEvent.startAt) }}
       </div>
       <button
-        class="absolute right-0 flex size-11 items-center justify-center text-gray-400 hover:text-gray-200"
+        class="absolute right-0 flex size-11 place-items-center text-gray-400 hover:text-gray-200"
         @click="closePopover"
       >
         <i class="i-mdi-close size-5" />
@@ -36,10 +43,13 @@ const focusStore = useFocusStore();
       />
     </a>
 
-    <div class="flex flex-col gap-2 px-6 py-4 max-sm:p-3">
-      <div class="text-lg font-bold">
-        {{ liverEvent.title }}
+    <div class="relative flex flex-col gap-2 px-6 py-4 max-sm:p-3">
+      <div class="relative">
+        <p class="text-lg font-bold">
+          {{ liverEvent.title }}
+        </p>
       </div>
+
       <div class="flex flex-row items-center gap-2">
         <button
           class="size-[70px] overflow-hidden rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
@@ -69,6 +79,18 @@ const focusStore = useFocusStore();
             </button>
           </div>
         </div>
+        <button
+          class="group/fav grid size-11 place-items-center"
+          @click="storageStore.toggleFavoriteEvent(liverEvent.id)"
+        >
+          <div
+            :class="`size-8 place-items-center bg-white rounded-full grid  border-2 ${isFavorite ? 'border-yellow-400' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
+          >
+            <i
+              :class="`size-7 ${isFavorite ? 'i-mdi-star text-yellow-400' : 'i-mdi-star-outline  text-gray-400'}`"
+            />
+          </div>
+        </button>
       </div>
     </div>
   </div>
