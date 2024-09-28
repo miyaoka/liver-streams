@@ -28,7 +28,7 @@ const popover = usePopover({
       favoriteEventList.value.at(-1);
     if (!nextEvent) return;
 
-    const targetEl = document.querySelector(`[data-fav-event-id=${nextEvent.id}]`);
+    const targetEl = document.querySelector(`[data-fav-event-id="${nextEvent.id}"]`);
     if (!targetEl) return;
     targetEl.scrollIntoView({ behavior: "instant", block: "center" });
   },
