@@ -5,6 +5,7 @@ import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
 import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
+import { useStorageStore } from "@/store/storageStore";
 import { hhss } from "@/utils/dateFormat";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -14,8 +15,8 @@ const props = defineProps<{
 
 const focusStore = useFocusStore();
 const dateStore = useDateStore();
-
 const eventListStore = useEventListStore();
+const storageStore = useStorageStore();
 
 const oneHour = 60 * 60 * 1000;
 const elapsedTime = computed(() => {
@@ -117,6 +118,10 @@ const isNew = computed(() => {
   return eventListStore.addedEventIdSet.has(props.liverEvent.id);
 });
 
+const isFavorite = computed(() => {
+  return storageStore.favoriteEventSet.has(props.liverEvent.id);
+});
+
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
 function onClickCard(evt: MouseEvent) {
   evt.preventDefault();
@@ -137,7 +142,7 @@ function onClickCard(evt: MouseEvent) {
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-slate-300 text-slate-700' : liverEvent.isLive ? 'bg-red-600 text-white' : 'bg-slate-800 text-white'} -top-0 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
+        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-gray-300 text-gray-700' : liverEvent.isLive ? 'bg-red-600 text-white' : 'bg-gray-800 text-white'} -top-0 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle size-5" />
         <span>{{ timeDisplay }}</span>
@@ -167,7 +172,7 @@ function onClickCard(evt: MouseEvent) {
       />
 
       <div
-        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-2 border-slate-800 bg-white shadow-md transition-colors"
+        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-2 border-gray-800 bg-white shadow-md transition-colors"
         :class="{
           isFinished: isFinished,
           isHovered: isHovered,
@@ -193,7 +198,7 @@ function onClickCard(evt: MouseEvent) {
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-slate-300 hover:outline hover:outline-2 hover:outline-red-500"
+              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-gray-300 hover:outline hover:outline-2 hover:outline-red-500"
               :title="talent.name"
               loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
@@ -209,6 +214,13 @@ function onClickCard(evt: MouseEvent) {
             class="size-full object-cover transition-transform group-hover:scale-110"
             loading="lazy"
           />
+        </div>
+
+        <div
+          v-if="isFavorite"
+          class="absolute -right-2 -top-2 z-10 grid size-10 place-items-center rounded-full border-2 border-yellow-800 bg-white shadow-md"
+        >
+          <i class="i-mdi-star size-8 text-yellow-500" />
         </div>
 
         <div
@@ -231,6 +243,6 @@ function onClickCard(evt: MouseEvent) {
   @apply border-red-600;
 }
 .isFinished:not(.isHovered) {
-  @apply border-slate-600 bg-slate-50;
+  @apply border-gray-600 bg-gray-50;
 }
 </style>
