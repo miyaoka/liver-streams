@@ -21,8 +21,8 @@ const talentNodeEl = ref<HTMLElement | null>(null);
 
 const filterCount = computed(() => storageStore.talentFilterMap.size);
 
-const selectedNode = computed(() => {
-  return talents.filter((talent) => talent.name === selectedGroup.value);
+const rootNode = computed(() => {
+  return talents.filter((talent) => talent.name === selectedGroup.value)[0];
 });
 
 function reset() {
@@ -41,50 +41,55 @@ function reset() {
     <i class="i-mdi-menu size-[32px] text-gray-800" />
   </button>
 
-  <popover.PopOver class="left-auto h-svh w-[350px] p-0">
-    <div class="flex place-items-center bg-gray-200 p-4 font-bold">
-      <p>フィルター（{{ filterCount }}）</p>
+  <popover.PopOver class="bottom-auto left-auto right-0 top-0 w-[350px] overflow-visible p-0">
+    <div class="flex max-h-dvh flex-col overflow-hidden">
+      <div class="flex place-items-center bg-gray-200 p-4 font-bold">
+        <p>フィルター（{{ filterCount }}）</p>
 
-      <button
-        class="absolute right-0 z-10 flex size-11 items-center justify-center text-gray-400 hover:text-gray-600"
-        @click="popover.hidePopover"
-      >
-        <i class="i-mdi-close size-8" />
-      </button>
-    </div>
-
-    <div class="mt-4 flex place-content-between p-4">
-      <div class="flex gap-2">
-        <label
-          :class="`size-11 grid place-items-center  rounded-lg hover:bg-gray-200 cursor-pointer
-        ${selectedGroup === group.key ? 'bg-gray-200' : ''}`"
-          v-for="group in groups"
-          :key="group.key"
+        <button
+          class="absolute right-0 z-10 flex size-11 items-center justify-center text-gray-400 hover:text-gray-600"
+          @click="popover.hidePopover"
         >
-          <input
-            type="radio"
-            v-model="selectedGroup"
-            :value="group.key"
-            name="channel"
-            class="sr-only"
-          />
-          <img
-            :src="getChannelIcon(group.icon)"
-            alt="icon"
-            class="size-[32px] rounded-full bg-white"
-          />
-        </label>
+          <i class="i-mdi-close size-8" />
+        </button>
       </div>
-      <button class="flex h-11 place-items-center rounded-full bg-slate-100 px-2" @click="reset">
-        <i class="i-mdi-refresh size-8 text-gray-400" />
-        <span>reset</span>
-      </button>
-    </div>
 
-    <hr />
+      <div class="flex place-content-between p-4 shadow">
+        <div class="flex gap-2">
+          <label
+            :class="`size-11 grid place-items-center  rounded-lg hover:bg-gray-200 cursor-pointer
+        ${selectedGroup === group.key ? 'bg-gray-200' : ''}`"
+            v-for="group in groups"
+            :key="group.key"
+          >
+            <input
+              type="radio"
+              v-model="selectedGroup"
+              :value="group.key"
+              name="channel"
+              class="sr-only"
+            />
+            <img
+              :src="getChannelIcon(group.icon)"
+              alt="icon"
+              class="size-[32px] rounded-full bg-white"
+            />
+          </label>
+        </div>
+        <button class="flex h-11 place-items-center rounded-full bg-slate-100 px-2" @click="reset">
+          <i class="i-mdi-refresh size-8 text-gray-400" />
+          <span>reset</span>
+        </button>
+      </div>
 
-    <div class="-ml-4 flex-1 p-2 pb-12 pt-4" ref="talentNodeEl">
-      <TalentNode v-for="talent in selectedNode" :node="talent" :key="talent.name" />
+      <div
+        class="-ml-4 flex-1 overflow-auto p-2 pb-12 pt-4"
+        ref="talentNodeEl"
+        v-if="rootNode"
+        :key="rootNode.name"
+      >
+        <TalentNode :node="rootNode" :key="rootNode.name" />
+      </div>
     </div>
   </popover.PopOver>
 </template>
