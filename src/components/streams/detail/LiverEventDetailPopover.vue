@@ -17,6 +17,9 @@ const storageStore = useStorageStore();
 const isFavorite = computed(() => {
   return storageStore.favoriteEventSet.has(props.liverEvent.id);
 });
+const fullDate = computed(() => {
+  return fullDateFormatter.format(props.liverEvent.startAt);
+});
 </script>
 
 <template>
@@ -25,7 +28,7 @@ const isFavorite = computed(() => {
   >
     <div class="flex items-center bg-gray-800 px-4 py-2 text-gray-200">
       <div class="font-bold">
-        {{ fullDateFormatter.format(liverEvent.startAt) }}
+        {{ fullDate }}
       </div>
       <button
         class="absolute right-0 grid size-11 place-items-center text-gray-400 hover:text-gray-200"
