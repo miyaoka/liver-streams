@@ -120,6 +120,13 @@ export const useEventListStore = defineStore("eventListStore", () => {
 
     liverEventList.value = currLiverEventList;
     liverEventIdSet.value = currLiverEventIdSet;
+
+    // liverEventListに存在しないfavoriteを削除
+    storageStore.favoriteEventSet.forEach((id) => {
+      if (!liverEventIdSet.value.has(id)) {
+        storageStore.favoriteEventSet.delete(id);
+      }
+    });
   }
 
   function clearAddedEventList() {
