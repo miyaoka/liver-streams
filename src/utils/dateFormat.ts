@@ -26,7 +26,7 @@ export const mdDateFormatter = new Intl.DateTimeFormat(undefined, {
   day: "numeric",
 });
 
-export const hhssDateFormatter = new Intl.DateTimeFormat(undefined, {
+export const hhmmDateFormatter = new Intl.DateTimeFormat(undefined, {
   hour: "numeric",
   minute: "numeric",
 });

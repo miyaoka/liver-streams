@@ -5,7 +5,7 @@ import { scrollToLiverEventTop } from "@/lib/scroll";
 import { useDateStore } from "@/store/dateStore";
 import { useFocusStore } from "@/store/focusStore";
 import { compareDate, getDateTime } from "@/utils/date";
-import { hhssDateFormatter, toRelativeTime } from "@/utils/dateFormat";
+import { hhmmDateFormatter, toRelativeTime } from "@/utils/dateFormat";
 
 const props = defineProps<{
   liverEvent: LiverEvent;
@@ -27,7 +27,7 @@ const eventTime = computed(() => {
 
   // 今日なら時刻を返す
   if (dateDiff === 0) {
-    return hhssDateFormatter.format(startAt);
+    return hhmmDateFormatter.format(startAt);
   }
 
   // 別の日なら相対時刻を返す
