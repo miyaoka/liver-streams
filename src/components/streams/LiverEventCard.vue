@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, toRaw } from "vue";
 import type { LiverEvent } from "@/services/api";
-import hololive_logo from "@/assets/icons/hololive_logo.png";
-import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
 import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
 import { useEventListStore } from "@/store/eventListStore";
@@ -19,8 +17,10 @@ const dateStore = useDateStore();
 const eventListStore = useEventListStore();
 
 const affilicationLogoMap = {
-  nijisanji: nijisanji_logo,
-  hololive: hololive_logo,
+  nijisanji:
+    "https://raw.githubusercontent.com/miyaoka/liver-streams/refs/heads/main/public/icons/nijisanji_logo.png",
+  hololive:
+    "https://raw.githubusercontent.com/miyaoka/liver-streams/refs/heads/main/public/icons/hololive_logo.png",
 };
 
 const oneHour = 60 * 60 * 1000;
