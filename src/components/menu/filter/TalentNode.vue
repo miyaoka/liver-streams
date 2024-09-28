@@ -103,10 +103,10 @@ async function onNodeChange() {
 </script>
 
 <template>
-  <div open class="ml-6 flex select-none flex-col items-start gap-2 text-sm">
+  <div open class="ml-4 flex select-none flex-col items-start gap-2 text-sm font-bold">
     <div class="flex flex-col items-start">
       <label
-        class="flex h-9 cursor-pointer place-items-center gap-1 whitespace-nowrap rounded-lg bg-gray-100 px-2 font-bold hover:outline hover:outline-2 has-[:checked]:bg-red-200 has-[:checked]:text-red-900 has-[:focus-visible]:outline"
+        class="flex h-9 cursor-pointer place-items-center gap-1 whitespace-nowrap rounded-lg bg-gray-100 px-2 hover:outline hover:outline-2 has-[:checked]:bg-red-200 has-[:checked]:text-red-900 has-[:focus-visible]:outline"
       >
         <input ref="groupEl" type="checkbox" class="sr-only" @click="onGroupClick" />
         <i class="i-mdi-folder-open size-6"></i>
@@ -147,7 +147,7 @@ async function onNodeChange() {
             loading="lazy"
           />
           <div
-            class="rounded-lg bg-gray-100 px-2 py-1 font-bold group-hover:outline group-hover:outline-2 group-has-[:checked]:bg-red-200 group-has-[:checked]:text-red-900 group-has-[:focus-visible]:outline-2"
+            class="rounded-lg bg-gray-100 px-2 py-1 group-hover:outline group-hover:outline-2 group-has-[:checked]:bg-red-200 group-has-[:checked]:text-red-900 group-has-[:focus-visible]:outline-2"
           >
             {{ name }}
           </div>
