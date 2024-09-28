@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import type { TalentNode } from "@/assets/talents";
 import { useStorageStore } from "@/store/storageStore";
 import { getChannelIcon } from "@/utils/icons";
@@ -32,7 +32,7 @@ const childNodeEl = ref<HTMLElement | null>(null);
 function onNameCheck(evt: Event, name: string) {
   const input = evt.target as HTMLInputElement;
   channelFilterStore.setTalentFilter(name, input.checked);
-  console.log("onNameCheck", name, input.checked);
+  // console.log("onNameCheck", name, input.checked);
 
   update();
 }
@@ -75,12 +75,14 @@ function onGroupClick(e: Event) {
 
     childInputs.forEach((input) => {
       input.checked = group.checked;
+      // コンポーネントに変更を通知する
+      input.dispatchEvent(new Event("change"));
     });
   }
 }
 
 async function onNodeChange() {
-  await nextTick();
+  await new Promise((resolve) => requestAnimationFrame(resolve));
 
   if (!childNodeEl.value || !groupEl.value) return;
 
@@ -89,6 +91,8 @@ async function onNodeChange() {
   const isAllChecked = childInputs.every((input) => {
     return input.checked;
   });
+
+  if (groupEl.value.checked === isAllChecked) return;
 
   // 子ノードの状態に応じて現ノードのチェック状態を変更
   groupEl.value.checked = isAllChecked;
@@ -102,7 +106,7 @@ async function onNodeChange() {
   <div open class="ml-6 flex select-none flex-col items-start gap-2 text-sm">
     <div class="flex flex-col items-start">
       <label
-        class="flex h-10 cursor-pointer place-items-center gap-1 whitespace-nowrap rounded-lg bg-gray-100 px-2 font-bold hover:outline hover:outline-2 has-[:checked]:bg-red-200 has-[:checked]:text-red-900 has-[:focus-visible]:outline"
+        class="flex h-9 cursor-pointer place-items-center gap-1 whitespace-nowrap rounded-lg bg-gray-100 px-2 font-bold hover:outline hover:outline-2 has-[:checked]:bg-red-200 has-[:checked]:text-red-900 has-[:focus-visible]:outline"
       >
         <input ref="groupEl" type="checkbox" class="sr-only" @click="onGroupClick" />
         <i class="i-mdi-folder-open size-6"></i>
@@ -116,7 +120,7 @@ async function onNodeChange() {
       <div
         ref="namesEl"
         v-if="children.names.length > 0"
-        class="ml-4 flex flex-col gap-1 rounded-xl px-2 pb-3 pt-1"
+        class="ml-4 flex flex-col gap-px rounded-xl px-2 pb-3 pt-1"
       >
         <label
           v-for="name in children.names"
@@ -131,12 +135,15 @@ async function onNodeChange() {
             :checked="channelFilterStore.talentFilterMap.get(name)"
           />
           <!-- <p class="absolute right-full p-2 opacity-40">
-            {{ channelFilterStore.talentFilterMap.get(name) }}
+            <i
+              v-if="channelFilterStore.talentFilterMap.get(name)"
+              class="i-mdi-check size-6 text-lime-700"
+            ></i>
           </p> -->
           <img
             :src="getChannelIcon(name)"
             alt="icon"
-            class="size-[44px] rounded-full bg-gray-200 group-hover:outline group-hover:outline-2"
+            class="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline group-hover:outline-2"
             loading="lazy"
           />
           <div
