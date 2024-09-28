@@ -21,8 +21,8 @@ const talentNodeEl = ref<HTMLElement | null>(null);
 
 const filterCount = computed(() => storageStore.talentFilterMap.size);
 
-const selectedNode = computed(() => {
-  return talents.filter((talent) => talent.name === selectedGroup.value);
+const rootNode = computed(() => {
+  return talents.filter((talent) => talent.name === selectedGroup.value)[0];
 });
 
 function reset() {
@@ -84,8 +84,13 @@ function reset() {
 
       <hr />
 
-      <div class="-ml-4 flex-1 overflow-auto p-2 pb-12 pt-4" ref="talentNodeEl">
-        <TalentNode v-for="talent in selectedNode" :node="talent" :key="talent.name" />
+      <div
+        class="-ml-4 flex-1 overflow-auto p-2 pb-12 pt-4"
+        ref="talentNodeEl"
+        v-if="rootNode"
+        :key="rootNode.name"
+      >
+        <TalentNode :node="rootNode" :key="rootNode.name" />
       </div>
     </div>
   </popover.PopOver>
