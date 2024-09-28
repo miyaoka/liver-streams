@@ -28,7 +28,7 @@ const isFavorite = computed(() => {
         {{ fullDateFormatter.format(liverEvent.startAt) }}
       </div>
       <button
-        class="absolute right-0 flex size-11 place-items-center text-gray-400 hover:text-gray-200"
+        class="absolute right-0 grid size-11 place-items-center text-gray-400 hover:text-gray-200"
         @click="closePopover"
       >
         <i class="i-mdi-close size-5" />
@@ -38,7 +38,7 @@ const isFavorite = computed(() => {
     <a :href="liverEvent.url" target="_blank">
       <img
         :src="getThumnail(liverEvent.thumbnail, 'sd')"
-        class="_thumb aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
+        class="_thumb [@starting-style:opacity-0] aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
         loading="lazy"
       />
     </a>
@@ -84,10 +84,10 @@ const isFavorite = computed(() => {
           @click="storageStore.toggleFavoriteEvent(liverEvent.id)"
         >
           <div
-            :class="`size-8 place-items-center bg-white rounded-full grid  border-2 ${isFavorite ? 'border-yellow-400' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
+            :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isFavorite ? 'border-yellow-400' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
           >
             <i
-              :class="`size-7 ${isFavorite ? 'i-mdi-star text-yellow-400' : 'i-mdi-star-outline  text-gray-400'}`"
+              :class="`size-8 ${isFavorite ? 'i-mdi-star text-yellow-400' : 'i-mdi-star-outline  text-gray-400'}`"
             />
           </div>
         </button>

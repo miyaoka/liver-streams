@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed, toRaw } from "vue";
-import LiverEventDialog from "./LiverEventDialog.vue";
 import type { LiverEvent } from "@/services/api";
 import hololive_logo from "@/assets/icons/hololive_logo.png";
 import nijisanji_logo from "@/assets/icons/nijisanji_logo.png";
-import { usePopover } from "@/composable/usePopover";
 import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
 import { useEventListStore } from "@/store/eventListStore";
@@ -17,10 +15,7 @@ const props = defineProps<{
 
 const focusStore = useFocusStore();
 const dateStore = useDateStore();
-const popover = usePopover({
-  mountAtOpen: true,
-  popoverId: props.liverEvent.id,
-});
+
 const eventListStore = useEventListStore();
 
 const affilicationLogoMap = {
@@ -131,6 +126,10 @@ const isNew = computed(() => {
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
 function onClickCard(evt: MouseEvent) {
   evt.preventDefault();
+
+  // idからpopover要素を取得
+  const popover = document.getElementById(props.liverEvent.id);
+  if (!popover) return;
   popover.showPopover();
 }
 </script>
@@ -139,8 +138,8 @@ function onClickCard(evt: MouseEvent) {
     class="group relative scroll-mt-16"
     data-id="liver-event-card"
     :data-event-id="`${liverEvent.id}`"
-    @mouseover="focusStore.hoverEvent(liverEvent)"
-    @mouseleave="focusStore.unhoverEvent"
+    @pointerover="focusStore.hoverEvent(liverEvent)"
+    @pointerleave="focusStore.unhoverEvent"
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
@@ -227,11 +226,6 @@ function onClickCard(evt: MouseEvent) {
         </div>
       </div>
     </a>
-    <popover.PopOver
-      class="bottom-2 top-auto max-w-[calc(100%-16px)] overflow-visible bg-transparent p-0"
-    >
-      <LiverEventDialog :liverEvent="liverEvent" />
-    </popover.PopOver>
   </div>
 </template>
 
@@ -244,20 +238,5 @@ function onClickCard(evt: MouseEvent) {
 }
 .isFinished:not(.isHovered) {
   @apply border-slate-600 bg-slate-50;
-}
-
-[popover] {
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  &:popover-open {
-    animation: fadeIn 0.2s ease-in-out forwards;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    translate: 0 50%;
-  }
 }
 </style>
