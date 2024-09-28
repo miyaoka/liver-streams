@@ -17,7 +17,6 @@ const storageStore = useStorageStore();
 const focusStore = useFocusStore();
 
 const popover = usePopover({
-  mountAtOpen: true,
   onShow: async () => {
     await nextTick();
 

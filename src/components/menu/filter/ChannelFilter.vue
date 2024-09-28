@@ -8,7 +8,6 @@ import { getChannelIcon } from "@/utils/icons";
 
 const storageStore = useStorageStore();
 const popover = usePopover({
-  mountAtOpen: true,
   popoverId: "filter",
 });
 

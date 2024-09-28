@@ -9,7 +9,6 @@ const eventListStore = useEventListStore();
 
 let lastOpenTime = ref(0);
 const popover = usePopover({
-  mountAtOpen: true,
   onHide: () => {
     lastOpenTime.value = Date.now();
   },

@@ -8,7 +8,6 @@ const props = defineProps<{
 }>();
 
 const popover = usePopover({
-  mountAtOpen: true,
   popoverId: props.liverEvent.id,
 });
 </script>
