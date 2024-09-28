@@ -116,7 +116,7 @@ async function onNodeChange() {
         <label
           v-for="name in children.names"
           :key="name"
-          class="group relative flex cursor-pointer place-items-center gap-2 has-[:focus-visible]:outline"
+          class="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-[:focus-visible]:outline"
           :title="name"
         >
           <input
