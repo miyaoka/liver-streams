@@ -54,9 +54,7 @@ function reset() {
       </button>
     </div>
 
-    <div class="flex place-content-end"></div>
-
-    <div class="flex place-content-between p-4">
+    <div class="mt-4 flex place-content-between p-4">
       <div class="flex gap-2">
         <label
           :class="`size-11 grid place-items-center  rounded-lg hover:bg-gray-200 cursor-pointer
@@ -84,7 +82,9 @@ function reset() {
       </button>
     </div>
 
-    <div class="-ml-4 flex-1 overflow-y-auto p-2 pb-12 pt-4" ref="talentNodeEl">
+    <hr />
+
+    <div class="-ml-4 flex-1 p-2 pb-12 pt-4" ref="talentNodeEl">
       <TalentNode v-for="talent in selectedNode" :node="talent" :key="talent.name" />
     </div>
   </popover.PopOver>
