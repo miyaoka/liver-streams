@@ -2,12 +2,16 @@
 import { computed, ref } from "vue";
 import LiverEventCard from "./LiverEventCard.vue";
 import type { TimeSection } from "@/lib/section";
+import { useDateStore } from "@/store/dateStore";
+import { hhmmDateFormatter } from "@/utils/dateFormat";
 
 const props = defineProps<{
   section: TimeSection;
   nextSection: TimeSection | undefined;
   isCurrentTime: boolean;
 }>();
+
+const dateStore = useDateStore();
 
 const sectionEl = ref<HTMLElement | null>(null);
 
@@ -31,6 +35,10 @@ const sectionBackground = computed(() => {
   return sectionColor.value;
 });
 
+const hhss = computed(() => {
+  return hhmmDateFormatter.format(dateStore.currentTime);
+});
+
 function getTimeColor(hour: number) {
   return "var(--hour" + hour + ")";
 }
@@ -50,7 +58,7 @@ function getTimeColor(hour: number) {
         class="mt-8 flex select-none items-center gap-2 bg-black/70 py-1 pl-2 pr-12 text-base font-bold text-white [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);]"
       >
         <i class="i-mdi-clock-outline size-6" />
-        <p>now</p>
+        <p>now {{ hhss }}</p>
       </div>
     </div>
     <template v-if="hasEvents">
