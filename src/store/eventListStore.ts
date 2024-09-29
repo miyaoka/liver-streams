@@ -40,6 +40,45 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
+  const keywordMap = computed(() => {
+    const map: Record<string, number> = {};
+    filteredEventList.value.forEach((event) => {
+      event.keywordList.forEach((keyword) => {
+        if (keyword in map) {
+          map[keyword]++;
+        } else {
+          map[keyword] = 1;
+        }
+      });
+    });
+    const sortedKeywordList = Object.entries(map)
+      .flatMap(([keyword, count]) => {
+        if (count < 2) return [];
+        return { value: keyword, count };
+      })
+      .sort((a, b) => b.count - a.count);
+    return sortedKeywordList;
+  });
+
+  const hashtagMap = computed(() => {
+    const map: Record<string, number> = {};
+    filteredEventList.value.forEach((event) => {
+      event.hashList.forEach((hashtag) => {
+        if (hashtag in map) {
+          map[hashtag]++;
+        } else {
+          map[hashtag] = 1;
+        }
+      });
+    });
+    const sortedHashtagList = Object.entries(map)
+      .map(([hashtag, count]) => {
+        return { value: hashtag, count };
+      })
+      .sort((a, b) => b.count - a.count);
+    return sortedHashtagList;
+  });
+
   const filteredAddedEventList = computed(() => {
     if (!addedEventList.value) return [];
 
@@ -145,6 +184,8 @@ export const useEventListStore = defineStore("eventListStore", () => {
     addedEventIdSet,
     updateLiverEventList,
     clearAddedEventList,
+    keywordMap,
+    hashtagMap,
   };
 });
 

@@ -17,6 +17,7 @@ export interface LiverEvent {
   hashList: string[];
   hashSet: Set<string>;
   collaboTalentSet: Set<string>;
+  keywordList: string[];
 }
 
 export interface LiverTalent {
@@ -85,7 +86,7 @@ async function digestMessage(message: string) {
 }
 
 // テキストから括弧で括られた文字列を抽出する
-export function extractParenthesizedText(text: string): string[] {
+export function extractParenthesizedText(text: string, author: string = ""): string[] {
   const parentheses = "()[]{}（）［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
   const openingParentheses = parentheses
     .split("")
@@ -101,7 +102,18 @@ export function extractParenthesizedText(text: string): string[] {
   );
   const matches = text.match(parenthesesPattern);
   if (!matches) return [];
-  return matches.map((match) => match.slice(1, -1));
+
+  const ignore = [author, "#", "にじさんじ", "nijisanji", "ホロライブ", "hololive"];
+  const ignoreRegExp = new RegExp(ignore.join("|"), "i");
+
+  return matches.flatMap((match) => {
+    const str = match.slice(1, -1).trim().toLowerCase();
+    // 2文字未満は無視
+    if (str.length < 2) return [];
+    // 除外リストは無視
+    if (str.match(ignoreRegExp)) return [];
+    return str;
+  });
 }
 
 export async function createLiverEvent({
@@ -131,6 +143,7 @@ export async function createLiverEvent({
   const hashList = getHashTagList(title);
   const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
   const collaboTalentSet = new Set(collaboTalents.map((t) => t.name));
+  const keywordList = extractParenthesizedText(title, talent.name);
 
   return {
     id: id,
@@ -146,6 +159,7 @@ export async function createLiverEvent({
     hashList,
     hashSet,
     collaboTalentSet,
+    keywordList,
   };
 }
 
