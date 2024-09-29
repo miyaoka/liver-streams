@@ -70,8 +70,9 @@ function onClick() {
       class="z-30 flex size-11 items-center justify-center rounded-full group-hover:bg-gray-100"
       @click="onClick"
       @mousedown="onMousedown"
+      title="search"
     >
-      <i :class="`${isInput ? 'i-mdi-close' : 'i-mdi-search'} h-[32px] w-[32px] text-gray-800`" />
+      <i :class="`${isInput ? 'i-mdi-close' : 'i-mdi-search'} size-8 text-gray-800`" />
     </button>
   </div>
 </template>

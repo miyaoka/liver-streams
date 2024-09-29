@@ -85,6 +85,7 @@ const fullDate = computed(() => {
         <button
           class="group/fav grid size-11 place-items-center"
           @click="storageStore.toggleBookmarkEvent(liverEvent.id)"
+          title="bookmark"
         >
           <div
             :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isBookmark ? 'border-green-800' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
