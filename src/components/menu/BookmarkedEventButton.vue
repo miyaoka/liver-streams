@@ -93,7 +93,7 @@ function showPopover() {
       class="flex max-h-[500px] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
     >
       <div class="flex items-center justify-start bg-black p-2 text-white">
-        Stared Events ({{ favoriteCount }})
+        Bookmarked Events ({{ favoriteCount }})
 
         <button
           class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
@@ -103,7 +103,7 @@ function showPopover() {
         </button>
       </div>
       <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">
-        <div v-if="favoriteCount === 0" class="p-2">Starしたイベントがここに載ります</div>
+        <div v-if="favoriteCount === 0" class="p-2">Bookmarkしたイベントがここに載ります</div>
 
         <div v-else class="grid">
           <button
