@@ -77,7 +77,7 @@ function showPopover() {
     class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-lg hover:bg-gray-200"
     @click="showPopover"
   >
-    <i class="i-mdi-star-outline size-8" />
+    <i class="i-mdi-bookmark-outline size-7" />
     <p
       v-if="favoriteCount > 0"
       :class="`absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white`"

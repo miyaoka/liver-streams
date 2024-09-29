@@ -87,10 +87,10 @@ const fullDate = computed(() => {
           @click="storageStore.toggleFavoriteEvent(liverEvent.id)"
         >
           <div
-            :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isFavorite ? 'border-yellow-800' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
+            :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isFavorite ? 'border-gray-800' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
           >
             <i
-              :class="`size-8 ${isFavorite ? 'i-mdi-star text-yellow-400' : 'i-mdi-star-outline  text-gray-400'}`"
+              :class="`size-8 ${isFavorite ? 'i-mdi-bookmark text-blue-600' : 'i-mdi-bookmark-outline  text-gray-400'}`"
             />
           </div>
         </button>
