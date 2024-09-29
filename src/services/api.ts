@@ -84,6 +84,20 @@ async function digestMessage(message: string) {
   return hashHex;
 }
 
+// テキストから括弧で括られた文字列を抽出する
+export function extractParenthesizedText(text: string): string[] {
+  const parentheses = "（）［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
+  const openingParentheses = parentheses.split("").filter((_, index) => index % 2 === 0);
+  const closingParentheses = parentheses.split("").filter((_, index) => index % 2 !== 0);
+  const parenthesesPattern = new RegExp(
+    `[${openingParentheses.join("")}](.*?)[${closingParentheses.join("")}]`,
+    "g",
+  );
+  const matches = text.match(parenthesesPattern);
+  if (!matches) return [];
+  return matches.map((match) => match.slice(1, -1));
+}
+
 export async function createLiverEvent({
   affilication,
   startAt,
@@ -111,6 +125,7 @@ export async function createLiverEvent({
   const hashList = getHashTagList(title);
   const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
   const collaboTalentSet = new Set(collaboTalents.map((t) => t.name));
+
   return {
     id: id,
     affilication,
