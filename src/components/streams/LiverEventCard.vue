@@ -218,9 +218,9 @@ function onClickCard(evt: MouseEvent) {
 
         <div
           v-if="isFavorite"
-          class="absolute -right-2 -top-2 z-10 grid size-10 place-items-center rounded-full border-2 border-gray-800 bg-white shadow-md"
+          class="absolute -right-2 -top-2 z-10 grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
         >
-          <i class="i-mdi-bookmark size-8 text-blue-600" />
+          <i class="i-mdi-bookmark size-7 text-green-600" />
         </div>
 
         <div
