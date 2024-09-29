@@ -86,9 +86,15 @@ async function digestMessage(message: string) {
 
 // テキストから括弧で括られた文字列を抽出する
 export function extractParenthesizedText(text: string): string[] {
-  const parentheses = "（）［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
-  const openingParentheses = parentheses.split("").filter((_, index) => index % 2 === 0);
-  const closingParentheses = parentheses.split("").filter((_, index) => index % 2 !== 0);
+  const parentheses = "()[]{}（）［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
+  const openingParentheses = parentheses
+    .split("")
+    .filter((_, index) => index % 2 === 0)
+    .map((p) => "\\" + p);
+  const closingParentheses = parentheses
+    .split("")
+    .filter((_, index) => index % 2 !== 0)
+    .map((p) => "\\" + p);
   const parenthesesPattern = new RegExp(
     `[${openingParentheses.join("")}](.*?)[${closingParentheses.join("")}]`,
     "g",
