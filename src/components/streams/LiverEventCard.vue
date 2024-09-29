@@ -19,6 +19,11 @@ const eventListStore = useEventListStore();
 const storageStore = useStorageStore();
 
 const oneHour = 60 * 60 * 1000;
+
+// ホロライブのライブ判定開始用
+const liveStartDuration = 20 * 60 * 1000;
+const liveEndDuration = 60 * 60 * 1000;
+
 const elapsedTime = computed(() => {
   const { isLive, endAt } = props.liverEvent;
 
@@ -71,15 +76,19 @@ const isFinished = computed(() => {
   // 配信していない場合
   const now = dateStore.currentTime;
   const startTime = props.liverEvent.startAt.getTime();
+  const elapsed = now - startTime;
   // 現在時刻を過ぎていなければ開始前
-  if (now < startTime) return false;
+  if (elapsed < 0) return false;
   // ホロライブの場合
   if (props.liverEvent.affilication === "hololive") {
+    // 配信開始直後は開始時間が更新されてもliveになっていない場合があるので一定時間判定しない
+    if (elapsed < liveStartDuration) return false;
+
     // startTimeの秒数が0以外あれば配信開始済み
     if (props.liverEvent.startAt.getSeconds() !== 0) return true;
 
     // 秒数が0の場合、1時間経過していたら終了と見なす
-    if (now - startTime > oneHour) return true;
+    if (elapsed > liveEndDuration) return true;
   }
   // それ以外の場合：未終了
   return false;
