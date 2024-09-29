@@ -72,7 +72,8 @@ export const useEventListStore = defineStore("eventListStore", () => {
       });
     });
     const sortedHashtagList = Object.entries(map)
-      .map(([hashtag, count]) => {
+      .flatMap(([hashtag, count]) => {
+        if (count < 2) return [];
         return { value: hashtag, count };
       })
       .sort((a, b) => b.count - a.count);
