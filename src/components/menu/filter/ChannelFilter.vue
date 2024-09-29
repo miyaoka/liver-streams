@@ -43,14 +43,14 @@ function reset() {
 
   <popover.PopOver class="bottom-auto left-auto right-0 top-0 w-[350px] overflow-visible p-0">
     <div class="flex max-h-dvh flex-col overflow-hidden">
-      <div class="flex place-items-center bg-gray-200 p-4 font-bold">
+      <div class="flex min-h-11 place-items-center bg-gray-200 px-4 font-bold">
         <p>フィルター（{{ filterCount }}）</p>
 
         <button
           class="absolute right-0 z-10 flex size-11 items-center justify-center text-gray-400 hover:text-gray-600"
           @click="popover.hidePopover"
         >
-          <i class="i-mdi-close size-8" />
+          <i class="i-mdi-close size-6" />
         </button>
       </div>
 
