@@ -23,8 +23,8 @@ const popover = usePopover({
     const now = Date.now();
     // 現在より後で最も近いイベントにスクロールする
     const nextEvent =
-      favoriteEventList.value.find((event) => event.startAt.getTime() > now) ??
-      favoriteEventList.value.at(-1);
+      bookmarkEventList.value.find((event) => event.startAt.getTime() > now) ??
+      bookmarkEventList.value.at(-1);
     if (!nextEvent) return;
 
     const targetEl = document.querySelector(`[data-fav-event-id="${nextEvent.id}"]`);
@@ -35,9 +35,9 @@ const popover = usePopover({
 
 const dateStore = useDateStore();
 
-const favoriteEventList = computed(() => {
+const bookmarkEventList = computed(() => {
   const list: LiverEvent[] = [];
-  storageStore.favoriteEventSet.forEach((id) => {
+  storageStore.bookmarkEventSet.forEach((id) => {
     const liverEvent = eventListStore.liverEventMap.get(id);
     if (liverEvent) {
       list.push(liverEvent);
@@ -47,7 +47,7 @@ const favoriteEventList = computed(() => {
   return list.sort((a, b) => a.startAt.getTime() - b.startAt.getTime());
 });
 
-const favoriteCount = computed(() => favoriteEventList.value.length);
+const bookmarkCount = computed(() => bookmarkEventList.value.length);
 
 function getEventTime(liverEvent: LiverEvent) {
   const startAt = liverEvent.startAt;
@@ -79,10 +79,10 @@ function showPopover() {
   >
     <i class="i-mdi-bookmark-outline size-7" />
     <p
-      v-if="favoriteCount > 0"
+      v-if="bookmarkCount > 0"
       :class="`absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white`"
     >
-      {{ favoriteCount }}
+      {{ bookmarkCount }}
     </p>
   </button>
 
@@ -93,7 +93,7 @@ function showPopover() {
       class="flex max-h-[500px] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
     >
       <div class="flex items-center justify-start bg-black p-2 text-white">
-        Bookmarked Events ({{ favoriteCount }})
+        Bookmarked Events ({{ bookmarkCount }})
 
         <button
           class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
@@ -103,11 +103,11 @@ function showPopover() {
         </button>
       </div>
       <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">
-        <div v-if="favoriteCount === 0" class="p-2">Bookmarkしたイベントがここに載ります</div>
+        <div v-if="bookmarkCount === 0" class="p-2">Bookmarkしたイベントがここに載ります</div>
 
         <div v-else class="grid">
           <button
-            v-for="liverEvent in favoriteEventList"
+            v-for="liverEvent in bookmarkEventList"
             :key="liverEvent.id"
             :popovertarget="liverEvent.id"
             @click="scrollToLiverEventTop(liverEvent.id)"
@@ -136,7 +136,7 @@ function showPopover() {
           <div class="flex justify-center p-2">
             <button
               class="rounded bg-gray-200 px-4 py-2 text-sm hover:bg-gray-300"
-              @click.prevent="storageStore.resetFavoriteEventSet"
+              @click.prevent="storageStore.resetBookmarkEventSet"
             >
               clear all
             </button>

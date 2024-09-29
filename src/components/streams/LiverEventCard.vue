@@ -118,8 +118,8 @@ const isNew = computed(() => {
   return eventListStore.addedEventIdSet.has(props.liverEvent.id);
 });
 
-const isFavorite = computed(() => {
-  return storageStore.favoriteEventSet.has(props.liverEvent.id);
+const isBookmark = computed(() => {
+  return storageStore.bookmarkEventSet.has(props.liverEvent.id);
 });
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
@@ -217,7 +217,7 @@ function onClickCard(evt: MouseEvent) {
         </div>
 
         <div
-          v-if="isFavorite"
+          v-if="isBookmark"
           class="absolute -right-2 -top-2 z-10 grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
         >
           <i class="i-mdi-bookmark size-7 text-green-600" />
