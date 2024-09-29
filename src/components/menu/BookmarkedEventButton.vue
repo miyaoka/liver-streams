@@ -94,7 +94,7 @@ function showPopover() {
       class="flex max-h-[500px] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
     >
       <div class="flex h-11 items-center justify-start gap-1 bg-black p-2 text-white">
-        <i class="i-mdi-bookmark size-5" />
+        <i class="i-mdi-bookmark-outline size-5" />
         <span>ブックマーク ({{ bookmarkCount }}) </span>
 
         <button
