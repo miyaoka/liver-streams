@@ -14,8 +14,8 @@ const props = defineProps<{
 const focusStore = useFocusStore();
 const storageStore = useStorageStore();
 
-const isFavorite = computed(() => {
-  return storageStore.favoriteEventSet.has(props.liverEvent.id);
+const isBookmark = computed(() => {
+  return storageStore.bookmarkEventSet.has(props.liverEvent.id);
 });
 const fullDate = computed(() => {
   return fullDateFormatter.format(props.liverEvent.startAt);
@@ -84,13 +84,13 @@ const fullDate = computed(() => {
         </div>
         <button
           class="group/fav grid size-11 place-items-center"
-          @click="storageStore.toggleFavoriteEvent(liverEvent.id)"
+          @click="storageStore.toggleBookmarkEvent(liverEvent.id)"
         >
           <div
-            :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isFavorite ? 'border-yellow-800' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
+            :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isBookmark ? 'border-green-800' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
           >
             <i
-              :class="`size-8 ${isFavorite ? 'i-mdi-star text-yellow-400' : 'i-mdi-star-outline  text-gray-400'}`"
+              :class="`size-7 ${isBookmark ? 'i-mdi-bookmark text-green-600' : 'i-mdi-bookmark-outline  text-gray-400'}`"
             />
           </div>
         </button>

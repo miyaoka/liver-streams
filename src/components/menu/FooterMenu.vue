@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AddedEventButton from "./AddedEventButton.vue";
-import FavoriteEventButton from "./FavoriteEventButton.vue";
+import BookmarkedEventButton from "./BookmarkedEventButton.vue";
 import FocusedTalent from "./FocusedTalent.vue";
 import LiveFilterButton from "./LiveFilterButton.vue";
 import ScrollButton from "./ScrollButton.vue";
@@ -10,7 +10,7 @@ import ScrollButton from "./ScrollButton.vue";
   <footer class="z-10">
     <FocusedTalent />
     <div class="fixed bottom-4 right-4 z-10 flex flex-row items-end gap-2">
-      <FavoriteEventButton />
+      <BookmarkedEventButton />
       <AddedEventButton />
       <LiveFilterButton />
       <ScrollButton />
