@@ -16,11 +16,10 @@ export interface Node {
 export const useStorageStore = defineStore("storageStore", () => {
   const talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
   const talentFilterEnabled = useLocalStorage("talentFilterEnabled", true);
-  const searchTerm = useLocalStorage("filterSearchTerm", "");
   const bookmarkEventSet = useLocalStorage("bookmarkEventSet", new Set<string>());
-
   const scrollStore = useScrollStore();
 
+  const searchTerm = ref("");
   const isLiveOnly = ref(false);
 
   const searchTerms = computed(() => {
