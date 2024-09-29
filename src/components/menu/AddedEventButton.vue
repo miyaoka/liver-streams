@@ -28,7 +28,7 @@ function showPopover() {
 
 <template>
   <button
-    class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-lg hover:bg-gray-200"
+    class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-200"
     @click="showPopover"
     title="recently added events"
   >
