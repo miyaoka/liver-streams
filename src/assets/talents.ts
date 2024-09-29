@@ -349,7 +349,7 @@ export const talents: TalentNode[] = [
                 children: ["伊波ライ", "小柳ロウ", "星導ショウ", "叢雲カゲツ"],
               },
               {
-                name: "Krisis",
+                name: "みたらし団",
                 children: ["栞葉るり", "立伝都々", "ミラン・ケストレル"],
               },
             ],
