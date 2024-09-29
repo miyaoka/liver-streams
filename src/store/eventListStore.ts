@@ -40,7 +40,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
-  const keywordMap = computed(() => {
+  const keywordList = computed(() => {
     const map: Record<string, number> = {};
     filteredEventList.value.forEach((event) => {
       event.keywordList.forEach((keyword) => {
@@ -60,7 +60,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     return sortedKeywordList;
   });
 
-  const hashtagMap = computed(() => {
+  const hashtagList = computed(() => {
     const map: Record<string, number> = {};
     filteredEventList.value.forEach((event) => {
       event.hashList.forEach((hashtag) => {
@@ -184,8 +184,8 @@ export const useEventListStore = defineStore("eventListStore", () => {
     addedEventIdSet,
     updateLiverEventList,
     clearAddedEventList,
-    keywordMap,
-    hashtagMap,
+    keywordList,
+    hashtagList,
   };
 });
 
