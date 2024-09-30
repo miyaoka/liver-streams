@@ -27,10 +27,10 @@ onMounted(() => {
   </div>
   <div
     v-else
-    class="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-zinc-200 to-white px-4 py-20"
+    class="flex h-screen flex-col items-center justify-center bg-[var(--hour0)] px-4 py-20 text-white"
   >
-    <i class="i-mdi-file-document-error size-16 text-zinc-400" />
-    <p class="text-base font-bold text-zinc-400">no data</p>
+    <i class="i-mdi-file-document-error size-16" />
+    <p class="text-base font-bold">no data</p>
   </div>
 </template>
 
