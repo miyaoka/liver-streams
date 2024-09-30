@@ -16,7 +16,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="overflow-x-hidden pb-60" v-if="props.dateSectionList.length > 0" data-id="event-list">
+  <div class="overflow-x-clip pb-60" v-if="props.dateSectionList.length > 0" data-id="event-list">
     <LiverEventDateSection
       v-for="(dateSection, i) in dateSectionList"
       :key="dateSection.time"
