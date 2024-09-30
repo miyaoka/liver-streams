@@ -47,6 +47,10 @@ export function parseInput(input: string) {
   return { wordList, options };
 }
 
+// orにする区切り文字
+const or = ["or", "\\|"];
+const orRegExp = new RegExp(`(${or.join("|")})`, "i");
+
 // クエリから正規表現を生成
 export function createSearchRegexp(queryArray: string[]) {
   const orParts: string[][] = [];
@@ -54,7 +58,7 @@ export function createSearchRegexp(queryArray: string[]) {
 
   // "or" を基準に配列を OR 条件ごとに分割
   queryArray.forEach((term) => {
-    if (term === "or") {
+    if (term.match(orRegExp)) {
       // "or" が出てきたら、現在の AND 条件を保存し、新しい OR 部分を開始
       orParts.push(currentAndPart);
       currentAndPart = [];
@@ -73,7 +77,9 @@ export function createSearchRegexp(queryArray: string[]) {
   });
 
   // OR 条件を正規表現で組み合わせる
-  return regexParts.length > 1 ? `(${regexParts.join("|")})` : regexParts[0];
+  const pattern = regexParts.length > 1 ? `(${regexParts.join("|")})` : regexParts[0];
+  const regexp = new RegExp(pattern, "i");
+  return regexp;
 }
 
 function getSearchTerms(input: string): string[] {
