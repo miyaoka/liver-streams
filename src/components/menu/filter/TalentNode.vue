@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import type { TalentNode } from "@/assets/talents";
+import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -12,6 +13,7 @@ const emit = defineEmits<{
 }>();
 
 const storageStore = useStorageStore();
+const searchStore = useSearchStore();
 
 const children = computed(() => {
   const names: string[] = [];
@@ -118,6 +120,7 @@ async function onNodeChange() {
           :key="name"
           class="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-[:focus-visible]:outline"
           :title="name"
+          @contextmenu.prevent="searchStore.setFocusedTalent(name)"
         >
           <input
             type="checkbox"

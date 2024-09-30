@@ -74,9 +74,6 @@ function setSearchTerm(term: string) {
   const formattedTerm = term.includes(" ") ? `"${term}"` : term;
   searchStore.setSearchTerm(formattedTerm);
 }
-function clearSearchTerm() {
-  searchStore.setSearchTerm("");
-}
 </script>
 
 <template>
