@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useStorageStore } from "@/store/storageStore";
 
 const storageStore = useStorageStore();
 const inputEl = ref<HTMLInputElement | null>(null);
 
-const searchQuery = ref(storageStore.searchTerm);
+const searchQuery = ref<string>("");
 let timeout: ReturnType<typeof setTimeout> | null = null;
 
-const isInput = ref(storageStore.searchTerm !== "");
+const isInput = ref(false);
 
 // 入力文字によるフィルタを遅延実行
 function onInput() {
@@ -48,6 +48,15 @@ function onClick() {
     searchQuery.value = "";
   }
 }
+
+watch(
+  () => storageStore.searchTerm,
+  (newVal) => {
+    searchQuery.value = newVal;
+    isInput.value = newVal !== "";
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
