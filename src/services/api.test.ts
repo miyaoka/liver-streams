@@ -39,7 +39,7 @@ describe("extractParenthesizedText", () => {
 
   it("should handle empty parentheses", () => {
     const input = "This is a test () text.";
-    const expected = [""];
+    const expected: string[] = [];
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 

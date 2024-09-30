@@ -103,11 +103,13 @@ export function extractParenthesizedText(text: string, author: string = ""): str
   const matches = text.match(parenthesesPattern);
   if (!matches) return [];
 
-  const ignore = [author, "#", "にじさんじ", "nijisanji", "ホロライブ", "hololive"];
-  const ignoreRegExp = new RegExp(ignore.join("|"), "i");
+  const ignoreList = ["#", "にじさんじ", "nijisanji", "ホロライブ", "hololive"];
+  if (author) ignoreList.push(author);
+  const ignoreRegExp = new RegExp(ignoreList.join("|"), "i");
 
   return matches.flatMap((match) => {
     const str = match.slice(1, -1).trim().toLowerCase();
+
     // 2文字未満は無視
     if (str.length < 2) return [];
     // 除外リストは無視
