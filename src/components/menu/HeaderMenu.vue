@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ChannelFilter from "./filter/ChannelFilter.vue";
-import KeywordListButton from "./KeywordListButton.vue";
+import KeywordListButton from "./keyword/KeywordListButton.vue";
 import SearchFilter from "./SearchFilter.vue";
 </script>
 
