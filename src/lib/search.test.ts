@@ -12,10 +12,10 @@ describe("parseInput", () => {
   });
 
   it("接頭辞がある文字列とそれ以外の文字列に分割できること", () => {
-    const input = 'tag:example "quoted text" unquoted talent:example';
+    const input = 'tag:example "quoted text" unquoted status:live';
     const expected = {
       wordList: ["quoted text", "unquoted"],
-      options: { tag: "example", talent: "example" },
+      options: { tag: "example", status: "live" },
     };
     expect(parseInput(input)).toEqual(expected);
   });
@@ -25,6 +25,15 @@ describe("parseInput", () => {
     const expected = {
       wordList: ["quoted text", "unquoted"],
       options: { tag: "example2" },
+    };
+    expect(parseInput(input)).toEqual(expected);
+  });
+
+  it("空のとき", () => {
+    const input = "   ";
+    const expected = {
+      wordList: [],
+      options: {},
     };
     expect(parseInput(input)).toEqual(expected);
   });
@@ -60,9 +69,8 @@ describe("createSearchRegexp", () => {
     expect(createSearchRegexp(queryArray)).toEqual(expected);
   });
 
-  it("空の検索語配列に対して空の正規表現を生成できること", () => {
+  it("空の検索語配列に対してnullを返すこと", () => {
     const queryArray: string[] = [];
-    const expected = new RegExp("", "i");
-    expect(createSearchRegexp(queryArray)).toEqual(expected);
+    expect(createSearchRegexp(queryArray)).toBeNull();
   });
 });

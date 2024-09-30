@@ -18,13 +18,8 @@ export function parseInput(input: string) {
     terms.push(quoted ? { type: "quoted", value: quoted } : { type: "unquoted", value: unquoted });
   }
 
-  // // 検索語をorでグループ化する
-  // const or = ["or", "|"]
-  // const orRegExp = new RegExp(`(${or.join("|")})`, "i");
-
   const wordList: string[] = [];
-  const prefix = ["tag", "talent", "collabo"];
-  const prefixRegExp = new RegExp(`^(?<prefix>${prefix.join("|")}):(?<term>.*)`, "i");
+  const prefixRegExp = new RegExp(`^(?<prefix>[^:]+):(?<term>.*)`, "i");
   const options: Record<string, string> = {};
 
   terms.forEach((item) => {
@@ -52,7 +47,8 @@ const or = ["or", "\\|"];
 const orRegExp = new RegExp(`(${or.join("|")})`, "i");
 
 // クエリから正規表現を生成
-export function createSearchRegexp(queryArray: string[]) {
+export function createSearchRegexp(queryArray: string[]): RegExp | null {
+  if (queryArray.length === 0) return null;
   const orParts: string[][] = [];
   let currentAndPart: string[] = [];
 
@@ -82,81 +78,88 @@ export function createSearchRegexp(queryArray: string[]) {
   return regexp;
 }
 
-function getSearchTerms(input: string): string[] {
-  const { quoted, unquoted } = parseInput(input);
-  return [...quoted, ...unquoted];
-}
-
 export function getFilteredEventList({
   liverEventList,
   filterMap,
   filterEnabled,
-  searchTerms,
+  searchTerm,
   // focusedTalent,
   // isLiveOnly,
 }: {
   liverEventList: LiverEvent[];
   filterMap: Map<string, boolean>;
   filterEnabled: boolean;
-  searchTerms: string[];
+  searchTerm: string;
   // focusedTalent: string | null;
   // isLiveOnly: boolean;
 }): LiverEvent[] {
-  // 単一セレクト時
-  if (focusedTalent) {
-    return liverEventList.filter((video) => {
+  const parsedInput = parseInput(searchTerm);
+  const searchRegExp = createSearchRegexp(parsedInput.wordList);
+
+  const { talent, status } = parsedInput.options;
+
+  let result: LiverEvent[] = liverEventList;
+
+  // ライブ中
+  if (status === "live") {
+    result = result.filter((liverEvent) => liverEvent.isLive);
+  }
+
+  // オプションのtalentが指定されている場合はフィルターを無視してtalentで絞り込む
+  result = talent
+    ? getTalentFocusedList({ talent, liverEventList })
+    : getTalentFilteredList({ filterEnabled, filterMap, liverEventList });
+
+  // 検索語がある場合はタイトル、タレント名、コラボタレント名でフィルタリング
+  if (searchRegExp) {
+    result = result.filter((liverEvent) => {
       return (
-        video.talent.name === focusedTalent ||
-        video.collaboTalents.some((collaborator) => {
-          return collaborator.name === focusedTalent;
+        searchRegExp.test(liverEvent.title) ||
+        searchRegExp.test(liverEvent.talent.name) ||
+        liverEvent.collaboTalents.some((collaborator) => {
+          return searchRegExp.test(collaborator.name);
         })
       );
     });
   }
-
-  // 検索語をスペースで分割してOR検索
-  const searchRegExp = searchTerms.length > 0 ? new RegExp(searchTerms.join("|"), "i") : null;
-
-  return (
-    liverEventList
-      // talentでフィルタリング
-      .filter((liverEvent) => talentFilter({ filterEnabled, filterMap, liverEvent }))
-      .filter((liverEvent) => {
-        // live中のみ表示
-        if (!isLiveOnly) return true;
-        return liverEvent.isLive;
-      })
-      .filter((liverEvent) => {
-        // 検索語にマッチしたイベントのみ表示
-        if (!searchRegExp) return true;
-        return (
-          searchRegExp.test(liverEvent.title) ||
-          searchRegExp.test(liverEvent.talent.name) ||
-          liverEvent.collaboTalents.some((collaborator) => {
-            return searchRegExp.test(collaborator.name);
-          })
-        );
-      })
-  );
+  return result;
 }
 
-export function talentFilter({
+export function getTalentFocusedList({
+  talent,
+  liverEventList,
+}: {
+  talent: string;
+  liverEventList: LiverEvent[];
+}) {
+  return liverEventList.filter((liverEvent) => {
+    return (
+      liverEvent.talent.name === talent ||
+      liverEvent.collaboTalents.some((collaborator) => {
+        return collaborator.name === talent;
+      })
+    );
+  });
+}
+export function getTalentFilteredList({
   filterEnabled,
   filterMap,
-  liverEvent,
+  liverEventList,
 }: {
   filterEnabled: boolean;
   filterMap: Map<string, boolean>;
-  liverEvent: LiverEvent;
+  liverEventList: LiverEvent[];
 }) {
   // フィルタなし
-  if (!filterEnabled || filterMap.size === 0) return true;
+  if (!filterEnabled || filterMap.size === 0) return liverEventList;
 
-  // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-  return (
-    filterMap.has(liverEvent.talent.name) ||
-    liverEvent.collaboTalents.some((collaborator) => {
-      return filterMap.has(collaborator.name);
-    })
-  );
+  // タレント名かコラボタレント名がフィルターに含まれるイベントのみ表示
+  return liverEventList.filter((liverEvent) => {
+    return (
+      filterMap.has(liverEvent.talent.name) ||
+      liverEvent.collaboTalents.some((collaborator) => {
+        return filterMap.has(collaborator.name);
+      })
+    );
+  });
 }
