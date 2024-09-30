@@ -38,18 +38,18 @@ const sectionInfo = computed(() => {
       <div class="pointer-events-auto relative flex flex-row items-center">
         <button
           v-if="prevSection"
-          class="absolute right-full flex size-11 items-center justify-center"
+          class="group absolute right-full flex size-11 items-center justify-center"
           @click="scrollToSectionTop(prevSection.time)"
         >
           <div
-            class="flex size-6 items-center justify-center rounded-full bg-gray-700/70 hover:bg-gray-900/70"
+            class="flex size-6 items-center justify-center rounded-full bg-gray-700/0 group-hover:bg-gray-900/70"
           >
-            <i class="i-mdi-chevron-up size-5 text-white" />
+            <i class="i-mdi-chevron-up size-5 text-gray-800 group-hover:text-white" />
           </div>
         </button>
 
         <button
-          :class="`border-1 flex flex-row items-center gap-1 rounded-full border-2 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-yellow-400 text-black hover:bg-yellow-300 border-yellow-100' : 'bg-gray-700 text-white hover:bg-gray-900 border-gray-300'}`"
+          :class="`border-2 rounded-lg flex flex-row items-center gap-1 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-yellow-400 text-black hover:bg-yellow-300 border-yellow-100' : 'bg-gray-700 text-white hover:bg-gray-900 border-gray-300'}`"
           @click="scrollToSectionTop(dateSection.time)"
         >
           <span class="text-base font-bold">
@@ -59,13 +59,13 @@ const sectionInfo = computed(() => {
 
         <button
           v-if="nextSection"
-          class="absolute left-full flex size-11 items-center justify-center"
+          class="group absolute left-full flex size-11 items-center justify-center"
           @click="scrollToSectionTop(nextSection.time)"
         >
           <div
-            class="flex size-6 items-center justify-center rounded-full bg-gray-700/70 hover:bg-gray-900/70"
+            class="flex size-6 items-center justify-center rounded-full bg-gray-700/0 group-hover:bg-gray-900/70"
           >
-            <i class="i-mdi-chevron-down size-5 text-white" />
+            <i class="i-mdi-chevron-down size-5 text-gray-800 group-hover:text-white" />
           </div>
         </button>
       </div>
