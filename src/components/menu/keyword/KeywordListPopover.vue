@@ -27,6 +27,7 @@ const filteredEventList = computed(() => {
       ...searchQuery,
       wordList: [],
       hashtagList: [],
+      options: {},
     },
   });
 });
