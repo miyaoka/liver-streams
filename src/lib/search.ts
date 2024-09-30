@@ -1,3 +1,5 @@
+import { type LiverEvent } from "@/services/api";
+
 export function splitAndCategorize(input: string): { quoted: string[]; unquoted: string[] } {
   const regex = /"([^"]*)"|(\S+)/g;
   const quoted: string[] = [];
@@ -14,4 +16,78 @@ export function splitAndCategorize(input: string): { quoted: string[]; unquoted:
   }
 
   return { quoted, unquoted }; // それぞれの配列を返す
+}
+
+export function getFilteredEventList({
+  liverEventList,
+  filterMap,
+  filterEnabled,
+  searchTerms,
+  focusedTalent,
+  isLiveOnly,
+}: {
+  liverEventList: LiverEvent[];
+  filterMap: Map<string, boolean>;
+  filterEnabled: boolean;
+  searchTerms: string[];
+  focusedTalent: string | null;
+  isLiveOnly: boolean;
+}): LiverEvent[] {
+  // 単一セレクト時
+  if (focusedTalent) {
+    return liverEventList.filter((video) => {
+      return (
+        video.talent.name === focusedTalent ||
+        video.collaboTalents.some((collaborator) => {
+          return collaborator.name === focusedTalent;
+        })
+      );
+    });
+  }
+
+  // 検索語をスペースで分割してOR検索
+  const searchRegExp = searchTerms.length > 0 ? new RegExp(searchTerms.join("|"), "i") : null;
+
+  return (
+    liverEventList
+      // talentでフィルタリング
+      .filter((liverEvent) => talentFilter({ filterEnabled, filterMap, liverEvent }))
+      .filter((liverEvent) => {
+        // live中のみ表示
+        if (!isLiveOnly) return true;
+        return liverEvent.isLive;
+      })
+      .filter((liverEvent) => {
+        // 検索語にマッチしたイベントのみ表示
+        if (!searchRegExp) return true;
+        return (
+          searchRegExp.test(liverEvent.title) ||
+          searchRegExp.test(liverEvent.talent.name) ||
+          liverEvent.collaboTalents.some((collaborator) => {
+            return searchRegExp.test(collaborator.name);
+          })
+        );
+      })
+  );
+}
+
+export function talentFilter({
+  filterEnabled,
+  filterMap,
+  liverEvent,
+}: {
+  filterEnabled: boolean;
+  filterMap: Map<string, boolean>;
+  liverEvent: LiverEvent;
+}) {
+  // フィルタなし
+  if (!filterEnabled || filterMap.size === 0) return true;
+
+  // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
+  return (
+    filterMap.has(liverEvent.talent.name) ||
+    liverEvent.collaboTalents.some((collaborator) => {
+      return filterMap.has(collaborator.name);
+    })
+  );
 }

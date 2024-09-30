@@ -2,13 +2,9 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useFocusStore } from "./focusStore";
 import { useStorageStore } from "./storageStore";
+import { getFilteredEventList, talentFilter } from "@/lib/search";
 import { createDateSectionList } from "@/lib/section";
-import {
-  fetchLiverEventList,
-  getFilteredEventList,
-  talentFilter,
-  type LiverEvent,
-} from "@/services/api";
+import { fetchLiverEventList, type LiverEvent } from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
 
 interface AddedEvent {

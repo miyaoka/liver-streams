@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { getFilteredEventList } from "@/services/api";
+import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
 import { useStorageStore } from "@/store/storageStore";
