@@ -6,8 +6,8 @@ describe("parseInput", () => {
     const input = '"quoted text" unquoted';
     const expected = {
       wordList: ["quoted text", "unquoted"],
-      options: {},
       hashtagList: [],
+      options: {},
     };
     expect(parseInput(input)).toEqual(expected);
   });
@@ -16,28 +16,28 @@ describe("parseInput", () => {
     const input = 'tag:example "quoted text" unquoted status:live';
     const expected = {
       wordList: ["quoted text", "unquoted"],
-      options: { tag: "example", status: "live" },
       hashtagList: [],
+      options: { tag: ["example"], status: ["live"] },
     };
     expect(parseInput(input)).toEqual(expected);
   });
 
-  it("同じ接頭辞が指定されていたら後者が採用されること", () => {
+  it("同じ接頭辞が指定されていたらすべてが配列に追加されること", () => {
     const input = 'tag:example "quoted text" unquoted tag:example2';
     const expected = {
       wordList: ["quoted text", "unquoted"],
-      options: { tag: "example2" },
       hashtagList: [],
+      options: { tag: ["example", "example2"] },
     };
     expect(parseInput(input)).toEqual(expected);
   });
 
-  it("ハッシュタグ", () => {
-    const input = "tag:example #hash1 #hash2 unquoted tag:example2";
+  it("クォートされた接頭辞の値が正しく処理されること", () => {
+    const input = 'abc talent:"the talent" def';
     const expected = {
-      wordList: ["unquoted"],
-      options: { tag: "example2" },
-      hashtagList: ["#hash1", "#hash2"],
+      wordList: ["abc", "def"],
+      hashtagList: [],
+      options: { talent: ["the talent"] },
     };
     expect(parseInput(input)).toEqual(expected);
   });
@@ -46,12 +46,43 @@ describe("parseInput", () => {
     const input = "   ";
     const expected = {
       wordList: [],
-      options: {},
       hashtagList: [],
+      options: {},
+    };
+    expect(parseInput(input)).toEqual(expected);
+  });
+
+  it("複数の接頭辞と単語が混在する場合", () => {
+    const input = 'tag:example "quoted text" unquoted status:live tag:example2';
+    const expected = {
+      wordList: ["quoted text", "unquoted"],
+      hashtagList: [],
+      options: { tag: ["example", "example2"], status: ["live"] },
+    };
+    expect(parseInput(input)).toEqual(expected);
+  });
+
+  it("hashtagがある場合", () => {
+    const input = 'abc #tag1 "quoted text" unquoted #tag2';
+    const expected = {
+      wordList: ["abc", "quoted text", "unquoted"],
+      hashtagList: ["#tag1", "#tag2"],
+      options: {},
+    };
+    expect(parseInput(input)).toEqual(expected);
+  });
+
+  it("unicode対応", () => {
+    const input = 'tag:絵文🔥字 #日本語タグ unquoted tag:"日本語 空白入り" ';
+    const expected = {
+      wordList: ["unquoted"],
+      hashtagList: ["#日本語タグ"],
+      options: { tag: ["絵文🔥字", "日本語 空白入り"] },
     };
     expect(parseInput(input)).toEqual(expected);
   });
 });
+
 describe("createSearchRegexp", () => {
   it("単一の検索語を含む正規表現を生成できること", () => {
     const queryArray = ["example"];

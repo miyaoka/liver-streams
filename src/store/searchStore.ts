@@ -15,12 +15,14 @@ export const useSearchStore = defineStore("searchStore", () => {
     const { wordList, options, hashtagList } = parsedSearchInput.value;
     return wordList.length > 0 || Object.keys(options).length > 0 || hashtagList.length > 0;
   });
-  const isLiveOnly = computed(() => {
-    const { options } = parsedSearchInput.value;
-    return options.status === "live";
+  const searchStatusList = computed(() => {
+    return parsedSearchInput.value.options.status ?? [];
   });
-  const focusedTalent = computed(() => {
-    return parsedSearchInput.value.options.talent;
+  const searchTalentList = computed(() => {
+    return parsedSearchInput.value.options.talent ?? [];
+  });
+  const isLiveOnly = computed(() => {
+    return searchStatusList.value.includes("live");
   });
 
   function setSearchTerm(term: string) {
@@ -54,46 +56,49 @@ export const useSearchStore = defineStore("searchStore", () => {
     }
 
     const { options } = parsedSearchInput.value;
-
+    let newStatusList = [];
     if (isLiveOnly.value) {
-      const { status, ...restOptions } = options;
-      searchTerm.value = toTerms({
-        ...parsedSearchInput.value,
-        options: restOptions,
-      });
+      newStatusList = searchStatusList.value.filter((status) => status !== "live");
     } else {
-      searchTerm.value = toTerms({
-        ...parsedSearchInput.value,
-        options: { ...options, status: "live" },
-      });
+      newStatusList = [...searchStatusList.value, "live"];
     }
+    searchTerm.value = toTerms({
+      ...parsedSearchInput.value,
+      options: { ...options, status: newStatusList },
+    });
   }
 
   function setFocusedTalent(talent: string | null) {
     // 非選択状態であればスクロール位置を保存する
-    if (!focusedTalent.value) {
+    if (searchTalentList.value.length === 0) {
       scrollStore.savePosition();
     }
 
     const { options } = parsedSearchInput.value;
-    // 入力済みのものと同じ場合はトグル
-    if (talent && options.talent !== talent) {
-      // セット
+
+    // 解除
+    if (talent === null) {
       searchTerm.value = toTerms({
         ...parsedSearchInput.value,
-        options: { ...options, talent },
+        options: { ...options, talent: [] },
       });
     } else {
-      // 解除
-      const { talent, ...restOptions } = options;
+      // 既にあれば解除
+      let newTalentList = [];
+      if (searchTalentList.value.includes(talent)) {
+        newTalentList = searchTalentList.value.filter((t) => t !== talent);
+      } else {
+        // セット
+        newTalentList = [...searchTalentList.value, talent];
+      }
       searchTerm.value = toTerms({
         ...parsedSearchInput.value,
-        options: restOptions,
+        options: { ...options, talent: newTalentList },
       });
     }
 
     // 選択が解除されたらスクロール位置をリセットする
-    if (!focusedTalent.value) {
+    if (searchTalentList.value.length === 0) {
       scrollStore.restorePosition();
     }
   }
@@ -101,7 +106,6 @@ export const useSearchStore = defineStore("searchStore", () => {
   return {
     searchTerm,
     setSearchTerm,
-    focusedTalent,
     setFocusedTalent,
     parsedSearchInput,
     isLiveOnly,
