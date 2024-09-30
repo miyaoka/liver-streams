@@ -38,7 +38,7 @@ function reset() {
     class="flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-100"
     popovertarget="filter"
   >
-    <i class="i-mdi-filter-outline size-[32px] text-gray-800" />
+    <i class="i-mdi-person-outline size-[32px] text-gray-800" />
   </button>
 
   <popover.PopOver class="bottom-auto left-auto right-0 top-0 w-[350px] overflow-visible p-0">
