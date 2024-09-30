@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseInput, createSearchRegexp } from "./search";
+import { parseInput, createSearchRegexp, searchQueryToTerms } from "./search";
 
 describe("parseInput", () => {
   it("引用符で囲まれた文字列は空白があっても区切られないこと", () => {
@@ -123,5 +123,67 @@ describe("createSearchRegexp", () => {
   it("空の検索語配列に対してnullを返すこと", () => {
     const queryArray: string[] = [];
     expect(createSearchRegexp(queryArray)).toBeNull();
+  });
+});
+describe.only("searchQueryToTerms", () => {
+  it("単純な単語リストを文字列に変換できること", () => {
+    const searchQuery = {
+      wordList: ["example", "test"],
+      hashtagList: [],
+      options: {},
+    };
+    const expected = "example test";
+
+    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+  });
+
+  it("オプションを含むクエリを文字列に変換できること", () => {
+    const searchQuery = {
+      wordList: ["example"],
+      hashtagList: [],
+      options: { tag: ["exampleTag"], status: ["live"] },
+    };
+    const expected = "example tag:exampleTag status:live";
+    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+  });
+
+  it("ハッシュタグを含むクエリを文字列に変換できること", () => {
+    const searchQuery = {
+      wordList: ["example"],
+      hashtagList: ["#tag1", "#tag2"],
+      options: {},
+    };
+    const expected = "example #tag1 #tag2";
+    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+  });
+
+  it("単語、オプション、ハッシュタグを含むクエリを文字列に変換できること", () => {
+    const searchQuery = {
+      wordList: ["example", "test"],
+      hashtagList: ["#tag1"],
+      options: { tag: ["exampleTag"], status: ["live"] },
+    };
+    const expected = "example test tag:exampleTag status:live #tag1";
+    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+  });
+
+  it("空のクエリを空文字列に変換できること", () => {
+    const searchQuery = {
+      wordList: [],
+      hashtagList: [],
+      options: {},
+    };
+    const expected = "";
+    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+  });
+
+  it("オプションが空の配列の場合は無視されること", () => {
+    const searchQuery = {
+      wordList: ["example"],
+      hashtagList: [],
+      options: { tag: [] },
+    };
+    const expected = "example";
+    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
   });
 });

@@ -54,7 +54,7 @@ export function parseInput(input: string): SearchQuery {
   return { wordList, hashtagList, options };
 }
 
-export function toTerms(searchQuery: SearchQuery): string {
+export function searchQueryToTerms(searchQuery: SearchQuery): string {
   const { wordList, options, hashtagList } = searchQuery;
   const optionStr = Object.entries(options)
     .flatMap(([key, valueList]) => {
@@ -62,7 +62,7 @@ export function toTerms(searchQuery: SearchQuery): string {
       return valueList.map((value) => `${key}:${value}`);
     })
     .join(" ");
-  return [...wordList, optionStr, ...hashtagList].join(" ");
+  return [...wordList, optionStr, ...hashtagList].filter((item) => item).join(" ");
 }
 
 // orにする区切り文字
