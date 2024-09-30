@@ -86,9 +86,9 @@ function setSearchTerm(term: string) {
   <div
     class="flex max-h-[500px] min-h-[150px] w-[350px] flex-col overflow-hidden rounded-md border-2 border-gray-800 bg-white"
   >
-    <div class="flex h-11 items-center justify-start gap-1 bg-black p-2 text-white">
+    <div class="flex h-11 shrink-0 items-center justify-start gap-1 bg-black p-2 text-white">
       <i class="i-mdi-hashtag size-5" />
-      <span>keyword/hashtag</span>
+      <span>トレンド</span>
 
       <button
         class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
@@ -98,45 +98,48 @@ function setSearchTerm(term: string) {
       </button>
     </div>
 
-    <div class="grid gap-2 overflow-auto pb-20 [scrollbar-width:none]">
-      <div class="flex h-11 place-items-center gap-1 bg-gray-200 px-2">
-        <i class="i-mdi-hashtag size-4" />
-        hashtag
-      </div>
-      <div class="flex flex-col">
-        <button
-          v-for="item in hashtagList"
-          :key="item.value"
-          class="hover:bg-gray-200"
-          @click="setSearchTerm(item.value)"
-        >
-          <div class="flex items-center gap-2 p-2 text-start">
-            <p class="line-clamp-2 flex-1 text-sm [overflow-wrap:anywhere]">
-              {{ item.value }}
-            </p>
-            <div class="w-12 text-center text-sm">
-              {{ item.count }}
-            </div>
-          </div>
-        </button>
-      </div>
-      <hr />
-      <div class="flex h-11 place-items-center gap-1 bg-gray-200 px-2">
+    <div class="grid gap-2 overflow-y-scroll [scrollbar-width:none]">
+      <header
+        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-green-100 px-2 font-bold shadow-md"
+      >
         <i class="i-mdi-chat-outline size-4" />
         keyword
-      </div>
-      <div class="flex flex-col">
+      </header>
+      <div class="grid pb-10">
         <button
           v-for="item in keywordList"
           :key="item.value"
           class="hover:bg-gray-200"
           @click="setSearchTerm(item.value)"
         >
-          <div class="flex items-center gap-2 p-2 text-start">
-            <p class="line-clamp-2 flex-1 text-sm [overflow-wrap:anywhere]">
+          <div class="flex items-center gap-2 px-3 py-1 text-start">
+            <p class="line-clamp-2 flex-1 [overflow-wrap:anywhere]">
               {{ item.value }}
             </p>
-            <div class="w-12 text-center text-sm">
+            <div class="w-12 text-center">
+              {{ item.count }}
+            </div>
+          </div>
+        </button>
+      </div>
+      <header
+        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-yellow-100 px-2 font-bold shadow-md"
+      >
+        <i class="i-mdi-hashtag size-4" />
+        hashtag
+      </header>
+      <div class="grid pb-10">
+        <button
+          v-for="item in hashtagList"
+          :key="item.value"
+          class="hover:bg-gray-200"
+          @click="setSearchTerm(item.value)"
+        >
+          <div class="flex items-center gap-2 px-3 py-1 text-start">
+            <p class="line-clamp-2 flex-1 [overflow-wrap:anywhere]">
+              {{ item.value }}
+            </p>
+            <div class="w-12 text-center">
               {{ item.count }}
             </div>
           </div>
