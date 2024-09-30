@@ -13,7 +13,7 @@ function clear() {
 <template>
   <button
     v-if="searchStore.hasQuery"
-    class="fixed inset-0 bottom-4 top-auto z-20 m-auto flex h-11 w-fit items-center justify-center gap-1 rounded-full bg-blue-700 px-3 font-bold text-white shadow-md hover:bg-blue-800"
+    class="fixed inset-0 bottom-8 top-auto z-20 m-auto flex h-11 w-fit items-center justify-center gap-1 rounded-full border-2 border-white bg-blue-700 px-3 font-bold text-white shadow-lg hover:bg-blue-800 max-md:bottom-20"
     @click="clear"
   >
     <span>絞り込み表示中: {{ eventListStore.filteredEventList.length }}件</span>
