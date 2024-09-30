@@ -52,11 +52,11 @@ export function parseInput(input: string): SearchQuery {
 }
 
 export function toTerms(searchQuery: SearchQuery): string {
-  const { wordList, options } = searchQuery;
+  const { wordList, options, hashtagList } = searchQuery;
   const optionStr = Object.entries(options)
     .map(([key, value]) => `${key}:${value}`)
     .join(" ");
-  return [...wordList, optionStr].join(" ");
+  return [...wordList, optionStr, ...hashtagList].join(" ");
 }
 
 // orにする区切り文字
