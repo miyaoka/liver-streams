@@ -1,62 +1,75 @@
 import { type LiverEvent } from "@/services/api";
 
-export interface SearchQuery {
+type SearchQuery = {
   wordList: string[];
-  options: Record<string, string>;
   hashtagList: string[];
-}
+  options: Record<string, string[]>;
+};
+
+// 正規表現でクォートされた文字列、キー・バリュー形式、ハッシュタグ、単純な単語をキャプチャ
+
+// 有効な文字の正規表現
+const continueChars = "[\\p{XID_Continue}\\p{Extended_Pictographic}\\p{Emoji_Component}_+-]";
+
+// 正規表現の共通部分を変数として定義
+const quoted = '"[^"]+"'; // クォートされた文字列
+const optionKey = "\\w+"; // オプションのキー
+const optionValue = `"[^"]+"|${continueChars}+`; // オプションの値
+const hashtag = `#${continueChars}+`; // ハッシュタグ
+const word = `(${continueChars}|\\|)+`; // 単純な単語
+
+// 正規表現パターンを文字列として組み立て
+const regexPattern = `(?<quoted>${quoted})|(?<optionKey>${optionKey}):(?<optionValue>${optionValue})|(?<hashtag>${hashtag})|(?<word>${word})`;
+
+const searchRegex = new RegExp(regexPattern, "gu");
 
 export function parseInput(input: string): SearchQuery {
-  // 引用符で囲まれた文字列とそれ以外の文字列にスペースで分割
-  const regex = /"(?<quoted>[^"]*)"|(?<unquoted>\S+)/g;
-  let match: RegExpExecArray | null;
+  const wordList: string[] = [];
+  const hashtagList: string[] = [];
+  const options: Record<string, string[]> = {};
 
-  const terms: {
-    type: "quoted" | "unquoted";
-    value: string;
-  }[] = [];
+  let match;
 
-  while ((match = regex.exec(input)) !== null) {
-    // グループ1がマッチした場合（""内の文字列）
-    const [_, quoted, unquoted] = match;
-    terms.push(quoted ? { type: "quoted", value: quoted } : { type: "unquoted", value: unquoted });
+  while ((match = searchRegex.exec(input)) !== null) {
+    if (match.groups?.quoted) {
+      // クォートされた文字列から両端のクォートを削除してwordlistに追加
+      wordList.push(match.groups.quoted.slice(1, -1));
+    } else if (match.groups?.optionKey && match.groups?.optionValue) {
+      // オプションのキーと値を処理
+      const key = match.groups.optionKey;
+      const value = match.groups.optionValue.replace(/"/g, ""); // クォートを削除
+      if (!options[key]) {
+        options[key] = [];
+      }
+      options[key].push(value);
+    } else if (match.groups?.hashtag) {
+      // ハッシュタグをhashtagListに追加
+      hashtagList.push(match.groups.hashtag);
+    } else if (match.groups?.word) {
+      // 単純な単語はwordlistに追加
+      wordList.push(match.groups.word);
+    }
   }
 
-  const wordList: string[] = [];
-  const prefixRegExp = new RegExp(`^(?<prefix>[^:#]+):(?<term>.*)|(?<hash>#\\S+)`, "i");
-  const options: Record<string, string> = {};
-  const hashtagList: string[] = [];
-
-  terms.forEach((item) => {
-    if (item.type !== "unquoted") {
-      wordList.push(item.value);
-      return;
-    }
-    // quoteされてない語なら接頭辞の有無をチェック
-    const groups = item.value.match(prefixRegExp)?.groups;
-    if (!groups) {
-      wordList.push(item.value);
-      return;
-    }
-
-    // 接頭辞があればオプションに追加
-    const { prefix, hash, term } = groups;
-    if (hash) {
-      hashtagList.push(hash.toLowerCase());
-      return;
-    }
-    options[prefix] = term;
-  });
-
-  return { wordList, options, hashtagList };
+  return { wordList, hashtagList, options };
 }
 
-export function toTerms(searchQuery: SearchQuery): string {
+// 空白があればクォートで括る
+function quoteIfSpace(str: string): string {
+  return str.includes(" ") ? `"${str}"` : str;
+}
+
+export function searchQueryToTerms(searchQuery: SearchQuery): string {
   const { wordList, options, hashtagList } = searchQuery;
   const optionStr = Object.entries(options)
-    .map(([key, value]) => `${key}:${value}`)
+    .flatMap(([key, valueList]) => {
+      if (valueList.length === 0) return [];
+      return valueList.map((value) => `${key}:${quoteIfSpace(value)}`);
+    })
     .join(" ");
-  return [...wordList, optionStr, ...hashtagList].join(" ");
+  return [...wordList.map((word) => quoteIfSpace(word)), optionStr, ...hashtagList]
+    .filter((item) => item)
+    .join(" ");
 }
 
 // orにする区切り文字
@@ -84,14 +97,19 @@ export function createSearchRegexp(queryArray: string[]): RegExp | null {
   orParts.push(currentAndPart);
 
   // OR 条件を正規表現に変換
-  const regexParts = orParts.map((andPart) => {
-    // 各 AND 部分を正規表現に変換
-    return andPart.map((term) => `(?=.*${term})`).join("");
-  });
+  const regexParts = orParts
+    .map((andPart) => {
+      // 各 AND 部分を正規表現に変換
+      return andPart.map((term) => `(?=.*${term})`).join("");
+    })
+    .filter((item) => item);
+
+  if (regexParts.length === 0) return null;
 
   // OR 条件を正規表現で組み合わせる
   const pattern = regexParts.length > 1 ? `(${regexParts.join("|")})` : regexParts[0];
   const regexp = new RegExp(pattern, "i");
+
   return regexp;
 }
 
@@ -112,7 +130,7 @@ export function getFilteredEventList({
   let result: LiverEvent[] = liverEventList;
 
   // ライブ中
-  if (status === "live") {
+  if (status?.includes("live")) {
     result = result.filter((liverEvent) => liverEvent.isLive);
   }
 
@@ -149,14 +167,14 @@ export function getTalentFocusedList({
   talent,
   liverEventList,
 }: {
-  talent: string;
+  talent: string[];
   liverEventList: LiverEvent[];
 }) {
   return liverEventList.filter((liverEvent) => {
     return (
-      liverEvent.talent.name === talent ||
+      talent.includes(liverEvent.talent.name) ||
       liverEvent.collaboTalents.some((collaborator) => {
-        return collaborator.name === talent;
+        return talent.includes(collaborator.name);
       })
     );
   });
