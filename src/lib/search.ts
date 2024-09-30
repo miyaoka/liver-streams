@@ -92,12 +92,10 @@ export function createSearchRegexp(queryArray: string[]): RegExp | null {
 export function getFilteredEventList({
   liverEventList,
   filterMap,
-  filterEnabled,
   searchQuery,
 }: {
   liverEventList: LiverEvent[];
   filterMap: Map<string, boolean>;
-  filterEnabled: boolean;
   searchQuery: SearchQuery;
 }): LiverEvent[] {
   const searchRegExp = createSearchRegexp(searchQuery.wordList);
@@ -106,17 +104,15 @@ export function getFilteredEventList({
 
   let result: LiverEvent[] = liverEventList;
 
-  console.log("searchQuery", searchQuery, status, result.length);
   // ライブ中
   if (status === "live") {
     result = result.filter((liverEvent) => liverEvent.isLive);
   }
-  console.log("result", result.length);
 
-  // オプションのtalentが指定されている場合はフィルターを無視してtalentで絞り込む
+  // オプションのtalentが指定されている場合はfilterMapを無視してtalentで絞り込む
   result = talent
-    ? getTalentFocusedList({ talent, liverEventList })
-    : getTalentFilteredList({ filterEnabled, filterMap, liverEventList });
+    ? getTalentFocusedList({ talent, liverEventList: result })
+    : getTalentFilterMapApplyedList({ filterMap, liverEventList: result });
 
   // 検索語がある場合はタイトル、タレント名、コラボタレント名でフィルタリング
   if (searchRegExp) {
@@ -149,17 +145,15 @@ export function getTalentFocusedList({
     );
   });
 }
-export function getTalentFilteredList({
-  filterEnabled,
+export function getTalentFilterMapApplyedList({
   filterMap,
   liverEventList,
 }: {
-  filterEnabled: boolean;
   filterMap: Map<string, boolean>;
   liverEventList: LiverEvent[];
 }) {
   // フィルタなし
-  if (!filterEnabled || filterMap.size === 0) return liverEventList;
+  if (filterMap.size === 0) return liverEventList;
 
   // タレント名かコラボタレント名がフィルターに含まれるイベントのみ表示
   return liverEventList.filter((liverEvent) => talentFilter({ liverEvent, filterMap }));

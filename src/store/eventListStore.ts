@@ -28,7 +28,6 @@ export const useEventListStore = defineStore("eventListStore", () => {
     return getFilteredEventList({
       liverEventList: liverEventList.value,
       filterMap: storageStore.talentFilterMap,
-      filterEnabled: storageStore.talentFilterEnabled,
       searchQuery: searchStore.parsedSearchInput,
     });
   });

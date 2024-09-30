@@ -1,5 +1,6 @@
 import { useLocalStorage } from "@vueuse/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
+import { computed } from "vue";
 
 export interface TreeNode {
   id: string;
@@ -12,20 +13,24 @@ export interface Node {
 }
 
 export const useStorageStore = defineStore("storageStore", () => {
-  const talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
+  const _talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
   const talentFilterEnabled = useLocalStorage("talentFilterEnabled", true);
   const bookmarkEventSet = useLocalStorage("bookmarkEventSet", new Set<string>());
 
+  const talentFilterMap = computed(() => {
+    if (!talentFilterEnabled.value) return new Map<string, boolean>();
+    return _talentFilterMap.value;
+  });
   function setTalentFilter(name: string, enabled: boolean) {
     if (enabled) {
-      talentFilterMap.value.set(name, enabled);
+      _talentFilterMap.value.set(name, enabled);
     } else {
-      talentFilterMap.value.delete(name);
+      _talentFilterMap.value.delete(name);
     }
   }
 
   function resetTalentFilter() {
-    talentFilterMap.value.clear();
+    _talentFilterMap.value.clear();
   }
 
   function toggleBookmarkEvent(id: string) {

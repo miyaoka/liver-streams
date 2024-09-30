@@ -23,7 +23,6 @@ const filteredEventList = computed(() => {
   return getFilteredEventList({
     liverEventList: list,
     filterMap: storageStore.talentFilterMap,
-    filterEnabled: storageStore.talentFilterEnabled,
     searchQuery: {
       wordList: [],
       options,
