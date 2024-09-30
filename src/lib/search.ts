@@ -1,16 +1,19 @@
 import { type LiverEvent } from "@/services/api";
 
-export interface SearchTerm {
-  type: "quoted" | "unquoted";
-  value: string;
+export interface SearchQuery {
+  wordList: string[];
+  options: Record<string, string>;
 }
 
-export function parseInput(input: string) {
+export function parseInput(input: string): SearchQuery {
   // 引用符で囲まれた文字列とそれ以外の文字列にスペースで分割
   const regex = /"(?<quoted>[^"]*)"|(?<unquoted>\S+)/g;
   let match: RegExpExecArray | null;
 
-  const terms: SearchTerm[] = [];
+  const terms: {
+    type: "quoted" | "unquoted";
+    value: string;
+  }[] = [];
 
   while ((match = regex.exec(input)) !== null) {
     // グループ1がマッチした場合（""内の文字列）
@@ -40,6 +43,14 @@ export function parseInput(input: string) {
   });
 
   return { wordList, options };
+}
+
+export function toTerms(searchQuery: SearchQuery): string {
+  const { wordList, options } = searchQuery;
+  const optionStr = Object.entries(options)
+    .map(([key, value]) => `${key}:${value}`)
+    .join(" ");
+  return [...wordList, optionStr].join(" ");
 }
 
 // orにする区切り文字
@@ -82,28 +93,25 @@ export function getFilteredEventList({
   liverEventList,
   filterMap,
   filterEnabled,
-  searchTerm,
-  // focusedTalent,
-  // isLiveOnly,
+  searchQuery,
 }: {
   liverEventList: LiverEvent[];
   filterMap: Map<string, boolean>;
   filterEnabled: boolean;
-  searchTerm: string;
-  // focusedTalent: string | null;
-  // isLiveOnly: boolean;
+  searchQuery: SearchQuery;
 }): LiverEvent[] {
-  const parsedInput = parseInput(searchTerm);
-  const searchRegExp = createSearchRegexp(parsedInput.wordList);
+  const searchRegExp = createSearchRegexp(searchQuery.wordList);
 
-  const { talent, status } = parsedInput.options;
+  const { talent, status } = searchQuery.options;
 
   let result: LiverEvent[] = liverEventList;
 
+  console.log("searchQuery", searchQuery, status, result.length);
   // ライブ中
   if (status === "live") {
     result = result.filter((liverEvent) => liverEvent.isLive);
   }
+  console.log("result", result.length);
 
   // オプションのtalentが指定されている場合はフィルターを無視してtalentで絞り込む
   result = talent
@@ -154,12 +162,20 @@ export function getTalentFilteredList({
   if (!filterEnabled || filterMap.size === 0) return liverEventList;
 
   // タレント名かコラボタレント名がフィルターに含まれるイベントのみ表示
-  return liverEventList.filter((liverEvent) => {
-    return (
-      filterMap.has(liverEvent.talent.name) ||
-      liverEvent.collaboTalents.some((collaborator) => {
-        return filterMap.has(collaborator.name);
-      })
-    );
-  });
+  return liverEventList.filter((liverEvent) => talentFilter({ liverEvent, filterMap }));
+}
+
+export function talentFilter({
+  liverEvent,
+  filterMap,
+}: {
+  liverEvent: LiverEvent;
+  filterMap: Map<string, boolean>;
+}) {
+  return (
+    filterMap.has(liverEvent.talent.name) ||
+    liverEvent.collaboTalents.some((collaborator) => {
+      return filterMap.has(collaborator.name);
+    })
+  );
 }

@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
+import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { closePopover } from "@/utils/popover";
 
@@ -14,18 +15,21 @@ interface Item {
 const eventListStore = useEventListStore();
 const storageStore = useStorageStore();
 const focusStore = useFocusStore();
+const searchStore = useSearchStore();
 
 // searchTermsを指定しない状態のリスト
 const filteredEventList = computed(() => {
   const list = eventListStore.liverEventList;
   if (!list) return [];
+  const { wordList, options } = searchStore.parsedSearchInput;
   return getFilteredEventList({
     liverEventList: list,
     filterMap: storageStore.talentFilterMap,
     filterEnabled: storageStore.talentFilterEnabled,
-    searchTerms: [],
-    focusedTalent: focusStore.focusedTalent,
-    isLiveOnly: storageStore.isLiveOnly,
+    searchQuery: {
+      wordList: [],
+      options,
+    },
   });
 });
 
@@ -70,7 +74,10 @@ function mapToList(map: Record<string, number>): Item[] {
 function setSearchTerm(term: string) {
   // 空白を含むならダブルクォーテーションで囲む
   const formattedTerm = term.includes(" ") ? `"${term}"` : term;
-  storageStore.setSearchTerm(formattedTerm);
+  searchStore.setSearchTerm(formattedTerm);
+}
+function clearSearchTerm() {
+  searchStore.setSearchTerm("");
 }
 </script>
 
@@ -92,7 +99,7 @@ function setSearchTerm(term: string) {
     <div>
       <button
         class="flex h-11 place-items-center gap-1 rounded-full border px-2"
-        @click="storageStore.setSearchTerm('')"
+        @click="clearSearchTerm"
       >
         <i class="i-mdi-refresh size-6" />
         clear

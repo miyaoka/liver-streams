@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useStorageStore } from "@/store/storageStore";
+import { useSearchStore } from "@/store/searchStore";
 
-const storageStore = useStorageStore();
+const searchStore = useSearchStore();
 const inputEl = ref<HTMLInputElement | null>(null);
 
 const searchQuery = ref<string>("");
@@ -16,7 +16,7 @@ function onInput() {
     clearTimeout(timeout);
   }
   timeout = setTimeout(() => {
-    storageStore.setSearchTerm(searchQuery.value);
+    searchStore.setSearchTerm(searchQuery.value);
   }, 500);
 }
 
@@ -44,13 +44,13 @@ function onClick() {
     inputEl.value?.focus();
   } else {
     // close
-    storageStore.setSearchTerm("");
+    searchStore.setSearchTerm("");
     searchQuery.value = "";
   }
 }
 
 watch(
-  () => storageStore.searchTerm,
+  () => searchStore.searchTerm,
   (newVal) => {
     searchQuery.value = newVal;
     isInput.value = newVal !== "";
