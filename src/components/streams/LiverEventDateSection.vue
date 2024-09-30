@@ -33,8 +33,8 @@ const sectionInfo = computed(() => {
   <section class="relative pb-12 pt-0" data-id="date-section" :data-time="`${dateSection.time}`">
     <!-- <div class="absolute -top-1 w-full border-t-2 border-dashed border-white/80" /> -->
     <header class="pointer-events-none sticky top-0 z-20 mb-8">
-      <div class="absolute bottom-full h-8 w-full bg-gradient-to-t from-black/30" />
-      <div class="flex w-full flex-col items-center justify-center bg-black/30 py-2">
+      <div class="absolute bottom-full h-8 w-full bg-gradient-to-t from-black/20" />
+      <div class="flex w-full flex-col items-center justify-center bg-black/20 py-2">
         <div class="pointer-events-auto relative flex flex-row items-center">
           <button
             v-if="prevSection"
@@ -70,7 +70,7 @@ const sectionInfo = computed(() => {
           </button>
         </div>
       </div>
-      <div class="absolute top-full h-8 w-full bg-gradient-to-b from-black/30" />
+      <div class="absolute top-full h-8 w-full bg-gradient-to-b from-black/20" />
     </header>
     <LiverEventTimeSection
       v-for="(section, i) in dateSection.timeSectionList"
