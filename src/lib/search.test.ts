@@ -63,6 +63,12 @@ describe("createSearchRegexp", () => {
     expect(createSearchRegexp(queryArray)).toEqual(expected);
   });
 
+  it("orを含む語にマッチしないこと", () => {
+    const queryArray = ["example", "short", "test"];
+    const expected = /(?=.*example)(?=.*short)(?=.*test)/i;
+    expect(createSearchRegexp(queryArray)).toEqual(expected);
+  });
+
   it("複数のAND条件とOR条件を含む正規表現を生成できること", () => {
     const queryArray = ["example", "test", "or", "sample", "demo"];
     const expected = /((?=.*example)(?=.*test)|(?=.*sample)(?=.*demo))/i;

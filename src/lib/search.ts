@@ -55,7 +55,7 @@ export function toTerms(searchQuery: SearchQuery): string {
 
 // orにする区切り文字
 const or = ["or", "\\|"];
-const orRegExp = new RegExp(`(${or.join("|")})`, "i");
+const orRegExp = new RegExp(`^(${or.join("|")})$`, "i");
 
 // クエリから正規表現を生成
 export function createSearchRegexp(queryArray: string[]): RegExp | null {
