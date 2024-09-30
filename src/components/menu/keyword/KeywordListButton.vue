@@ -15,7 +15,7 @@ const popover = usePopover();
   </button>
 
   <popover.PopOver
-    class="bottom-auto left-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
+    class="left-auto top-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
   >
     <KeywordListPopover />
   </popover.PopOver>
@@ -30,7 +30,7 @@ const popover = usePopover();
 
 @keyframes fadeIn {
   from {
-    translate: 0 -50%;
+    translate: 0 50%;
   }
 }
 </style>
