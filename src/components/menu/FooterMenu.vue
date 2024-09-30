@@ -8,9 +8,9 @@ import ScrollButton from "./ScrollButton.vue";
 </script>
 
 <template>
-  <footer class="z-10">
+  <footer class="relative z-30">
     <FilteringButton />
-    <div class="fixed bottom-4 right-4 z-10 flex flex-row items-end gap-2">
+    <div class="fixed bottom-4 right-4 flex flex-row items-end gap-2">
       <KeywordListButton />
       <BookmarkedEventButton />
       <AddedEventButton />
