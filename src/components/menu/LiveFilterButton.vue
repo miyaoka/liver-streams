@@ -2,9 +2,7 @@
 import { computed } from "vue";
 import { useEventListStore } from "@/store/eventListStore";
 import { useSearchStore } from "@/store/searchStore";
-import { useStorageStore } from "@/store/storageStore";
 
-const storageStore = useStorageStore();
 const searchStore = useSearchStore();
 const eventListStore = useEventListStore();
 const hasLiveEvents = computed(() => eventListStore.onLiveEventList.length > 0);

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
 import { getChannelIcon } from "@/utils/icons";
 
-const focusStore = useFocusStore();
 const searchStore = useSearchStore();
 </script>
 

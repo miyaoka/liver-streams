@@ -2,7 +2,6 @@
 import { computed } from "vue";
 import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
-import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { closePopover } from "@/utils/popover";
@@ -14,14 +13,13 @@ interface Item {
 
 const eventListStore = useEventListStore();
 const storageStore = useStorageStore();
-const focusStore = useFocusStore();
 const searchStore = useSearchStore();
 
 // searchTermsを指定しない状態のリスト
 const filteredEventList = computed(() => {
   const list = eventListStore.liverEventList;
   if (!list) return [];
-  const { wordList, options } = searchStore.parsedSearchInput;
+  const { options } = searchStore.parsedSearchInput;
   return getFilteredEventList({
     liverEventList: list,
     filterMap: storageStore.talentFilterMap,

@@ -21,12 +21,6 @@ const sectionColor = computed(() => {
   return getTimeColor(hour);
 });
 
-const nextSectionColor = computed(() => {
-  if (!props.nextSection) return getTimeColor(0);
-  const nextHour = new Date(props.nextSection.time).getHours();
-  return getTimeColor(nextHour);
-});
-
 const sectionBackground = computed(() => {
   // イベントがあればグラデーションで繋ぎ、なければ単色
   // if (hasEvents.value) {
