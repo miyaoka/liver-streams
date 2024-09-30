@@ -3,6 +3,7 @@ import { computed } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { getThumnail } from "@/lib/youtube";
 import { useFocusStore } from "@/store/focusStore";
+import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
 import { closePopover } from "@/utils/popover";
@@ -13,6 +14,7 @@ const props = defineProps<{
 
 const focusStore = useFocusStore();
 const storageStore = useStorageStore();
+const searchStore = useSearchStore();
 
 const isBookmark = computed(() => {
   return storageStore.bookmarkEventSet.has(props.liverEvent.id);
@@ -58,8 +60,8 @@ const fullDate = computed(() => {
           class="size-[70px] overflow-hidden rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
           @mouseover="focusStore.setHoveredTalents(liverEvent.talent.name)"
           @mouseleave="focusStore.clearHoveredTalents()"
-          @click.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
-          @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
+          @click.prevent="searchStore.setFocusedTalent(liverEvent.talent.name)"
+          @contextmenu.prevent="searchStore.setFocusedTalent(liverEvent.talent.name)"
         >
           <img :src="liverEvent.talent.image" class="size-full" loading="lazy" />
         </button>
@@ -75,8 +77,8 @@ const fullDate = computed(() => {
               :title="talent.name"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
               @mouseleave="focusStore.clearHoveredTalents()"
-              @click.prevent="focusStore.setFocusedTalent(talent.name)"
-              @contextmenu.prevent="focusStore.setFocusedTalent(talent.name)"
+              @click.prevent="searchStore.setFocusedTalent(talent.name)"
+              @contextmenu.prevent="searchStore.setFocusedTalent(talent.name)"
             >
               <img class="size-full" :src="talent.image" loading="lazy" />
             </button>

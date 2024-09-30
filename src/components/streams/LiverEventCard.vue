@@ -5,6 +5,7 @@ import { getThumnail } from "@/lib/youtube";
 import { useDateStore } from "@/store/dateStore";
 import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
+import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { hhss } from "@/utils/dateFormat";
 import { getChannelIcon } from "@/utils/icons";
@@ -17,6 +18,7 @@ const focusStore = useFocusStore();
 const dateStore = useDateStore();
 const eventListStore = useEventListStore();
 const storageStore = useStorageStore();
+const searchStore = useSearchStore();
 
 const oneHour = 60 * 60 * 1000;
 
@@ -192,7 +194,7 @@ function onClickCard(evt: MouseEvent) {
           :src="liverEvent.talent.image"
           class="ml-1 w-[clamp(36px,36px+1vw,60px)] rounded-full bg-white transition-transform group-hover:scale-110"
           loading="lazy"
-          @contextmenu.prevent="focusStore.setFocusedTalent(liverEvent.talent.name)"
+          @contextmenu.prevent="searchStore.setFocusedTalent(liverEvent.talent.name)"
         />
 
         <div
@@ -212,7 +214,7 @@ function onClickCard(evt: MouseEvent) {
               loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
               @mouseleave="focusStore.clearHoveredTalents()"
-              @contextmenu.prevent="focusStore.setFocusedTalent(talent.name)"
+              @contextmenu.prevent="searchStore.setFocusedTalent(talent.name)"
             />
           </div>
         </div>

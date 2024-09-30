@@ -17,6 +17,7 @@ export interface LiverEvent {
   hashList: string[];
   hashSet: Set<string>;
   collaboTalentSet: Set<string>;
+  keywordList: string[];
 }
 
 export interface LiverTalent {
@@ -84,6 +85,39 @@ async function digestMessage(message: string) {
   return hashHex;
 }
 
+// テキストから括弧で括られた文字列を抽出する
+export function extractParenthesizedText(text: string, author: string = ""): string[] {
+  const parentheses = "()[]{}（）［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
+  const openingParentheses = parentheses
+    .split("")
+    .filter((_, index) => index % 2 === 0)
+    .map((p) => "\\" + p);
+  const closingParentheses = parentheses
+    .split("")
+    .filter((_, index) => index % 2 !== 0)
+    .map((p) => "\\" + p);
+  const parenthesesPattern = new RegExp(
+    `[${openingParentheses.join("")}](.*?)[${closingParentheses.join("")}]`,
+    "g",
+  );
+  const matches = text.match(parenthesesPattern);
+  if (!matches) return [];
+
+  const ignoreList = ["#", "にじさんじ", "nijisanji", "ホロライブ", "hololive"];
+  if (author) ignoreList.push(author);
+  const ignoreRegExp = new RegExp(ignoreList.join("|"), "i");
+
+  return matches.flatMap((match) => {
+    const str = match.slice(1, -1).trim().toLowerCase();
+
+    // 2文字未満は無視
+    if (str.length < 2) return [];
+    // 除外リストは無視
+    if (str.match(ignoreRegExp)) return [];
+    return str;
+  });
+}
+
 export async function createLiverEvent({
   affilication,
   startAt,
@@ -111,6 +145,8 @@ export async function createLiverEvent({
   const hashList = getHashTagList(title);
   const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
   const collaboTalentSet = new Set(collaboTalents.map((t) => t.name));
+  const keywordList = extractParenthesizedText(title, talent.name);
+
   return {
     id: id,
     affilication,
@@ -125,6 +161,7 @@ export async function createLiverEvent({
     hashList,
     hashSet,
     collaboTalentSet,
+    keywordList,
   };
 }
 
@@ -172,78 +209,4 @@ async function getNijiEvents({
 
   const result = (await Promise.all(events)).filter((event) => event !== null);
   return result;
-}
-
-export function talentFilter({
-  filterEnabled,
-  filterMap,
-  liverEvent,
-}: {
-  filterEnabled: boolean;
-  filterMap: Map<string, boolean>;
-  liverEvent: LiverEvent;
-}) {
-  // フィルタなし
-  if (!filterEnabled || filterMap.size === 0) return true;
-
-  // タレント名かコラボタレント名がフィルターに含まれる動画のみ表示
-  return (
-    filterMap.has(liverEvent.talent.name) ||
-    liverEvent.collaboTalents.some((collaborator) => {
-      return filterMap.has(collaborator.name);
-    })
-  );
-}
-
-export function getFilteredEventList({
-  liverEventList,
-  filterMap,
-  filterEnabled,
-  searchTerms,
-  focusedTalent,
-  isLiveOnly,
-}: {
-  liverEventList: LiverEvent[];
-  filterMap: Map<string, boolean>;
-  filterEnabled: boolean;
-  searchTerms: string[];
-  focusedTalent: string | null;
-  isLiveOnly: boolean;
-}): LiverEvent[] {
-  // 単一セレクト時
-  if (focusedTalent) {
-    return liverEventList.filter((video) => {
-      return (
-        video.talent.name === focusedTalent ||
-        video.collaboTalents.some((collaborator) => {
-          return collaborator.name === focusedTalent;
-        })
-      );
-    });
-  }
-
-  // 検索語をスペースで分割してOR検索
-  const searchRegExp = searchTerms.length > 0 ? new RegExp(searchTerms.join("|"), "i") : null;
-
-  return (
-    liverEventList
-      // talentでフィルタリング
-      .filter((liverEvent) => talentFilter({ filterEnabled, filterMap, liverEvent }))
-      .filter((liverEvent) => {
-        // live中のみ表示
-        if (!isLiveOnly) return true;
-        return liverEvent.isLive;
-      })
-      .filter((liverEvent) => {
-        // 検索語にマッチしたイベントのみ表示
-        if (!searchRegExp) return true;
-        return (
-          searchRegExp.test(liverEvent.title) ||
-          searchRegExp.test(liverEvent.talent.name) ||
-          liverEvent.collaboTalents.some((collaborator) => {
-            return searchRegExp.test(collaborator.name);
-          })
-        );
-      })
-  );
 }

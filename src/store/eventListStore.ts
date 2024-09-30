@@ -1,14 +1,10 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useFocusStore } from "./focusStore";
+import { useSearchStore } from "./searchStore";
 import { useStorageStore } from "./storageStore";
+import { getFilteredEventList, talentFilter } from "@/lib/search";
 import { createDateSectionList } from "@/lib/section";
-import {
-  fetchLiverEventList,
-  getFilteredEventList,
-  talentFilter,
-  type LiverEvent,
-} from "@/services/api";
+import { fetchLiverEventList, type LiverEvent } from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
 
 interface AddedEvent {
@@ -18,8 +14,7 @@ interface AddedEvent {
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
-  const focusStore = useFocusStore();
-
+  const searchStore = useSearchStore();
   const liverEventList = ref<LiverEvent[] | null>(null);
   const liverEventIdSet = ref<Set<string>>(new Set());
   const addedEventList = ref<AddedEvent[]>([]);
@@ -33,10 +28,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     return getFilteredEventList({
       liverEventList: liverEventList.value,
       filterMap: storageStore.talentFilterMap,
-      filterEnabled: storageStore.talentFilterEnabled,
-      searchTerms: storageStore.searchTerms,
-      focusedTalent: focusStore.focusedTalent,
-      isLiveOnly: storageStore.isLiveOnly,
+      searchQuery: searchStore.parsedSearchInput,
     });
   });
 
@@ -54,11 +46,11 @@ export const useEventListStore = defineStore("eventListStore", () => {
         liverEvent,
       };
     });
+    if (!filterEnabled || filterMap.size === 0) return list;
     return list.filter((item) =>
       talentFilter({
         liverEvent: item.liverEvent,
         filterMap,
-        filterEnabled,
       }),
     );
   });
