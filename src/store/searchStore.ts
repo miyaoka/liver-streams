@@ -76,12 +76,15 @@ export const useSearchStore = defineStore("searchStore", () => {
     }
 
     const { options } = parsedSearchInput.value;
-    if (talent) {
+    // 入力済みのものと同じ場合はトグル
+    if (talent && options.talent !== talent) {
+      // セット
       searchTerm.value = toTerms({
         ...parsedSearchInput.value,
         options: { ...options, talent },
       });
     } else {
+      // 解除
       const { talent, ...restOptions } = options;
       searchTerm.value = toTerms({
         ...parsedSearchInput.value,
