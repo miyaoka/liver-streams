@@ -19,13 +19,14 @@ const searchStore = useSearchStore();
 const filteredEventList = computed(() => {
   const list = eventListStore.liverEventList;
   if (!list) return [];
-  const { options } = searchStore.parsedSearchInput;
+  const searchQuery = searchStore.parsedSearchInput;
   return getFilteredEventList({
     liverEventList: list,
     filterMap: storageStore.talentFilterMap,
     searchQuery: {
+      ...searchQuery,
       wordList: [],
-      options,
+      hashtagList: [],
     },
   });
 });

@@ -7,6 +7,7 @@ describe("parseInput", () => {
     const expected = {
       wordList: ["quoted text", "unquoted"],
       options: {},
+      hashtagList: [],
     };
     expect(parseInput(input)).toEqual(expected);
   });
@@ -16,6 +17,7 @@ describe("parseInput", () => {
     const expected = {
       wordList: ["quoted text", "unquoted"],
       options: { tag: "example", status: "live" },
+      hashtagList: [],
     };
     expect(parseInput(input)).toEqual(expected);
   });
@@ -25,6 +27,17 @@ describe("parseInput", () => {
     const expected = {
       wordList: ["quoted text", "unquoted"],
       options: { tag: "example2" },
+      hashtagList: [],
+    };
+    expect(parseInput(input)).toEqual(expected);
+  });
+
+  it("ハッシュタグ", () => {
+    const input = "tag:example #hash1 #hash2 unquoted tag:example2";
+    const expected = {
+      wordList: ["unquoted"],
+      options: { tag: "example2" },
+      hashtagList: ["#hash1", "#hash2"],
     };
     expect(parseInput(input)).toEqual(expected);
   });
@@ -34,6 +47,7 @@ describe("parseInput", () => {
     const expected = {
       wordList: [],
       options: {},
+      hashtagList: [],
     };
     expect(parseInput(input)).toEqual(expected);
   });

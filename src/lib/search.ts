@@ -3,6 +3,7 @@ import { type LiverEvent } from "@/services/api";
 export interface SearchQuery {
   wordList: string[];
   options: Record<string, string>;
+  hashtagList: string[];
 }
 
 export function parseInput(input: string): SearchQuery {
@@ -22,8 +23,9 @@ export function parseInput(input: string): SearchQuery {
   }
 
   const wordList: string[] = [];
-  const prefixRegExp = new RegExp(`^(?<prefix>[^:]+):(?<term>.*)`, "i");
+  const prefixRegExp = new RegExp(`^(?<prefix>[^:#]+):(?<term>.*)|(?<hash>#\\S+)`, "i");
   const options: Record<string, string> = {};
+  const hashtagList: string[] = [];
 
   terms.forEach((item) => {
     if (item.type !== "unquoted") {
@@ -38,11 +40,15 @@ export function parseInput(input: string): SearchQuery {
     }
 
     // 接頭辞があればオプションに追加
-    const { prefix, term } = groups;
+    const { prefix, hash, term } = groups;
+    if (hash) {
+      hashtagList.push(hash.toLowerCase());
+      return;
+    }
     options[prefix] = term;
   });
 
-  return { wordList, options };
+  return { wordList, options, hashtagList };
 }
 
 export function toTerms(searchQuery: SearchQuery): string {
@@ -98,9 +104,10 @@ export function getFilteredEventList({
   filterMap: Map<string, boolean>;
   searchQuery: SearchQuery;
 }): LiverEvent[] {
-  const searchRegExp = createSearchRegexp(searchQuery.wordList);
+  const { wordList, options, hashtagList } = searchQuery;
+  const searchRegExp = createSearchRegexp(wordList);
 
-  const { talent, status } = searchQuery.options;
+  const { talent, status } = options;
 
   let result: LiverEvent[] = liverEventList;
 
@@ -114,7 +121,16 @@ export function getFilteredEventList({
     ? getTalentFocusedList({ talent, liverEventList: result })
     : getTalentFilterMapApplyedList({ filterMap, liverEventList: result });
 
-  // 検索語がある場合はタイトル、タレント名、コラボタレント名でフィルタリング
+  // ハッシュタグがある場合はプロパティから完全一致でフィルタリング
+  if (hashtagList.length > 0) {
+    result = result.filter((liverEvent) => {
+      return hashtagList.every((hashtag) => {
+        return liverEvent.hashSet.has(hashtag);
+      });
+    });
+  }
+
+  // 検索語がある場合はタイトル、タレント名、コラボタレント名の部分一致でフィルタリング
   if (searchRegExp) {
     result = result.filter((liverEvent) => {
       return (
