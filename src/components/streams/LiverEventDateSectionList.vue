@@ -24,6 +24,9 @@ onMounted(() => {
       :prevSection="dateSectionList[i - 1]"
       :nextSection="dateSectionList[i + 1]"
     />
+    <div
+      class="pointer-events-none fixed inset-0 bottom-auto h-20 bg-gradient-to-b from-black/40"
+    />
   </div>
   <div v-else class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
     <i class="i-mdi-file-document-error size-16" />
