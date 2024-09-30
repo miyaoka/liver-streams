@@ -89,7 +89,7 @@ export const useSearchStore = defineStore("searchStore", () => {
         newTalentList = searchTalentList.value.filter((t) => t !== talent);
       } else {
         // セット
-        newTalentList = [...searchTalentList.value, talent];
+        newTalentList = [talent];
       }
       searchTerm.value = searchQueryToTerms({
         ...parsedSearchInput.value,
