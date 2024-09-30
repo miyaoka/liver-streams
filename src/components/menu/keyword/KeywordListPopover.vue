@@ -59,10 +59,10 @@ const hashtagList = computed(() => {
   return mapToList(map);
 });
 
-function mapToList(map: Record<string, number>): Item[] {
+function mapToList(map: Record<string, number>, minCount = 2): Item[] {
   const sortedList = Object.entries(map)
     .flatMap(([value, count]) => {
-      if (count < 2) return [];
+      if (count < minCount) return [];
       return { value, count };
     })
     .sort((a, b) => b.count - a.count);
@@ -81,7 +81,7 @@ function clearSearchTerm() {
 
 <template>
   <div
-    class="flex max-h-dvh min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
+    class="flex max-h-[500px] min-h-[150px] w-[350px] flex-col overflow-hidden rounded-md border-2 border-gray-800 bg-white"
   >
     <div class="flex h-11 items-center justify-start gap-1 bg-black p-2 text-white">
       <i class="i-mdi-hashtag size-5" />
@@ -94,21 +94,13 @@ function clearSearchTerm() {
         <i class="i-mdi-close size-6" />
       </button>
     </div>
-    <div>
-      <button
-        class="flex h-11 place-items-center gap-1 rounded-full border px-2"
-        @click="clearSearchTerm"
-      >
-        <i class="i-mdi-refresh size-6" />
-        clear
-      </button>
-    </div>
-    <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">
-      <div class="flex h-11 gap-1 bg-gray-200">
-        <i class="i-mdi-hashtag size-6" />
+
+    <div class="grid gap-2 overflow-auto pb-20 [scrollbar-width:none]">
+      <div class="flex h-11 place-items-center gap-1 bg-gray-200 px-2">
+        <i class="i-mdi-hashtag size-4" />
         hashtag
       </div>
-      <div class="grid">
+      <div class="flex flex-col">
         <button
           v-for="item in hashtagList"
           :key="item.value"
@@ -126,11 +118,11 @@ function clearSearchTerm() {
         </button>
       </div>
       <hr />
-      <div class="flex h-11 gap-1 bg-gray-200">
-        <i class="i-mdi-chat-bubble-outline size-6" />
+      <div class="flex h-11 place-items-center gap-1 bg-gray-200 px-2">
+        <i class="i-mdi-chat-outline size-4" />
         keyword
       </div>
-      <div class="grid">
+      <div class="flex flex-col">
         <button
           v-for="item in keywordList"
           :key="item.value"
