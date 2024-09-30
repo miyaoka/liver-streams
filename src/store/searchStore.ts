@@ -11,6 +11,10 @@ export const useSearchStore = defineStore("searchStore", () => {
   const parsedSearchInput = computed(() => {
     return parseInput(searchTerm.value);
   });
+  const hasQuery = computed(() => {
+    const { wordList, options, hashtagList } = parsedSearchInput.value;
+    return wordList.length > 0 || Object.keys(options).length > 0 || hashtagList.length > 0;
+  });
   const isLiveOnly = computed(() => {
     const { options } = parsedSearchInput.value;
     return options.status === "live";
@@ -99,6 +103,7 @@ export const useSearchStore = defineStore("searchStore", () => {
     parsedSearchInput,
     isLiveOnly,
     toggleLiveOnly,
+    hasQuery,
   };
 });
 
