@@ -16,7 +16,7 @@ const quoted = '"[^"]+"'; // クォートされた文字列
 const optionKey = "\\w+"; // オプションのキー
 const optionValue = `"[^"]+"|${continueChars}+`; // オプションの値
 const hashtag = `#${continueChars}+`; // ハッシュタグ
-const word = `${continueChars}+`; // 単純な単語
+const word = `(${continueChars}|\\|)+`; // 単純な単語
 
 // 正規表現パターンを文字列として組み立て
 const regexPattern = `(?<quoted>${quoted})|(?<optionKey>${optionKey}):(?<optionValue>${optionValue})|(?<hashtag>${hashtag})|(?<word>${word})`;
@@ -97,14 +97,19 @@ export function createSearchRegexp(queryArray: string[]): RegExp | null {
   orParts.push(currentAndPart);
 
   // OR 条件を正規表現に変換
-  const regexParts = orParts.map((andPart) => {
-    // 各 AND 部分を正規表現に変換
-    return andPart.map((term) => `(?=.*${term})`).join("");
-  });
+  const regexParts = orParts
+    .map((andPart) => {
+      // 各 AND 部分を正規表現に変換
+      return andPart.map((term) => `(?=.*${term})`).join("");
+    })
+    .filter((item) => item);
+
+  if (regexParts.length === 0) return null;
 
   // OR 条件を正規表現で組み合わせる
   const pattern = regexParts.length > 1 ? `(${regexParts.join("|")})` : regexParts[0];
   const regexp = new RegExp(pattern, "i");
+
   return regexp;
 }
 
