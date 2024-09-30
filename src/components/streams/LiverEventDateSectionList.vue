@@ -16,7 +16,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="bg-[var(--hour0)] pb-60" v-if="props.dateSectionList.length > 0" data-id="event-list">
+  <div class="pb-60" v-if="props.dateSectionList.length > 0" data-id="event-list">
     <LiverEventDateSection
       v-for="(dateSection, i) in dateSectionList"
       :key="dateSection.time"
@@ -25,10 +25,7 @@ onMounted(() => {
       :nextSection="dateSectionList[i + 1]"
     />
   </div>
-  <div
-    v-else
-    class="flex h-screen flex-col items-center justify-center bg-[var(--hour0)] px-4 py-20 text-white"
-  >
+  <div v-else class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
     <i class="i-mdi-file-document-error size-16" />
     <p class="text-base font-bold">no data</p>
   </div>
@@ -37,6 +34,7 @@ onMounted(() => {
 <style>
 html {
   scrollbar-width: none;
+  background-color: var(--hour0);
 }
 :root {
   --midnight: #627ea3;
