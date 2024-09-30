@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { closePopover } from "@/utils/popover";
 
-interface Item {
+export interface KeywordItem {
   value: string;
   count: number;
 }
@@ -60,7 +61,7 @@ const hashtagList = computed(() => {
   return mapToList(map);
 });
 
-function mapToList(map: Record<string, number>, minCount = 2): Item[] {
+function mapToList(map: Record<string, number>, minCount = 2): KeywordItem[] {
   const sortedList = Object.entries(map)
     .flatMap(([value, count]) => {
       if (count < minCount) return [];
@@ -68,17 +69,6 @@ function mapToList(map: Record<string, number>, minCount = 2): Item[] {
     })
     .sort((a, b) => b.count - a.count);
   return sortedList;
-}
-
-function setSearchTerm(term: string) {
-  // 空白を含むならダブルクォーテーションで囲む
-  const formattedTerm = term.includes(" ") ? `"${term}"` : term;
-  // 同じものなら検索を解除
-  if (searchStore.searchTerm === formattedTerm) {
-    searchStore.setSearchTerm("");
-    return;
-  }
-  searchStore.setSearchTerm(formattedTerm);
 }
 </script>
 
@@ -105,46 +95,15 @@ function setSearchTerm(term: string) {
         <i class="i-mdi-chat-outline size-4" />
         keyword
       </header>
-      <div class="grid pb-10">
-        <button
-          v-for="item in keywordList"
-          :key="item.value"
-          class="hover:bg-gray-200"
-          @click="setSearchTerm(item.value)"
-        >
-          <div class="flex items-center gap-2 px-3 py-1 text-start">
-            <p class="line-clamp-2 flex-1 [overflow-wrap:anywhere]">
-              {{ item.value }}
-            </p>
-            <div class="w-12 text-center">
-              {{ item.count }}
-            </div>
-          </div>
-        </button>
-      </div>
+      <KeywordListPopoverItem :itemList="keywordList" />
+
       <header
         class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-yellow-100 px-2 font-bold shadow-md"
       >
         <i class="i-mdi-hashtag size-4" />
         hashtag
       </header>
-      <div class="grid pb-10">
-        <button
-          v-for="item in hashtagList"
-          :key="item.value"
-          class="hover:bg-gray-200"
-          @click="setSearchTerm(item.value)"
-        >
-          <div class="flex items-center gap-2 px-3 py-1 text-start">
-            <p class="line-clamp-2 flex-1 [overflow-wrap:anywhere]">
-              {{ item.value }}
-            </p>
-            <div class="w-12 text-center">
-              {{ item.count }}
-            </div>
-          </div>
-        </button>
-      </div>
+      <KeywordListPopoverItem :itemList="hashtagList" />
     </div>
   </div>
 </template>
