@@ -143,7 +143,7 @@ export function getFilteredEventList({
   if (hashtagList.length > 0) {
     result = result.filter((liverEvent) => {
       return hashtagList.every((hashtag) => {
-        return liverEvent.hashSet.has(hashtag);
+        return liverEvent.hashSet.has(hashtag.toLowerCase());
       });
     });
   }
