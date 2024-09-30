@@ -125,7 +125,7 @@ describe("createSearchRegexp", () => {
     expect(createSearchRegexp(queryArray)).toBeNull();
   });
 });
-describe.only("searchQueryToTerms", () => {
+describe("searchQueryToTerms", () => {
   it("単純な単語リストを文字列に変換できること", () => {
     const searchQuery = {
       wordList: ["example", "test"],
@@ -184,6 +184,16 @@ describe.only("searchQueryToTerms", () => {
       options: { tag: [] },
     };
     const expected = "example";
+    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+  });
+
+  it("空白を含むオプションの値がクォートされること", () => {
+    const searchQuery = {
+      wordList: ["example", "the space"],
+      hashtagList: [],
+      options: { tag: ["example tag"] },
+    };
+    const expected = 'example "the space" tag:"example tag"';
     expect(searchQueryToTerms(searchQuery)).toEqual(expected);
   });
 });

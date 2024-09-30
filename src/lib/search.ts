@@ -54,15 +54,22 @@ export function parseInput(input: string): SearchQuery {
   return { wordList, hashtagList, options };
 }
 
+// 空白があればクォートで括る
+function quoteIfSpace(str: string): string {
+  return str.includes(" ") ? `"${str}"` : str;
+}
+
 export function searchQueryToTerms(searchQuery: SearchQuery): string {
   const { wordList, options, hashtagList } = searchQuery;
   const optionStr = Object.entries(options)
     .flatMap(([key, valueList]) => {
       if (valueList.length === 0) return [];
-      return valueList.map((value) => `${key}:${value}`);
+      return valueList.map((value) => `${key}:${quoteIfSpace(value)}`);
     })
     .join(" ");
-  return [...wordList, optionStr, ...hashtagList].filter((item) => item).join(" ");
+  return [...wordList.map((word) => quoteIfSpace(word)), optionStr, ...hashtagList]
+    .filter((item) => item)
+    .join(" ");
 }
 
 // orにする区切り文字
