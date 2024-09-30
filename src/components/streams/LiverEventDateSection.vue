@@ -49,7 +49,7 @@ const sectionInfo = computed(() => {
         </button>
 
         <button
-          :class="`border-1 flex flex-row items-center gap-1 rounded-2xl border border-gray-300 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-blue-700 text-white hover:bg-blue-900' : 'bg-gray-700 text-white hover:bg-gray-900'}`"
+          :class="`border-1 flex flex-row items-center gap-1 rounded-full border-2 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-yellow-400 text-black hover:bg-yellow-300 border-yellow-100' : 'bg-gray-700 text-white hover:bg-gray-900 border-gray-300'}`"
           @click="scrollToSectionTop(dateSection.time)"
         >
           <span class="text-base font-bold">
