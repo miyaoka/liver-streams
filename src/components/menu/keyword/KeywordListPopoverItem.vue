@@ -25,10 +25,10 @@ function setSearchTerm(term: string) {
     <button
       v-for="item in itemList"
       :key="item.value"
-      class="hover:bg-gray-200"
+      class="h-8 hover:bg-gray-100"
       @click="setSearchTerm(item.value)"
     >
-      <div class="flex items-center gap-2 px-3 py-1 text-start">
+      <div class="flex items-center gap-2 px-3 text-start">
         <p class="line-clamp-2 flex-1 [overflow-wrap:anywhere]">
           {{ item.value }}
         </p>
