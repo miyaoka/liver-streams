@@ -72,6 +72,11 @@ function mapToList(map: Record<string, number>, minCount = 2): Item[] {
 function setSearchTerm(term: string) {
   // 空白を含むならダブルクォーテーションで囲む
   const formattedTerm = term.includes(" ") ? `"${term}"` : term;
+  // 同じものなら検索を解除
+  if (searchStore.searchTerm === formattedTerm) {
+    searchStore.setSearchTerm("");
+    return;
+  }
   searchStore.setSearchTerm(formattedTerm);
 }
 </script>
