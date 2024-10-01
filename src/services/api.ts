@@ -87,7 +87,7 @@ async function digestMessage(message: string) {
 
 // テキストから括弧で括られた文字列を抽出する
 export function extractParenthesizedText(text: string, author: string = ""): string[] {
-  const parentheses = "()[]{}（）［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
+  const parentheses = "[]{}［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
   const openingParentheses = parentheses
     .split("")
     .filter((_, index) => index % 2 === 0)
@@ -103,18 +103,21 @@ export function extractParenthesizedText(text: string, author: string = ""): str
   const matches = text.match(parenthesesPattern);
   if (!matches) return [];
 
-  const ignoreList = ["#", "にじさんじ", "nijisanji", "ホロライブ", "hololive"];
+  const ignoreList = ["にじさんじ", "nijisanji", "ホロライブ", "hololive"];
   if (author) ignoreList.push(author);
   const ignoreRegExp = new RegExp(ignoreList.join("|"), "i");
 
   const list = matches.flatMap((match) => {
     const str = match.slice(1, -1).trim().toLowerCase();
 
-    // 3文字未満は無視
-    if (str.length < 3) return [];
+    // ハッシュ以降を削除
+    const noHash = str.replace(/#.*/, "");
+    // 2文字未満は無視
+    if (noHash.length < 2) return [];
     // 除外リストは無視
-    if (str.match(ignoreRegExp)) return [];
-    return str;
+    if (noHash.match(ignoreRegExp)) return [];
+
+    return noHash;
   });
 
   // ユニークなものだけにする
