@@ -1,6 +1,7 @@
 import { fetchHoloEventList } from "./hololive";
 import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
-import { getHashTagList, getYouTubeVideoId } from "@/lib/youtube";
+import { extractParenthesizedText, getHashTagList } from "@/lib/text";
+import { getYouTubeVideoId } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
 
 export interface LiverEvent {
@@ -85,44 +86,6 @@ async function digestMessage(message: string) {
   return hashHex;
 }
 
-// テキストから括弧で括られた文字列を抽出する
-export function extractParenthesizedText(text: string, author: string = ""): string[] {
-  const parentheses = "[]{}［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
-  const openingParentheses = parentheses
-    .split("")
-    .filter((_, index) => index % 2 === 0)
-    .map((p) => "\\" + p);
-  const closingParentheses = parentheses
-    .split("")
-    .filter((_, index) => index % 2 !== 0)
-    .map((p) => "\\" + p);
-  const parenthesesPattern = new RegExp(
-    `[${openingParentheses.join("")}](.*?)[${closingParentheses.join("")}]`,
-    "g",
-  );
-  const matches = text.match(parenthesesPattern);
-  if (!matches) return [];
-
-  const ignoreList = ["にじさんじ", "nijisanji", "ホロライブ", "hololive"];
-  if (author) ignoreList.push(author);
-  const ignoreRegExp = new RegExp(ignoreList.join("|"), "i");
-
-  const list = matches.flatMap((match) => {
-    const str = match.slice(1, -1).trim().toLowerCase();
-
-    // ハッシュ以降を削除
-    const noHash = str.replace(/#.*/, "");
-    // 2文字未満は無視
-    if (noHash.length < 2) return [];
-    // 除外リストは無視
-    if (noHash.match(ignoreRegExp)) return [];
-
-    return noHash;
-  });
-
-  // ユニークなものだけにする
-  return [...new Set(list)];
-}
 export async function createLiverEvent({
   affilication,
   startAt,
