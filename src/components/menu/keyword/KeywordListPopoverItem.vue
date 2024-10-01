@@ -21,7 +21,7 @@ function setSearchTerm(term: string) {
 </script>
 
 <template>
-  <div class="grid pb-10">
+  <div class="grid pb-4">
     <button
       v-for="item in itemList"
       :key="item.value"
