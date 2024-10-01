@@ -60,42 +60,42 @@ describe("extractParenthesizedText", () => {
 });
 
 describe("getHashTagList", () => {
-  it("should return an array of hashtags from a string with multiple hashtags", () => {
+  it("複数のハッシュタグが含まれる文字列からハッシュタグの配列を返す", () => {
     const input = "This is a test #hashtag1 and another #hashtag2";
     const expected = ["#hashtag1", "#hashtag2"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
-  it("should return an empty array if there are no hashtags", () => {
+  it("ハッシュタグが含まれていない場合は空の配列を返す", () => {
     const input = "This is a test with no hashtags";
     expect(getHashTagList(input)).toEqual([]);
   });
 
-  it("should ignore hashtags that are too short", () => {
-    const input = "This is a test #ha #validhashtag";
-    const expected = ["#validhashtag"];
+  it("3文字未満のハッシュタグは無視する", () => {
+    const input = "This is a test #ha #val #validhashtag";
+    const expected = ["#val", "#validhashtag"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
-  it("should handle hashtags with special characters correctly", () => {
+  it("特殊文字を含むハッシュタグを正しく処理する", () => {
     const input = "This is a test #hashtag1 #hash_tag2 #hash-tag3";
     const expected = ["#hashtag1", "#hash_tag2", "#hash-tag3"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
-  it("should return an array of hashtags from a string with Japanese characters", () => {
+  it("日本語の文字を含む文字列からハッシュタグの配列を返す", () => {
     const input = "これはテストです #ハッシュタグ1 #ハッシュタグ2";
     const expected = ["#ハッシュタグ1", "#ハッシュタグ2"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
-  it("should ignore hashtags with excluded characters", () => {
+  it("除外文字を含むハッシュタグは無視する", () => {
     const input = "This is a test #hash(tag) #hash[tag] #validhashtag";
     const expected = ["#hash", "#validhashtag"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
-  it("should handle hashtags with emoji characters correctly", () => {
+  it("絵文字を含むハッシュタグを正しく処理する", () => {
     const input = "This is a test #aaa🔥bbb #aaa🚀bbb #aaa🌟bbb";
     const expected = ["#aaa🔥bbb", "#aaa🚀bbb", "#aaa🌟bbb"];
     expect(getHashTagList(input)).toEqual(expected);
