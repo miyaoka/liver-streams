@@ -16,9 +16,9 @@ const dateStore = useDateStore();
 const sectionEl = ref<HTMLElement | null>(null);
 
 const hasEvents = computed(() => props.section.events.length > 0);
+const hour = computed(() => new Date(props.section.time).getHours());
 const sectionColor = computed(() => {
-  const hour = new Date(props.section.time).getHours();
-  return getTimeColor(hour);
+  return getTimeColor(hour.value);
 });
 
 const sectionBackground = computed(() => {
@@ -27,6 +27,10 @@ const sectionBackground = computed(() => {
   //   return `linear-gradient(${sectionColor.value}, ${nextSectionColor.value})`;
   // }
   return sectionColor.value;
+});
+
+const timeColor = computed(() => {
+  return getTimeColor((hour.value + 12) % 24);
 });
 
 const hhss = computed(() => {
@@ -57,7 +61,12 @@ function getTimeColor(hour: number) {
     </div>
     <template v-if="hasEvents">
       <div
-        class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] py-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
+        class="pointer-events-none flex w-full select-none items-start justify-start px-[clamp(2px,2px+0.5vw,16px)] text-6xl font-black leading-none text-black/20"
+      >
+        {{ hour }}
+      </div>
+      <div
+        class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] pb-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
       >
         <TransitionGroup name="card">
           <LiverEventCard
