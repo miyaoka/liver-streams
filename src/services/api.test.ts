@@ -2,49 +2,45 @@ import { describe, it, expect } from "vitest";
 import { extractParenthesizedText } from "./api";
 
 describe("extractParenthesizedText", () => {
-  it("should extract text within parentheses", () => {
-    const input = "This is a test (example) text.";
-    const expected = ["example"];
+  it("括弧内のテキストを抽出する", () => {
+    const input = "【お知らせ】明日の(生配信)について[重要]";
+    const expected = ["お知らせ", "生配信"];
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 
-  it("should extract text within multiple parentheses", () => {
-    const input = "This is a test (example1) text (example2).";
-    const expected = ["example1", "example2"];
+  it("3文字未満のテキストは無視する", () => {
+    const input = "(a)【bc】{def}";
+    const expected = ["def"];
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 
-  it("should return an empty array if there are no parentheses", () => {
-    const input = "This is a test text.";
-    expect(extractParenthesizedText(input)).toEqual([]);
-  });
-
-  it("should handle different types of parentheses", () => {
-    const input = "This is a test (example1) text [example2] {example3} 〈example4〉.";
-    const expected = ["example1", "example2", "example3", "example4"];
-    expect(extractParenthesizedText(input)).toEqual(expected);
-  });
-
-  // it("should handle nested parentheses", () => {
-  //   const input = "This is a test (example1 (nested)) text.";
-  //   const expected = ["example1 (nested)"];
-  //   expect(extractParenthesizedText(input)).toEqual(expected);
-  // });
-
-  it("should handle Japanese parentheses", () => {
-    const input = "これはテストです（例1）テキスト［例2］です。";
-    const expected = ["例1", "例2"];
-    expect(extractParenthesizedText(input)).toEqual(expected);
-  });
-
-  it("should handle empty parentheses", () => {
-    const input = "This is a test () text.";
+  it("無視するワード入り", () => {
+    const input = "(#live)【にじさんじ/あああ】(hololive)";
     const expected: string[] = [];
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 
-  it("should handle text with no matching closing parenthesis", () => {
-    const input = "This is a test (example text.";
+  it("大文字小文字を区別しない", () => {
+    const input = "(TEST)【test】";
+    const expected = ["test"];
+    expect(extractParenthesizedText(input)).toEqual(expected);
+  });
+
+  it("複数の括弧タイプを処理する", () => {
+    const input = "（日本語）[English]{Français}「にほんご」";
+    const expected = ["日本語", "english", "français", "にほんご"];
+    expect(extractParenthesizedText(input)).toEqual(expected);
+  });
+
+  it("括弧がない場合は空の配列を返す", () => {
+    const input = "テストテキスト";
     expect(extractParenthesizedText(input)).toEqual([]);
   });
+
+  // it("特殊な括弧", () => {
+  //   const input =
+  //     "𓊆 あつまれ どうぶつの森 𓊇 島評価おしえてくださいお願いします！！！ 𓊆 雲母たまこ ┊ にじさんじ 𓊇";
+  //   const expected = ["あつまれ どうぶつの森"];
+  //   expect(extractParenthesizedText(input)).toEqual(expected);
+  // });
 });

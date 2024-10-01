@@ -107,17 +107,19 @@ export function extractParenthesizedText(text: string, author: string = ""): str
   if (author) ignoreList.push(author);
   const ignoreRegExp = new RegExp(ignoreList.join("|"), "i");
 
-  return matches.flatMap((match) => {
+  const list = matches.flatMap((match) => {
     const str = match.slice(1, -1).trim().toLowerCase();
 
-    // 2文字未満は無視
-    if (str.length < 2) return [];
+    // 3文字未満は無視
+    if (str.length < 3) return [];
     // 除外リストは無視
     if (str.match(ignoreRegExp)) return [];
     return str;
   });
-}
 
+  // ユニークなものだけにする
+  return [...new Set(list)];
+}
 export async function createLiverEvent({
   affilication,
   startAt,
