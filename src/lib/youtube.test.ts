@@ -86,9 +86,17 @@ describe("getHashTagList", () => {
     expect(getHashTagList(input)).toEqual(expected);
   });
 
-  // it("should never match there is valid character before #", () => {
-  //   const input = "This is a test #valid#invalid";
-  //   const expected = ["#valid"];
-  //   expect(getHashTagList(input)).toEqual(expected);
-  // });
+  it("ハッシュタグの前後に空白が無くてもマッチさせる", () => {
+    // https://www.youtube.com/watch?v=h1eIM6n1-zc
+    const input =
+      "MV50万再生感謝✨️ダンスレッスンのときのお遊び💃#shorts #風真いろは #ダンスレッスン#魔法少女まじかるござる #ホロライブ";
+    const expected = [
+      "#shorts",
+      "#風真いろは",
+      "#ダンスレッスン",
+      "#魔法少女まじかるござる",
+      "#ホロライブ",
+    ];
+    expect(getHashTagList(input)).toEqual(expected);
+  });
 });
