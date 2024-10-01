@@ -87,11 +87,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
       // 新着としてキープする時間(ms)
       const addedEventKeepTime = 1000 * 60 * 60 * 2;
 
-      // todo: vue-tscでエラーが出るので一旦無視
-      // TS2339: Property 'difference' does not exist on type 'Set<string>'.
-      // @ts-ignore
       const diff = currLiverEventIdSet.difference(liverEventIdSet.value);
-      // @ts-ignore
       const currAddedEventList: AddedEvent[] = Array.from(diff).map((id) => {
         return {
           id,
