@@ -62,7 +62,7 @@ describe("extractParenthesizedText", () => {
 describe("getHashTagList", () => {
   it("複数のハッシュタグが含まれる文字列からハッシュタグの配列を返す", () => {
     const input = "This is a test #hashtag1 and another #hashtag2";
-    const expected = ["#hashtag1", "#hashtag2"];
+    const expected = ["hashtag1", "hashtag2"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
@@ -73,31 +73,31 @@ describe("getHashTagList", () => {
 
   it("3文字未満のハッシュタグは無視する", () => {
     const input = "This is a test #ha #val #validhashtag";
-    const expected = ["#val", "#validhashtag"];
+    const expected = ["val", "validhashtag"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("特殊文字を含むハッシュタグを正しく処理する", () => {
     const input = "This is a test #hashtag1 #hash_tag2 #hash-tag3";
-    const expected = ["#hashtag1", "#hash_tag2", "#hash-tag3"];
+    const expected = ["hashtag1", "hash_tag2", "hash-tag3"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("日本語の文字を含む文字列からハッシュタグの配列を返す", () => {
     const input = "これはテストです #ハッシュタグ1 #ハッシュタグ2";
-    const expected = ["#ハッシュタグ1", "#ハッシュタグ2"];
+    const expected = ["ハッシュタグ1", "ハッシュタグ2"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("除外文字を含むハッシュタグは無視する", () => {
     const input = "This is a test #hash(tag) #hash[tag] #validhashtag";
-    const expected = ["#hash", "#validhashtag"];
+    const expected = ["hash", "validhashtag"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
   it("絵文字を含むハッシュタグを正しく処理する", () => {
     const input = "This is a test #aaa🔥bbb #aaa🚀bbb #aaa🌟bbb";
-    const expected = ["#aaa🔥bbb", "#aaa🚀bbb", "#aaa🌟bbb"];
+    const expected = ["aaa🔥bbb", "aaa🚀bbb", "aaa🌟bbb"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 
@@ -106,12 +106,19 @@ describe("getHashTagList", () => {
     const input =
       "MV50万再生感謝✨️ダンスレッスンのときのお遊び💃#shorts #風真いろは #ダンスレッスン#魔法少女まじかるござる #ホロライブ";
     const expected = [
-      "#shorts",
-      "#風真いろは",
-      "#ダンスレッスン",
-      "#魔法少女まじかるござる",
-      "#ホロライブ",
+      "shorts",
+      "風真いろは",
+      "ダンスレッスン",
+      "魔法少女まじかるござる",
+      "ホロライブ",
     ];
+    expect(getHashTagList(input)).toEqual(expected);
+  });
+
+  it("大文字のハッシュ記号でもマッチさせる", () => {
+    const input =
+      "【＃生スバル】カドショ開店しゅばああああああああああああああああああああああああ！！！！！！/ TCG Card Shop Simulator【ホロライブ/大空スバル】";
+    const expected = ["生スバル"];
     expect(getHashTagList(input)).toEqual(expected);
   });
 });

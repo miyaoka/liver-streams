@@ -66,7 +66,7 @@ describe("parseInput", () => {
     const input = 'abc #tag1 "quoted text" unquoted #tag2';
     const expected = {
       wordList: ["abc", "quoted text", "unquoted"],
-      hashtagList: ["#tag1", "#tag2"],
+      hashtagList: ["tag1", "tag2"],
       options: {},
     };
     expect(parseInput(input)).toEqual(expected);
@@ -76,7 +76,7 @@ describe("parseInput", () => {
     const input = 'tag:絵文🔥字 #日本語タグ unquoted tag:"日本語 空白入り" ';
     const expected = {
       wordList: ["unquoted"],
-      hashtagList: ["#日本語タグ"],
+      hashtagList: ["日本語タグ"],
       options: { tag: ["絵文🔥字", "日本語 空白入り"] },
     };
     expect(parseInput(input)).toEqual(expected);

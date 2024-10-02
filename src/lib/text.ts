@@ -49,38 +49,41 @@ export function getHashTagList(input: string): string[] {
   const result: string[] = [];
 
   let buffer = "";
-  let isHash = false;
+  let afterHash = false;
 
   // `Intl.Segmenter` を使用して1文字ずつ処理
   for (const { segment } of segmenter.segment(input)) {
     // ハッシュタグに有効な文字か
     const matched = segment.match(continueRegExp);
+    // #か＃が出てきた場合はハッシュタグとして処理
+    const isHash = /[#＃]/.test(segment);
 
     // マッチしない、または#が出てきた場合そこで区切る
-    if (!matched || segment === "#") {
+    if (!matched || isHash) {
       // ハッシュタグ中ならそれまでの文字列をリストに追加
-      if (isHash) {
-        // ハッシュタグ込みで4文字以上で追加
-        if (buffer.length > 3) {
+      if (afterHash) {
+        // 3文字以上なら追加
+        if (buffer.length > 2) {
           result.push(buffer);
         }
         // reset
         buffer = "";
-        isHash = false;
+        afterHash = false;
       }
-    }
-    // ハッシュタグの開始
-    if (segment === "#") {
-      isHash = true;
     }
 
     // ハッシュタグ中ならバッファに追加
-    if (isHash) {
+    if (afterHash) {
       buffer += segment;
+    }
+
+    // ハッシュタグの開始
+    if (isHash) {
+      afterHash = true;
     }
   }
   // ハッシュタグ中で終了した場合
-  if (isHash) {
+  if (afterHash) {
     result.push(buffer);
   }
 

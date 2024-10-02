@@ -6,23 +6,21 @@ type SearchQuery = {
   options: Record<string, string[]>;
 };
 
-// 正規表現でクォートされた文字列、キー・バリュー形式、ハッシュタグ、単純な単語をキャプチャ
-
-// 有効な文字の正規表現
-const continueChars = "\\S";
-
 // 正規表現の共通部分を変数として定義
 const quoted = '"[^"]+"'; // クォートされた文字列
 const optionKey = "\\w+"; // オプションのキー
+const continueChars = "\\S"; // 有効な文字の正規表現
 const optionValue = `"[^"]+"|${continueChars}+`; // オプションの値
-const hashtag = `#${continueChars}+`; // ハッシュタグ
+const hashtag = `[#＃]`; // 全角にもマッチ
+const hashtagValue = `${continueChars}+`; // ハッシュタグの値
 const word = `${continueChars}+`; // 単純な単語
 
 // 正規表現パターンを文字列として組み立て
-const regexPattern = `(?<quoted>${quoted})|(?<optionKey>${optionKey}):(?<optionValue>${optionValue})|(?<hashtag>${hashtag})|(?<word>${word})`;
+const regexPattern = `(?<quoted>${quoted})|(?<optionKey>${optionKey}):(?<optionValue>${optionValue})|${hashtag}(?<hashtag>${hashtagValue})|(?<word>${word})`;
 
 const searchRegex = new RegExp(regexPattern, "g");
 
+// 正規表現でハッシュタグ、単語、オプションを抽出
 export function parseInput(input: string): SearchQuery {
   const wordList: string[] = [];
   const hashtagList: string[] = [];
