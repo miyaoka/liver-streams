@@ -112,7 +112,7 @@ export function parseSegment(text: string, keywords: string[], hashtags: string[
   const hashtagsPattern = hasHashtags ? `(?<hashtags>[#＃](${hashtags.join("|")}))` : null;
 
   // 正規表現を作成
-  const regex = new RegExp([keywordsPattern, hashtagsPattern].filter((v) => v).join("|"), "g");
+  const regex = new RegExp([keywordsPattern, hashtagsPattern].filter((v) => v).join("|"), "gi");
 
   // 文字列全体を順に解析する
   let lastIndex = 0;

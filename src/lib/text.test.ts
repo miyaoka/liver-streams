@@ -221,4 +221,16 @@ describe("parseSegment", () => {
     ];
     expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
   });
+
+  it("大文字・小文字を区別しない", () => {
+    const text = "【 OMORI 】私が選んだその道が、私の運命を決定づける";
+    const keywords = ["omori"];
+    const hashtags: string[] = [];
+    const expected: Segment[] = [
+      { value: "【 ", type: "text" },
+      { value: "OMORI", type: "keyword" },
+      { value: " 】私が選んだその道が、私の運命を決定づける", type: "text" },
+    ];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
+  });
 });
