@@ -174,15 +174,6 @@ function setSearchString(str: string) {
         </template>
       </div>
 
-      <div
-        v-if="isNew"
-        class="absolute bottom-full right-0 z-10 flex flex-row items-center justify-center gap-1 bg-black/70 px-1"
-      >
-        <p class="text-xs text-white">new</p>
-
-        <i class="i-mdi-creation size-4 bg-yellow-300" />
-      </div>
-
       <img
         :src="getChannelIcon(`${liverEvent.affilication}_logo`)"
         class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
@@ -234,11 +225,19 @@ function setSearchString(str: string) {
           />
         </div>
 
-        <div
-          v-if="isBookmark"
-          class="absolute -right-2 -top-2 z-10 grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
-        >
-          <i class="i-mdi-bookmark size-7 text-green-600" />
+        <div class="absolute -top-4 right-0 z-10 flex">
+          <div
+            v-if="isNew"
+            class="grid size-10 place-items-center rounded-full border-2 border-purple-800 bg-white shadow-md"
+          >
+            <i class="i-mdi-sparkles size-7 text-purple-600" />
+          </div>
+          <div
+            v-if="isBookmark"
+            class="grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
+          >
+            <i class="i-mdi-bookmark size-7 text-green-600" />
+          </div>
         </div>
 
         <div
