@@ -1,3 +1,4 @@
+import { hashtagPrefixPattern } from "./text";
 import { type LiverEvent } from "@/services/api";
 
 type SearchQuery = {
@@ -11,12 +12,11 @@ const quoted = '"[^"]+"'; // クォートされた文字列
 const optionKey = "\\w+"; // オプションのキー
 const continueChars = "\\S"; // 有効な文字の正規表現
 const optionValue = `"[^"]+"|${continueChars}+`; // オプションの値
-const hashtag = `[#＃]`; // 全角にもマッチ
 const hashtagValue = `${continueChars}+`; // ハッシュタグの値
 const word = `${continueChars}+`; // 単純な単語
 
 // 正規表現パターンを文字列として組み立て
-const regexPattern = `(?<quoted>${quoted})|(?<optionKey>${optionKey}):(?<optionValue>${optionValue})|${hashtag}(?<hashtag>${hashtagValue})|(?<word>${word})`;
+const regexPattern = `(?<quoted>${quoted})|(?<optionKey>${optionKey}):(?<optionValue>${optionValue})|${hashtagPrefixPattern}(?<hashtag>${hashtagValue})|(?<word>${word})`;
 
 const searchRegex = new RegExp(regexPattern, "g");
 
@@ -142,7 +142,7 @@ export function getFilteredEventList({
   if (hashtagList.length > 0) {
     result = result.filter((liverEvent) => {
       return hashtagList.every((hashtag) => {
-        return liverEvent.hashSet.has(hashtag.toLowerCase());
+        return liverEvent.hashtagSet.has(hashtag.toLowerCase());
       });
     });
   }

@@ -111,14 +111,14 @@ const isHovered = computed(() => {
 });
 
 const firstHash = computed(() => {
-  return props.liverEvent.hashList[0];
+  return props.liverEvent.hashtagList[0];
 });
 
 // hoveredHashSetにhashSetが含まれているか
 const hasHoveredHash = computed(() => {
   if (focusStore.hoveredHashSet.size === 0) return false;
 
-  const hashSet = toRaw(props.liverEvent.hashSet);
+  const hashSet = toRaw(props.liverEvent.hashtagSet);
   return hashSet.intersection(focusStore.hoveredHashSet).size > 0;
 });
 
