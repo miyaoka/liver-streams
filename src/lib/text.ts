@@ -37,6 +37,9 @@ export function extractParenthesizedText(text: string, author: string = ""): str
   return [...new Set(list)];
 }
 
+export const hashtagPrefixPattern = "[#＃]";
+const hashtagPrefixRegExp = new RegExp(hashtagPrefixPattern);
+
 // https://unicode.org/reports/tr31/#hashtag_identifiers
 // 有効な文字の正規表現
 const continueChars = "[\\p{XID_Continue}\\p{Extended_Pictographic}\\p{Emoji_Component}_+-]";
@@ -56,7 +59,7 @@ export function getHashTagList(input: string): string[] {
     // ハッシュタグに有効な文字か
     const matched = segment.match(continueRegExp);
     // #か＃が出てきた場合はハッシュタグとして処理
-    const isHash = /[#＃]/.test(segment);
+    const isHash = hashtagPrefixRegExp.test(segment);
 
     // マッチしない、または#が出てきた場合そこで区切る
     if (!matched || isHash) {
@@ -109,7 +112,9 @@ export function parseSegment(text: string, keywords: string[], hashtags: string[
 
   // キーワードとハッシュタグのパターンを作成
   const keywordsPattern = hasKeywords ? `(?<keywords>${keywords.join("|")})` : null;
-  const hashtagsPattern = hasHashtags ? `(?<hashtags>[#＃](${hashtags.join("|")}))` : null;
+  const hashtagsPattern = hasHashtags
+    ? `(?<hashtags>${hashtagPrefixPattern}(${hashtags.join("|")}))`
+    : null;
 
   // 正規表現を作成
   const regex = new RegExp([keywordsPattern, hashtagsPattern].filter((v) => v).join("|"), "gi");
