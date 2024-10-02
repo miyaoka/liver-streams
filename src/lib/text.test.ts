@@ -20,15 +20,15 @@ describe("extractParenthesizedText", () => {
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 
-  it("大文字小文字を区別しない", () => {
-    const input = "[TEST]【test】";
-    const expected = ["test"];
+  it("大文字小文字を区別する", () => {
+    const input = "[TEST]【test】{TeST}";
+    const expected = ["TEST", "test", "TeST"];
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 
   it("複数の括弧タイプを処理する", () => {
     const input = "[English]{Français}「にほんご」";
-    const expected = ["english", "français", "にほんご"];
+    const expected = ["English", "Français", "にほんご"];
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 
@@ -40,7 +40,7 @@ describe("extractParenthesizedText", () => {
   it("丸括弧は判定しない", () => {
     const input =
       "【 Among Us 】協力と裏切りと王覇山と。（ 宇宙を舞台にした人狼系ゲーム ）です【にじさんじ/葉山舞鈴/コラボ】";
-    const expected = ["among us"];
+    const expected = ["Among Us"];
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 

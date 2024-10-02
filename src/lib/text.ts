@@ -28,7 +28,7 @@ export function extractParenthesizedText(text: string, author: string = ""): str
 
   const list = matches.flatMap((match) => {
     // ハッシュ以降を削除
-    const cleanedText = match.replace(hashTagRegex, "").trim().toLowerCase();
+    const cleanedText = match.replace(hashTagRegex, "").trim();
     // 2文字未満は無視
     if (cleanedText.length < minKeywordLength) return [];
     // 除外リストは無視
