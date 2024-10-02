@@ -141,12 +141,13 @@ function onClickCard(evt: MouseEvent) {
 }
 
 function setSearchString(str: string) {
+  const hashtag = `#${str}`;
   // 同じものなら検索を解除
-  if (searchStore.searchString === str) {
+  if (searchStore.searchString === hashtag) {
     searchStore.setSearchString("");
     return;
   }
-  searchStore.setSearchString(str);
+  searchStore.setSearchString(hashtag);
 }
 </script>
 <template>
