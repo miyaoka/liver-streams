@@ -50,7 +50,7 @@ const keywordList = computed(() => {
 const hashtagList = computed(() => {
   const map: Record<string, number> = {};
   filteredEventList.value.forEach((event) => {
-    event.hashList.forEach((hashtag) => {
+    event.hashtagList.forEach((hashtag) => {
       if (hashtag in map) {
         map[hashtag]++;
       } else {

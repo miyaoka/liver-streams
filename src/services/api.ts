@@ -15,8 +15,8 @@ export interface LiverEvent {
   talent: LiverTalent;
   collaboTalents: LiverTalent[];
   affilication: "hololive" | "nijisanji";
-  hashList: string[];
-  hashSet: Set<string>;
+  hashtagList: string[];
+  hashtagSet: Set<string>;
   collaboTalentSet: Set<string>;
   keywordList: string[];
 }
@@ -110,8 +110,8 @@ export async function createLiverEvent({
   const startAtDate = new Date(startAt);
   const endAtDate = endAt ? new Date(endAt) : null;
   const id = await createId({ url, thumbnail, talentName: talent.name });
-  const hashList = getHashTagList(title);
-  const hashSet = new Set(hashList.map((h) => h.toLowerCase()));
+  const hashtagList = getHashTagList(title);
+  const hashtagSet = new Set(hashtagList.map((h) => h.toLowerCase()));
   const collaboTalentSet = new Set(collaboTalents.map((t) => t.name));
   const keywordList = extractParenthesizedText(title, talent.name);
 
@@ -126,8 +126,8 @@ export async function createLiverEvent({
     isLive,
     talent,
     collaboTalents,
-    hashList,
-    hashSet,
+    hashtagList,
+    hashtagSet,
     collaboTalentSet,
     keywordList,
   };

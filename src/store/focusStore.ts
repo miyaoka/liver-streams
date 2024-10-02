@@ -19,10 +19,10 @@ export const useFocusStore = defineStore("focusStore", () => {
 
   // shortsなどはマッチさせないように除く
   const ignoreHashList = ["#shorts", "#hololive"];
-  function setHoveredHashSet(hashSet: Set<string>) {
+  function setHoveredHashtagSet(hashSet: Set<string>) {
     hoveredHashSet.value = new Set([...hashSet].filter((hash) => !ignoreHashList.includes(hash)));
   }
-  function clearHoveredHashSet() {
+  function clearHoveredHashtagSet() {
     hoveredHashSet.value = new Set();
   }
 
@@ -31,12 +31,12 @@ export const useFocusStore = defineStore("focusStore", () => {
       liverEvent.talent.name,
       liverEvent.collaboTalents.map((t) => t.name),
     );
-    setHoveredHashSet(liverEvent.hashSet);
+    setHoveredHashtagSet(liverEvent.hashtagSet);
   }
 
   function unhoverEvent() {
     clearHoveredTalents();
-    clearHoveredHashSet();
+    clearHoveredHashtagSet();
   }
 
   return {
@@ -45,8 +45,8 @@ export const useFocusStore = defineStore("focusStore", () => {
     hoveredHashSet,
     setHoveredTalents,
     clearHoveredTalents,
-    setHoveredHashSet,
-    clearHoveredHashSet,
+    setHoveredHashtagSet,
+    clearHoveredHashtagSet,
     hoverEvent,
     unhoverEvent,
   };

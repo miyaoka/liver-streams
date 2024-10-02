@@ -26,7 +26,7 @@ const fullDate = computed(() => {
 
 // セグメント化したタイトル
 const segmentList = computed(() => {
-  const { title, keywordList, hashList } = props.liverEvent;
+  const { title, keywordList, hashtagList: hashList } = props.liverEvent;
   return parseSegment(title, keywordList, hashList);
 });
 
