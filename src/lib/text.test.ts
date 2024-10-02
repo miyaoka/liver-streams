@@ -51,6 +51,11 @@ describe("extractParenthesizedText", () => {
     expect(extractParenthesizedText(input)).toEqual(expected);
   });
 
+  it("括弧内に全角ハッシュタグが含まれる場合も除外する", () => {
+    const input = "【＃マイクラ肝試し2024】まだ暑いから夏！肝を試します【＃黒夢町】";
+    const expected: string[] = [];
+    expect(extractParenthesizedText(input)).toEqual(expected);
+  });
   // it("特殊な括弧", () => {
   //   const input =
   //     "𓊆 あつまれ どうぶつの森 𓊇 島評価おしえてくださいお願いします！！！ 𓊆 雲母たまこ ┊ にじさんじ 𓊇";
