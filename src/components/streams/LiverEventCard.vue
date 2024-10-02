@@ -229,12 +229,14 @@ function setSearchString(str: string) {
           <div
             v-if="isNew"
             class="grid size-10 place-items-center rounded-full border-2 border-purple-800 bg-white shadow-md"
+            title="new"
           >
             <i class="i-mdi-sparkles size-7 text-purple-600" />
           </div>
           <div
             v-if="isBookmark"
             class="grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
+            title="bookmark"
           >
             <i class="i-mdi-bookmark size-7 text-green-600" />
           </div>
