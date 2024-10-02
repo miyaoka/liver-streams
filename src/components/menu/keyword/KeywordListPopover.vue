@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
@@ -81,6 +81,13 @@ function createCountList(eventList: string[][]): KeywordItem[] {
 
   return resultList.sort((a, b) => b.count - a.count);
 }
+
+const groupList = ["keyword", "hashtag"];
+const selectedGroup = ref<(typeof groupList)[number]>("keyword");
+
+const selectedItem = computed(() => {
+  return selectedGroup.value === "keyword" ? keywordList.value : hashtagList.value;
+});
 </script>
 
 <template>
@@ -101,20 +108,29 @@ function createCountList(eventList: string[][]): KeywordItem[] {
 
     <div class="grid gap-2 overflow-y-scroll [scrollbar-width:none]">
       <header
-        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-green-100 px-2 font-bold shadow-md"
+        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-white px-2 font-bold shadow-md"
       >
-        <i class="i-mdi-chat-outline size-4" />
-        keyword
+        <fieldset role="radiogroup" class="flex flex-row">
+          <label
+            class="flex cursor-pointer flex-row items-center gap-1 rounded-xl px-2 py-1 has-[input:checked]:bg-gray-200"
+            v-for="group in groupList"
+            :key="group"
+          >
+            <input
+              type="radio"
+              name="type"
+              v-model="selectedGroup"
+              :value="group"
+              class="sr-only"
+            />
+            <i :class="`${group === 'keyword' ? 'i-mdi-chat-outline' : 'i-mdi-hashtag'} size-4`" />
+            <span>
+              {{ group }}
+            </span>
+          </label>
+        </fieldset>
       </header>
-      <KeywordListPopoverItem :itemList="keywordList" />
-
-      <header
-        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-yellow-100 px-2 font-bold shadow-md"
-      >
-        <i class="i-mdi-hashtag size-4" />
-        hashtag
-      </header>
-      <KeywordListPopoverItem :itemList="hashtagList" />
+      <KeywordListPopoverItem :itemList="selectedItem" />
     </div>
   </div>
 </template>
