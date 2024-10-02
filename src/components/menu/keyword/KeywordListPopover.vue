@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
@@ -34,42 +34,60 @@ const filteredEventList = computed(() => {
 });
 
 const keywordList = computed(() => {
-  const map: Record<string, number> = {};
-  filteredEventList.value.forEach((event) => {
-    event.keywordList.forEach((keyword) => {
-      if (keyword in map) {
-        map[keyword]++;
-      } else {
-        map[keyword] = 1;
-      }
-    });
-  });
-  return mapToList(map);
+  const keywordLists = filteredEventList.value.map((event) => event.keywordList);
+  return createCountList(keywordLists);
 });
 
 const hashtagList = computed(() => {
-  const map: Record<string, number> = {};
-  filteredEventList.value.forEach((event) => {
-    event.hashtagList.forEach((hashtag) => {
-      if (hashtag in map) {
-        map[hashtag]++;
+  const hashtagLists = filteredEventList.value.map((event) => event.hashtagList);
+  return createCountList(hashtagLists).map((item) => {
+    return { value: `#${item.value}`, count: item.count };
+  });
+});
+
+// 大文字小文字を区別せずにカウントし、一番多いものをキーにする
+function createCountList(eventList: string[][]): KeywordItem[] {
+  const keywordMap: Map<string, Map<string, number>> = new Map();
+  eventList.forEach((keywordList) => {
+    keywordList.forEach((keyword) => {
+      // 小文字化したキーでカウント
+      const lowerKeyword = keyword.toLowerCase();
+      const countMap = keywordMap.get(lowerKeyword);
+      if (countMap) {
+        countMap.set(keyword, (countMap.get(keyword) ?? 0) + 1);
       } else {
-        map[hashtag] = 1;
+        keywordMap.set(lowerKeyword, new Map([[keyword, 1]]));
       }
     });
   });
-  return mapToList(map).map((item) => ({ value: `#${item.value}`, count: item.count }));
-});
 
-function mapToList(map: Record<string, number>, minCount = 2): KeywordItem[] {
-  const sortedList = Object.entries(map)
-    .flatMap(([value, count]) => {
-      if (count < minCount) return [];
-      return { value, count };
-    })
-    .sort((a, b) => b.count - a.count);
-  return sortedList;
+  const resultList: KeywordItem[] = [];
+  keywordMap.forEach((countMap, _lowerItem) => {
+    let totalCount = 0;
+    let key = "";
+    let maxCount = 0;
+
+    // キーワードごとのカウントを合計し、最大カウントを持つキーワードをキーにする
+    countMap.forEach((count, keyword) => {
+      totalCount += count;
+      if (count > maxCount) {
+        maxCount = count;
+        key = keyword;
+      }
+    });
+
+    resultList.push({ value: key, count: totalCount });
+  });
+
+  return resultList.sort((a, b) => b.count - a.count);
 }
+
+const groupList = ["keyword", "hashtag"];
+const selectedGroup = ref<(typeof groupList)[number]>("keyword");
+
+const selectedItem = computed(() => {
+  return selectedGroup.value === "keyword" ? keywordList.value : hashtagList.value;
+});
 </script>
 
 <template>
@@ -90,20 +108,29 @@ function mapToList(map: Record<string, number>, minCount = 2): KeywordItem[] {
 
     <div class="grid gap-2 overflow-y-scroll [scrollbar-width:none]">
       <header
-        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-green-100 px-2 font-bold shadow-md"
+        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-white px-2 font-bold shadow-md"
       >
-        <i class="i-mdi-chat-outline size-4" />
-        keyword
+        <fieldset role="radiogroup" class="flex flex-row">
+          <label
+            class="flex cursor-pointer flex-row items-center gap-1 rounded-xl px-2 py-1 has-[input:checked]:bg-gray-200"
+            v-for="group in groupList"
+            :key="group"
+          >
+            <input
+              type="radio"
+              name="type"
+              v-model="selectedGroup"
+              :value="group"
+              class="sr-only"
+            />
+            <i :class="`${group === 'keyword' ? 'i-mdi-chat-outline' : 'i-mdi-hashtag'} size-4`" />
+            <span>
+              {{ group }}
+            </span>
+          </label>
+        </fieldset>
       </header>
-      <KeywordListPopoverItem :itemList="keywordList" />
-
-      <header
-        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-yellow-100 px-2 font-bold shadow-md"
-      >
-        <i class="i-mdi-hashtag size-4" />
-        hashtag
-      </header>
-      <KeywordListPopoverItem :itemList="hashtagList" />
+      <KeywordListPopoverItem :itemList="selectedItem" />
     </div>
   </div>
 </template>
