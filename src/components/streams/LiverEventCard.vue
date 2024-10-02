@@ -236,7 +236,7 @@ function onClickCard(evt: MouseEvent) {
           class="absolute bottom-0 right-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
           :class="`${hasHoveredHash ? 'bg-amber-600 text-amber-100' : 'bg-blue-600 text-blue-100'}`"
         >
-          <span class="whitespace-nowrap text-xs">{{ firstHash }}</span>
+          <span class="whitespace-nowrap text-xs">#{{ firstHash }}</span>
         </div>
       </div>
     </a>

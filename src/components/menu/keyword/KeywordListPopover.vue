@@ -58,7 +58,7 @@ const hashtagList = computed(() => {
       }
     });
   });
-  return mapToList(map);
+  return mapToList(map).map((item) => ({ value: `#${item.value}`, count: item.count }));
 });
 
 function mapToList(map: Record<string, number>, minCount = 2): KeywordItem[] {
