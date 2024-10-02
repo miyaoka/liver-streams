@@ -139,6 +139,15 @@ function onClickCard(evt: MouseEvent) {
   if (!popover) return;
   popover.showPopover();
 }
+
+function setSearchString(str: string) {
+  // 同じものなら検索を解除
+  if (searchStore.searchString === str) {
+    searchStore.setSearchString("");
+    return;
+  }
+  searchStore.setSearchString(str);
+}
 </script>
 <template>
   <div
@@ -235,6 +244,7 @@ function onClickCard(evt: MouseEvent) {
           v-if="firstHash"
           class="absolute bottom-0 right-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
           :class="`${hasHoveredHash ? 'bg-amber-600 text-amber-100' : 'bg-blue-600 text-blue-100'}`"
+          @contextmenu.prevent="setSearchString(firstHash)"
         >
           <span class="whitespace-nowrap text-xs">#{{ firstHash }}</span>
         </div>
