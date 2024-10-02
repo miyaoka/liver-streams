@@ -67,28 +67,26 @@ function setSearchString(str: string) {
     </a>
 
     <div class="relative flex flex-col gap-2 px-6 py-4 max-sm:p-3">
-      <div class="relative">
-        <div class="text-lg font-bold">
-          <template v-for="(segment, i) in segmentList" :key="i">
-            <span
-              v-if="segment.type === 'hashtag'"
-              class="cursor-pointer text-blue-500 hover:underline"
-              @click="setSearchString(segment.value)"
-            >
-              {{ segment.value }}
-            </span>
-            <span
-              v-else-if="segment.type === 'keyword'"
-              class="cursor-pointer text-blue-500 hover:underline"
-              @click="setSearchString(segment.value)"
-            >
-              {{ segment.value }}
-            </span>
-            <span v-else>
-              {{ segment.value }}
-            </span>
-          </template>
-        </div>
+      <div class="text-lg font-bold">
+        <template v-for="(segment, i) in segmentList" :key="i">
+          <span
+            v-if="segment.type === 'hashtag'"
+            class="cursor-pointer text-blue-500 hover:underline"
+            @click="setSearchString(segment.value)"
+          >
+            {{ segment.value }}
+          </span>
+          <span
+            v-else-if="segment.type === 'keyword'"
+            class="cursor-pointer text-blue-500 hover:underline"
+            @click="setSearchString(segment.value)"
+          >
+            {{ segment.value }}
+          </span>
+          <span v-else>
+            {{ segment.value }}
+          </span>
+        </template>
       </div>
 
       <div class="flex flex-row items-center gap-2">
