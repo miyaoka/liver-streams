@@ -1,36 +1,36 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useScrollStore } from "./scrollStore";
-import { parseInput, searchQueryToTerms } from "@/lib/search";
+import { parseSearchString, searchQueryToSaerchString } from "@/lib/search";
 
 export const useSearchStore = defineStore("searchStore", () => {
   const scrollStore = useScrollStore();
 
-  const searchTerm = ref("");
+  const searchString = ref("");
 
-  const parsedSearchInput = computed(() => {
-    return parseInput(searchTerm.value);
+  const searchQuery = computed(() => {
+    return parseSearchString(searchString.value);
   });
   const hasQuery = computed(() => {
-    const { wordList, options, hashtagList } = parsedSearchInput.value;
+    const { wordList, options, hashtagList } = searchQuery.value;
     return wordList.length > 0 || Object.keys(options).length > 0 || hashtagList.length > 0;
   });
   const searchStatusList = computed(() => {
-    return parsedSearchInput.value.options.status ?? [];
+    return searchQuery.value.options.status ?? [];
   });
   const searchTalentList = computed(() => {
-    return parsedSearchInput.value.options.talent ?? [];
+    return searchQuery.value.options.talent ?? [];
   });
   const isLiveOnly = computed(() => {
     return searchStatusList.value.includes("live");
   });
 
-  function setSearchTerm(term: string) {
+  function setSearchString(term: string) {
     // 未入力状態であればスクロール位置を保存する
-    if (searchTerm.value === "") {
+    if (searchString.value === "") {
       scrollStore.savePosition();
     }
-    searchTerm.value = term;
+    searchString.value = term;
 
     // 入力がクリアされたらスクロール位置をリセットする
     if (term === "") {
@@ -55,15 +55,15 @@ export const useSearchStore = defineStore("searchStore", () => {
       scrollStore.restorePosition();
     }
 
-    const { options } = parsedSearchInput.value;
+    const { options } = searchQuery.value;
     let newStatusList = [];
     if (isLiveOnly.value) {
       newStatusList = searchStatusList.value.filter((status) => status !== "live");
     } else {
       newStatusList = [...searchStatusList.value, "live"];
     }
-    searchTerm.value = searchQueryToTerms({
-      ...parsedSearchInput.value,
+    searchString.value = searchQueryToSaerchString({
+      ...searchQuery.value,
       options: { ...options, status: newStatusList },
     });
   }
@@ -74,12 +74,12 @@ export const useSearchStore = defineStore("searchStore", () => {
       scrollStore.savePosition();
     }
 
-    const { options } = parsedSearchInput.value;
+    const { options } = searchQuery.value;
 
     // 解除
     if (talent === null) {
-      searchTerm.value = searchQueryToTerms({
-        ...parsedSearchInput.value,
+      searchString.value = searchQueryToSaerchString({
+        ...searchQuery.value,
         options: { ...options, talent: [] },
       });
     } else {
@@ -91,8 +91,8 @@ export const useSearchStore = defineStore("searchStore", () => {
         // セット
         newTalentList = [talent];
       }
-      searchTerm.value = searchQueryToTerms({
-        ...parsedSearchInput.value,
+      searchString.value = searchQueryToSaerchString({
+        ...searchQuery.value,
         options: { ...options, talent: newTalentList },
       });
     }
@@ -104,10 +104,10 @@ export const useSearchStore = defineStore("searchStore", () => {
   }
 
   return {
-    searchTerm,
-    setSearchTerm,
+    searchString,
+    setSearchString,
     setFocusedTalent,
-    parsedSearchInput,
+    searchQuery,
     isLiveOnly,
     toggleLiveOnly,
     hasQuery,

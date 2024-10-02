@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseInput, createSearchRegexp, searchQueryToTerms } from "./search";
+import { parseSearchString, createSearchRegexp, searchQueryToSaerchString } from "./search";
 
 describe("parseInput", () => {
   it("引用符で囲まれた文字列は空白があっても区切られないこと", () => {
@@ -9,7 +9,7 @@ describe("parseInput", () => {
       hashtagList: [],
       options: {},
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 
   it("接頭辞がある文字列とそれ以外の文字列に分割できること", () => {
@@ -19,7 +19,7 @@ describe("parseInput", () => {
       hashtagList: [],
       options: { tag: ["example"], status: ["live"] },
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 
   it("同じ接頭辞が指定されていたらすべてが配列に追加されること", () => {
@@ -29,7 +29,7 @@ describe("parseInput", () => {
       hashtagList: [],
       options: { tag: ["example", "example2"] },
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 
   it("クォートされた接頭辞の値が正しく処理されること", () => {
@@ -39,7 +39,7 @@ describe("parseInput", () => {
       hashtagList: [],
       options: { talent: ["the talent"] },
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 
   it("空のとき", () => {
@@ -49,7 +49,7 @@ describe("parseInput", () => {
       hashtagList: [],
       options: {},
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 
   it("複数の接頭辞と単語が混在する場合", () => {
@@ -59,7 +59,7 @@ describe("parseInput", () => {
       hashtagList: [],
       options: { tag: ["example", "example2"], status: ["live"] },
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 
   it("hashtagがある場合", () => {
@@ -69,7 +69,7 @@ describe("parseInput", () => {
       hashtagList: ["tag1", "tag2"],
       options: {},
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 
   it("unicode対応", () => {
@@ -79,7 +79,7 @@ describe("parseInput", () => {
       hashtagList: ["日本語タグ"],
       options: { tag: ["絵文🔥字", "日本語 空白入り"] },
     };
-    expect(parseInput(input)).toEqual(expected);
+    expect(parseSearchString(input)).toEqual(expected);
   });
 });
 
@@ -134,7 +134,7 @@ describe("searchQueryToTerms", () => {
     };
     const expected = "example test";
 
-    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
   });
 
   it("オプションを含むクエリを文字列に変換できること", () => {
@@ -144,7 +144,7 @@ describe("searchQueryToTerms", () => {
       options: { tag: ["exampleTag"], status: ["live"] },
     };
     const expected = "example tag:exampleTag status:live";
-    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
   });
 
   it("ハッシュタグを含むクエリを文字列に変換できること", () => {
@@ -154,7 +154,7 @@ describe("searchQueryToTerms", () => {
       options: {},
     };
     const expected = "example #tag1 #tag2";
-    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
   });
 
   it("単語、オプション、ハッシュタグを含むクエリを文字列に変換できること", () => {
@@ -164,7 +164,7 @@ describe("searchQueryToTerms", () => {
       options: { tag: ["exampleTag"], status: ["live"] },
     };
     const expected = "example test tag:exampleTag status:live #tag1";
-    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
   });
 
   it("空のクエリを空文字列に変換できること", () => {
@@ -174,7 +174,7 @@ describe("searchQueryToTerms", () => {
       options: {},
     };
     const expected = "";
-    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
   });
 
   it("オプションが空の配列の場合は無視されること", () => {
@@ -184,7 +184,7 @@ describe("searchQueryToTerms", () => {
       options: { tag: [] },
     };
     const expected = "example";
-    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
   });
 
   it("空白を含むオプションの値がクォートされること", () => {
@@ -194,6 +194,6 @@ describe("searchQueryToTerms", () => {
       options: { tag: ["example tag"] },
     };
     const expected = 'example "the space" tag:"example tag"';
-    expect(searchQueryToTerms(searchQuery)).toEqual(expected);
+    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
   });
 });

@@ -6,7 +6,7 @@ const searchStore = useSearchStore();
 const eventListStore = useEventListStore();
 
 function clear() {
-  searchStore.setSearchTerm("");
+  searchStore.setSearchString("");
 }
 </script>
 

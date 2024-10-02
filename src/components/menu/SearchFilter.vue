@@ -16,7 +16,7 @@ function onInput() {
     clearTimeout(timeout);
   }
   timeout = setTimeout(() => {
-    searchStore.setSearchTerm(searchQuery.value);
+    searchStore.setSearchString(searchQuery.value);
   }, 500);
 }
 
@@ -44,13 +44,13 @@ function onClick() {
     inputEl.value?.focus();
   } else {
     // close
-    searchStore.setSearchTerm("");
+    searchStore.setSearchString("");
     searchQuery.value = "";
   }
 }
 
 watch(
-  () => searchStore.searchTerm,
+  () => searchStore.searchString,
   (newVal) => {
     searchQuery.value = newVal;
     isInput.value = newVal !== "";
