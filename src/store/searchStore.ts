@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useScrollStore } from "./scrollStore";
-import { parseSearchString, searchQueryToSaerchString } from "@/lib/search";
+import { parseSearchString, searchQueryToSearchString } from "@/lib/search";
 
 export const useSearchStore = defineStore("searchStore", () => {
   const scrollStore = useScrollStore();
@@ -62,7 +62,7 @@ export const useSearchStore = defineStore("searchStore", () => {
     } else {
       newStatusList = [...searchStatusList.value, "live"];
     }
-    searchString.value = searchQueryToSaerchString({
+    searchString.value = searchQueryToSearchString({
       ...searchQuery.value,
       options: { ...options, status: newStatusList },
     });
@@ -78,7 +78,7 @@ export const useSearchStore = defineStore("searchStore", () => {
 
     // 解除
     if (talent === null) {
-      searchString.value = searchQueryToSaerchString({
+      searchString.value = searchQueryToSearchString({
         ...searchQuery.value,
         options: { ...options, talent: [] },
       });
@@ -91,7 +91,7 @@ export const useSearchStore = defineStore("searchStore", () => {
         // セット
         newTalentList = [talent];
       }
-      searchString.value = searchQueryToSaerchString({
+      searchString.value = searchQueryToSearchString({
         ...searchQuery.value,
         options: { ...options, talent: newTalentList },
       });

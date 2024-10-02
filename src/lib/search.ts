@@ -58,7 +58,7 @@ function quoteIfSpace(str: string): string {
 }
 
 // SearchQueryを検索文字列に変換
-export function searchQueryToSaerchString(searchQuery: SearchQuery): string {
+export function searchQueryToSearchString(searchQuery: SearchQuery): string {
   const { wordList, options, hashtagList } = searchQuery;
   const optionStr = Object.entries(options)
     .flatMap(([key, valueList]) => {
