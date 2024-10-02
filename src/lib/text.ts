@@ -46,7 +46,7 @@ const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
 
 // タイトルからhash部分を抜き出す
 export function getHashTagList(input: string): string[] {
-  const result: string[] = [];
+  let result: string[] = [];
 
   let buffer = "";
   let afterHash = false;
@@ -62,10 +62,7 @@ export function getHashTagList(input: string): string[] {
     if (!matched || isHash) {
       // ハッシュタグ中ならそれまでの文字列をリストに追加
       if (afterHash) {
-        // 3文字以上なら追加
-        if (buffer.length > 2) {
-          result.push(buffer);
-        }
+        result.push(buffer);
         // reset
         buffer = "";
         afterHash = false;
@@ -86,6 +83,9 @@ export function getHashTagList(input: string): string[] {
   if (afterHash) {
     result.push(buffer);
   }
+
+  // 3文字未満のハッシュタグは含めない
+  result = result.filter((tag) => tag.length >= 3);
 
   // ハッシュタグの重複を削除
   return [...new Set(result)];
