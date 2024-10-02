@@ -77,6 +77,11 @@ describe("getHashTagList", () => {
     expect(getHashTagList(input)).toEqual(expected);
   });
 
+  it("末尾に3文字未満のハッシュタグがある場合も無視する", () => {
+    const input = "『ドラゴンボールZ:KAKAROT』やるやよッ！！！ #05";
+    expect(getHashTagList(input)).toEqual([]);
+  });
+
   it("特殊文字を含むハッシュタグを正しく処理する", () => {
     const input = "This is a test #hashtag1 #hash_tag2 #hash-tag3";
     const expected = ["hashtag1", "hash_tag2", "hash-tag3"];
