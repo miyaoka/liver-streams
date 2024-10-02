@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { LiverEvent } from "@/services/api";
+import { parseSegment } from "@/lib/text";
 import { getThumnail } from "@/lib/youtube";
 import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
@@ -22,6 +23,23 @@ const isBookmark = computed(() => {
 const fullDate = computed(() => {
   return fullDateFormatter.format(props.liverEvent.startAt);
 });
+
+// セグメント化したタイトル
+const segmentList = computed(() => {
+  const { title, keywordList, hashList } = props.liverEvent;
+  return parseSegment(title, keywordList, hashList);
+});
+
+function setSearchString(str: string) {
+  // 空白を含むならダブルクォーテーションで囲む
+  const formattedStr = str.includes(" ") ? `"${str}"` : str;
+  // 同じものなら検索を解除
+  if (searchStore.searchString === formattedStr) {
+    searchStore.setSearchString("");
+    return;
+  }
+  searchStore.setSearchString(formattedStr);
+}
 </script>
 
 <template>
@@ -50,9 +68,27 @@ const fullDate = computed(() => {
 
     <div class="relative flex flex-col gap-2 px-6 py-4 max-sm:p-3">
       <div class="relative">
-        <p class="text-lg font-bold">
-          {{ liverEvent.title }}
-        </p>
+        <div class="text-lg font-bold">
+          <template v-for="(segment, i) in segmentList" :key="i">
+            <span
+              v-if="segment.type === 'hashtag'"
+              class="cursor-pointer text-blue-500 hover:underline"
+              @click="setSearchString(segment.value)"
+            >
+              {{ segment.value }}
+            </span>
+            <span
+              v-else-if="segment.type === 'keyword'"
+              class="cursor-pointer text-blue-500 hover:underline"
+              @click="setSearchString(segment.value)"
+            >
+              {{ segment.value }}
+            </span>
+            <span v-else>
+              {{ segment.value }}
+            </span>
+          </template>
+        </div>
       </div>
 
       <div class="flex flex-row items-center gap-2">

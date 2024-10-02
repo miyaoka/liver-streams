@@ -90,3 +90,57 @@ export function getHashTagList(input: string): string[] {
   // ハッシュタグの重複を削除
   return [...new Set(result)];
 }
+
+export type Segment = {
+  value: string;
+  type: "text" | "keyword" | "hashtag";
+};
+
+export function parseSegment(text: string, keywords: string[], hashtags: string[]): Segment[] {
+  const segments: Segment[] = [];
+
+  const hasKeywords = keywords.length > 0;
+  const hasHashtags = hashtags.length > 0;
+
+  // キーワードとハッシュタグがない場合はテキストのみを返す
+  if (!hasKeywords && !hasHashtags) {
+    return [{ value: text, type: "text" }];
+  }
+
+  // キーワードとハッシュタグのパターンを作成
+  const keywordsPattern = hasKeywords ? `(?<keywords>${keywords.join("|")})` : null;
+  const hashtagsPattern = hasHashtags ? `(?<hashtags>[#＃](${hashtags.join("|")}))` : null;
+
+  // 正規表現を作成
+  const regex = new RegExp([keywordsPattern, hashtagsPattern].filter((v) => v).join("|"), "gi");
+
+  // 文字列全体を順に解析する
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(text)) !== null) {
+    // マッチ部分の前にテキストがある場合、テキストとして追加
+    const beforeMatch = text.slice(lastIndex, match.index);
+    if (beforeMatch) {
+      segments.push({ value: beforeMatch, type: "text" });
+    }
+
+    const { keywords, hashtags } = match.groups ?? {};
+
+    // キーワードかハッシュタグに応じてセグメントを追加
+    if (keywords) {
+      segments.push({ value: keywords, type: "keyword" });
+    } else if (hashtags) {
+      segments.push({ value: hashtags, type: "hashtag" });
+    }
+
+    lastIndex = regex.lastIndex;
+  }
+
+  // 最後のテキスト部分もセグメントとして追加
+  const remainingText = text.slice(lastIndex);
+  if (remainingText) {
+    segments.push({ value: remainingText, type: "text" });
+  }
+
+  return segments;
+}
