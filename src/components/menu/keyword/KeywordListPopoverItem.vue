@@ -12,11 +12,11 @@ function setSearchTerm(term: string) {
   // 空白を含むならダブルクォーテーションで囲む
   const formattedTerm = term.includes(" ") ? `"${term}"` : term;
   // 同じものなら検索を解除
-  if (searchStore.searchTerm === formattedTerm) {
-    searchStore.setSearchTerm("");
+  if (searchStore.searchString === formattedTerm) {
+    searchStore.setSearchString("");
     return;
   }
-  searchStore.setSearchTerm(formattedTerm);
+  searchStore.setSearchString(formattedTerm);
 }
 </script>
 

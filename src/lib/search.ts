@@ -21,7 +21,7 @@ const regexPattern = `(?<quoted>${quoted})|(?<optionKey>${optionKey}):(?<optionV
 const searchRegex = new RegExp(regexPattern, "g");
 
 // 正規表現でハッシュタグ、単語、オプションを抽出
-export function parseInput(input: string): SearchQuery {
+export function parseSearchString(input: string): SearchQuery {
   const wordList: string[] = [];
   const hashtagList: string[] = [];
   const options: Record<string, string[]> = {};
@@ -57,7 +57,8 @@ function quoteIfSpace(str: string): string {
   return str.includes(" ") ? `"${str}"` : str;
 }
 
-export function searchQueryToTerms(searchQuery: SearchQuery): string {
+// SearchQueryを検索文字列に変換
+export function searchQueryToSaerchString(searchQuery: SearchQuery): string {
   const { wordList, options, hashtagList } = searchQuery;
   const optionStr = Object.entries(options)
     .flatMap(([key, valueList]) => {
