@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { extractParenthesizedText, getHashTagList } from "./text";
+import { extractParenthesizedText, getHashTagList, parseSegment, type Segment } from "./text";
 
 describe("extractParenthesizedText", () => {
   it("括弧内のテキストを抽出する", () => {
@@ -125,5 +125,100 @@ describe("getHashTagList", () => {
       "【＃生スバル】カドショ開店しゅばああああああああああああああああああああああああ！！！！！！/ TCG Card Shop Simulator【ホロライブ/大空スバル】";
     const expected = ["生スバル"];
     expect(getHashTagList(input)).toEqual(expected);
+  });
+});
+describe("parseSegment", () => {
+  it("キーワードとハッシュタグを正しくセグメント化する", () => {
+    const text = "これはテストです #ハッシュタグ1 キーワード1 #ハッシュタグ2 キーワード2";
+    const keywords = ["キーワード1", "キーワード2"];
+    const hashtags = ["ハッシュタグ1", "ハッシュタグ2"];
+    const expected: Segment[] = [
+      { value: "これはテストです ", type: "text" },
+      { value: "#ハッシュタグ1", type: "hashtag" },
+      { value: " ", type: "text" },
+      { value: "キーワード1", type: "keyword" },
+      { value: " ", type: "text" },
+      { value: "#ハッシュタグ2", type: "hashtag" },
+      { value: " ", type: "text" },
+      { value: "キーワード2", type: "keyword" },
+    ];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
+  });
+
+  it("キーワードのみをセグメント化する", () => {
+    const text = "これはキーワード1とキーワード2のテストです";
+    const keywords = ["キーワード1", "キーワード2"];
+    const hashtags: string[] = [];
+    const expected: Segment[] = [
+      { value: "これは", type: "text" },
+      { value: "キーワード1", type: "keyword" },
+      { value: "と", type: "text" },
+      { value: "キーワード2", type: "keyword" },
+      { value: "のテストです", type: "text" },
+    ];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
+  });
+
+  it("ハッシュタグのみをセグメント化する", () => {
+    const text = "これは#ハッシュタグ1と#ハッシュタグ2のテストです";
+    const keywords: string[] = [];
+    const hashtags = ["ハッシュタグ1", "ハッシュタグ2"];
+    const expected: Segment[] = [
+      { value: "これは", type: "text" },
+      { value: "#ハッシュタグ1", type: "hashtag" },
+      { value: "と", type: "text" },
+      { value: "#ハッシュタグ2", type: "hashtag" },
+      { value: "のテストです", type: "text" },
+    ];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
+  });
+
+  it("キーワードとハッシュタグがない場合はテキストのみをセグメント化する", () => {
+    const text = "これはテストです";
+    const keywords: string[] = [];
+    const hashtags: string[] = [];
+    const expected: Segment[] = [{ value: "これはテストです", type: "text" }];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
+  });
+
+  it("キーワードとハッシュタグが重複する場合は正しくセグメント化する", () => {
+    const text = "これは#キーワード1とキーワード1のテストです";
+    const keywords = ["キーワード1"];
+    const hashtags = ["キーワード1"];
+    const expected: Segment[] = [
+      { value: "これは", type: "text" },
+      { value: "#キーワード1", type: "hashtag" },
+      { value: "と", type: "text" },
+      { value: "キーワード1", type: "keyword" },
+      { value: "のテストです", type: "text" },
+    ];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
+  });
+
+  it("全角ハッシュタグの場合でも正しくセグメント化する", () => {
+    const text = "これは#ハッシュタグ１と＃全角ハッシュタグ２のテストです";
+    const keywords: string[] = [];
+    const hashtags = ["ハッシュタグ１", "全角ハッシュタグ２"];
+    const expected: Segment[] = [
+      { value: "これは", type: "text" },
+      { value: "#ハッシュタグ１", type: "hashtag" },
+      { value: "と", type: "text" },
+      { value: "＃全角ハッシュタグ２", type: "hashtag" },
+      { value: "のテストです", type: "text" },
+    ];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
+  });
+
+  it("ハッシュタグが隣接する場合でも正しくセグメント化する", () => {
+    const text = "これは#ハッシュタグ1#ハッシュタグ2のテストです";
+    const keywords: string[] = [];
+    const hashtags = ["ハッシュタグ1", "ハッシュタグ2"];
+    const expected: Segment[] = [
+      { value: "これは", type: "text" },
+      { value: "#ハッシュタグ1", type: "hashtag" },
+      { value: "#ハッシュタグ2", type: "hashtag" },
+      { value: "のテストです", type: "text" },
+    ];
+    expect(parseSegment(text, keywords, hashtags)).toEqual(expected);
   });
 });
