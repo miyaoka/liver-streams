@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseSearchString, createSearchRegexp, searchQueryToSaerchString } from "./search";
+import { parseSearchString, createSearchRegexp, searchQueryToSearchString } from "./search";
 
 describe("parseInput", () => {
   it("引用符で囲まれた文字列は空白があっても区切られないこと", () => {
@@ -134,7 +134,7 @@ describe("searchQueryToTerms", () => {
     };
     const expected = "example test";
 
-    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
+    expect(searchQueryToSearchString(searchQuery)).toEqual(expected);
   });
 
   it("オプションを含むクエリを文字列に変換できること", () => {
@@ -144,7 +144,7 @@ describe("searchQueryToTerms", () => {
       options: { tag: ["exampleTag"], status: ["live"] },
     };
     const expected = "example tag:exampleTag status:live";
-    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
+    expect(searchQueryToSearchString(searchQuery)).toEqual(expected);
   });
 
   it("ハッシュタグを含むクエリを文字列に変換できること", () => {
@@ -154,7 +154,7 @@ describe("searchQueryToTerms", () => {
       options: {},
     };
     const expected = "example #tag1 #tag2";
-    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
+    expect(searchQueryToSearchString(searchQuery)).toEqual(expected);
   });
 
   it("単語、オプション、ハッシュタグを含むクエリを文字列に変換できること", () => {
@@ -164,7 +164,7 @@ describe("searchQueryToTerms", () => {
       options: { tag: ["exampleTag"], status: ["live"] },
     };
     const expected = "example test tag:exampleTag status:live #tag1";
-    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
+    expect(searchQueryToSearchString(searchQuery)).toEqual(expected);
   });
 
   it("空のクエリを空文字列に変換できること", () => {
@@ -174,7 +174,7 @@ describe("searchQueryToTerms", () => {
       options: {},
     };
     const expected = "";
-    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
+    expect(searchQueryToSearchString(searchQuery)).toEqual(expected);
   });
 
   it("オプションが空の配列の場合は無視されること", () => {
@@ -184,7 +184,7 @@ describe("searchQueryToTerms", () => {
       options: { tag: [] },
     };
     const expected = "example";
-    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
+    expect(searchQueryToSearchString(searchQuery)).toEqual(expected);
   });
 
   it("空白を含むオプションの値がクォートされること", () => {
@@ -194,6 +194,6 @@ describe("searchQueryToTerms", () => {
       options: { tag: ["example tag"] },
     };
     const expected = 'example "the space" tag:"example tag"';
-    expect(searchQueryToSaerchString(searchQuery)).toEqual(expected);
+    expect(searchQueryToSearchString(searchQuery)).toEqual(expected);
   });
 });
