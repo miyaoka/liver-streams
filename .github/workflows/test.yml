@@ -1,9 +1,9 @@
-name: Test
+name: Type Check and Test
 
 on:
   - push
 jobs:
-  test:
+  type-check-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,5 +25,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run test
+      - name: Run TypeScript type check
+        run: pnpm run type-check
+
+      - name: Run Test
         run: pnpm run test
