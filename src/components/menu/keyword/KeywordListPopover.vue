@@ -112,13 +112,13 @@ const selectedItem = computed(() => {
       >
         <fieldset role="radiogroup" class="flex flex-row">
           <label
-            class="flex cursor-pointer flex-row items-center gap-1 rounded-xl px-2 py-1 has-[input:checked]:bg-gray-200"
+            class="flex cursor-pointer flex-row items-center gap-1 rounded-xl px-2 py-1 focus-within:outline has-[input:checked]:bg-gray-200"
             v-for="group in groupList"
             :key="group"
           >
             <input
               type="radio"
-              name="type"
+              name="searchType"
               v-model="selectedGroup"
               :value="group"
               class="sr-only"

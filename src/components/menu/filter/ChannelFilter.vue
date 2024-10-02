@@ -55,10 +55,9 @@ function reset() {
       </div>
 
       <div class="flex place-content-between p-4 shadow">
-        <div class="flex gap-2">
+        <fieldset class="flex gap-2">
           <label
-            :class="`size-11 grid place-items-center  rounded-lg hover:bg-gray-200 cursor-pointer
-        ${selectedGroup === group.key ? 'bg-gray-200' : ''}`"
+            class="grid size-11 cursor-pointer place-items-center rounded-lg focus-within:outline hover:bg-gray-200 has-[input:checked]:bg-gray-200"
             v-for="group in groups"
             :key="group.key"
           >
@@ -75,7 +74,7 @@ function reset() {
               class="size-[32px] rounded-full bg-white"
             />
           </label>
-        </div>
+        </fieldset>
         <button class="flex h-11 place-items-center rounded-full bg-slate-100 px-2" @click="reset">
           <i class="i-mdi-refresh size-8 text-gray-400" />
           <span>reset</span>
