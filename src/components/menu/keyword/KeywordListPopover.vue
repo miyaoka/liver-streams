@@ -34,17 +34,46 @@ const filteredEventList = computed(() => {
 });
 
 const keywordList = computed(() => {
-  const map: Record<string, number> = {};
+  // 大文字・小文字を区別せずにハッシュタグをカウントするために
+  // 小文字化したハッシュタグをキーにして、各ハッシュタグの出現回数をカウント
+  const keywordMap: Map<string, Map<string, number>> = new Map();
   filteredEventList.value.forEach((event) => {
     event.keywordList.forEach((keyword) => {
-      if (keyword in map) {
-        map[keyword]++;
+      const lowerKeyword = keyword.toLowerCase();
+      const keywordCountMap = keywordMap.get(lowerKeyword);
+      if (keywordCountMap) {
+        keywordCountMap.set(keyword, (keywordCountMap.get(keyword) ?? 0) + 1);
       } else {
-        map[keyword] = 1;
+        keywordMap.set(lowerKeyword, new Map([[keyword, 1]]));
       }
     });
   });
-  return mapToList(map);
+
+  // 一番出現回数が多いハッシュタグをキーにして、出現回数の合計を計算
+  const list: KeywordItem[] = [];
+  keywordMap.forEach((keywordCountMap, _lowerKeyword) => {
+    let totalCount = 0;
+    let keywordKey = "";
+    let maxCount = 0;
+
+    keywordCountMap.forEach((count, keyword) => {
+      totalCount += count;
+      if (count > maxCount) {
+        maxCount = count;
+        keywordKey = keyword;
+      }
+    });
+
+    list.push({ value: keywordKey, count: totalCount });
+  });
+
+  const sorted = list
+    .flatMap((item) => {
+      // if (item.count < 2) return [];
+      return item;
+    })
+    .sort((a, b) => b.count - a.count);
+  return sorted;
 });
 
 const hashtagList = computed(() => {
@@ -83,7 +112,7 @@ const hashtagList = computed(() => {
 
   const sorted = list
     .flatMap((item) => {
-      if (item.count < 2) return [];
+      // if (item.count < 2) return [];
       return {
         value: `#${item.value}`,
         count: item.count,
