@@ -1,3 +1,9 @@
+export const hashtagPrefixPattern = "[#＃]";
+const hashtagPrefixRegExp = new RegExp(hashtagPrefixPattern);
+const hashTagRegex = new RegExp(hashtagPrefixPattern + ".+", "g");
+const minKeywordLength = 2;
+const minHashtagLength = 3;
+
 // テキストから括弧で括られた文字列を抽出する
 export function extractParenthesizedText(text: string, author: string = ""): string[] {
   const parentheses = "[]{}［］【】｛｝〔〕〈〉《》「」『』〘〙〚〛";
@@ -10,7 +16,7 @@ export function extractParenthesizedText(text: string, author: string = ""): str
     .filter((_, index) => index % 2 !== 0)
     .map((p) => "\\" + p);
   const parenthesesPattern = new RegExp(
-    `[${openingParentheses.join("")}](.*?)[${closingParentheses.join("")}]`,
+    `(?<=[${openingParentheses.join("")}])(.*?)(?=[${closingParentheses.join("")}])`,
     "g",
   );
   const matches = text.match(parenthesesPattern);
@@ -21,24 +27,19 @@ export function extractParenthesizedText(text: string, author: string = ""): str
   const ignoreRegExp = new RegExp(ignoreList.join("|"), "i");
 
   const list = matches.flatMap((match) => {
-    const str = match.slice(1, -1).trim().toLowerCase();
-
     // ハッシュ以降を削除
-    const noHash = str.replace(/#.*/, "");
+    const cleanedText = match.replace(hashTagRegex, "").trim().toLowerCase();
     // 2文字未満は無視
-    if (noHash.length < 2) return [];
+    if (cleanedText.length < minKeywordLength) return [];
     // 除外リストは無視
-    if (noHash.match(ignoreRegExp)) return [];
+    if (cleanedText.match(ignoreRegExp)) return [];
 
-    return noHash;
+    return cleanedText;
   });
 
   // ユニークなものだけにする
   return [...new Set(list)];
 }
-
-export const hashtagPrefixPattern = "[#＃]";
-const hashtagPrefixRegExp = new RegExp(hashtagPrefixPattern);
 
 // https://unicode.org/reports/tr31/#hashtag_identifiers
 // 有効な文字の正規表現
@@ -88,7 +89,7 @@ export function getHashTagList(input: string): string[] {
   }
 
   // 3文字未満のハッシュタグは含めない
-  result = result.filter((tag) => tag.length >= 3);
+  result = result.filter((tag) => tag.length >= minHashtagLength);
 
   // ハッシュタグの重複を削除
   return [...new Set(result)];
