@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick } from "vue";
+import { computed } from "vue";
 import BookmarkedEventPopover from "./BookmarkedEventPopover.vue";
 import type { LiverEvent } from "@/services/api";
 import { usePopover } from "@/composable/usePopover";
@@ -10,22 +10,7 @@ import { useStorageStore } from "@/store/storageStore";
 const eventListStore = useEventListStore();
 const storageStore = useStorageStore();
 
-const popover = usePopover({
-  onShow: async () => {
-    await nextTick();
-
-    const now = Date.now();
-    // 現在より後で最も近いイベントにスクロールする
-    const nextEvent =
-      bookmarkEventList.value.find((event) => event.startAt.getTime() > now) ??
-      bookmarkEventList.value.at(-1);
-    if (!nextEvent) return;
-
-    const targetEl = document.querySelector(`[data-fav-event-id="${nextEvent.id}"]`);
-    if (!targetEl) return;
-    targetEl.scrollIntoView({ behavior: "instant", block: "center" });
-  },
-});
+const popover = usePopover();
 
 const bookmarkEventList = computed(() => {
   const list: LiverEvent[] = [];

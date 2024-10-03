@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { scrollToLiverEventTop } from "@/lib/scroll";
 import { getThumnail } from "@/lib/youtube";
@@ -37,6 +37,19 @@ function getEventTime(liverEvent: LiverEvent) {
   // 別の日なら相対時刻を返す
   return toRelativeTime(startDateTime - dateStore.currentDateTime);
 }
+
+onMounted(() => {
+  const now = Date.now();
+  // 現在より後で最も近いイベントにスクロールする
+  const nextEvent =
+    props.bookmarkEventList.find((event) => event.startAt.getTime() > now) ??
+    props.bookmarkEventList.at(-1);
+  if (!nextEvent) return;
+
+  const targetEl = document.querySelector(`[data-fav-event-id="${nextEvent.id}"]`);
+  if (!targetEl) return;
+  targetEl.scrollIntoView({ behavior: "instant", block: "center" });
+});
 </script>
 
 <template>
