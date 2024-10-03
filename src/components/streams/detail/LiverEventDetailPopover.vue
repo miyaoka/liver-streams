@@ -2,12 +2,13 @@
 import { computed, toRef } from "vue";
 import { useLiverEvent } from "../useLiverEvent";
 import type { LiverEvent } from "@/services/api";
+import { usePopover } from "@/composable/usePopover";
 import { parseSegment } from "@/lib/text";
 import { getThumnail } from "@/lib/youtube";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useFocusStore } from "@/store/focusStore";
+import { useNotificationStore } from "@/store/notificationStore";
 import { useSearchStore } from "@/store/searchStore";
-import { useStorageStore } from "@/store/storageStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
 import { closePopover } from "@/utils/popover";
 
@@ -15,15 +16,15 @@ const props = defineProps<{
   liverEvent: LiverEvent;
 }>();
 
-const { isFinished, elapsedTime, isNew, hasBookmark, hasNotify } = useLiverEvent(
+const bookmarkStore = useBookmarkStore();
+const focusStore = useFocusStore();
+const searchStore = useSearchStore();
+const notificationStore = useNotificationStore();
+
+const { isFinished, hasBookmark, hasNotify, beforeStartTime } = useLiverEvent(
   toRef(props.liverEvent),
 );
-
-const bookmarkStore = useBookmarkStore();
-
-const focusStore = useFocusStore();
-const storageStore = useStorageStore();
-const searchStore = useSearchStore();
+const permissionPopover = usePopover();
 
 const fullDate = computed(() => {
   return fullDateFormatter.format(props.liverEvent.startAt);
@@ -31,8 +32,8 @@ const fullDate = computed(() => {
 
 // セグメント化したタイトル
 const segmentList = computed(() => {
-  const { title, keywordList, hashtagList: hashList } = props.liverEvent;
-  return parseSegment(title, keywordList, hashList);
+  const { title, keywordList, hashtagList } = props.liverEvent;
+  return parseSegment(title, keywordList, hashtagList);
 });
 
 function setSearchString(str: string) {
@@ -44,6 +45,33 @@ function setSearchString(str: string) {
     return;
   }
   searchStore.setSearchString(formattedStr);
+}
+
+// 通知機能が使えるか
+const canSetNotify = computed(() => {
+  if (!notificationStore.isSupported) return false;
+  // 開始時間前なら通知可能
+  return beforeStartTime.value && !isFinished.value;
+});
+
+async function onClickNotify(id: string) {
+  if (!notificationStore.isSupported) return;
+
+  // 通知許可済みなら通知をトグル
+  if (notificationStore.permissionGranted) {
+    bookmarkStore.toggleNotifyEvent(id);
+    return;
+  }
+
+  // 通知許可ポップオーバーを表示
+  permissionPopover.showPopover();
+  // 通知許可を求める
+  const permission = await notificationStore.ensurePermissions();
+  if (!permission) return;
+
+  // 許可されたらポップオーバーを閉じて通知をトグル
+  permissionPopover.hidePopover();
+  bookmarkStore.toggleNotifyEvent(id);
 }
 </script>
 
@@ -138,8 +166,9 @@ function setSearchString(str: string) {
             </div>
           </button>
           <button
+            v-if="canSetNotify"
             class="group/fav grid size-11 place-items-center"
-            @click="bookmarkStore.toggleNotifyEvent(liverEvent.id)"
+            @click="onClickNotify(liverEvent.id)"
             title="add notification"
           >
             <div
@@ -155,6 +184,14 @@ function setSearchString(str: string) {
         </div>
       </div>
     </div>
+    <permissionPopover.PopOver class="bottom-4 top-auto overflow-visible bg-transparent p-0">
+      <button
+        class="rounded-full bg-yellow-400 p-4 text-sm shadow-md"
+        @click="permissionPopover.hidePopover()"
+      >
+        通知を許可してください
+      </button>
+    </permissionPopover.PopOver>
   </div>
 </template>
 
@@ -163,6 +200,18 @@ function setSearchString(str: string) {
   transition: opacity 1s;
   @starting-style {
     opacity: 0;
+  }
+}
+
+[popover] {
+  &:popover-open {
+    animation: fadeIn 0.2s ease-in-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    translate: 0 50%;
   }
 }
 </style>
