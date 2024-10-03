@@ -15,7 +15,6 @@ export interface Node {
 export const useStorageStore = defineStore("storageStore", () => {
   const _talentFilterMap = useLocalStorage("talentFilter", new Map<string, boolean>());
   const talentFilterEnabled = useLocalStorage("talentFilterEnabled", true);
-  const bookmarkEventSet = useLocalStorage("bookmarkEventSet", new Set<string>());
 
   const talentFilterMap = computed(() => {
     if (!talentFilterEnabled.value) return new Map<string, boolean>();
@@ -33,25 +32,11 @@ export const useStorageStore = defineStore("storageStore", () => {
     _talentFilterMap.value.clear();
   }
 
-  function toggleBookmarkEvent(id: string) {
-    if (bookmarkEventSet.value.has(id)) {
-      bookmarkEventSet.value.delete(id);
-    } else {
-      bookmarkEventSet.value.add(id);
-    }
-  }
-  function resetBookmarkEventSet() {
-    bookmarkEventSet.value.clear();
-  }
-
   return {
     talentFilterMap,
     setTalentFilter,
     resetTalentFilter,
     talentFilterEnabled,
-    bookmarkEventSet,
-    toggleBookmarkEvent,
-    resetBookmarkEventSet,
   };
 });
 
