@@ -24,8 +24,8 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
 
     // 配信していない場合
     const now = dateStore.currentTime;
-    const startTime = liverEvent.value.startAt.getTime();
-    const elapsed = now - startTime;
+
+    const elapsed = now - startTime.value;
     // 現在時刻を過ぎていなければ開始前
     if (elapsed < 0) return false;
     // ホロライブの場合
@@ -43,17 +43,21 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
     return false;
   });
 
+  const startTime = computed(() => {
+    return liverEvent.value.startAt.getTime();
+  });
+
   const elapsedTime = computed(() => {
-    const { isLive, endAt, startAt } = liverEvent.value;
+    const { isLive, endAt } = liverEvent.value;
 
     const time = (() => {
       // 終了時間があれば終了時間から開始時間を引く
       if (endAt) {
-        return endAt.getTime() - startAt.getTime();
+        return endAt.getTime() - startTime.value;
       }
       // ライブ中なら現在時刻から開始時間を引く
       if (isLive) {
-        return dateStore.currentTime - startAt.getTime();
+        return dateStore.currentTime - startTime.value;
       }
       return 0;
     })();
@@ -78,11 +82,17 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
     return bookmarkStore.hasNotify(liverEvent.value.id);
   });
 
+  // 開始時間前か
+  const beforeStartTime = computed(() => {
+    return dateStore.currentTime < startTime.value;
+  });
+
   return {
     isFinished,
     elapsedTime,
     isNew,
     hasBookmark,
     hasNotify,
+    beforeStartTime,
   };
 };
