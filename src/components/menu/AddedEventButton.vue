@@ -14,11 +14,9 @@ const popover = usePopover({
   },
 });
 
-const eventCount = computed(() => eventListStore.filteredAddedEventList.length);
+const eventCount = computed(() => eventListStore.addedEventList.length);
 const unreadCount = computed(
-  () =>
-    eventListStore.filteredAddedEventList.filter((item) => item.addedTime > lastOpenTime.value)
-      .length,
+  () => eventListStore.addedEventList.filter((item) => item.addedTime > lastOpenTime.value).length,
 );
 
 function showPopover() {
@@ -66,7 +64,7 @@ function showPopover() {
         <!-- 逆順表示 -->
         <div v-else class="flex flex-col-reverse">
           <AddedEventCard
-            v-for="{ liverEvent, addedTime } in eventListStore.filteredAddedEventList"
+            v-for="{ liverEvent, addedTime } in eventListStore.addedEventList"
             :key="liverEvent.id"
             :addedTime="addedTime"
             :lastOpenTime="lastOpenTime"
