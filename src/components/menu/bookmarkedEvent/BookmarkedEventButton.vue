@@ -4,17 +4,16 @@ import BookmarkedEventPopover from "./BookmarkedEventPopover.vue";
 import type { LiverEvent } from "@/services/api";
 import { usePopover } from "@/composable/usePopover";
 
+import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useEventListStore } from "@/store/eventListStore";
-import { useStorageStore } from "@/store/storageStore";
 
 const eventListStore = useEventListStore();
-const storageStore = useStorageStore();
-
+const bookmarkStore = useBookmarkStore();
 const popover = usePopover();
 
 const bookmarkEventList = computed(() => {
   const list: LiverEvent[] = [];
-  storageStore.bookmarkEventSet.forEach((id) => {
+  bookmarkStore.bookmarkEventMap.forEach((_value, id) => {
     const liverEvent = eventListStore.liverEventMap.get(id);
     if (liverEvent) {
       list.push(liverEvent);

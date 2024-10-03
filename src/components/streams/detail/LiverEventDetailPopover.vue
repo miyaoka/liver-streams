@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, toRef } from "vue";
+import { useLiverEvent } from "../useLiverEvent";
 import type { LiverEvent } from "@/services/api";
 import { parseSegment } from "@/lib/text";
 import { getThumnail } from "@/lib/youtube";
+import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
@@ -13,13 +15,16 @@ const props = defineProps<{
   liverEvent: LiverEvent;
 }>();
 
+const { isFinished, elapsedTime, isNew, hasBookmark, hasNotify } = useLiverEvent(
+  toRef(props.liverEvent),
+);
+
+const bookmarkStore = useBookmarkStore();
+
 const focusStore = useFocusStore();
 const storageStore = useStorageStore();
 const searchStore = useSearchStore();
 
-const isBookmark = computed(() => {
-  return storageStore.bookmarkEventSet.has(props.liverEvent.id);
-});
 const fullDate = computed(() => {
   return fullDateFormatter.format(props.liverEvent.startAt);
 });
@@ -118,19 +123,36 @@ function setSearchString(str: string) {
             </button>
           </div>
         </div>
-        <button
-          class="group/fav grid size-11 place-items-center"
-          @click="storageStore.toggleBookmarkEvent(liverEvent.id)"
-          title="bookmark"
-        >
-          <div
-            :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isBookmark ? 'border-green-800' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
+        <div class="flex flex-col place-items-center">
+          <button
+            class="group/fav grid size-11 place-items-center"
+            @click="bookmarkStore.toggleBookmarkEvent(liverEvent.id)"
+            title="add bookmark"
           >
-            <i
-              :class="`size-7 ${isBookmark ? 'i-mdi-bookmark text-green-600' : 'i-mdi-bookmark-outline  text-gray-400'}`"
-            />
-          </div>
-        </button>
+            <div
+              :class="`size-10 place-items-center bg-white rounded-full grid  border-2 group-hover/fav:bg-gray-100 ${hasBookmark ? 'border-green-800' : 'border-gray-400'} `"
+            >
+              <i
+                :class="`size-7 ${hasBookmark ? 'i-mdi-bookmark text-green-600' : 'i-mdi-bookmark-outline  text-gray-400'}`"
+              />
+            </div>
+          </button>
+          <button
+            class="group/fav grid size-11 place-items-center"
+            @click="bookmarkStore.toggleNotifyEvent(liverEvent.id)"
+            title="add notification"
+          >
+            <div
+              :class="`size-10 place-items-center bg-white rounded-full grid  border-2 border-gray-400 group-hover/fav:bg-gray-100
+              ${hasNotify ? 'border-yellow-800' : 'border-gray-400'}
+              `"
+            >
+              <i
+                :class="`size-7 ${hasNotify ? 'i-mdi-bell text-yellow-600' : 'i-mdi-bell-outline text-gray-400'}`"
+              />
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>
