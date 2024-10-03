@@ -124,6 +124,13 @@ describe("createSearchRegexp", () => {
     const queryArray: string[] = [];
     expect(createSearchRegexp(queryArray)).toBeNull();
   });
+
+  it("制御文字が含まれていても正規表現が生成できること", () => {
+    const queryArray = ["example", "test", "or", "sample", "demo", "|", "()[]{}^$*+?.|\\"];
+    const expected =
+      /((?=.*example)(?=.*test)|(?=.*sample)(?=.*demo)|(?=.*\(\)\[\]\{\}\^\$\*\+\?\.\|\\))/i;
+    expect(createSearchRegexp(queryArray)).toEqual(expected);
+  });
 });
 describe("searchQueryToTerms", () => {
   it("単純な単語リストを文字列に変換できること", () => {
