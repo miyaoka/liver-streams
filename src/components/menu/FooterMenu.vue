@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AddedEventButton from "./AddedEventButton.vue";
-import BookmarkedEventButton from "./BookmarkedEventButton.vue";
+import AddedEventButton from "./addedEvent/AddedEventButton.vue";
+import BookmarkedEventButton from "./bookmarkedEvent/BookmarkedEventButton.vue";
 import FilteringButton from "./FilteringButton.vue";
-import KeywordListButton from "./keyword/KeywordListButton.vue";
+import KeywordListButton from "./keywordList/KeywordListButton.vue";
 import LiveFilterButton from "./LiveFilterButton.vue";
 import ScrollButton from "./ScrollButton.vue";
 </script>

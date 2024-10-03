@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import TalentNode from "./TalentNode.vue";
-import { talents } from "@/assets/talents";
+import ChannelNode from "./ChannelNode.vue";
+import { talents } from "@/assets/channel";
 import { usePopover } from "@/composable/usePopover";
 import { useStorageStore } from "@/store/storageStore";
 import { getChannelIcon } from "@/utils/icons";
@@ -87,7 +87,7 @@ function reset() {
         v-if="rootNode"
         :key="rootNode.name"
       >
-        <TalentNode :node="rootNode" :key="rootNode.name" />
+        <ChannelNode :node="rootNode" :key="rootNode.name" />
       </div>
     </div>
   </popover.PopOver>
