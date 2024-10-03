@@ -7,20 +7,29 @@ import { createDateSectionList } from "@/lib/section";
 import { fetchLiverEventList, type LiverEvent } from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
 
-interface AddedEvent {
+interface AddedEventId {
   id: string;
   addedTime: number;
 }
+
+interface AddedEvent {
+  addedTime: number;
+  liverEvent: LiverEvent;
+}
+
+// 新着としてキープする時間(ms)
+const addedEventKeepTime = 1000 * 60 * 60 * 2;
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
   const searchStore = useSearchStore();
   const liverEventList = ref<LiverEvent[] | null>(null);
-  const liverEventIdSet = ref<Set<string>>(new Set());
-  const addedEventList = ref<AddedEvent[]>([]);
+  const addedEventIdList = ref<AddedEventId[]>([]);
+  // idをキーにしたLiverEventのMap
+  const liverEventMap = ref<Map<string, LiverEvent>>(new Map());
 
   const addedEventIdSet = computed(() => {
-    return new Set(addedEventList.value.map((addedEvent) => addedEvent.id));
+    return new Set(addedEventIdList.value.map((addedEvent) => addedEvent.id));
   });
 
   const filteredEventList = computed(() => {
@@ -32,13 +41,14 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
-  const filteredAddedEventList = computed(() => {
-    if (!addedEventList.value) return [];
+  // 新着イベントを現在のタレントフィルターでフィルタリング
+  const addedEventList = computed<AddedEvent[]>(() => {
+    if (!addedEventIdList.value) return [];
 
     const filterMap = storageStore.talentFilterMap;
     const filterEnabled = storageStore.talentFilterEnabled;
 
-    const list = addedEventList.value.flatMap((addedEvent) => {
+    const list = addedEventIdList.value.flatMap((addedEvent) => {
       const liverEvent = liverEventMap.value.get(addedEvent.id);
       if (!liverEvent) return [];
       return {
@@ -65,60 +75,67 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
-  // idをキーにしたLiverEventのMap
-  const liverEventMap = computed(() => {
-    const map = new Map<string, LiverEvent>();
-    if (!liverEventList.value) return map;
-    liverEventList.value.forEach((liverEvent) => {
-      map.set(liverEvent.id, liverEvent);
-    });
-    return map;
-  });
-
   async function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
-    const currLiverEventList = await fetchLiverEventList({ nijiLiverMap });
-    const currLiverEventIdSet = new Set(currLiverEventList.map((event) => event.id));
+    // list取得
+    const newLiverEventList = await fetchLiverEventList({ nijiLiverMap });
 
-    // setを比較して足されたものを算出
-    // 初回の場合は差分抽出せずスキップ
-    if (liverEventList.value) {
-      const now = Date.now();
+    // map更新
+    const eventMap = new Map<string, LiverEvent>();
+    newLiverEventList.forEach((liverEvent) => {
+      eventMap.set(liverEvent.id, liverEvent);
+    });
+    liverEventMap.value = eventMap;
 
-      // 新着としてキープする時間(ms)
-      const addedEventKeepTime = 1000 * 60 * 60 * 2;
+    // 新着更新
+    updateAddedEventList(newLiverEventList);
 
-      const diff = currLiverEventIdSet.difference(liverEventIdSet.value);
-      const currAddedEventList: AddedEvent[] = Array.from(diff).map((id) => {
-        return {
-          id,
-          addedTime: now,
-        };
-      });
-
-      const mergedEventList = [
-        ...addedEventList.value.filter((addedEvent) => {
-          // 追加後から一定時間経ったものは新着から削除
-          return now - addedEvent.addedTime < addedEventKeepTime;
-        }),
-        ...currAddedEventList,
-      ];
-
-      addedEventList.value = mergedEventList;
-    }
-
-    liverEventList.value = currLiverEventList;
-    liverEventIdSet.value = currLiverEventIdSet;
+    // list更新
+    liverEventList.value = newLiverEventList;
 
     // liverEventListに存在しないbookmarkを削除
     storageStore.bookmarkEventSet.forEach((id) => {
-      if (!liverEventIdSet.value.has(id)) {
+      if (!liverEventMap.value.has(id)) {
         storageStore.bookmarkEventSet.delete(id);
       }
     });
   }
 
+  // setを比較して足されたものを算出
+  function updateAddedEventList(newLiverEventList: LiverEvent[]) {
+    // 初回の場合は差分抽出せずスキップ
+    if (!liverEventList.value) return;
+
+    const newLiverEventIdSet = new Set(newLiverEventList.map((event) => event.id));
+    const prevLiverEventIdSet = new Set(liverEventList.value.map((event) => event.id));
+
+    const idDiffSet = newLiverEventIdSet.difference(prevLiverEventIdSet);
+
+    const now = Date.now();
+    const newAddedEventIdList: AddedEventId[] = Array.from(idDiffSet).map((id) => {
+      return {
+        id,
+        addedTime: now,
+      };
+    });
+
+    const mergedEventIdList = [...addedEventIdList.value, ...newAddedEventIdList].filter(
+      (addedEvent) => {
+        // 追加後から一定時間経ったものは新着に含めない
+        if (now - addedEvent.addedTime > addedEventKeepTime) return false;
+        // 開始時間から一定時間経過したものも新着に含めない
+        const liverEvent = liverEventMap.value.get(addedEvent.id);
+        if (!liverEvent) return false;
+        if (now - liverEvent.startAt.getTime() > addedEventKeepTime) return false;
+
+        return true;
+      },
+    );
+
+    addedEventIdList.value = mergedEventIdList;
+  }
+
   function clearAddedEventList() {
-    addedEventList.value = [];
+    addedEventIdList.value = [];
   }
 
   return {
@@ -126,10 +143,8 @@ export const useEventListStore = defineStore("eventListStore", () => {
     filteredEventList,
     onLiveEventList,
     dateSectionList,
-    liverEventIdSet,
     liverEventMap,
     addedEventList,
-    filteredAddedEventList,
     addedEventIdSet,
     updateLiverEventList,
     clearAddedEventList,
