@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import type { TalentNode } from "@/assets/talents";
+import type { ChannelNode } from "@/assets/channel";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { getChannelIcon } from "@/utils/icons";
 
 const props = defineProps<{
-  node: TalentNode;
+  node: ChannelNode;
 }>();
 const emit = defineEmits<{
   change: [];
@@ -17,7 +17,7 @@ const searchStore = useSearchStore();
 
 const children = computed(() => {
   const names: string[] = [];
-  const childNodes: TalentNode[] = [];
+  const childNodes: ChannelNode[] = [];
   props.node.children.map((child) => {
     if (typeof child === "string") {
       names.push(child);
@@ -148,7 +148,7 @@ async function onNodeChange() {
         </label>
       </div>
       <div v-if="children.childNodes.length > 0" ref="childNodeEl" class="flex flex-col gap-2">
-        <TalentNode
+        <ChannelNode
           v-for="child in children.childNodes"
           :node="child"
           :key="child.name"

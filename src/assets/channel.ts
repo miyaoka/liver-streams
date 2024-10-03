@@ -1,10 +1,10 @@
-export interface TalentNode {
+export interface ChannelNode {
   name: string;
-  children: (string | TalentNode)[];
+  children: (string | ChannelNode)[];
   initial?: string;
 }
 
-export const talents: TalentNode[] = [
+export const talents: ChannelNode[] = [
   {
     name: "hololive",
     children: [

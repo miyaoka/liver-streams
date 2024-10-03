@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChannelFilter from "./filter/ChannelFilter.vue";
+import ChannelFilter from "./channelFilter/ChannelFilter.vue";
 import SearchFilter from "./SearchFilter.vue";
 </script>
 
