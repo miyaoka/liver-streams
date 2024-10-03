@@ -46,7 +46,7 @@ const elapsedTime = computed(() => {
   const hour = time / oneHour;
   return {
     fixed: hour.toFixed(1),
-    count: Math.max(1, Math.round(hour)),
+    count: Math.min(12, Math.max(1, Math.round(hour))),
   };
 });
 
