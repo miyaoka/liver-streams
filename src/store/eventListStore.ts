@@ -1,5 +1,6 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { useBookmarkStore } from "./bookmarkStore";
 import { useSearchStore } from "./searchStore";
 import { useStorageStore } from "./storageStore";
 import { getFilteredEventList, talentFilter } from "@/lib/search";
@@ -23,6 +24,7 @@ const addedEventKeepTime = 1000 * 60 * 60 * 2;
 export const useEventListStore = defineStore("eventListStore", () => {
   const storageStore = useStorageStore();
   const searchStore = useSearchStore();
+  const bookmarkStore = useBookmarkStore();
   const liverEventList = ref<LiverEvent[] | null>(null);
   const addedEventIdList = ref<AddedEventId[]>([]);
   // idをキーにしたLiverEventのMap
@@ -92,11 +94,38 @@ export const useEventListStore = defineStore("eventListStore", () => {
     // list更新
     liverEventList.value = newLiverEventList;
 
-    // liverEventListに存在しないbookmarkを削除
-    storageStore.bookmarkEventSet.forEach((id) => {
-      if (!liverEventMap.value.has(id)) {
-        storageStore.bookmarkEventSet.delete(id);
+    // bookmark処理
+    processBookmarkEvent();
+  }
+
+  // bookmarkの処理
+  function processBookmarkEvent() {
+    const now = Date.now();
+    bookmarkStore.bookmarkEventMap.forEach((bookmarkType, id) => {
+      const bookmarkEvent = liverEventMap.value.get(id);
+      // liverEventListに存在しないbookmarkを削除
+      if (!bookmarkEvent) {
+        bookmarkStore.bookmarkEventMap.delete(id);
+        return;
       }
+
+      // 通常のbookmarkはスキップ
+      if (bookmarkType !== "notify") return;
+      // 開始時間になっていなければスキップ
+      if (now < bookmarkEvent.startAt.getTime()) return;
+      // 通知許可がない場合はスキップ
+      if (Notification.permission === "granted") {
+        // 通知する
+        const notification = new Notification(bookmarkEvent.talent.name, {
+          body: bookmarkEvent.title,
+          icon: bookmarkEvent.thumbnail,
+        });
+        notification.onclick = () => {
+          window.open(bookmarkEvent.url);
+        };
+      }
+      // 通知後はnotifyからbookmarkに変更
+      bookmarkStore.bookmarkEventMap.set(id, "bookmark");
     });
   }
 

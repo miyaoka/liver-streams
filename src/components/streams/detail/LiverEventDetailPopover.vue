@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, toRef } from "vue";
+import { useLiverEvent } from "../useLiverEvent";
 import type { LiverEvent } from "@/services/api";
+import { usePopover } from "@/composable/usePopover";
 import { parseSegment } from "@/lib/text";
 import { getThumnail } from "@/lib/youtube";
+import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useFocusStore } from "@/store/focusStore";
+import { useNotificationStore } from "@/store/notificationStore";
 import { useSearchStore } from "@/store/searchStore";
-import { useStorageStore } from "@/store/storageStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
 import { closePopover } from "@/utils/popover";
 
@@ -13,21 +16,24 @@ const props = defineProps<{
   liverEvent: LiverEvent;
 }>();
 
+const bookmarkStore = useBookmarkStore();
 const focusStore = useFocusStore();
-const storageStore = useStorageStore();
 const searchStore = useSearchStore();
+const notificationStore = useNotificationStore();
 
-const isBookmark = computed(() => {
-  return storageStore.bookmarkEventSet.has(props.liverEvent.id);
-});
+const { isFinished, hasBookmark, hasNotify, beforeStartTime } = useLiverEvent(
+  toRef(props.liverEvent),
+);
+const permissionPopover = usePopover();
+
 const fullDate = computed(() => {
   return fullDateFormatter.format(props.liverEvent.startAt);
 });
 
 // セグメント化したタイトル
 const segmentList = computed(() => {
-  const { title, keywordList, hashtagList: hashList } = props.liverEvent;
-  return parseSegment(title, keywordList, hashList);
+  const { title, keywordList, hashtagList } = props.liverEvent;
+  return parseSegment(title, keywordList, hashtagList);
 });
 
 function setSearchString(str: string) {
@@ -39,6 +45,33 @@ function setSearchString(str: string) {
     return;
   }
   searchStore.setSearchString(formattedStr);
+}
+
+// 通知機能が使えるか
+const canSetNotify = computed(() => {
+  if (!notificationStore.isSupported) return false;
+  // 開始時間前なら通知可能
+  return beforeStartTime.value && !isFinished.value;
+});
+
+async function onClickNotify(id: string) {
+  if (!notificationStore.isSupported) return;
+
+  // 通知許可済みなら通知をトグル
+  if (notificationStore.permissionGranted) {
+    bookmarkStore.toggleNotifyEvent(id);
+    return;
+  }
+
+  // 通知許可ポップオーバーを表示
+  permissionPopover.showPopover();
+  // 通知許可を求める
+  const permission = await notificationStore.ensurePermissions();
+  if (!permission) return;
+
+  // 許可されたらポップオーバーを閉じて通知をトグル
+  permissionPopover.hidePopover();
+  bookmarkStore.toggleNotifyEvent(id);
 }
 </script>
 
@@ -118,21 +151,47 @@ function setSearchString(str: string) {
             </button>
           </div>
         </div>
-        <button
-          class="group/fav grid size-11 place-items-center"
-          @click="storageStore.toggleBookmarkEvent(liverEvent.id)"
-          title="bookmark"
-        >
-          <div
-            :class="`size-10 place-items-center bg-white rounded-full grid  border-2 ${isBookmark ? 'border-green-800' : 'border-gray-400'} group-hover/fav:bg-gray-100`"
+        <div class="flex flex-col place-items-center">
+          <button
+            class="group/fav grid size-11 place-items-center"
+            @click="bookmarkStore.toggleBookmarkEvent(liverEvent.id)"
+            title="add bookmark"
           >
-            <i
-              :class="`size-7 ${isBookmark ? 'i-mdi-bookmark text-green-600' : 'i-mdi-bookmark-outline  text-gray-400'}`"
-            />
-          </div>
-        </button>
+            <div
+              :class="`size-10 place-items-center bg-white rounded-full grid  border-2 group-hover/fav:bg-gray-100 ${hasBookmark ? 'border-green-800' : 'border-gray-400'} `"
+            >
+              <i
+                :class="`size-7 ${hasBookmark ? 'i-mdi-bookmark text-green-600' : 'i-mdi-bookmark-outline  text-gray-400'}`"
+              />
+            </div>
+          </button>
+          <button
+            v-if="canSetNotify"
+            class="group/fav grid size-11 place-items-center"
+            @click="onClickNotify(liverEvent.id)"
+            title="add notification"
+          >
+            <div
+              :class="`size-10 place-items-center bg-white rounded-full grid  border-2 border-gray-400 group-hover/fav:bg-gray-100
+              ${hasNotify ? 'border-yellow-800' : 'border-gray-400'}
+              `"
+            >
+              <i
+                :class="`size-7 ${hasNotify ? 'i-mdi-bell text-yellow-600' : 'i-mdi-bell-outline text-gray-400'}`"
+              />
+            </div>
+          </button>
+        </div>
       </div>
     </div>
+    <permissionPopover.PopOver class="bottom-4 top-auto overflow-visible bg-transparent p-0">
+      <button
+        class="rounded-full bg-yellow-400 p-4 text-sm shadow-md"
+        @click="permissionPopover.hidePopover()"
+      >
+        通知を許可してください
+      </button>
+    </permissionPopover.PopOver>
   </div>
 </template>
 
@@ -141,6 +200,18 @@ function setSearchString(str: string) {
   transition: opacity 1s;
   @starting-style {
     opacity: 0;
+  }
+}
+
+[popover] {
+  &:popover-open {
+    animation: fadeIn 0.2s ease-in-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    translate: 0 50%;
   }
 }
 </style>

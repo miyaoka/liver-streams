@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed, toRaw } from "vue";
+import { computed, toRaw, toRef } from "vue";
+import { useLiverEvent } from "./useLiverEvent";
 import type { LiverEvent } from "@/services/api";
 import { getThumnail } from "@/lib/youtube";
-import { useDateStore } from "@/store/dateStore";
-import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
-import { useStorageStore } from "@/store/storageStore";
 import { hhss } from "@/utils/dateFormat";
 import { getChannelIcon } from "@/utils/icons";
 
@@ -15,40 +13,10 @@ const props = defineProps<{
 }>();
 
 const focusStore = useFocusStore();
-const dateStore = useDateStore();
-const eventListStore = useEventListStore();
-const storageStore = useStorageStore();
 const searchStore = useSearchStore();
-
-const oneHour = 60 * 60 * 1000;
-
-// ホロライブのライブ判定開始用
-const liveStartDuration = 20 * 60 * 1000;
-const liveEndDuration = 60 * 60 * 1000;
-
-const elapsedTime = computed(() => {
-  const { isLive, endAt } = props.liverEvent;
-
-  const time = (() => {
-    // 終了時間があれば終了時間から開始時間を引く
-    if (endAt) {
-      return endAt.getTime() - props.liverEvent.startAt.getTime();
-    }
-    // ライブ中なら現在時刻から開始時間を引く
-    if (isLive) {
-      return dateStore.currentTime - props.liverEvent.startAt.getTime();
-    }
-    return 0;
-  })();
-
-  if (time === 0) return null;
-
-  const hour = time / oneHour;
-  return {
-    fixed: hour.toFixed(1),
-    count: Math.min(12, Math.max(1, Math.round(hour))),
-  };
-});
+const { isFinished, elapsedTime, isNew, hasBookmark, hasNotify } = useLiverEvent(
+  toRef(props.liverEvent),
+);
 
 const timeDisplay = computed(() => {
   const { isLive, startAt } = props.liverEvent;
@@ -66,34 +34,6 @@ const timeDisplay = computed(() => {
   }
 
   return strs.join(" ");
-});
-
-// 配信終了判定
-const isFinished = computed(() => {
-  // 終了時刻が設定されているか（にじさんじのみ）
-  if (props.liverEvent.endAt) return true;
-  // 配信中か
-  if (props.liverEvent.isLive) return false;
-
-  // 配信していない場合
-  const now = dateStore.currentTime;
-  const startTime = props.liverEvent.startAt.getTime();
-  const elapsed = now - startTime;
-  // 現在時刻を過ぎていなければ開始前
-  if (elapsed < 0) return false;
-  // ホロライブの場合
-  if (props.liverEvent.affilication === "hololive") {
-    // 配信開始直後は開始時間が更新されてもliveになっていない場合があるので一定時間判定しない
-    if (elapsed < liveStartDuration) return false;
-
-    // startTimeの秒数が0以外あれば配信開始済み
-    if (props.liverEvent.startAt.getSeconds() !== 0) return true;
-
-    // 秒数が0の場合、1時間経過していたら終了と見なす
-    if (elapsed > liveEndDuration) return true;
-  }
-  // それ以外の場合：未終了
-  return false;
 });
 
 const isHovered = computed(() => {
@@ -120,14 +60,6 @@ const hasHoveredHash = computed(() => {
 
   const hashSet = toRaw(props.liverEvent.hashtagSet);
   return hashSet.intersection(focusStore.hoveredHashSet).size > 0;
-});
-
-const isNew = computed(() => {
-  return eventListStore.addedEventIdSet.has(props.liverEvent.id);
-});
-
-const isBookmark = computed(() => {
-  return storageStore.bookmarkEventSet.has(props.liverEvent.id);
 });
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
@@ -233,13 +165,22 @@ function setSearchString(str: string) {
           >
             <i class="i-mdi-sparkles size-7 text-purple-600" />
           </div>
-          <div
-            v-if="isBookmark"
-            class="grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
-            title="bookmark"
-          >
-            <i class="i-mdi-bookmark size-7 text-green-600" />
-          </div>
+          <template v-if="hasBookmark">
+            <div
+              v-if="hasNotify"
+              class="grid size-10 place-items-center rounded-full border-2 border-yellow-800 bg-white shadow-md"
+              title="bookmark"
+            >
+              <i class="i-mdi-bell size-7 text-yellow-600" />
+            </div>
+            <div
+              v-else
+              class="grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
+              title="bookmark"
+            >
+              <i class="i-mdi-bookmark size-7 text-green-600" />
+            </div>
+          </template>
         </div>
 
         <div

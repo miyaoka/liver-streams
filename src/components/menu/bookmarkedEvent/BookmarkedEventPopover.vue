@@ -3,9 +3,9 @@ import { computed, onMounted } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { scrollToLiverEventTop } from "@/lib/scroll";
 import { getThumnail } from "@/lib/youtube";
+import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useDateStore } from "@/store/dateStore";
 import { useFocusStore } from "@/store/focusStore";
-import { useStorageStore } from "@/store/storageStore";
 import { compareDate, getDateTime } from "@/utils/date";
 import { hhmmDateFormatter, toRelativeTime } from "@/utils/dateFormat";
 import { closePopover } from "@/utils/popover";
@@ -16,7 +16,7 @@ const props = defineProps<{
 
 const focusStore = useFocusStore();
 const dateStore = useDateStore();
-const storageStore = useStorageStore();
+const bookmarkStore = useBookmarkStore();
 
 const bookmarkCount = computed(() => props.bookmarkEventList.length);
 
@@ -99,7 +99,7 @@ onMounted(() => {
         <div class="flex justify-center p-2">
           <button
             class="rounded bg-gray-200 px-4 py-2 text-sm hover:bg-gray-300"
-            @click.prevent="storageStore.resetBookmarkEventSet"
+            @click.prevent="bookmarkStore.bookmarkEventMap.clear"
           >
             clear all
           </button>
