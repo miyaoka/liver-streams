@@ -10,7 +10,7 @@ import { hhmmDateFormatter, toRelativeTime } from "@/utils/dateFormat";
 const props = defineProps<{
   liverEvent: LiverEvent;
   addedTime: number;
-  lastOpenTime: number;
+  lastCloseTime: number;
 }>();
 
 const dateStore = useDateStore();
@@ -34,7 +34,7 @@ const eventTime = computed(() => {
   return toRelativeTime(startDateTime - dateStore.currentDateTime);
 });
 
-const isUnread = computed(() => props.addedTime > props.lastOpenTime);
+const isUnread = computed(() => props.addedTime > props.lastCloseTime);
 
 function onClickEvent() {
   scrollToLiverEventTop(props.liverEvent.id);
