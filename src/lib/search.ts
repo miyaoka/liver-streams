@@ -74,6 +74,8 @@ export function searchQueryToSearchString(searchQuery: SearchQuery): string {
 // orにする区切り文字
 const or = ["or", "\\|"];
 const orRegExp = new RegExp(`^(${or.join("|")})$`, "i");
+// 制御文字
+const controlCharsRegExp = /[()[\]{}^$*+?.\\|]/g;
 
 // クエリから正規表現を生成
 export function createSearchRegexp(queryArray: string[]): RegExp | null {
@@ -88,8 +90,10 @@ export function createSearchRegexp(queryArray: string[]): RegExp | null {
       orParts.push(currentAndPart);
       currentAndPart = [];
     } else {
+      // 制御文字をエスケープ
+      const escapedTerm = term.replace(controlCharsRegExp, "\\$&");
       // "or" 以外の部分は AND 条件として追加
-      currentAndPart.push(term);
+      currentAndPart.push(escapedTerm);
     }
   });
   // 最後の AND 部分を保存
