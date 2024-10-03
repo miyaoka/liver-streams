@@ -50,8 +50,9 @@ function setSearchString(str: string) {
 // 通知機能が使えるか
 const canSetNotify = computed(() => {
   if (!notificationStore.isSupported) return false;
+  return true;
   // 開始時間前なら通知可能
-  return beforeStartTime.value && !isFinished.value;
+  // return beforeStartTime.value && !isFinished.value;
 });
 
 async function onClickNotify(id: string) {
