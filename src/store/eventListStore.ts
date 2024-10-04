@@ -7,6 +7,7 @@ import { getFilteredEventList, talentFilter } from "@/lib/search";
 import { createDateSectionList } from "@/lib/section";
 import { fetchLiverEventList, type LiverEvent } from "@/services/api";
 import { type NijiLiverMap } from "@/services/nijisanji";
+import { hhmmDateFormatter } from "@/utils/dateFormat";
 
 interface AddedEventId {
   id: string;
@@ -115,8 +116,9 @@ export const useEventListStore = defineStore("eventListStore", () => {
       if (now < bookmarkEvent.startAt.getTime()) return;
       // 通知許可がない場合はスキップ
       if (Notification.permission === "granted") {
+        const hhmm = hhmmDateFormatter.format(bookmarkEvent.startAt);
         // 通知する
-        const notification = new Notification(bookmarkEvent.talent.name, {
+        const notification = new Notification(`${hhmm} ${bookmarkEvent.talent.name}`, {
           body: bookmarkEvent.title,
           icon: bookmarkEvent.thumbnail,
         });
