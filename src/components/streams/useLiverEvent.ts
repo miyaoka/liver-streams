@@ -23,9 +23,9 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
     if (liverEvent.value.isLive) return false;
 
     // 配信していない場合、経過時間で判定
-    const elapsed = dateStore.currentTime - startTime.value;
+    const elapsed = elapsedTime.value;
     // 現在時刻を過ぎていなければ開始前
-    if (elapsed <= 0) return false;
+    if (elapsed === 0) return false;
 
     // ホロライブの場合
     if (liverEvent.value.affilication === "hololive") {
@@ -46,24 +46,36 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
     return liverEvent.value.startAt.getTime();
   });
 
+  // 開始時刻からの経過時間
   const elapsedTime = computed(() => {
-    const { isLive, endAt } = liverEvent.value;
-    // 終了時間があれば終了時間から開始時間を引く
-    if (endAt) {
-      return endAt.getTime() - startTime.value;
-    }
-    // ライブ中なら現在時刻から開始時間を引く
-    if (isLive) {
-      return dateStore.currentTime - startTime.value;
-    }
+    return Math.max(0, dateStore.currentTime - startTime.value);
+  });
+
+  // イベント開始から終了までの経過時間
+  const startToEndDuration = computed(() => {
+    const { endAt } = liverEvent.value;
+    if (!endAt) return null;
+    return endAt.getTime() - startTime.value;
+  });
+
+  // 配信した時間
+  const liveDuration = computed(() => {
+    // 終了時間が設定されている場合はそれを返す
+    if (startToEndDuration.value) return startToEndDuration.value;
+
+    // 配信中の場合は経過時間を返す
+    const { isLive } = liverEvent.value;
+    if (isLive) return elapsedTime.value;
+
+    // それ以外の場合は0を返す
     return 0;
   });
 
-  const elapsedHour = computed(() => {
-    const time = elapsedTime.value;
-    if (time === 0) return null;
+  // 配信時間をラベル表示用に整形
+  const liveDurationLabel = computed(() => {
+    if (liveDuration.value === 0) return null;
 
-    const hour = time / oneHour;
+    const hour = liveDuration.value / oneHour;
     return {
       fixed: hour.toFixed(1),
       count: Math.min(12, Math.max(1, Math.round(hour))),
@@ -89,7 +101,8 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
   return {
     isFinished,
     elapsedTime,
-    elapsedHour,
+    liveDuration,
+    liveDurationLabel,
     isNew,
     hasBookmark,
     hasNotify,

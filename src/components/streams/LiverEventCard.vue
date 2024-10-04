@@ -16,7 +16,7 @@ const { liverEvent } = toRefs(props);
 
 const focusStore = useFocusStore();
 const searchStore = useSearchStore();
-const { isFinished, elapsedHour, isNew, hasBookmark, hasNotify } = useLiverEvent(liverEvent);
+const { isFinished, liveDurationLabel, isNew, hasBookmark, hasNotify } = useLiverEvent(liverEvent);
 
 const timeDisplay = computed(() => {
   const { isLive, startAt } = props.liverEvent;
@@ -96,12 +96,12 @@ function setSearchString(str: string) {
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle size-5" />
         <span>{{ timeDisplay }}</span>
-        <template v-if="elapsedHour">
+        <template v-if="liveDurationLabel">
           <span class="font-normal">
-            {{ `(${elapsedHour.fixed}h)` }}
+            {{ `(${liveDurationLabel.fixed}h)` }}
           </span>
           <div class="flex items-center opacity-50">
-            <i v-for="time in elapsedHour.count" :key="time" :class="`i-mdi-clock h-4 w-4`" />
+            <i v-for="time in liveDurationLabel.count" :key="time" :class="`i-mdi-clock h-4 w-4`" />
           </div>
         </template>
       </div>
