@@ -6,7 +6,7 @@ import { useEventListStore } from "@/store/eventListStore";
 
 const oneHour = 60 * 60 * 1000;
 
-// ホロライブのライブ判定開始用
+// ホロライブのライブ開始判定用
 const liveStartDuration = 20 * 60 * 1000;
 const liveEndDuration = 60 * 60 * 1000;
 
@@ -22,12 +22,11 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
     // 配信中か
     if (liverEvent.value.isLive) return false;
 
-    // 配信していない場合
-    const now = dateStore.currentTime;
-
-    const elapsed = now - startTime.value;
+    // 配信していない場合、経過時間で判定
+    const elapsed = dateStore.currentTime - startTime.value;
     // 現在時刻を過ぎていなければ開始前
-    if (elapsed < 0) return false;
+    if (elapsed <= 0) return false;
+
     // ホロライブの場合
     if (liverEvent.value.affilication === "hololive") {
       // 配信開始直後は開始時間が更新されてもliveになっていない場合があるので一定時間判定しない
@@ -49,19 +48,19 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
 
   const elapsedTime = computed(() => {
     const { isLive, endAt } = liverEvent.value;
+    // 終了時間があれば終了時間から開始時間を引く
+    if (endAt) {
+      return endAt.getTime() - startTime.value;
+    }
+    // ライブ中なら現在時刻から開始時間を引く
+    if (isLive) {
+      return dateStore.currentTime - startTime.value;
+    }
+    return 0;
+  });
 
-    const time = (() => {
-      // 終了時間があれば終了時間から開始時間を引く
-      if (endAt) {
-        return endAt.getTime() - startTime.value;
-      }
-      // ライブ中なら現在時刻から開始時間を引く
-      if (isLive) {
-        return dateStore.currentTime - startTime.value;
-      }
-      return 0;
-    })();
-
+  const elapsedHour = computed(() => {
+    const time = elapsedTime.value;
     if (time === 0) return null;
 
     const hour = time / oneHour;
@@ -90,6 +89,7 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
   return {
     isFinished,
     elapsedTime,
+    elapsedHour,
     isNew,
     hasBookmark,
     hasNotify,
