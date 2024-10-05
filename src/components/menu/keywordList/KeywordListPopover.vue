@@ -106,32 +106,29 @@ const selectedItem = computed(() => {
       </button>
     </div>
 
-    <div class="grid gap-2 overflow-y-scroll [scrollbar-width:none]">
-      <header
-        class="sticky top-0 flex h-10 place-items-center gap-1 border-black bg-white px-2 font-bold shadow-md"
-      >
-        <fieldset role="radiogroup" class="flex flex-row">
-          <label
-            class="flex cursor-pointer flex-row items-center gap-1 rounded-xl px-2 py-1 focus-within:outline has-[input:checked]:bg-gray-200"
-            v-for="group in groupList"
-            :key="group"
-          >
-            <input
-              type="radio"
-              name="searchType"
-              v-model="selectedGroup"
-              :value="group"
-              class="sr-only"
-            />
-            <i :class="`${group === 'keyword' ? 'i-mdi-chat-outline' : 'i-mdi-hashtag'} size-4`" />
-            <span>
-              {{ group }}
-            </span>
-          </label>
-        </fieldset>
-      </header>
-      <KeywordListPopoverItem :itemList="selectedItem" />
-    </div>
+    <header class="place-items-center gap-1 border-black bg-white p-2 font-bold shadow-md">
+      <fieldset role="radiogroup" class="flex flex-row">
+        <label
+          class="flex cursor-pointer flex-row items-center gap-1 rounded-xl px-2 py-1 focus-within:outline has-[input:checked]:bg-gray-200"
+          v-for="group in groupList"
+          :key="group"
+        >
+          <input
+            type="radio"
+            name="searchType"
+            v-model="selectedGroup"
+            :value="group"
+            class="sr-only"
+          />
+          <i :class="`${group === 'keyword' ? 'i-mdi-chat-outline' : 'i-mdi-hashtag'} size-4`" />
+          <span>
+            {{ group }}
+          </span>
+        </label>
+      </fieldset>
+    </header>
+
+    <KeywordListPopoverItem :itemList="selectedItem" :key="selectedGroup" />
   </div>
 </template>
 
