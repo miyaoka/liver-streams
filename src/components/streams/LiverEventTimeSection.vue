@@ -29,10 +29,6 @@ const sectionBackground = computed(() => {
   return sectionColor.value;
 });
 
-const timeColor = computed(() => {
-  return getTimeColor((hour.value + 12) % 24);
-});
-
 const hhss = computed(() => {
   return hhmmDateFormatter.format(dateStore.currentTime);
 });
@@ -44,7 +40,7 @@ function getTimeColor(hour: number) {
 <template>
   <section
     ref="sectionEl"
-    class="flex min-h-2 scroll-m-8 flex-col items-center gap-[20px]"
+    class="flex scroll-m-8 flex-col items-center gap-[20px] pt-3"
     data-id="time-section"
     :data-time="props.section.time"
     :style="{
@@ -61,9 +57,12 @@ function getTimeColor(hour: number) {
     </div>
     <template v-if="hasEvents">
       <div
-        class="pointer-events-none flex w-full select-none items-start justify-start px-[clamp(2px,2px+0.5vw,16px)] text-6xl font-black leading-none text-black/20"
+        class="pointer-events-none flex w-full select-none items-baseline justify-start gap-[2px] px-[clamp(2px,2px+0.5vw,16px)] font-['Poppins'] font-bold leading-none text-gray-800/30"
       >
-        {{ hour }}
+        <span class="text-5xl tracking-tight drop-shadow-md">
+          {{ hour.toFixed(0).padStart(2, "0") }}
+        </span>
+        <span class="text-3xl drop-shadow-md">:00</span>
       </div>
       <div
         class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] pb-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
