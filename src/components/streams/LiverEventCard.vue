@@ -66,6 +66,12 @@ const hasHoveredHash = computed(() => {
 function onClickCard(evt: MouseEvent) {
   evt.preventDefault();
 
+  // マルチセレクトモードの場合はトグルして終了
+  if (focusStore.isMultiSelectMode) {
+    focusStore.toggleMultiSelectEvent(liverEvent.value.id);
+    return;
+  }
+
   // idからpopover要素を取得
   const popover = document.getElementById(props.liverEvent.id);
   if (!popover) return;
@@ -190,6 +196,17 @@ function setSearchString(str: string) {
           @contextmenu.prevent="setSearchString(firstHash)"
         >
           <span class="whitespace-nowrap text-xs">#{{ firstHash }}</span>
+        </div>
+
+        <div
+          v-if="focusStore.isMultiSelectMode && focusStore.multiSelectEventIdSet.has(liverEvent.id)"
+          class="absolute flex size-full items-center justify-end"
+        >
+          <div class="absolute inset-0 rounded-xl bg-green-500/30" />
+
+          <div class="absolute right-2 z-10 flex rounded-full bg-white">
+            <i class="i-mdi-checkbox-marked-circle size-12 text-green-600" />
+          </div>
         </div>
       </div>
     </a>

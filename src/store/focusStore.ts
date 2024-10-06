@@ -5,8 +5,9 @@ import type { LiverEvent } from "@/services/api";
 export const useFocusStore = defineStore("focusStore", () => {
   const hoveredTalent = ref<string | null>(null);
   const hoveredCollaboTalentSet = ref<Set<string>>(new Set());
-
   const hoveredHashSet = ref<Set<string>>(new Set());
+  const isMultiSelectMode = ref(false);
+  const multiSelectEventIdSet = ref<Set<string>>(new Set());
 
   function setHoveredTalents(talent: string, collaboTalents: string[] = []) {
     hoveredTalent.value = talent;
@@ -39,16 +40,34 @@ export const useFocusStore = defineStore("focusStore", () => {
     clearHoveredHashtagSet();
   }
 
+  function toggleMultiSelectMode() {
+    isMultiSelectMode.value = !isMultiSelectMode.value;
+    if (!isMultiSelectMode.value) {
+      multiSelectEventIdSet.value.clear();
+    }
+  }
+  function toggleMultiSelectEvent(id: string) {
+    if (multiSelectEventIdSet.value.has(id)) {
+      multiSelectEventIdSet.value.delete(id);
+    } else {
+      multiSelectEventIdSet.value.add(id);
+    }
+  }
+
   return {
     hoveredTalent,
     hoveredCollaboTalentSet,
     hoveredHashSet,
+    isMultiSelectMode,
+    multiSelectEventIdSet,
     setHoveredTalents,
     clearHoveredTalents,
     setHoveredHashtagSet,
     clearHoveredHashtagSet,
     hoverEvent,
     unhoverEvent,
+    toggleMultiSelectMode,
+    toggleMultiSelectEvent,
   };
 });
 
