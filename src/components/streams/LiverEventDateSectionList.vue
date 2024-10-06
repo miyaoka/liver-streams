@@ -62,13 +62,13 @@ html {
   --hour13: var(--noon);
   --hour14: var(--noon);
   --hour15: var(--noon);
-  --hour16: var(--noon);
+  --hour16: var(--evening);
   --hour17: var(--evening);
   --hour18: var(--evening);
   --hour19: var(--night);
   --hour20: var(--night);
   --hour21: var(--night);
-  --hour22: var(--night);
+  --hour22: var(--midnight);
   --hour23: var(--midnight);
 }
 </style>
