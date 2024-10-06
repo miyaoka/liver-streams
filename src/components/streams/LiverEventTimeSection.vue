@@ -59,10 +59,10 @@ function getTimeColor(hour: number) {
       <div
         class="pointer-events-none flex w-full select-none items-baseline justify-start gap-[2px] px-[clamp(2px,2px+0.5vw,16px)] font-['Poppins'] font-bold leading-none text-gray-800/30"
       >
-        <span class="text-6xl tracking-tighter drop-shadow-md">
+        <span class="text-5xl tracking-tight drop-shadow-md">
           {{ hour.toFixed(0).padStart(2, "0") }}
         </span>
-        <span class="text-4xl drop-shadow-md">:00</span>
+        <span class="text-3xl drop-shadow-md">:00</span>
       </div>
       <div
         class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] pb-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]"
