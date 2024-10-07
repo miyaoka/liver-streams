@@ -1,29 +1,56 @@
 <script setup lang="ts">
 import { useEventListStore } from "@/store/eventListStore";
+import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
 
 const searchStore = useSearchStore();
 const eventListStore = useEventListStore();
+const focusStore = useFocusStore();
 
-function clear() {
+function close() {
   searchStore.setSearchString("");
+}
+
+function selectAll() {
+  focusStore.isMultiSelectMode = true;
+  focusStore.multiSelectEventIdSet.clear();
+  eventListStore.filteredEventList.forEach((event) => {
+    focusStore.multiSelectEventIdSet.add(event.id);
+  });
 }
 </script>
 
 <template>
-  <button
+  <div
     v-if="searchStore.hasQuery"
-    class="fixed inset-0 bottom-8 top-auto z-10 m-auto flex h-11 w-fit items-center justify-center gap-1 rounded-full border-2 border-white bg-blue-700 px-3 font-bold text-white shadow-lg hover:bg-blue-800 max-md:bottom-20"
-    @click="clear"
+    class="_container fixed inset-0 bottom-8 top-auto z-10 m-auto flex w-fit items-center justify-center gap-2 rounded-full bg-black p-2 text-sm text-white shadow-md max-md:bottom-20"
   >
-    <span>絞り込み表示中: {{ eventListStore.filteredEventList.length }}件</span>
+    <div class="px-1">
+      <span>絞り込み中:</span>
+      <span> {{ eventListStore.filteredEventList.length }}件 </span>
+    </div>
 
-    <div class="i-mdi-cross-circle size-6" />
-  </button>
+    <div class="flex gap-2">
+      <button
+        class="flex h-11 items-center justify-center gap-1 rounded-full bg-green-600/90 px-2 py-1 hover:bg-green-700/90"
+        @click="selectAll"
+      >
+        <i class="i-mdi-check-all size-6" />
+        全選択
+      </button>
+      <button
+        class="flex h-11 items-center justify-center gap-1 rounded-full bg-red-600/90 px-2 py-1 hover:bg-red-700/90"
+        @click="close"
+      >
+        <i class="i-mdi-close size-6" />
+        絞り込み解除
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-button {
+._container {
   transition: translate 0.3s;
   @starting-style {
     opacity: 0;
