@@ -92,7 +92,7 @@ const selectedItem = computed(() => {
 
 <template>
   <div
-    class="flex max-h-[500px] min-h-[150px] w-[350px] flex-col overflow-hidden rounded-md border-2 border-gray-800 bg-white"
+    class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[350px] flex-col overflow-hidden rounded-md border-2 border-gray-800 bg-white"
   >
     <div class="flex h-11 shrink-0 items-center justify-start gap-1 bg-black p-2 text-white">
       <i class="i-mdi-hashtag size-5" />

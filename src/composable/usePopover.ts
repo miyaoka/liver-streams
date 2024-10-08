@@ -52,7 +52,11 @@ export function usePopover(options: PopoverOptions = {}) {
     popoverEl.value?.hidePopover();
   }
   function togglePopover() {
-    popoverEl.value?.togglePopover();
+    if (isShow.value) {
+      hidePopover();
+    } else {
+      showPopover();
+    }
   }
 
   const PopOver = defineComponent({
