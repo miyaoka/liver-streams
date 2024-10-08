@@ -11,25 +11,23 @@ export function usePopover(options: PopoverOptions = {}) {
   const { mountAtOpen = true } = options;
   const popoverId = options.popoverId || `p-${crypto.randomUUID()}`;
   const popoverEl = ref<HTMLElement | null>(null);
-  const isOpen = ref(false);
+  const isShow = ref(false);
 
   let removePointerdownListener: (() => void) | null = null;
   let removePointerupListener: (() => void) | null = null;
 
-  useEventListener(popoverEl, "beforetoggle", async (evt: ToggleEvent) => {
-    isOpen.value = evt.newState === "open";
+  useEventListener(popoverEl, "toggle", async (evt: ToggleEvent) => {
+    isShow.value = evt.newState === "open";
     removePointerdownListener?.();
     removePointerupListener?.();
 
     // 開閉時のハンドラ処理
-    if (!isOpen.value) {
+    if (!isShow.value) {
       options.onHide?.();
       return;
     }
     options.onShow?.();
 
-    // popoverの描画を待つ
-    await new Promise((resolve) => requestAnimationFrame(resolve));
     let popover: Element | null = null;
 
     // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
@@ -61,7 +59,7 @@ export function usePopover(options: PopoverOptions = {}) {
     setup() {
       const isMountable = computed(() => {
         if (!mountAtOpen) return true;
-        return isOpen.value;
+        return isShow.value;
       });
 
       return {
@@ -86,6 +84,7 @@ export function usePopover(options: PopoverOptions = {}) {
   return {
     PopOver,
     popoverId,
+    isShow,
     showPopover,
     hidePopover,
     togglePopover,
