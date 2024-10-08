@@ -16,7 +16,7 @@ export function usePopover(options: PopoverOptions = {}) {
   let removePointerdownListener: (() => void) | null = null;
   let removePointerupListener: (() => void) | null = null;
 
-  useEventListener(popoverEl, "beforetoggle", async (evt: ToggleEvent) => {
+  useEventListener(popoverEl, "toggle", async (evt: ToggleEvent) => {
     isShow.value = evt.newState === "open";
     removePointerdownListener?.();
     removePointerupListener?.();
@@ -28,8 +28,6 @@ export function usePopover(options: PopoverOptions = {}) {
     }
     options.onShow?.();
 
-    // popoverの描画を待つ
-    await new Promise((resolve) => requestAnimationFrame(resolve));
     let popover: Element | null = null;
 
     // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
