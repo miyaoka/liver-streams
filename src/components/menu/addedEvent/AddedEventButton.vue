@@ -38,7 +38,7 @@ function showPopover() {
   </button>
 
   <popover.PopOver
-    class="bottom-2 left-auto right-1 top-auto max-w-[calc(100%-8px)] justify-center overflow-visible bg-transparent p-0"
+    class="bottom-20 left-auto right-1 top-auto max-w-[calc(100%-8px)] justify-center overflow-visible bg-transparent p-0"
   >
     <AddedEventPopover :lastCloseTime="lastCloseTime" />
   </popover.PopOver>

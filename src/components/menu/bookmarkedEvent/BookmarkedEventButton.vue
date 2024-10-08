@@ -46,7 +46,7 @@ function showPopover() {
   </button>
 
   <popover.PopOver
-    class="bottom-2 left-auto right-1 top-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
+    class="bottom-20 left-auto right-1 top-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
   >
     <BookmarkedEventPopover :bookmarkEventList="bookmarkEventList" />
   </popover.PopOver>
