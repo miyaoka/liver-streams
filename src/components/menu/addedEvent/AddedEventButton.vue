@@ -16,19 +16,15 @@ const popover = usePopover({
 const unreadCount = computed(
   () => eventListStore.addedEventList.filter((item) => item.addedTime > lastCloseTime.value).length,
 );
-
-function showPopover() {
-  popover.showPopover();
-}
 </script>
 
 <template>
   <button
     class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-200"
-    @click="showPopover"
+    @click="popover.togglePopover"
     title="recently added events"
   >
-    <i class="i-mdi-sparkles-outline size-8" />
+    <i :class="`${popover.isShow.value ? 'i-mdi-sparkles' : 'i-mdi-sparkles-outline'} size-8`" />
     <p
       v-if="unreadCount > 0"
       :class="`absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white`"

@@ -11,7 +11,9 @@ const popover = usePopover();
     @click="popover.togglePopover"
     title="popular keywords"
   >
-    <i class="i-mdi-hashtag size-8" />
+    <i
+      :class="`${popover.isShow.value ? 'i-f7-ellipses-bubble-fill' : 'i-f7-ellipses-bubble'} size-8`"
+    />
   </button>
 
   <popover.PopOver
