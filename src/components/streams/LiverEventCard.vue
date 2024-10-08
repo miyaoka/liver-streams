@@ -75,7 +75,7 @@ function onClickCard(evt: MouseEvent) {
   // idからpopover要素を取得
   const popover = document.getElementById(props.liverEvent.id);
   if (!popover) return;
-  popover.showPopover();
+  popover.togglePopover();
 }
 
 function setSearchString(str: string) {
