@@ -33,7 +33,9 @@ function fetchData(): Promise<HoloSchedule> {
   if (import.meta.env.VITE_TEST_DATA) {
     return import("./sample4.json").then((res) => res.default);
   }
-  return fetch(holoAPI).then((res) => res.json());
+  return fetch(holoAPI)
+    .then((res) => res.json())
+    .catch(() => []);
 }
 
 export async function fetchHoloEventList(): Promise<LiverEvent[]> {
