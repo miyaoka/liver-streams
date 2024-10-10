@@ -57,5 +57,7 @@ export async function fetchNijiStreamList(): Promise<NijiStream[]> {
   }
 
   const url = new URL(`${proxyApiBase}/streams`);
-  return fetch(url).then((res) => res.json());
+  return fetch(url)
+    .then((res) => res.json())
+    .catch(() => []);
 }
