@@ -13,7 +13,7 @@ import { useFocusStore } from "@/store/focusStore";
 const focusStore = useFocusStore();
 const eventListStore = useEventListStore();
 
-const multiplayerUrl = "https://multi-player.vercel.app/";
+const multiviewPlayerUrl = "https://multiview-player.vercel.app/";
 
 function openInMultiPlayer() {
   const idList = Array.from(focusStore.multiSelectEventIdSet);
@@ -25,7 +25,7 @@ function openInMultiPlayer() {
     return videoId ?? [];
   });
 
-  const url = new URL(multiplayerUrl);
+  const url = new URL(multiviewPlayerUrl);
   url.search = new URLSearchParams(vidList.map((vid) => ["v", vid])).toString();
   window.open(url.href, "_blank");
 }
