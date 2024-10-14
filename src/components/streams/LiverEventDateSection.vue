@@ -48,7 +48,13 @@ const sectionInfo = computed(() => {
           </button>
 
           <button
-            :class="`border-0 rounded-lg flex flex-row items-center gap-1 px-2 py-1 shadow-md ${sectionInfo.dateDiff === 0 ? 'bg-yellow-400 text-black hover:bg-yellow-300 border-yellow-100' : 'bg-gray-700 text-white hover:bg-gray-900 border-gray-300'}`"
+            class="flex flex-row items-center gap-1 rounded-lg border-0 px-2 py-1 shadow-md"
+            :class="{
+              'border-yellow-100 bg-yellow-400 text-black hover:bg-yellow-300':
+                sectionInfo.dateDiff === 0,
+              'border-gray-300 bg-gray-700 text-white hover:bg-gray-900':
+                sectionInfo.dateDiff !== 0,
+            }"
             @click="scrollToSectionTop(dateSection.time)"
           >
             <span class="text-base font-bold">

@@ -24,10 +24,16 @@ const unreadCount = computed(
     @click="popover.togglePopover"
     title="recently added events"
   >
-    <i :class="`${popover.isShow.value ? 'i-mdi-sparkles' : 'i-mdi-sparkles-outline'} size-8`" />
+    <i
+      class="size-8"
+      :class="{
+        'i-mdi-sparkles': popover.isShow.value,
+        'i-mdi-sparkles-outline': !popover.isShow.value,
+      }"
+    />
     <p
       v-if="unreadCount > 0"
-      :class="`absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white`"
+      class="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white"
     >
       {{ unreadCount }}
     </p>

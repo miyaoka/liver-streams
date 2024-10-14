@@ -159,10 +159,18 @@ async function onClickNotify(id: string) {
             title="add bookmark"
           >
             <div
-              :class="`size-10 place-items-center bg-white rounded-full grid  border-2 group-hover/fav:bg-gray-100 ${hasBookmark ? 'border-green-800' : 'border-gray-400'} `"
+              class="grid size-10 place-items-center rounded-full border-2 bg-white group-hover/fav:bg-gray-100"
+              :class="{
+                'border-green-800': hasBookmark,
+                'border-gray-400': !hasBookmark,
+              }"
             >
               <i
-                :class="`size-7 ${hasBookmark ? 'i-mdi-bookmark text-green-600' : 'i-mdi-bookmark-outline  text-gray-400'}`"
+                class="size-7"
+                :class="{
+                  'i-mdi-bookmark text-green-600': hasBookmark,
+                  'i-mdi-bookmark-outline text-gray-400': !hasBookmark,
+                }"
               />
             </div>
           </button>
@@ -173,12 +181,18 @@ async function onClickNotify(id: string) {
             title="add notification"
           >
             <div
-              :class="`size-10 place-items-center bg-white rounded-full grid  border-2 border-gray-400 group-hover/fav:bg-gray-100
-              ${hasNotify ? 'border-yellow-800' : 'border-gray-400'}
-              `"
+              class="grid size-10 place-items-center rounded-full border-2 border-gray-400 bg-white group-hover/fav:bg-gray-100"
+              :class="{
+                'border-yellow-800': hasNotify,
+                'border-gray-400': !hasNotify,
+              }"
             >
               <i
-                :class="`size-7 ${hasNotify ? 'i-mdi-bell text-yellow-600' : 'i-mdi-bell-outline text-gray-400'}`"
+                class="size-7"
+                :class="{
+                  'i-mdi-bell text-yellow-600': hasNotify,
+                  'i-mdi-bell-outline text-gray-400': !hasNotify,
+                }"
               />
             </div>
           </button>

@@ -98,7 +98,12 @@ function setSearchString(str: string) {
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        :class="`absolute left-0 z-10 flex flex-row items-center gap-1 ${isFinished ? 'bg-gray-300 text-gray-700' : liverEvent.isLive ? 'bg-red-600 text-white' : 'bg-gray-800 text-white'} -top-0 -translate-y-1/2 rounded-full px-2 font-bold shadow`"
+        class="absolute -top-0 left-0 z-10 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow"
+        :class="{
+          'bg-red-600 text-white': liverEvent.isLive,
+          'bg-gray-300 text-gray-700': isFinished,
+          'bg-gray-800 text-white': !liverEvent.isLive && !isFinished,
+        }"
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle size-5" />
         <span>{{ timeDisplay }}</span>
@@ -107,7 +112,7 @@ function setSearchString(str: string) {
             {{ `(${liveDurationLabel.fixed}h)` }}
           </span>
           <div class="flex items-center opacity-50">
-            <i v-for="time in liveDurationLabel.count" :key="time" :class="`i-mdi-clock h-4 w-4`" />
+            <i v-for="time in liveDurationLabel.count" :key="time" class="i-mdi-clock size-4" />
           </div>
         </template>
       </div>
@@ -192,7 +197,10 @@ function setSearchString(str: string) {
         <div
           v-if="firstHash"
           class="absolute bottom-0 right-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
-          :class="`${hasHoveredHash ? 'bg-amber-600 text-amber-100' : 'bg-blue-600 text-blue-100'}`"
+          :class="{
+            'bg-amber-600 text-amber-100': hasHoveredHash,
+            'bg-blue-600 text-blue-100': !hasHoveredHash,
+          }"
           @contextmenu.prevent="setSearchString(firstHash)"
         >
           <span class="whitespace-nowrap text-xs">#{{ firstHash }}</span>

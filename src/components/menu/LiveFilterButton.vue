@@ -15,10 +15,18 @@ const hasLiveEvents = computed(() => eventListStore.onLiveEventList.length > 0);
     @click="searchStore.toggleLiveOnly"
   >
     <i
-      :class="`size-8 ${searchStore.isLiveOnly ? 'text-red-700 i-eva-radio-fill' : 'i-eva-radio-outline'}`"
+      class="size-8"
+      :class="{
+        'i-eva-radio-fill text-red-700': searchStore.isLiveOnly,
+        'i-eva-radio-outline': !searchStore.isLiveOnly,
+      }"
     />
     <p
-      :class="`absolute ${hasLiveEvents ? 'bg-red-700' : 'bg-gray-700'} -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl px-1 text-xs text-white`"
+      class="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white"
+      :class="{
+        'bg-red-700': hasLiveEvents,
+        'bg-gray-700': !hasLiveEvents,
+      }"
     >
       {{ eventListStore.onLiveEventList.length }}
     </p>

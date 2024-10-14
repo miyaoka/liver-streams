@@ -12,7 +12,11 @@ const popover = usePopover();
     title="popular keywords"
   >
     <i
-      :class="`${popover.isShow.value ? 'i-f7-ellipses-bubble-fill' : 'i-f7-ellipses-bubble'} size-8`"
+      class="size-8"
+      :class="{
+        'i-f7-ellipses-bubble-fill': popover.isShow.value,
+        'i-f7-ellipses-bubble': !popover.isShow.value,
+      }"
     />
   </button>
 
