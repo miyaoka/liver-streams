@@ -65,7 +65,11 @@ watch(
   >
     <form
       @submit.prevent="onSubmit"
-      :class="`h-full transition-[width] ${isInput ? 'w-56' : 'w-0'}`"
+      class="h-full transition-[width]"
+      :class="{
+        'w-56': isInput,
+        'w-0': !isInput,
+      }"
     >
       <input
         class="size-full rounded-l-full p-2 pl-4"
@@ -81,7 +85,10 @@ watch(
       @mousedown="onMousedown"
       title="search"
     >
-      <i :class="`${isInput ? 'i-mdi-close' : 'i-mdi-search'} size-8 text-gray-800`" />
+      <i
+        class="size-8 text-gray-800"
+        :class="{ 'i-mdi-close': isInput, 'i-mdi-search': !isInput }"
+      />
     </button>
   </div>
 </template>

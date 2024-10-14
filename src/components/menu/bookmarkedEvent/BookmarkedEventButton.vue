@@ -32,10 +32,16 @@ const bookmarkCount = computed(() => bookmarkEventList.value.length);
     @click="popover.togglePopover"
     title="bookmarked events"
   >
-    <i :class="`${popover.isShow.value ? 'i-mdi-bookmark' : 'i-mdi-bookmark-outline'} size-8`" />
+    <i
+      class="size-8"
+      :class="{
+        'i-mdi-bookmark': popover.isShow.value,
+        'i-mdi-bookmark-outline': !popover.isShow.value,
+      }"
+    />
     <p
       v-if="bookmarkCount > 0"
-      :class="`absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white`"
+      class="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white"
     >
       {{ bookmarkCount }}
     </p>

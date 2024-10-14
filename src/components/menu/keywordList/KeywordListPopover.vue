@@ -120,7 +120,13 @@ const selectedItem = computed(() => {
             :value="group"
             class="sr-only"
           />
-          <i :class="`${group === 'keyword' ? 'i-mdi-chat-outline' : 'i-mdi-hashtag'} size-4`" />
+          <i
+            class="size-4"
+            :class="{
+              'i-mdi-chat-outline': group === 'keyword',
+              'i-mdi-hashtag': group !== 'keyword',
+            }"
+          />
           <span>
             {{ group }}
           </span>
