@@ -1,8 +1,9 @@
-import { computed, type Ref } from "vue";
+import { computed, toRaw, type Ref } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useDateStore } from "@/store/dateStore";
 import { useEventListStore } from "@/store/eventListStore";
+import { useFocusStore } from "@/store/focusStore";
 
 const oneHour = 60 * 60 * 1000;
 
@@ -14,6 +15,7 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
   const dateStore = useDateStore();
   const eventListStore = useEventListStore();
   const bookmarkStore = useBookmarkStore();
+  const focusStore = useFocusStore();
 
   // 配信終了判定
   const isFinished = computed(() => {
@@ -98,8 +100,31 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
     return dateStore.currentTime < startTime.value;
   });
 
+  const isUpcoming = computed(() => {
+    return !isLive.value && !isFinished.value;
+  });
+  const isLive = computed(() => {
+    return liverEvent.value.isLive;
+  });
+  const isHovered = computed(() => {
+    if (!focusStore.hoveredTalent) return false;
+
+    // 自身がホバー中のタレントか
+    if (focusStore.hoveredTalent === liverEvent.value.talent.name) return true;
+
+    // ホバー中のタレントがコラボタレントに含まれているか
+    const collaboTalentSet = toRaw(liverEvent.value.collaboTalentSet);
+    if (collaboTalentSet.has(focusStore.hoveredTalent)) return true;
+
+    // ホバー中のコラボタレントにタレントが含まれているか
+    return focusStore.hoveredCollaboTalentSet.has(liverEvent.value.talent.name);
+  });
+
   return {
+    isUpcoming,
+    isLive,
     isFinished,
+    isHovered,
     elapsedTime,
     liveDuration,
     liveDurationLabel,
