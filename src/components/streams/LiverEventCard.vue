@@ -16,7 +16,16 @@ const { liverEvent } = toRefs(props);
 
 const focusStore = useFocusStore();
 const searchStore = useSearchStore();
-const { isFinished, liveDurationLabel, isNew, hasBookmark, hasNotify } = useLiverEvent(liverEvent);
+const {
+  isUpcoming,
+  isLive,
+  isFinished,
+  isHovered,
+  liveDurationLabel,
+  isNew,
+  hasBookmark,
+  hasNotify,
+} = useLiverEvent(liverEvent);
 
 const timeDisplay = computed(() => {
   const { isLive, startAt } = props.liverEvent;
@@ -34,20 +43,6 @@ const timeDisplay = computed(() => {
   }
 
   return strs.join(" ");
-});
-
-const isHovered = computed(() => {
-  if (!focusStore.hoveredTalent) return false;
-
-  // 自身がホバー中のタレントか
-  if (focusStore.hoveredTalent === props.liverEvent.talent.name) return true;
-
-  // ホバー中のタレントがコラボタレントに含まれているか
-  const collaboTalentSet = toRaw(props.liverEvent.collaboTalentSet);
-  if (collaboTalentSet.has(focusStore.hoveredTalent)) return true;
-
-  // ホバー中のコラボタレントにタレントが含まれているか
-  return focusStore.hoveredCollaboTalentSet.has(props.liverEvent.talent.name);
 });
 
 const firstHash = computed(() => {
@@ -100,9 +95,9 @@ function setSearchString(str: string) {
       <div
         class="absolute -top-0 left-0 z-10 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow"
         :class="{
-          'bg-red-600 text-white': liverEvent.isLive,
+          'bg-red-600 text-white': isLive,
           'bg-gray-300 text-gray-700': isFinished,
-          'bg-gray-800 text-white': !liverEvent.isLive && !isFinished,
+          'bg-gray-800 text-white': isUpcoming,
         }"
       >
         <i v-if="liverEvent.isLive" class="i-mdi-play-circle size-5" />
@@ -124,11 +119,12 @@ function setSearchString(str: string) {
       />
 
       <div
-        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-2 border-gray-800 bg-white shadow-md transition-colors"
+        class="flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-2 shadow-md transition-colors"
         :class="{
-          isFinished: isFinished,
-          isHovered: isHovered,
-          isLive: liverEvent.isLive,
+          'border-gray-800 bg-white': isUpcoming && !isHovered,
+          'border-gray-600 bg-gray-50': isFinished && !isHovered,
+          'border-red-600 bg-white': isLive && !isHovered,
+          'border-amber-600 bg-amber-200': isHovered,
         }"
       >
         <img
@@ -220,15 +216,3 @@ function setSearchString(str: string) {
     </a>
   </div>
 </template>
-
-<style scoped>
-.isHovered {
-  @apply border-amber-600 bg-amber-200;
-}
-.isLive {
-  @apply border-red-600;
-}
-.isFinished:not(.isHovered) {
-  @apply border-gray-600 bg-gray-50;
-}
-</style>
