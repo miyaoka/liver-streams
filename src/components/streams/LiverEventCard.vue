@@ -93,7 +93,7 @@ function setSearchString(str: string) {
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        class="absolute -top-0 left-0 z-10 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow"
+        class="absolute -top-0 left-0 z-20 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow"
         :class="{
           'bg-red-600 text-white': isLive,
           'bg-gray-300 text-gray-700': isFinished,
@@ -204,7 +204,7 @@ function setSearchString(str: string) {
 
         <div
           v-if="focusStore.isMultiSelectMode && focusStore.multiSelectEventIdSet.has(liverEvent.id)"
-          class="absolute flex size-full items-center justify-end"
+          class="absolute z-10 flex size-full items-center justify-end"
         >
           <div class="absolute inset-0 rounded-xl bg-green-500/30" />
 
