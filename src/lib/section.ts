@@ -34,13 +34,13 @@ export function createDateSectionList(
 
 	// 時間ごとにイベントをグループ化
 	const liverEventMap = new Map<number, LiverEvent[]>();
-	liverEventList.forEach((event) => {
+	for (const event of liverEventList) {
 		const time = getHourTime(event.startAt);
 		if (!liverEventMap.has(time)) {
 			liverEventMap.set(time, []);
 		}
 		liverEventMap.get(time)?.push(event);
-	});
+	}
 
 	const dateSectionList: DateSection[] = [];
 

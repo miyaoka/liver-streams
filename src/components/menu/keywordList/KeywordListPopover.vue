@@ -52,8 +52,8 @@ const hashtagList = computed(() => {
 // 大文字小文字を区別せずにカウントし、一番多いものをキーにする
 function createCountList(eventList: string[][]): KeywordItem[] {
 	const keywordMap: Map<string, Map<string, number>> = new Map();
-	eventList.forEach((keywordList) => {
-		keywordList.forEach((keyword) => {
+	for (const keywordList of eventList) {
+		for (const keyword of keywordList) {
 			// 小文字化したキーでカウント
 			const lowerKeyword = keyword.toLowerCase();
 			const countMap = keywordMap.get(lowerKeyword);
@@ -62,26 +62,26 @@ function createCountList(eventList: string[][]): KeywordItem[] {
 			} else {
 				keywordMap.set(lowerKeyword, new Map([[keyword, 1]]));
 			}
-		});
-	});
+		}
+	}
 
 	const resultList: KeywordItem[] = [];
-	keywordMap.forEach((countMap, _lowerItem) => {
+	for (const [lowerItem, countMap] of keywordMap.entries()) {
 		let totalCount = 0;
 		let key = "";
 		let maxCount = 0;
 
 		// キーワードごとのカウントを合計し、最大カウントを持つキーワードをキーにする
-		countMap.forEach((count, keyword) => {
+		for (const [keyword, count] of countMap.entries()) {
 			totalCount += count;
 			if (count > maxCount) {
 				maxCount = count;
 				key = keyword;
 			}
-		});
+		}
 
 		resultList.push({ value: key, count: totalCount });
-	});
+	}
 
 	return resultList.sort((a, b) => b.count - a.count);
 }

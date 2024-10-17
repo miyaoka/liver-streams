@@ -59,18 +59,18 @@ function onGroupClick(e: Event) {
 	const group = e.target as HTMLInputElement;
 	emit("change");
 
-	children.value.names.forEach((name) => {
+	for (const name of children.value.names) {
 		storageStore.setTalentFilter(name, group.checked);
-	});
+	}
 
 	if (childNodeEl.value) {
 		const childInputs = [...childNodeEl.value.querySelectorAll("input")];
 
-		childInputs.forEach((input) => {
+		for (const input of childInputs) {
 			input.checked = group.checked;
 			// コンポーネントに変更を通知する
 			input.dispatchEvent(new Event("change"));
-		});
+		}
 	}
 }
 

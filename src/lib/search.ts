@@ -26,9 +26,9 @@ export function parseSearchString(input: string): SearchQuery {
 	const hashtagList: string[] = [];
 	const options: Record<string, string[]> = {};
 
-	let match;
+	let match = searchRegex.exec(input);
 
-	while ((match = searchRegex.exec(input)) !== null) {
+	while (match !== null) {
 		if (match.groups?.quoted) {
 			// クォートされた文字列から両端のクォートを削除してwordlistに追加
 			wordList.push(match.groups.quoted.slice(1, -1));
@@ -47,6 +47,7 @@ export function parseSearchString(input: string): SearchQuery {
 			// 単純な単語はwordlistに追加
 			wordList.push(match.groups.word);
 		}
+		match = searchRegex.exec(input);
 	}
 
 	return { wordList, hashtagList, options };
@@ -88,7 +89,7 @@ export function createSearchRegexp(queryArray: string[]): RegExp | null {
 	let currentAndPart: string[] = [];
 
 	// "or" を基準に配列を OR 条件ごとに分割
-	queryArray.forEach((term) => {
+	for (const term of queryArray) {
 		if (term.match(orRegExp)) {
 			// "or" が出てきたら、現在の AND 条件を保存し、新しい OR 部分を開始
 			orParts.push(currentAndPart);
@@ -99,7 +100,7 @@ export function createSearchRegexp(queryArray: string[]): RegExp | null {
 			// "or" 以外の部分は AND 条件として追加
 			currentAndPart.push(escapedTerm);
 		}
-	});
+	}
 	// 最後の AND 部分を保存
 	orParts.push(currentAndPart);
 

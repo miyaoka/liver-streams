@@ -14,9 +14,9 @@ function close() {
 function selectAll() {
 	focusStore.isMultiSelectMode = true;
 	focusStore.multiSelectEventIdSet.clear();
-	eventListStore.filteredEventList.forEach((event) => {
+	for (const event of eventListStore.filteredEventList) {
 		focusStore.multiSelectEventIdSet.add(event.id);
-	});
+	}
 }
 </script>
 

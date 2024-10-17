@@ -27,9 +27,11 @@ const rootNode = computed(() => {
 
 function reset() {
 	storageStore.resetTalentFilter();
-	talentNodeEl.value?.querySelectorAll("input").forEach((input) => {
-		input.checked = false;
-	});
+	if (talentNodeEl.value) {
+		for (const input of talentNodeEl.value.querySelectorAll("input")) {
+			input.checked = false;
+		}
+	}
 }
 </script>
 

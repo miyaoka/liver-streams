@@ -88,9 +88,9 @@ export const useEventListStore = defineStore("eventListStore", () => {
 
 		// map更新
 		const eventMap = new Map<string, LiverEvent>();
-		newLiverEventList.forEach((liverEvent) => {
+		for (const liverEvent of newLiverEventList) {
 			eventMap.set(liverEvent.id, liverEvent);
-		});
+		}
 		liverEventMap.value = eventMap;
 
 		// 新着更新

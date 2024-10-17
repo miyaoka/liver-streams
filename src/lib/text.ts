@@ -132,8 +132,8 @@ export function parseSegment(
 
 	// 文字列全体を順に解析する
 	let lastIndex = 0;
-	let match: RegExpExecArray | null;
-	while ((match = regex.exec(text)) !== null) {
+	let match = regex.exec(text);
+	while (match !== null) {
 		// マッチ部分の前にテキストがある場合、テキストとして追加
 		const beforeMatch = text.slice(lastIndex, match.index);
 		if (beforeMatch) {
@@ -150,6 +150,7 @@ export function parseSegment(
 		}
 
 		lastIndex = regex.lastIndex;
+		match = regex.exec(text);
 	}
 
 	// 最後のテキスト部分もセグメントとして追加
