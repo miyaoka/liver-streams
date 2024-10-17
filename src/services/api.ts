@@ -1,180 +1,196 @@
-import { fetchHoloEventList } from "./hololive";
-import { fetchNijiStreamList, type NijiLiverMap, type NijiStream } from "./nijisanji";
 import { extractParenthesizedText, getHashTagList } from "@/lib/text";
 import { getYouTubeVideoId } from "@/lib/youtube";
 import { getChannelIcon } from "@/utils/icons";
+import { fetchHoloEventList } from "./hololive";
+import {
+	type NijiLiverMap,
+	type NijiStream,
+	fetchNijiStreamList,
+} from "./nijisanji";
 
 export interface LiverEvent {
-  id: string;
-  title: string;
-  url: string;
-  thumbnail: string;
-  startAt: Date;
-  endAt: Date | null;
-  isLive: boolean;
-  talent: LiverTalent;
-  collaboTalents: LiverTalent[];
-  affilication: "hololive" | "nijisanji";
-  hashtagList: string[];
-  hashtagSet: Set<string>;
-  collaboTalentSet: Set<string>;
-  keywordList: string[];
+	id: string;
+	title: string;
+	url: string;
+	thumbnail: string;
+	startAt: Date;
+	endAt: Date | null;
+	isLive: boolean;
+	talent: LiverTalent;
+	collaboTalents: LiverTalent[];
+	affilication: "hololive" | "nijisanji";
+	hashtagList: string[];
+	hashtagSet: Set<string>;
+	collaboTalentSet: Set<string>;
+	keywordList: string[];
 }
 
 export interface LiverTalent {
-  name: string;
-  image: string;
+	name: string;
+	image: string;
 }
 
 export function compareLiverEvent(a: LiverEvent, b: LiverEvent) {
-  const diff = a.startAt.getTime() - b.startAt.getTime();
-  if (diff !== 0) return diff;
+	const diff = a.startAt.getTime() - b.startAt.getTime();
+	if (diff !== 0) return diff;
 
-  // 同時間の場合はまずaffilicationでソート
-  if (a.affilication !== b.affilication) return a.affilication.localeCompare(b.affilication);
+	// 同時間の場合はまずaffilicationでソート
+	if (a.affilication !== b.affilication)
+		return a.affilication.localeCompare(b.affilication);
 
-  // 同affilicationの場合はtalent名でソート
-  return a.talent.name.localeCompare(b.talent.name);
+	// 同affilicationの場合はtalent名でソート
+	return a.talent.name.localeCompare(b.talent.name);
 }
 
 // ホロライブとにじさんじの配信情報を取得
 export async function fetchLiverEventList({
-  nijiLiverMap,
+	nijiLiverMap,
 }: {
-  nijiLiverMap: NijiLiverMap;
+	nijiLiverMap: NijiLiverMap;
 }): Promise<LiverEvent[]> {
-  const [holoEvents, nijiStreams] = await Promise.all([
-    fetchHoloEventList(),
-    fetchNijiStreamList(),
-  ]);
+	const [holoEvents, nijiStreams] = await Promise.all([
+		fetchHoloEventList(),
+		fetchNijiStreamList(),
+	]);
 
-  const nijiEvents = await getNijiEvents({ nijiLiverMap, nijiStreams });
-  const wholeEvents = [...holoEvents, ...nijiEvents].sort(compareLiverEvent);
-  return wholeEvents;
+	const nijiEvents = await getNijiEvents({ nijiLiverMap, nijiStreams });
+	const wholeEvents = [...holoEvents, ...nijiEvents].sort(compareLiverEvent);
+	return wholeEvents;
 }
 
 export function getPathname(url: string): string {
-  return new URL(url).pathname;
+	return new URL(url).pathname;
 }
 
 export async function createId({
-  url,
-  thumbnail,
-  talentName,
+	url,
+	thumbnail,
+	talentName,
 }: {
-  url: string;
-  thumbnail: string;
-  talentName: string;
+	url: string;
+	thumbnail: string;
+	talentName: string;
 }): Promise<string> {
-  // youtubeの動画idがあればそれを使う
-  const videoId = getYouTubeVideoId(url);
-  if (videoId) return videoId;
+	// youtubeの動画idがあればそれを使う
+	const videoId = getYouTubeVideoId(url);
+	if (videoId) return videoId;
 
-  // それ以外はurl, thumbnail, talentNameを結合してハッシュ化
-  const uniqueStr = `${url}_${thumbnail}_${talentName}`;
-  const id = await digestMessage(uniqueStr);
+	// それ以外はurl, thumbnail, talentNameを結合してハッシュ化
+	const uniqueStr = `${url}_${thumbnail}_${talentName}`;
+	const id = await digestMessage(uniqueStr);
 
-  // 8文字のハッシュ
-  return id.substring(0, 8);
+	// 8文字のハッシュ
+	return id.substring(0, 8);
 }
 
 async function digestMessage(message: string) {
-  const msgUint8 = new TextEncoder().encode(message); // (utf-8 の) Uint8Array にエンコードする
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // メッセージをハッシュする
-  const hashArray = Array.from(new Uint8Array(hashBuffer)); // バッファーをバイト列に変換する
-  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join(""); // バイト列を 16 進文字列に変換する
-  return hashHex;
+	const msgUint8 = new TextEncoder().encode(message); // (utf-8 の) Uint8Array にエンコードする
+	const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // メッセージをハッシュする
+	const hashArray = Array.from(new Uint8Array(hashBuffer)); // バッファーをバイト列に変換する
+	const hashHex = hashArray
+		.map((b) => b.toString(16).padStart(2, "0"))
+		.join(""); // バイト列を 16 進文字列に変換する
+	return hashHex;
 }
 
 export async function createLiverEvent({
-  affilication,
-  startAt,
-  title,
-  url,
-  thumbnail,
-  endAt,
-  isLive,
-  talent,
-  collaboTalents,
+	affilication,
+	startAt,
+	title,
+	url,
+	thumbnail,
+	endAt,
+	isLive,
+	talent,
+	collaboTalents,
 }: {
-  affilication: "hololive" | "nijisanji";
-  startAt: string;
-  title: string;
-  url: string;
-  thumbnail: string;
-  endAt: string | null;
-  isLive: boolean;
-  talent: LiverTalent;
-  collaboTalents: LiverTalent[];
+	affilication: "hololive" | "nijisanji";
+	startAt: string;
+	title: string;
+	url: string;
+	thumbnail: string;
+	endAt: string | null;
+	isLive: boolean;
+	talent: LiverTalent;
+	collaboTalents: LiverTalent[];
 }): Promise<LiverEvent> {
-  const startAtDate = new Date(startAt);
-  const endAtDate = endAt ? new Date(endAt) : null;
-  const id = await createId({ url, thumbnail, talentName: talent.name });
-  const hashtagList = getHashTagList(title);
-  const hashtagSet = new Set(hashtagList.map((h) => h.toLowerCase()));
-  const collaboTalentSet = new Set(collaboTalents.map((t) => t.name));
-  const keywordList = extractParenthesizedText(title, talent.name);
+	const startAtDate = new Date(startAt);
+	const endAtDate = endAt ? new Date(endAt) : null;
+	const id = await createId({ url, thumbnail, talentName: talent.name });
+	const hashtagList = getHashTagList(title);
+	const hashtagSet = new Set(hashtagList.map((h) => h.toLowerCase()));
+	const collaboTalentSet = new Set(collaboTalents.map((t) => t.name));
+	const keywordList = extractParenthesizedText(title, talent.name);
 
-  return {
-    id: id,
-    affilication,
-    startAt: startAtDate,
-    title,
-    url,
-    thumbnail,
-    endAt: endAtDate,
-    isLive,
-    talent,
-    collaboTalents,
-    hashtagList,
-    hashtagSet,
-    collaboTalentSet,
-    keywordList,
-  };
+	return {
+		id: id,
+		affilication,
+		startAt: startAtDate,
+		title,
+		url,
+		thumbnail,
+		endAt: endAtDate,
+		isLive,
+		talent,
+		collaboTalents,
+		hashtagList,
+		hashtagSet,
+		collaboTalentSet,
+		keywordList,
+	};
 }
 
 // 配信情報のtalentIdからtalentMapを参照して変換
 async function getNijiEvents({
-  nijiLiverMap,
-  nijiStreams,
+	nijiLiverMap,
+	nijiStreams,
 }: {
-  nijiLiverMap: NijiLiverMap;
-  nijiStreams: NijiStream[];
+	nijiLiverMap: NijiLiverMap;
+	nijiStreams: NijiStream[];
 }): Promise<LiverEvent[]> {
-  function getTalent(id: string) {
-    const talent = nijiLiverMap[id];
-    if (!talent) {
-      console.warn(`talent not found: ${id}`);
-      return null;
-    }
-    return {
-      name: talent.name,
-      image: getChannelIcon(talent.name),
-    };
-  }
+	function getTalent(id: string) {
+		const talent = nijiLiverMap[id];
+		if (!talent) {
+			console.warn(`talent not found: ${id}`);
+			return null;
+		}
+		return {
+			name: talent.name,
+			image: getChannelIcon(talent.name),
+		};
+	}
 
-  const events = nijiStreams.map(async (stream) => {
-    const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
-    const talent = getTalent(talentId);
-    if (!talent) return null;
-    const collaboTalents = collaboTalentIds.flatMap((id) => {
-      const collaboTalent = getTalent(id);
-      if (!collaboTalent) return [];
-      return collaboTalent;
-    });
-    return createLiverEvent({
-      affilication: "nijisanji",
-      startAt,
-      title,
-      url,
-      thumbnail,
-      endAt,
-      isLive,
-      talent,
-      collaboTalents,
-    });
-  });
+	const events = nijiStreams.map(async (stream) => {
+		const {
+			title,
+			url,
+			thumbnail,
+			startAt,
+			endAt,
+			isLive,
+			talentId,
+			collaboTalentIds,
+		} = stream;
+		const talent = getTalent(talentId);
+		if (!talent) return null;
+		const collaboTalents = collaboTalentIds.flatMap((id) => {
+			const collaboTalent = getTalent(id);
+			if (!collaboTalent) return [];
+			return collaboTalent;
+		});
+		return createLiverEvent({
+			affilication: "nijisanji",
+			startAt,
+			title,
+			url,
+			thumbnail,
+			endAt,
+			isLive,
+			talent,
+			collaboTalents,
+		});
+	});
 
-  const result = (await Promise.all(events)).filter((event) => event !== null);
-  return result;
+	const result = (await Promise.all(events)).filter((event) => event !== null);
+	return result;
 }

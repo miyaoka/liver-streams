@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import LiverEventTimeSection from "./LiverEventTimeSection.vue";
-import type { DateSection } from "@/lib/section";
 import { scrollToSectionTop } from "@/lib/scroll";
+import type { DateSection } from "@/lib/section";
 import { useDateStore } from "@/store/dateStore";
 import { compareDate } from "@/utils/date";
 import { mdDateFormatter, relativeDateFormatter } from "@/utils/dateFormat";
+import { computed } from "vue";
+import LiverEventTimeSection from "./LiverEventTimeSection.vue";
 
 const props = defineProps<{
-  dateSection: DateSection;
-  prevSection: DateSection | undefined;
-  nextSection: DateSection | undefined;
+	dateSection: DateSection;
+	prevSection: DateSection | undefined;
+	nextSection: DateSection | undefined;
 }>();
 
 const dateStore = useDateStore();
 
 const sectionInfo = computed(() => {
-  const dateDiff = compareDate({
-    baseDateTime: dateStore.currentDateTime,
-    targetDateTime: props.dateSection.date.getTime(),
-  });
+	const dateDiff = compareDate({
+		baseDateTime: dateStore.currentDateTime,
+		targetDateTime: props.dateSection.date.getTime(),
+	});
 
-  return {
-    dateDiff,
-    relative: relativeDateFormatter.format(dateDiff, "days"),
-    mmdd: mdDateFormatter.format(props.dateSection.date),
-  };
+	return {
+		dateDiff,
+		relative: relativeDateFormatter.format(dateDiff, "days"),
+		mmdd: mdDateFormatter.format(props.dateSection.date),
+	};
 });
 </script>
 

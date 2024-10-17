@@ -8,15 +8,15 @@ const eventListStore = useEventListStore();
 const focusStore = useFocusStore();
 
 function close() {
-  searchStore.setSearchString("");
+	searchStore.setSearchString("");
 }
 
 function selectAll() {
-  focusStore.isMultiSelectMode = true;
-  focusStore.multiSelectEventIdSet.clear();
-  eventListStore.filteredEventList.forEach((event) => {
-    focusStore.multiSelectEventIdSet.add(event.id);
-  });
+	focusStore.isMultiSelectMode = true;
+	focusStore.multiSelectEventIdSet.clear();
+	eventListStore.filteredEventList.forEach((event) => {
+		focusStore.multiSelectEventIdSet.add(event.id);
+	});
 }
 </script>
 

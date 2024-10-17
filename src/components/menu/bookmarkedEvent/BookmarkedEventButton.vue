@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { usePopover } from "@/composable/usePopover";
+import type { LiverEvent } from "@/services/api";
 import { computed } from "vue";
 import BookmarkedEventPopover from "./BookmarkedEventPopover.vue";
-import type { LiverEvent } from "@/services/api";
-import { usePopover } from "@/composable/usePopover";
 
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useEventListStore } from "@/store/eventListStore";
@@ -12,15 +12,15 @@ const bookmarkStore = useBookmarkStore();
 const popover = usePopover();
 
 const bookmarkEventList = computed(() => {
-  const list: LiverEvent[] = [];
-  bookmarkStore.bookmarkEventMap.forEach((_value, id) => {
-    const liverEvent = eventListStore.liverEventMap.get(id);
-    if (liverEvent) {
-      list.push(liverEvent);
-    }
-  });
+	const list: LiverEvent[] = [];
+	bookmarkStore.bookmarkEventMap.forEach((_value, id) => {
+		const liverEvent = eventListStore.liverEventMap.get(id);
+		if (liverEvent) {
+			list.push(liverEvent);
+		}
+	});
 
-  return list.sort((a, b) => a.startAt.getTime() - b.startAt.getTime());
+	return list.sort((a, b) => a.startAt.getTime() - b.startAt.getTime());
 });
 
 const bookmarkCount = computed(() => bookmarkEventList.value.length);

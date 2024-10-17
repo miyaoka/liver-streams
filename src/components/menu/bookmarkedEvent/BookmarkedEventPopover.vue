@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
-import type { LiverEvent } from "@/services/api";
 import { scrollToLiverEventTop } from "@/lib/scroll";
 import { getThumnail } from "@/lib/youtube";
+import type { LiverEvent } from "@/services/api";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useDateStore } from "@/store/dateStore";
 import { useFocusStore } from "@/store/focusStore";
 import { compareDate, getDateTime } from "@/utils/date";
 import { hhmmDateFormatter, toRelativeTime } from "@/utils/dateFormat";
 import { closePopover } from "@/utils/popover";
+import { computed, onMounted } from "vue";
 
 const props = defineProps<{
-  bookmarkEventList: LiverEvent[];
+	bookmarkEventList: LiverEvent[];
 }>();
 
 const focusStore = useFocusStore();
@@ -21,34 +21,36 @@ const bookmarkStore = useBookmarkStore();
 const bookmarkCount = computed(() => props.bookmarkEventList.length);
 
 function getEventTime(liverEvent: LiverEvent) {
-  const startAt = liverEvent.startAt;
-  const startDateTime = getDateTime(startAt);
+	const startAt = liverEvent.startAt;
+	const startDateTime = getDateTime(startAt);
 
-  const dateDiff = compareDate({
-    baseDateTime: dateStore.currentDateTime,
-    targetDateTime: startDateTime,
-  });
+	const dateDiff = compareDate({
+		baseDateTime: dateStore.currentDateTime,
+		targetDateTime: startDateTime,
+	});
 
-  // 今日なら時刻を返す
-  if (dateDiff === 0) {
-    return hhmmDateFormatter.format(startAt);
-  }
+	// 今日なら時刻を返す
+	if (dateDiff === 0) {
+		return hhmmDateFormatter.format(startAt);
+	}
 
-  // 別の日なら相対時刻を返す
-  return toRelativeTime(startDateTime - dateStore.currentDateTime);
+	// 別の日なら相対時刻を返す
+	return toRelativeTime(startDateTime - dateStore.currentDateTime);
 }
 
 onMounted(() => {
-  const now = Date.now();
-  // 現在より後で最も近いイベントにスクロールする
-  const nextEvent =
-    props.bookmarkEventList.find((event) => event.startAt.getTime() > now) ??
-    props.bookmarkEventList.at(-1);
-  if (!nextEvent) return;
+	const now = Date.now();
+	// 現在より後で最も近いイベントにスクロールする
+	const nextEvent =
+		props.bookmarkEventList.find((event) => event.startAt.getTime() > now) ??
+		props.bookmarkEventList.at(-1);
+	if (!nextEvent) return;
 
-  const targetEl = document.querySelector(`[data-fav-event-id="${nextEvent.id}"]`);
-  if (!targetEl) return;
-  targetEl.scrollIntoView({ behavior: "instant", block: "center" });
+	const targetEl = document.querySelector(
+		`[data-fav-event-id="${nextEvent.id}"]`,
+	);
+	if (!targetEl) return;
+	targetEl.scrollIntoView({ behavior: "instant", block: "center" });
 });
 </script>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import { useSearchStore } from "@/store/searchStore";
+import { ref, watch } from "vue";
 
 const searchStore = useSearchStore();
 const inputEl = ref<HTMLInputElement | null>(null);
@@ -12,50 +12,50 @@ const isInput = ref(false);
 
 // 入力文字によるフィルタを遅延実行
 function onInput() {
-  if (timeout) {
-    clearTimeout(timeout);
-  }
-  timeout = setTimeout(() => {
-    searchStore.setSearchString(searchQuery.value);
-  }, 500);
+	if (timeout) {
+		clearTimeout(timeout);
+	}
+	timeout = setTimeout(() => {
+		searchStore.setSearchString(searchQuery.value);
+	}, 500);
 }
 
 function onSubmit() {
-  inputEl.value?.blur();
+	inputEl.value?.blur();
 }
 
 // clickより先にblurが発火するためmousedownしたかを保存
 let isMouseDown = false;
 function onMousedown() {
-  isMouseDown = true;
+	isMouseDown = true;
 }
 function onBlur() {
-  // mousedownした場合はclickで処理させるためblurを無視
-  if (isMouseDown) return;
-  if (searchQuery.value === "") {
-    isInput.value = false;
-  }
+	// mousedownした場合はclickで処理させるためblurを無視
+	if (isMouseDown) return;
+	if (searchQuery.value === "") {
+		isInput.value = false;
+	}
 }
 function onClick() {
-  isInput.value = !isInput.value;
-  isMouseDown = false;
-  if (isInput.value) {
-    // open
-    inputEl.value?.focus();
-  } else {
-    // close
-    searchStore.setSearchString("");
-    searchQuery.value = "";
-  }
+	isInput.value = !isInput.value;
+	isMouseDown = false;
+	if (isInput.value) {
+		// open
+		inputEl.value?.focus();
+	} else {
+		// close
+		searchStore.setSearchString("");
+		searchQuery.value = "";
+	}
 }
 
 watch(
-  () => searchStore.searchString,
-  (newVal) => {
-    searchQuery.value = newVal;
-    isInput.value = newVal !== "";
-  },
-  { immediate: true },
+	() => searchStore.searchString,
+	(newVal) => {
+		searchQuery.value = newVal;
+		isInput.value = newVal !== "";
+	},
+	{ immediate: true },
 );
 </script>
 

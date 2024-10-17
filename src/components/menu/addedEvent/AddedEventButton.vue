@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import AddedEventPopover from "./AddedEventPopover.vue";
 import { usePopover } from "@/composable/usePopover";
 import { useEventListStore } from "@/store/eventListStore";
+import { computed, ref } from "vue";
+import AddedEventPopover from "./AddedEventPopover.vue";
 
 const eventListStore = useEventListStore();
 
-let lastCloseTime = ref(0);
+const lastCloseTime = ref(0);
 const popover = usePopover({
-  onHide: () => {
-    lastCloseTime.value = Date.now();
-  },
+	onHide: () => {
+		lastCloseTime.value = Date.now();
+	},
 });
 
 const unreadCount = computed(
-  () => eventListStore.addedEventList.filter((item) => item.addedTime > lastCloseTime.value).length,
+	() =>
+		eventListStore.addedEventList.filter(
+			(item) => item.addedTime > lastCloseTime.value,
+		).length,
 );
 </script>
 

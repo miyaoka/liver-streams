@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { KeywordItem } from "./KeywordListPopover.vue";
 import { useSearchStore } from "@/store/searchStore";
+import type { KeywordItem } from "./KeywordListPopover.vue";
 
 defineProps<{
-  itemList: KeywordItem[];
+	itemList: KeywordItem[];
 }>();
 
 const searchStore = useSearchStore();
 
 function setSearchString(str: string) {
-  // 空白を含むならダブルクォーテーションで囲む
-  const formattedStr = str.includes(" ") ? `"${str}"` : str;
-  // 同じものなら検索を解除
-  if (searchStore.searchString === formattedStr) {
-    searchStore.setSearchString("");
-    return;
-  }
-  searchStore.setSearchString(formattedStr);
+	// 空白を含むならダブルクォーテーションで囲む
+	const formattedStr = str.includes(" ") ? `"${str}"` : str;
+	// 同じものなら検索を解除
+	if (searchStore.searchString === formattedStr) {
+		searchStore.setSearchString("");
+		return;
+	}
+	searchStore.setSearchString(formattedStr);
 }
 </script>
 

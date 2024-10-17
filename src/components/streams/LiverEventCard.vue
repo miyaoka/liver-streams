@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, toRaw, toRefs } from "vue";
-import { useLiverEvent } from "./useLiverEvent";
-import type { LiverEvent } from "@/services/api";
 import { getThumnail } from "@/lib/youtube";
+import type { LiverEvent } from "@/services/api";
 import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
 import { hhss } from "@/utils/dateFormat";
 import { getChannelIcon } from "@/utils/icons";
+import { computed, toRaw, toRefs } from "vue";
+import { useLiverEvent } from "./useLiverEvent";
 
 const props = defineProps<{
-  liverEvent: LiverEvent;
+	liverEvent: LiverEvent;
 }>();
 
 const { liverEvent } = toRefs(props);
@@ -17,70 +17,70 @@ const { liverEvent } = toRefs(props);
 const focusStore = useFocusStore();
 const searchStore = useSearchStore();
 const {
-  isUpcoming,
-  isLive,
-  isFinished,
-  isHovered,
-  liveDurationLabel,
-  isNew,
-  hasBookmark,
-  hasNotify,
+	isUpcoming,
+	isLive,
+	isFinished,
+	isHovered,
+	liveDurationLabel,
+	isNew,
+	hasBookmark,
+	hasNotify,
 } = useLiverEvent(liverEvent);
 
 const timeDisplay = computed(() => {
-  const { isLive, startAt } = props.liverEvent;
-  const strs: string[] = [];
+	const { isLive, startAt } = props.liverEvent;
+	const strs: string[] = [];
 
-  // 開始時刻
-  strs.push(hhss(startAt));
-  // ライブ中
-  if (isLive) {
-    strs.push("-");
-  }
-  // 終了時刻
-  if (isFinished.value) {
-    strs.push("- 配信済み");
-  }
+	// 開始時刻
+	strs.push(hhss(startAt));
+	// ライブ中
+	if (isLive) {
+		strs.push("-");
+	}
+	// 終了時刻
+	if (isFinished.value) {
+		strs.push("- 配信済み");
+	}
 
-  return strs.join(" ");
+	return strs.join(" ");
 });
 
 const firstHash = computed(() => {
-  return props.liverEvent.hashtagList[0];
+	return props.liverEvent.hashtagList[0];
 });
 
 // hoveredHashSetにhashSetが含まれているか
 const hasHoveredHash = computed(() => {
-  if (focusStore.hoveredHashSet.size === 0) return false;
+	if (focusStore.hoveredHashSet.size === 0) return false;
 
-  const hashSet = toRaw(props.liverEvent.hashtagSet);
-  return hashSet.intersection(focusStore.hoveredHashSet).size > 0;
+	const hashSet = toRaw(props.liverEvent.hashtagSet);
+	return hashSet.intersection(focusStore.hoveredHashSet).size > 0;
 });
 
 // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
 function onClickCard(evt: MouseEvent) {
-  evt.preventDefault();
+	evt.preventDefault();
 
-  // マルチセレクトモードの場合はトグルして終了
-  if (focusStore.isMultiSelectMode) {
-    focusStore.toggleMultiSelectEvent(liverEvent.value.id);
-    return;
-  }
+	// マルチセレクトモードの場合はトグルして終了
+	if (focusStore.isMultiSelectMode) {
+		focusStore.toggleMultiSelectEvent(liverEvent.value.id);
+		return;
+	}
 
-  // idからpopover要素を取得
-  const popover = document.getElementById(props.liverEvent.id);
-  if (!popover) return;
-  popover.togglePopover();
+	// idからpopover要素を取得
+	const popover = document.getElementById(props.liverEvent.id);
+	if (!popover) return;
+	popover.togglePopover();
 }
 
 function setSearchString(str: string) {
-  const hashtag = `#${str}`;
-  // 同じものなら検索を解除
-  if (searchStore.searchString === hashtag) {
-    searchStore.setSearchString("");
-    return;
-  }
-  searchStore.setSearchString(hashtag);
+	const hashtag = `#${str}`;
+	// 同じものなら検索を解除
+	if (searchStore.searchString === hashtag) {
+		searchStore.setSearchString("");
+		return;
+	}
+	searchStore.setSearchString(hashtag);
 }
 </script>
 <template>

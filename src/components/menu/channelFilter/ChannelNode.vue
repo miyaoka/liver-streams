@@ -1,97 +1,97 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
 import type { ChannelNode } from "@/assets/channel";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { getChannelIcon } from "@/utils/icons";
+import { computed, onMounted, ref } from "vue";
 
 const props = defineProps<{
-  node: ChannelNode;
+	node: ChannelNode;
 }>();
 const emit = defineEmits<{
-  change: [];
+	change: [];
 }>();
 
 const storageStore = useStorageStore();
 const searchStore = useSearchStore();
 
 const children = computed(() => {
-  const names: string[] = [];
-  const childNodes: ChannelNode[] = [];
-  props.node.children.map((child) => {
-    if (typeof child === "string") {
-      names.push(child);
-    } else {
-      childNodes.push(child);
-    }
-  });
-  return { names, childNodes };
+	const names: string[] = [];
+	const childNodes: ChannelNode[] = [];
+	props.node.children.map((child) => {
+		if (typeof child === "string") {
+			names.push(child);
+		} else {
+			childNodes.push(child);
+		}
+	});
+	return { names, childNodes };
 });
 
 const groupEl = ref<HTMLInputElement | null>(null);
 const namesEl = ref<HTMLElement | null>(null);
 const childNodeEl = ref<HTMLElement | null>(null);
 function onNameCheck(evt: Event, name: string) {
-  const input = evt.target as HTMLInputElement;
-  storageStore.setTalentFilter(name, input.checked);
+	const input = evt.target as HTMLInputElement;
+	storageStore.setTalentFilter(name, input.checked);
 
-  update();
+	update();
 }
 
 function update() {
-  if (!namesEl.value || !groupEl.value) return;
-  // 全ての名前がチェックされているか
-  const inputs = [...namesEl.value.querySelectorAll("input")];
-  const isAllChecked = inputs.every((input) => {
-    return input.checked;
-  });
+	if (!namesEl.value || !groupEl.value) return;
+	// 全ての名前がチェックされているか
+	const inputs = [...namesEl.value.querySelectorAll("input")];
+	const isAllChecked = inputs.every((input) => {
+		return input.checked;
+	});
 
-  // 親ノードのチェック状態を変更
-  groupEl.value.checked = isAllChecked;
-  emit("change");
+	// 親ノードのチェック状態を変更
+	groupEl.value.checked = isAllChecked;
+	emit("change");
 }
 
 onMounted(async () => {
-  update();
+	update();
 });
 
 function onGroupClick(e: Event) {
-  const group = e.target as HTMLInputElement;
-  emit("change");
+	const group = e.target as HTMLInputElement;
+	emit("change");
 
-  children.value.names.forEach((name) => {
-    storageStore.setTalentFilter(name, group.checked);
-  });
+	children.value.names.forEach((name) => {
+		storageStore.setTalentFilter(name, group.checked);
+	});
 
-  if (childNodeEl.value) {
-    const childInputs = [...childNodeEl.value.querySelectorAll("input")];
+	if (childNodeEl.value) {
+		const childInputs = [...childNodeEl.value.querySelectorAll("input")];
 
-    childInputs.forEach((input) => {
-      input.checked = group.checked;
-      // コンポーネントに変更を通知する
-      input.dispatchEvent(new Event("change"));
-    });
-  }
+		childInputs.forEach((input) => {
+			input.checked = group.checked;
+			// コンポーネントに変更を通知する
+			input.dispatchEvent(new Event("change"));
+		});
+	}
 }
 
 async function onNodeChange() {
-  await new Promise((resolve) => requestAnimationFrame(resolve));
+	await new Promise((resolve) => requestAnimationFrame(resolve));
 
-  if (!childNodeEl.value || !groupEl.value) return;
+	if (!childNodeEl.value || !groupEl.value) return;
 
-  // 子ノードが全てチェックされているか
-  const childInputs = [...childNodeEl.value.querySelectorAll("input")];
-  const isAllChecked = childInputs.every((input) => {
-    return input.checked;
-  });
+	// 子ノードが全てチェックされているか
+	const childInputs = [...childNodeEl.value.querySelectorAll("input")];
+	const isAllChecked = childInputs.every((input) => {
+		return input.checked;
+	});
 
-  if (groupEl.value.checked === isAllChecked) return;
+	if (groupEl.value.checked === isAllChecked) return;
 
-  // 子ノードの状態に応じて現ノードのチェック状態を変更
-  groupEl.value.checked = isAllChecked;
+	// 子ノードの状態に応じて現ノードのチェック状態を変更
+	groupEl.value.checked = isAllChecked;
 
-  // 親に変更を通知
-  emit("change");
+	// 親に変更を通知
+	emit("change");
 }
 </script>
 

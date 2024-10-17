@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import AddedEventButton from "./addedEvent/AddedEventButton.vue";
-import BookmarkedEventButton from "./bookmarkedEvent/BookmarkedEventButton.vue";
-import FilteringButton from "./FilteringButton.vue";
-import KeywordListButton from "./keywordList/KeywordListButton.vue";
-import LiveFilterButton from "./LiveFilterButton.vue";
-import MultiSelectButton from "./MultiSelectButton.vue";
-import ScrollButton from "./ScrollButton.vue";
 import { getYouTubeVideoId } from "@/lib/youtube";
 import { useEventListStore } from "@/store/eventListStore";
 import { useFocusStore } from "@/store/focusStore";
+import FilteringButton from "./FilteringButton.vue";
+import LiveFilterButton from "./LiveFilterButton.vue";
+import MultiSelectButton from "./MultiSelectButton.vue";
+import ScrollButton from "./ScrollButton.vue";
+import AddedEventButton from "./addedEvent/AddedEventButton.vue";
+import BookmarkedEventButton from "./bookmarkedEvent/BookmarkedEventButton.vue";
+import KeywordListButton from "./keywordList/KeywordListButton.vue";
 
 const focusStore = useFocusStore();
 const eventListStore = useEventListStore();
@@ -16,18 +16,20 @@ const eventListStore = useEventListStore();
 const multiviewPlayerUrl = "https://multiview-player.vercel.app/";
 
 function openInMultiPlayer() {
-  const idList = Array.from(focusStore.multiSelectEventIdSet);
-  if (idList.length === 0) return;
+	const idList = Array.from(focusStore.multiSelectEventIdSet);
+	if (idList.length === 0) return;
 
-  const eventList = idList.flatMap((id) => eventListStore.liverEventMap.get(id) ?? []);
-  const vidList = eventList.flatMap((event) => {
-    const videoId = getYouTubeVideoId(event.url);
-    return videoId ?? [];
-  });
+	const eventList = idList.flatMap(
+		(id) => eventListStore.liverEventMap.get(id) ?? [],
+	);
+	const vidList = eventList.flatMap((event) => {
+		const videoId = getYouTubeVideoId(event.url);
+		return videoId ?? [];
+	});
 
-  const url = new URL(multiviewPlayerUrl);
-  url.search = new URLSearchParams(vidList.map((vid) => ["v", vid])).toString();
-  window.open(url.href, "_blank");
+	const url = new URL(multiviewPlayerUrl);
+	url.search = new URLSearchParams(vidList.map((vid) => ["v", vid])).toString();
+	window.open(url.href, "_blank");
 }
 </script>
 

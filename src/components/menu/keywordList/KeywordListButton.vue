@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import KeywordListPopover from "./KeywordListPopover.vue";
 import { usePopover } from "@/composable/usePopover";
+import KeywordListPopover from "./KeywordListPopover.vue";
 
 const popover = usePopover();
 </script>

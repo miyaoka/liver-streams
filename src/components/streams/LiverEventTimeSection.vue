@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import LiverEventCard from "./LiverEventCard.vue";
 import type { TimeSection } from "@/lib/section";
 import { useDateStore } from "@/store/dateStore";
 import { hhmmDateFormatter } from "@/utils/dateFormat";
+import { computed, ref } from "vue";
+import LiverEventCard from "./LiverEventCard.vue";
 
 const props = defineProps<{
-  section: TimeSection;
-  nextSection: TimeSection | undefined;
-  isCurrentTime: boolean;
+	section: TimeSection;
+	nextSection: TimeSection | undefined;
+	isCurrentTime: boolean;
 }>();
 
 const dateStore = useDateStore();
@@ -18,23 +18,23 @@ const sectionEl = ref<HTMLElement | null>(null);
 const hasEvents = computed(() => props.section.events.length > 0);
 const hour = computed(() => new Date(props.section.time).getHours());
 const sectionColor = computed(() => {
-  return getTimeColor(hour.value);
+	return getTimeColor(hour.value);
 });
 
 const sectionBackground = computed(() => {
-  // イベントがあればグラデーションで繋ぎ、なければ単色
-  // if (hasEvents.value) {
-  //   return `linear-gradient(${sectionColor.value}, ${nextSectionColor.value})`;
-  // }
-  return sectionColor.value;
+	// イベントがあればグラデーションで繋ぎ、なければ単色
+	// if (hasEvents.value) {
+	//   return `linear-gradient(${sectionColor.value}, ${nextSectionColor.value})`;
+	// }
+	return sectionColor.value;
 });
 
 const hhss = computed(() => {
-  return hhmmDateFormatter.format(dateStore.currentTime);
+	return hhmmDateFormatter.format(dateStore.currentTime);
 });
 
 function getTimeColor(hour: number) {
-  return "var(--hour" + hour + ")";
+	return "var(--hour" + hour + ")";
 }
 </script>
 <template>

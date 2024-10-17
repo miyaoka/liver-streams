@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, toRef } from "vue";
-import { useLiverEvent } from "../useLiverEvent";
-import type { LiverEvent } from "@/services/api";
 import { usePopover } from "@/composable/usePopover";
 import { parseSegment } from "@/lib/text";
 import { getThumnail } from "@/lib/youtube";
+import type { LiverEvent } from "@/services/api";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useFocusStore } from "@/store/focusStore";
 import { useNotificationStore } from "@/store/notificationStore";
 import { useSearchStore } from "@/store/searchStore";
 import { fullDateFormatter } from "@/utils/dateFormat";
 import { closePopover } from "@/utils/popover";
+import { computed, toRef } from "vue";
+import { useLiverEvent } from "../useLiverEvent";
 
 const props = defineProps<{
-  liverEvent: LiverEvent;
+	liverEvent: LiverEvent;
 }>();
 
 const bookmarkStore = useBookmarkStore();
@@ -22,57 +22,57 @@ const searchStore = useSearchStore();
 const notificationStore = useNotificationStore();
 
 const { isFinished, hasBookmark, hasNotify, beforeStartTime } = useLiverEvent(
-  toRef(props.liverEvent),
+	toRef(props.liverEvent),
 );
 const permissionPopover = usePopover();
 
 const fullDate = computed(() => {
-  return fullDateFormatter.format(props.liverEvent.startAt);
+	return fullDateFormatter.format(props.liverEvent.startAt);
 });
 
 // セグメント化したタイトル
 const segmentList = computed(() => {
-  const { title, keywordList, hashtagList } = props.liverEvent;
-  return parseSegment(title, keywordList, hashtagList);
+	const { title, keywordList, hashtagList } = props.liverEvent;
+	return parseSegment(title, keywordList, hashtagList);
 });
 
 function setSearchString(str: string) {
-  // 空白を含むならダブルクォーテーションで囲む
-  const formattedStr = str.includes(" ") ? `"${str}"` : str;
-  // 同じものなら検索を解除
-  if (searchStore.searchString === formattedStr) {
-    searchStore.setSearchString("");
-    return;
-  }
-  searchStore.setSearchString(formattedStr);
+	// 空白を含むならダブルクォーテーションで囲む
+	const formattedStr = str.includes(" ") ? `"${str}"` : str;
+	// 同じものなら検索を解除
+	if (searchStore.searchString === formattedStr) {
+		searchStore.setSearchString("");
+		return;
+	}
+	searchStore.setSearchString(formattedStr);
 }
 
 // 通知機能が使えるか
 const canSetNotify = computed(() => {
-  if (!notificationStore.isSupported) return false;
-  return true;
-  // 開始時間前なら通知可能
-  // return beforeStartTime.value && !isFinished.value;
+	if (!notificationStore.isSupported) return false;
+	return true;
+	// 開始時間前なら通知可能
+	// return beforeStartTime.value && !isFinished.value;
 });
 
 async function onClickNotify(id: string) {
-  if (!notificationStore.isSupported) return;
+	if (!notificationStore.isSupported) return;
 
-  // 通知許可済みなら通知をトグル
-  if (notificationStore.permissionGranted) {
-    bookmarkStore.toggleNotifyEvent(id);
-    return;
-  }
+	// 通知許可済みなら通知をトグル
+	if (notificationStore.permissionGranted) {
+		bookmarkStore.toggleNotifyEvent(id);
+		return;
+	}
 
-  // 通知許可ポップオーバーを表示
-  permissionPopover.showPopover();
-  // 通知許可を求める
-  const permission = await notificationStore.ensurePermissions();
-  if (!permission) return;
+	// 通知許可ポップオーバーを表示
+	permissionPopover.showPopover();
+	// 通知許可を求める
+	const permission = await notificationStore.ensurePermissions();
+	if (!permission) return;
 
-  // 許可されたらポップオーバーを閉じて通知をトグル
-  permissionPopover.hidePopover();
-  bookmarkStore.toggleNotifyEvent(id);
+	// 許可されたらポップオーバーを閉じて通知をトグル
+	permissionPopover.hidePopover();
+	bookmarkStore.toggleNotifyEvent(id);
 }
 </script>
 

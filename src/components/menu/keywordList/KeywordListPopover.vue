@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
 import { closePopover } from "@/utils/popover";
+import { computed, ref } from "vue";
+import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 
 export interface KeywordItem {
-  value: string;
-  count: number;
+	value: string;
+	count: number;
 }
 
 const eventListStore = useEventListStore();
@@ -18,75 +18,81 @@ const searchStore = useSearchStore();
 
 // searchTermsを指定しない状態のリスト
 const filteredEventList = computed(() => {
-  const list = eventListStore.liverEventList;
-  if (!list) return [];
-  const searchQuery = searchStore.searchQuery;
-  return getFilteredEventList({
-    liverEventList: list,
-    filterMap: storageStore.talentFilterMap,
-    searchQuery: {
-      ...searchQuery,
-      wordList: [],
-      hashtagList: [],
-      options: {},
-    },
-  });
+	const list = eventListStore.liverEventList;
+	if (!list) return [];
+	const searchQuery = searchStore.searchQuery;
+	return getFilteredEventList({
+		liverEventList: list,
+		filterMap: storageStore.talentFilterMap,
+		searchQuery: {
+			...searchQuery,
+			wordList: [],
+			hashtagList: [],
+			options: {},
+		},
+	});
 });
 
 const keywordList = computed(() => {
-  const keywordLists = filteredEventList.value.map((event) => event.keywordList);
-  return createCountList(keywordLists);
+	const keywordLists = filteredEventList.value.map(
+		(event) => event.keywordList,
+	);
+	return createCountList(keywordLists);
 });
 
 const hashtagList = computed(() => {
-  const hashtagLists = filteredEventList.value.map((event) => event.hashtagList);
-  return createCountList(hashtagLists).map((item) => {
-    return { value: `#${item.value}`, count: item.count };
-  });
+	const hashtagLists = filteredEventList.value.map(
+		(event) => event.hashtagList,
+	);
+	return createCountList(hashtagLists).map((item) => {
+		return { value: `#${item.value}`, count: item.count };
+	});
 });
 
 // 大文字小文字を区別せずにカウントし、一番多いものをキーにする
 function createCountList(eventList: string[][]): KeywordItem[] {
-  const keywordMap: Map<string, Map<string, number>> = new Map();
-  eventList.forEach((keywordList) => {
-    keywordList.forEach((keyword) => {
-      // 小文字化したキーでカウント
-      const lowerKeyword = keyword.toLowerCase();
-      const countMap = keywordMap.get(lowerKeyword);
-      if (countMap) {
-        countMap.set(keyword, (countMap.get(keyword) ?? 0) + 1);
-      } else {
-        keywordMap.set(lowerKeyword, new Map([[keyword, 1]]));
-      }
-    });
-  });
+	const keywordMap: Map<string, Map<string, number>> = new Map();
+	eventList.forEach((keywordList) => {
+		keywordList.forEach((keyword) => {
+			// 小文字化したキーでカウント
+			const lowerKeyword = keyword.toLowerCase();
+			const countMap = keywordMap.get(lowerKeyword);
+			if (countMap) {
+				countMap.set(keyword, (countMap.get(keyword) ?? 0) + 1);
+			} else {
+				keywordMap.set(lowerKeyword, new Map([[keyword, 1]]));
+			}
+		});
+	});
 
-  const resultList: KeywordItem[] = [];
-  keywordMap.forEach((countMap, _lowerItem) => {
-    let totalCount = 0;
-    let key = "";
-    let maxCount = 0;
+	const resultList: KeywordItem[] = [];
+	keywordMap.forEach((countMap, _lowerItem) => {
+		let totalCount = 0;
+		let key = "";
+		let maxCount = 0;
 
-    // キーワードごとのカウントを合計し、最大カウントを持つキーワードをキーにする
-    countMap.forEach((count, keyword) => {
-      totalCount += count;
-      if (count > maxCount) {
-        maxCount = count;
-        key = keyword;
-      }
-    });
+		// キーワードごとのカウントを合計し、最大カウントを持つキーワードをキーにする
+		countMap.forEach((count, keyword) => {
+			totalCount += count;
+			if (count > maxCount) {
+				maxCount = count;
+				key = keyword;
+			}
+		});
 
-    resultList.push({ value: key, count: totalCount });
-  });
+		resultList.push({ value: key, count: totalCount });
+	});
 
-  return resultList.sort((a, b) => b.count - a.count);
+	return resultList.sort((a, b) => b.count - a.count);
 }
 
 const groupList = ["keyword", "hashtag"];
 const selectedGroup = ref<(typeof groupList)[number]>("keyword");
 
 const selectedItem = computed(() => {
-  return selectedGroup.value === "keyword" ? keywordList.value : hashtagList.value;
+	return selectedGroup.value === "keyword"
+		? keywordList.value
+		: hashtagList.value;
 });
 </script>
 

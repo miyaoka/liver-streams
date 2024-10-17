@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import AddedEventListItem from "./AddedEventListItem.vue";
 import { useEventListStore } from "@/store/eventListStore";
 import { closePopover } from "@/utils/popover";
+import { computed } from "vue";
+import AddedEventListItem from "./AddedEventListItem.vue";
 
 defineProps<{
-  lastCloseTime: number;
+	lastCloseTime: number;
 }>();
 
 const eventListStore = useEventListStore();

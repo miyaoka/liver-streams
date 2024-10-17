@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import ChannelNode from "./ChannelNode.vue";
 import { talents } from "@/assets/channel";
 import { usePopover } from "@/composable/usePopover";
 import { useStorageStore } from "@/store/storageStore";
 import { getChannelIcon } from "@/utils/icons";
+import { computed, ref } from "vue";
+import ChannelNode from "./ChannelNode.vue";
 
 const storageStore = useStorageStore();
 const popover = usePopover({
-  popoverId: "filter",
+	popoverId: "filter",
 });
 
 const groups = [
-  { key: "hololive", icon: "hololive_logo" },
-  { key: "にじさんじ", icon: "nijisanji_logo" },
+	{ key: "hololive", icon: "hololive_logo" },
+	{ key: "にじさんじ", icon: "nijisanji_logo" },
 ] as const;
 
 const selectedGroup = ref<string>("hololive");
@@ -22,14 +22,14 @@ const talentNodeEl = ref<HTMLElement | null>(null);
 const filterCount = computed(() => storageStore.talentFilterMap.size);
 
 const rootNode = computed(() => {
-  return talents.filter((talent) => talent.name === selectedGroup.value)[0];
+	return talents.filter((talent) => talent.name === selectedGroup.value)[0];
 });
 
 function reset() {
-  storageStore.resetTalentFilter();
-  talentNodeEl.value?.querySelectorAll("input").forEach((input) => {
-    input.checked = false;
-  });
+	storageStore.resetTalentFilter();
+	talentNodeEl.value?.querySelectorAll("input").forEach((input) => {
+		input.checked = false;
+	});
 }
 </script>
 

@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
 import FooterMenu from "@/components/menu/FooterMenu.vue";
 import HeaderMenu from "@/components/menu/HeaderMenu.vue";
-import LiverEventDetailList from "@/components/streams/detail/LiverEventDetailList.vue";
 import LiverEventDateSectionList from "@/components/streams/LiverEventDateSectionList.vue";
+import LiverEventDetailList from "@/components/streams/detail/LiverEventDetailList.vue";
 import { fetchNijiLiverMap } from "@/services/nijisanji";
 import { useEventListStore } from "@/store/eventListStore";
+import { onMounted } from "vue";
 
 const fetchInterval = 1 * 60 * 1000; // 1min
 const eventListStore = useEventListStore();
 
 onMounted(async () => {
-  // にじさんじのライバー情報を取得
-  const nijiLiverMap = await fetchNijiLiverMap();
+	// にじさんじのライバー情報を取得
+	const nijiLiverMap = await fetchNijiLiverMap();
 
-  // イベント情報を更新
-  const updateList = () => eventListStore.updateLiverEventList(nijiLiverMap);
+	// イベント情報を更新
+	const updateList = () => eventListStore.updateLiverEventList(nijiLiverMap);
 
-  // 一定時間ごとにスケジュールを再取得
-  setInterval(updateList, fetchInterval);
+	// 一定時間ごとにスケジュールを再取得
+	setInterval(updateList, fetchInterval);
 
-  // 初回取得
-  updateList();
+	// 初回取得
+	updateList();
 });
 </script>
 

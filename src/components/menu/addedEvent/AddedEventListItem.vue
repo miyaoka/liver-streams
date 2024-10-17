@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import type { LiverEvent } from "@/services/api";
 import { scrollToLiverEventTop } from "@/lib/scroll";
+import type { LiverEvent } from "@/services/api";
 import { useDateStore } from "@/store/dateStore";
 import { useFocusStore } from "@/store/focusStore";
 import { compareDate, getDateTime } from "@/utils/date";
 import { hhmmDateFormatter, toRelativeTime } from "@/utils/dateFormat";
+import { computed } from "vue";
 
 const props = defineProps<{
-  liverEvent: LiverEvent;
-  addedTime: number;
-  lastCloseTime: number;
+	liverEvent: LiverEvent;
+	addedTime: number;
+	lastCloseTime: number;
 }>();
 
 const dateStore = useDateStore();
 const focusStore = useFocusStore();
 
 const eventTime = computed(() => {
-  const startAt = props.liverEvent.startAt;
-  const startDateTime = getDateTime(startAt);
+	const startAt = props.liverEvent.startAt;
+	const startDateTime = getDateTime(startAt);
 
-  const dateDiff = compareDate({
-    baseDateTime: dateStore.currentDateTime,
-    targetDateTime: startDateTime,
-  });
+	const dateDiff = compareDate({
+		baseDateTime: dateStore.currentDateTime,
+		targetDateTime: startDateTime,
+	});
 
-  // 今日なら時刻を返す
-  if (dateDiff === 0) {
-    return hhmmDateFormatter.format(startAt);
-  }
+	// 今日なら時刻を返す
+	if (dateDiff === 0) {
+		return hhmmDateFormatter.format(startAt);
+	}
 
-  // 別の日なら相対時刻を返す
-  return toRelativeTime(startDateTime - dateStore.currentDateTime);
+	// 別の日なら相対時刻を返す
+	return toRelativeTime(startDateTime - dateStore.currentDateTime);
 });
 
 const isUnread = computed(() => props.addedTime > props.lastCloseTime);
 
 function onClickEvent() {
-  scrollToLiverEventTop(props.liverEvent.id);
+	scrollToLiverEventTop(props.liverEvent.id);
 }
 </script>
 

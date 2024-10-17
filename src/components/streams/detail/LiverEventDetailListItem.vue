@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import LiverEventDetailPopover from "./LiverEventDetailPopover.vue";
-import type { LiverEvent } from "@/services/api";
 import { usePopover } from "@/composable/usePopover";
+import type { LiverEvent } from "@/services/api";
+import LiverEventDetailPopover from "./LiverEventDetailPopover.vue";
 
 const props = defineProps<{
-  liverEvent: LiverEvent;
+	liverEvent: LiverEvent;
 }>();
 
 const popover = usePopover({
-  popoverId: props.liverEvent.id,
+	popoverId: props.liverEvent.id,
 });
 </script>
 
