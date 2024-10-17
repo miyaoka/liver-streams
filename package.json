@@ -10,9 +10,9 @@
 		"test": "vitest",
 		"build-only": "vite build",
 		"type-check": "vue-tsc --build --force",
-		"lint": "biome lint --write src/",
-		"format": "biome format --write src/",
-		"check": "biome check --write src/",
+		"lint": "biome lint --write ./src",
+		"format": "biome format --write ./src",
+		"check": "biome check --write ./src",
 		"prepare": "husky"
 	},
 	"dependencies": {

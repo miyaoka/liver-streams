@@ -47,7 +47,7 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
 
 	const events = wholeVideoList.map(async (video) => {
 		const title =
-			video.platformType === 0 ? `(他チャンネルでの配信)` : video.title;
+			video.platformType === 0 ? "(他チャンネルでの配信)" : video.title;
 		const talent = {
 			name: video.name,
 			image: video.talent.iconImageUrl,

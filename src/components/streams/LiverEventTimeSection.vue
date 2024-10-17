@@ -34,7 +34,7 @@ const hhss = computed(() => {
 });
 
 function getTimeColor(hour: number) {
-	return "var(--hour" + hour + ")";
+	return `var(--hour${hour})`;
 }
 </script>
 <template>

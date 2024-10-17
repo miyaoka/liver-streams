@@ -1,6 +1,6 @@
 export const hashtagPrefixPattern = "[#＃]";
 const hashtagPrefixRegExp = new RegExp(hashtagPrefixPattern);
-const hashTagRegex = new RegExp(hashtagPrefixPattern + ".+", "g");
+const hashTagRegex = new RegExp(`${hashtagPrefixPattern}.+`, "g");
 const minKeywordLength = 2;
 const minHashtagLength = 3;
 
@@ -10,11 +10,11 @@ export function extractParenthesizedText(text: string, author = ""): string[] {
 	const openingParentheses = parentheses
 		.split("")
 		.filter((_, index) => index % 2 === 0)
-		.map((p) => "\\" + p);
+		.map((p) => `\\${p}`);
 	const closingParentheses = parentheses
 		.split("")
 		.filter((_, index) => index % 2 !== 0)
-		.map((p) => "\\" + p);
+		.map((p) => `\\${p}`);
 	const parenthesesPattern = new RegExp(
 		`(?<=[${openingParentheses.join("")}])(.*?)(?=[${closingParentheses.join("")}])`,
 		"g",
