@@ -72,7 +72,7 @@ watch(
       }"
     >
       <input
-        class="size-full rounded-l-full p-2 pl-4"
+        class="size-full rounded-l-full p-2 pl-4 text-base"
         ref="inputEl"
         v-model="searchQuery"
         @input="onInput"
