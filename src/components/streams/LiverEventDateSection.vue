@@ -38,8 +38,8 @@ const sectionInfo = computed(() => {
         :class="{
           'border-yellow-100 bg-yellow-400 text-black hover:bg-yellow-500':
             sectionInfo.dateDiff === 0,
-          'border-gray-300 bg-gray-100 text-black hover:bg-gray-200': sectionInfo.dateDiff > 0,
-          'border-gray-300 bg-gray-700  text-white hover:bg-gray-800': sectionInfo.dateDiff < 0,
+          'border-gray-300 bg-gray-100 text-gray-900 hover:bg-gray-200': sectionInfo.dateDiff > 0,
+          'border-gray-300 bg-gray-700  text-gray-300 hover:bg-gray-800': sectionInfo.dateDiff < 0,
         }"
         @click="scrollToSectionTop(dateSection.time)"
       >
