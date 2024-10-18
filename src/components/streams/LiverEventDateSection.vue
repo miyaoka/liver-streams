@@ -32,49 +32,19 @@ const sectionInfo = computed(() => {
 <template>
   <section class="relative pb-12 pt-0" data-id="date-section" :data-time="`${dateSection.time}`">
     <div class="absolute -top-1 w-full border-t-2 border-dashed border-white/80" />
-    <header class="pointer-events-none sticky top-0 z-20 mb-8">
-      <div class="flex w-full flex-col items-center justify-center py-2">
-        <div class="pointer-events-auto relative flex flex-row items-center">
-          <button
-            v-if="prevSection"
-            class="group absolute right-full flex size-11 items-center justify-center"
-            @click="scrollToSectionTop(prevSection.time)"
-          >
-            <div
-              class="flex size-6 items-center justify-center rounded-full bg-gray-700/0 group-hover:bg-gray-900/70"
-            >
-              <i class="i-mdi-chevron-up size-5 text-gray-800 group-hover:text-white" />
-            </div>
-          </button>
-
-          <button
-            class="flex flex-row items-center gap-1 rounded-lg border-0 px-2 py-1 shadow-md"
-            :class="{
-              'border-yellow-100 bg-yellow-400 text-black hover:bg-yellow-300':
-                sectionInfo.dateDiff === 0,
-              'border-gray-300 bg-gray-700 text-white hover:bg-gray-900':
-                sectionInfo.dateDiff !== 0,
-            }"
-            @click="scrollToSectionTop(dateSection.time)"
-          >
-            <span class="text-base font-bold">
-              {{ sectionInfo.mmdd }} {{ sectionInfo.relative }}
-            </span>
-          </button>
-
-          <button
-            v-if="nextSection"
-            class="group absolute left-full flex size-11 items-center justify-center"
-            @click="scrollToSectionTop(nextSection.time)"
-          >
-            <div
-              class="flex size-6 items-center justify-center rounded-full bg-gray-700/0 group-hover:bg-gray-900/70"
-            >
-              <i class="i-mdi-chevron-down size-5 text-gray-800 group-hover:text-white" />
-            </div>
-          </button>
-        </div>
-      </div>
+    <header class="pointer-events-none sticky top-0 z-30 flex pl-2 pt-2">
+      <button
+        class="pointer-events-auto flex flex-row items-center gap-1 rounded-lg border-0 px-2 py-1 shadow-md"
+        :class="{
+          'border-yellow-100 bg-yellow-400 text-black hover:bg-yellow-500':
+            sectionInfo.dateDiff === 0,
+          'border-gray-300 bg-gray-100 text-black hover:bg-gray-200': sectionInfo.dateDiff > 0,
+          'border-gray-300 bg-gray-700  text-white hover:bg-gray-800': sectionInfo.dateDiff < 0,
+        }"
+        @click="scrollToSectionTop(dateSection.time)"
+      >
+        <span class="text-base font-bold"> {{ sectionInfo.mmdd }} {{ sectionInfo.relative }} </span>
+      </button>
     </header>
     <LiverEventTimeSection
       v-for="(section, i) in dateSection.timeSectionList"
