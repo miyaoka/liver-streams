@@ -80,7 +80,7 @@ async function onClickNotify(id: string) {
   <div
     class="w-[480px] max-w-full overflow-hidden rounded-lg border border-gray-500 bg-white pb-2 shadow-xl"
   >
-    <div class="flex items-center bg-gray-800 px-4 py-2 text-gray-200">
+    <div class="flex h-11 items-center bg-gray-800 px-4 text-gray-200">
       <div class="font-bold">
         {{ fullDate }}
       </div>
