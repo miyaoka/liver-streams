@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 import { getFilteredEventList } from "@/lib/search";
 import { useEventListStore } from "@/store/eventListStore";
@@ -45,6 +45,11 @@ const hashtagList = computed(() => {
   });
 });
 
+const wholeList = computed(() => {
+  const list = [...keywordList.value, ...hashtagList.value];
+  return list.sort((a, b) => b.count - a.count);
+});
+
 // 大文字小文字を区別せずにカウントし、一番多いものをキーにする
 function createCountList(eventList: string[][]): KeywordItem[] {
   const keywordMap: Map<string, Map<string, number>> = new Map();
@@ -79,15 +84,8 @@ function createCountList(eventList: string[][]): KeywordItem[] {
     resultList.push({ value: key, count: totalCount });
   });
 
-  return resultList.sort((a, b) => b.count - a.count);
+  return resultList;
 }
-
-const groupList = ["keyword", "hashtag"];
-const selectedGroup = ref<(typeof groupList)[number]>("keyword");
-
-const selectedItem = computed(() => {
-  return selectedGroup.value === "keyword" ? keywordList.value : hashtagList.value;
-});
 </script>
 
 <template>
@@ -106,35 +104,7 @@ const selectedItem = computed(() => {
       </button>
     </div>
 
-    <header class="place-items-center gap-1 border-black bg-white p-2 font-bold shadow-md">
-      <fieldset role="radiogroup" class="flex flex-row">
-        <label
-          class="flex cursor-pointer flex-row items-center gap-1 rounded-xl px-2 py-1 focus-within:outline has-[input:checked]:bg-gray-200"
-          v-for="group in groupList"
-          :key="group"
-        >
-          <input
-            type="radio"
-            name="searchType"
-            v-model="selectedGroup"
-            :value="group"
-            class="sr-only"
-          />
-          <i
-            class="size-4"
-            :class="{
-              'i-mdi-chat-outline': group === 'keyword',
-              'i-mdi-hashtag': group !== 'keyword',
-            }"
-          />
-          <span>
-            {{ group }}
-          </span>
-        </label>
-      </fieldset>
-    </header>
-
-    <KeywordListPopoverItem :itemList="selectedItem" :key="selectedGroup" />
+    <KeywordListPopoverItem :itemList="wholeList" />
   </div>
 </template>
 
