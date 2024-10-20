@@ -14,8 +14,8 @@ const popover = usePopover();
     <i
       class="size-8"
       :class="{
-        'i-f7-ellipses-bubble-fill': popover.isShow.value,
-        'i-f7-ellipses-bubble': !popover.isShow.value,
+        'i-icon-park-solid-topic': popover.isShow.value,
+        'i-icon-park-outline-topic': !popover.isShow.value,
       }"
     />
   </button>
