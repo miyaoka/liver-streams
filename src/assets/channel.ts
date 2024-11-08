@@ -66,11 +66,18 @@ export const talents: ChannelNode[] = [
           },
           {
             name: "ReGLOSS",
-            children: ["火威青", "音乃瀬奏", "一条莉々華", "儒烏風亭らでん", "轟はじめ"],
+            children: ["ReGLOSS", "火威青", "音乃瀬奏", "一条莉々華", "儒烏風亭らでん", "轟はじめ"],
           },
           {
-            name: "FLOWGLOW",
-            children: ["響咲リオナ", "虎金妃笑虎", "水宮枢", "輪堂千速", "綺々羅々ヴィヴィ"],
+            name: "FLOW GLOW",
+            children: [
+              "FLOW GLOW",
+              "響咲リオナ",
+              "虎金妃笑虎",
+              "水宮枢",
+              "輪堂千速",
+              "綺々羅々ヴィヴィ",
+            ],
           },
         ],
       },
