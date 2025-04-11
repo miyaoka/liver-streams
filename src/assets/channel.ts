@@ -396,6 +396,10 @@ export const talents: ChannelNode[] = [
               },
             ],
           },
+          {
+            name: "2025年",
+            children: ["一橋綾人", "五木左京"],
+          },
         ],
       },
       {
@@ -465,6 +469,10 @@ export const talents: ChannelNode[] = [
           {
             name: "Denauth",
             children: ["クララ チャームウッド", "凉舞 バレンウォート", "トゥイスティー アマノザコ"],
+          },
+          {
+            name: "BY THE BEAT",
+            children: ["ジール・ギンジョウカ", "フリオドール", "セイブル", "ケイリクス・デボネア"],
           },
         ],
       },
