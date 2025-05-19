@@ -2,7 +2,7 @@
 import { computed, toRaw, toRefs } from "vue";
 import { useLiverEvent } from "./useLiverEvent";
 import type { LiverEvent } from "@/services/api";
-import { getThumnail } from "@/lib/youtube";
+import { getThumbnail } from "@/lib/youtube";
 import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
 import { hhss } from "@/utils/dateFormat";
@@ -158,7 +158,7 @@ function setSearchString(str: string) {
 
         <div class="flex aspect-video h-full overflow-hidden max-sm:w-[clamp(140px,30vw,200px)]">
           <img
-            :src="getThumnail(liverEvent.thumbnail, 'mq')"
+            :src="getThumbnail(liverEvent.thumbnail, 'mq')"
             class="size-full object-cover transition-transform group-hover:scale-110"
             loading="lazy"
           />

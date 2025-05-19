@@ -4,7 +4,7 @@ import { useLiverEvent } from "../useLiverEvent";
 import type { LiverEvent } from "@/services/api";
 import { usePopover } from "@/composable/usePopover";
 import { parseSegment } from "@/lib/text";
-import { getThumnail } from "@/lib/youtube";
+import { getThumbnail } from "@/lib/youtube";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useFocusStore } from "@/store/focusStore";
 import { useNotificationStore } from "@/store/notificationStore";
@@ -94,7 +94,7 @@ async function onClickNotify(id: string) {
 
     <a :href="liverEvent.url" target="_blank">
       <img
-        :src="getThumnail(liverEvent.thumbnail, 'sd')"
+        :src="getThumbnail(liverEvent.thumbnail, 'sd')"
         class="_thumb [@starting-style:opacity-0] aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
         loading="lazy"
       />
