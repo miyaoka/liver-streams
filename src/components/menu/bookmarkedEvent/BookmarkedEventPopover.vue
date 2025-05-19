@@ -2,7 +2,7 @@
 import { computed, onMounted } from "vue";
 import type { LiverEvent } from "@/services/api";
 import { scrollToLiverEventTop } from "@/lib/scroll";
-import { getThumnail } from "@/lib/youtube";
+import { getThumbnail } from "@/lib/youtube";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useDateStore } from "@/store/dateStore";
 import { useFocusStore } from "@/store/focusStore";
@@ -83,7 +83,7 @@ onMounted(() => {
         >
           <div class="flex items-center gap-2 p-2 text-start">
             <img
-              :src="getThumnail(liverEvent.thumbnail, 'mq')"
+              :src="getThumbnail(liverEvent.thumbnail, 'mq')"
               class="_thumb aspect-video h-[36px] w-[64px] bg-gray-800 object-cover p-0 transition-colors"
               loading="lazy"
             />
