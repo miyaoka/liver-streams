@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useIntervalFn } from "@vueuse/core";
 import { onMounted } from "vue";
 import FooterMenu from "@/components/menu/FooterMenu.vue";
 import HeaderMenu from "@/components/menu/HeaderMenu.vue";
@@ -18,7 +19,7 @@ onMounted(async () => {
   const updateList = () => eventListStore.updateLiverEventList(nijiLiverMap);
 
   // 一定時間ごとにスケジュールを再取得
-  setInterval(updateList, fetchInterval);
+  useIntervalFn(updateList, fetchInterval);
 
   // 初回取得
   updateList();
