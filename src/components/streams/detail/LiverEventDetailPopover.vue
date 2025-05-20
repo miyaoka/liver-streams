@@ -21,9 +21,7 @@ const focusStore = useFocusStore();
 const searchStore = useSearchStore();
 const notificationStore = useNotificationStore();
 
-const { isFinished, hasBookmark, hasNotify, beforeStartTime } = useLiverEvent(
-  toRef(props.liverEvent),
-);
+const { hasBookmark, hasNotify } = useLiverEvent(toRef(props.liverEvent));
 const permissionPopover = usePopover();
 
 const fullDate = computed(() => {

@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useEventListStore } from "@/store/eventListStore";
-import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";
 
 const searchStore = useSearchStore();
 const eventListStore = useEventListStore();
-const focusStore = useFocusStore();
 
 function close() {
   searchStore.setSearchString("");
