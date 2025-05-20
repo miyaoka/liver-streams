@@ -1,4 +1,5 @@
 import type { LiverEvent } from "@/services/api";
+import { getDateTime, getHourTime } from "@/utils/date";
 
 export interface DateSection {
   time: number;
@@ -15,15 +16,6 @@ export function createDateSectionList(liverEventList: LiverEvent[]): DateSection
   if (liverEventList.length === 0) return [];
   const firstEvent = liverEventList[0];
   const lastEvent = liverEventList[liverEventList.length - 1];
-
-  function getHourTime(date: Date): number {
-    const hour = date.getHours();
-    return new Date(date).setHours(hour, 0, 0, 0);
-  }
-
-  function getDateTime(date: Date): number {
-    return new Date(date).setHours(0, 0, 0, 0);
-  }
 
   const oneHour = 3600000;
   const oneDay = 86400000;
