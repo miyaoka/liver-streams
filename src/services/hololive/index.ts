@@ -20,11 +20,11 @@ export interface HoloVideoDetail {
   thumbnail: string;
   title: string;
   name: string;
-  talent: HoloTelent;
-  collaboTalents: HoloTelent[];
+  talent: HoloTalent;
+  collaboTalents: HoloTalent[];
 }
 
-export interface HoloTelent {
+export interface HoloTalent {
   name: string;
   iconImageUrl: string;
 }
@@ -57,7 +57,7 @@ export async function fetchHoloEventList(): Promise<LiverEvent[]> {
     });
 
     return createLiverEvent({
-      affilication: "hololive",
+      affiliation: "hololive",
       startAt: video.datetime,
       title,
       url: video.url,

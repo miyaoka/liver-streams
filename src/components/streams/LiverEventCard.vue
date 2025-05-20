@@ -113,7 +113,7 @@ function setSearchString(str: string) {
       </div>
 
       <img
-        :src="getChannelIcon(`${liverEvent.affilication}_logo`)"
+        :src="getChannelIcon(`${liverEvent.affiliation}_logo`)"
         class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
         loading="lazy"
       />

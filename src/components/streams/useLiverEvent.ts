@@ -30,7 +30,7 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
     if (elapsed === 0) return false;
 
     // ホロライブの場合
-    if (liverEvent.value.affilication === "hololive") {
+    if (liverEvent.value.affiliation === "hololive") {
       // 配信開始直後は開始時間が更新されてもliveになっていない場合があるので一定時間判定しない
       if (elapsed < liveStartDuration) return false;
 
