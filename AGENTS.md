@@ -1,0 +1,3 @@
+# Install dependencies
+
+pnpm install
