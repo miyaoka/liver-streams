@@ -14,7 +14,7 @@ export interface LiverEvent {
   isLive: boolean;
   talent: LiverTalent;
   collaboTalents: LiverTalent[];
-  affilication: "hololive" | "nijisanji";
+  affiliation: "hololive" | "nijisanji";
   hashtagList: string[];
   hashtagSet: Set<string>;
   collaboTalentSet: Set<string>;
@@ -30,10 +30,10 @@ export function compareLiverEvent(a: LiverEvent, b: LiverEvent) {
   const diff = a.startAt.getTime() - b.startAt.getTime();
   if (diff !== 0) return diff;
 
-  // 同時間の場合はまずaffilicationでソート
-  if (a.affilication !== b.affilication) return a.affilication.localeCompare(b.affilication);
+  // 同時間の場合はまずaffiliationでソート
+  if (a.affiliation !== b.affiliation) return a.affiliation.localeCompare(b.affiliation);
 
-  // 同affilicationの場合はtalent名でソート
+  // 同affiliationの場合はtalent名でソート
   return a.talent.name.localeCompare(b.talent.name);
 }
 
@@ -87,7 +87,7 @@ async function digestMessage(message: string) {
 }
 
 export async function createLiverEvent({
-  affilication,
+  affiliation,
   startAt,
   title,
   url,
@@ -97,7 +97,7 @@ export async function createLiverEvent({
   talent,
   collaboTalents,
 }: {
-  affilication: "hololive" | "nijisanji";
+  affiliation: "hololive" | "nijisanji";
   startAt: string;
   title: string;
   url: string;
@@ -117,7 +117,7 @@ export async function createLiverEvent({
 
   return {
     id: id,
-    affilication,
+    affiliation,
     startAt: startAtDate,
     title,
     url,
@@ -163,7 +163,7 @@ async function getNijiEvents({
       return collaboTalent;
     });
     return createLiverEvent({
-      affilication: "nijisanji",
+      affiliation: "nijisanji",
       startAt,
       title,
       url,
