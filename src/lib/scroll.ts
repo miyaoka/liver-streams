@@ -13,7 +13,7 @@ export function scrollToCurrentTime(
   // 現在より後のsectionがあればその手前、またはそのsection
   // 現在より後が無ければイベントが有る最後のsection
   const targetTimeSection =
-    afterNowIndex > 0
+    afterNowIndex !== -1
       ? (timeSectionList[afterNowIndex - 1] ?? timeSectionList[afterNowIndex])
       : timeSectionList.filter((timeSection) => timeSection.events.length > 0).at(-1);
 
