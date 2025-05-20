@@ -1,3 +1,4 @@
+import { useIntervalFn } from "@vueuse/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { getDateTime, getHourTime } from "@/utils/date";
@@ -5,7 +6,7 @@ import { getDateTime, getHourTime } from "@/utils/date";
 export const useDateStore = defineStore("dateStore", () => {
   const currentDate = ref(new Date());
 
-  setInterval(() => {
+  useIntervalFn(() => {
     currentDate.value = new Date();
   }, 5000);
 
