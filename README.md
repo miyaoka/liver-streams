@@ -35,7 +35,7 @@ pnpm build
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-pnpm test:unit
+pnpm test
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
