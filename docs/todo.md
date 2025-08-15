@@ -27,22 +27,6 @@
 - [ ] 変更があれば自動でPRを作成
 - [ ] 新規タレント追加を自動検知
 
-## 環境別のアイコン配信パス
-
-### 現状の問題
-
-- ローカル開発でもGitHub Rawから画像を取得している
-- ネットワーク遅延とオフライン開発の制約
-
-### 実装内容
-
-```typescript
-// src/utils/icons.ts の改修
-const iconBase = import.meta.env.DEV
-  ? "/icons" // ローカル開発環境
-  : "https://raw.githubusercontent.com/miyaoka/liver-streams/main/public/icons"; // 本番環境
-```
-
 ## 関連ドキュメント
 
 - [データフローとフィルタリング](./data-flow-and-filtering.md)
