@@ -23,35 +23,13 @@ export interface NijiLiverMap {
 }
 const proxyApiBase = import.meta.env.VITE_NIJI_API_BASE || "https://nijiapi-proxy.vercel.app/api";
 
-async function _fetchNijiLiverMap(): Promise<NijiLiverMap> {
-  // if (import.meta.env.VITE_TEST_DATA) {
-  // 重いのでローカルファイルから取得する
-  return import("./sample3/livers.json").then((res) => res.default);
-  // }
-
-  // const url = new URL(`${proxyApiBase}/livers`);
-  // return fetch(url).then((res) => res.json());
-}
-
 export async function fetchNijiLiverMap(): Promise<NijiLiverMap> {
-  const liverMap = await _fetchNijiLiverMap();
-  return liverMap;
-
-  // Reduce image size
-  // return Object.entries(liverMap).reduce(
-  //   (acc, [id, liver]) => {
-  //     const reducedImage = `${liver.image}&w=200&fm=webp`;
-  //     acc[id] = {
-  //       ...liver,
-  //       image: reducedImage,
-  //     };
-  //     return acc;
-  //   },
-  //   {} as Record<string, NijiLiver>,
-  // );
+  // APIが重いので常にローカルファイルから取得する
+  return import("./livers.json").then((res) => res.default);
 }
 
 export async function fetchNijiStreamList(): Promise<NijiStream[]> {
+  // test用
   if (import.meta.env.VITE_TEST_DATA) {
     return await import("./sample3/streams.json").then((res) => res.default);
   }
