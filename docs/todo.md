@@ -43,33 +43,6 @@ const iconBase = import.meta.env.DEV
   : "https://raw.githubusercontent.com/miyaoka/liver-streams/main/public/icons"; // 本番環境
 ```
 
-## フォールバック処理の実装
-
-### 現状の問題
-
-- タレントIDが `nijiLiverMap` に存在しない場合、配信自体が除外される
-- コンソールに `talent not found: [id]` の警告のみ
-
-### 実装内容
-
-```typescript
-// src/services/api.ts の改修
-function getTalent(id: string) {
-  const talent = nijiLiverMap[id];
-  if (!talent) {
-    // フォールバック処理
-    return {
-      name: `Unknown (${id})`,
-      image: getDefaultIcon(),
-    };
-  }
-  return {
-    name: talent.name,
-    image: getChannelIcon(talent.name),
-  };
-}
-```
-
 ## 関連ドキュメント
 
 - [データフローとフィルタリング](./data-flow-and-filtering.md)

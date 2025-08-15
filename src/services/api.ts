@@ -145,7 +145,11 @@ async function getNijiEvents({
     const talent = nijiLiverMap[id];
     if (!talent) {
       console.warn(`talent not found: ${id}`);
-      return null;
+      // フォールバック処理: タレント情報が見つからない場合でも最低限の情報で表示
+      return {
+        name: `Unknown (${id})`,
+        image: getChannelIcon(""), // デフォルトアイコンを使用
+      };
     }
     return {
       name: talent.name,
@@ -156,12 +160,7 @@ async function getNijiEvents({
   const events = nijiStreams.map(async (stream) => {
     const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
     const talent = getTalent(talentId);
-    if (!talent) return null;
-    const collaboTalents = collaboTalentIds.flatMap((id) => {
-      const collaboTalent = getTalent(id);
-      if (!collaboTalent) return [];
-      return collaboTalent;
-    });
+    const collaboTalents = collaboTalentIds.map((id) => getTalent(id));
     return createLiverEvent({
       affiliation: "nijisanji",
       startAt,
