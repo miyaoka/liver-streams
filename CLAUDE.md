@@ -23,7 +23,7 @@ pnpm vitest run  # 単発実行
 pnpm vitest run "<file path>" -t "<test name>"
 
 # 型チェック
-pnpm type-check
+pnpm run typecheck
 
 # リント実行・自動修正
 pnpm lint
