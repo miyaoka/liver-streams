@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/node24/tsconfig.json",
-  "include": ["eslint.config.*", "scripts/**/*.ts"],
+  "include": ["**/*.ts"],
+  "exclude": ["packages/**", "services/**"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,

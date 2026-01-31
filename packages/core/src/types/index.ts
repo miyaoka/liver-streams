@@ -1,5 +1,11 @@
 export * from "./service";
 
+export interface ChannelNode {
+  name: string;
+  children: (string | ChannelNode)[];
+  initial?: string;
+}
+
 export interface LiverEvent {
   id: string;
   title: string;

@@ -1,5 +1,6 @@
 packages:
   - packages/*
+  - services/*
 
 catalog:
   '@happy-dom/global-registrator': 20.4.0

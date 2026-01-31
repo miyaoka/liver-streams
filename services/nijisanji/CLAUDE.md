@@ -1,11 +1,10 @@
-# @liver-streams/service-nijisanji
+# @liver-streams/services-nijisanji
 
 にじさんじ配信情報を取得するサービスパッケージ。
 
 ## 開発コマンド
 
 ```bash
-pnpm test        # テスト実行
 pnpm typecheck   # 型チェック
 pnpm lint        # リント実行
 pnpm lint:fix    # リント自動修正
@@ -16,9 +15,10 @@ pnpm lint:fix    # リント自動修正
 - `src/index.ts` - エントリーポイント、`createNijisanjiService()` を export
 - `src/api.ts` - にじさんじ API からのデータ取得
 - `src/icons.ts` - アイコン URL 解決
-- `src/icons.json` - タレント名 → アイコンパスのマッピング
-- `src/livers.json` - talentId → タレント情報のマッピング
-- `src/sample3/` - テスト用サンプルデータ
+- `data/icons.json` - タレント名 → アイコンパスのマッピング
+- `data/livers.json` - talentId → タレント情報のマッピング
+- `data/channels.json` - フィルター UI 用のチャンネル階層データ
+- `data/dev/streams.json` - 開発用 API レスポンススナップショット
 
 ## 主要な API
 
@@ -27,7 +27,7 @@ pnpm lint:fix    # リント自動修正
 `EventService` インターフェースを実装したサービスを生成する。
 
 ```typescript
-import { createNijisanjiService } from "@liver-streams/service-nijisanji";
+import { createNijisanjiService } from "@liver-streams/services-nijisanji";
 
 const service = createNijisanjiService({
   iconBaseUrl: "/icons",
@@ -51,7 +51,11 @@ const iconUrl = service.getIcon("月ノ美兎");
 
 - デフォルトエンドポイント: `https://nijiapi-proxy.vercel.app/api/streams`
 - `options.apiBaseUrl` でカスタム API を指定可能
-- `options.useTestData: true` でテストデータを使用
+- `options.useTestData: true` で開発用データを使用
+
+### nijisanjiChannels
+
+フィルター UI 用のチャンネル階層データ。
 
 ## 依存関係
 
@@ -60,5 +64,4 @@ const iconUrl = service.getIcon("月ノ美兎");
 ## 技術スタック
 
 - TypeScript
-- bun test（テスト）
 - ESLint

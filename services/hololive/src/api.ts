@@ -36,7 +36,7 @@ export interface FetchDataOptions {
 
 function fetchData(options: FetchDataOptions): Promise<HoloSchedule> {
   if (options.useTestData) {
-    return import("./sample4.json").then((res) => res.default);
+    return import("../data/dev/schedule.json").then((res) => res.default);
   }
   return fetch(holoAPI)
     .then((res) => res.json())

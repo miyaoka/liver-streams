@@ -1,11 +1,11 @@
 import { compareLiverEvent } from "@liver-streams/core";
-import { createHololiveService } from "@liver-streams/service-hololive";
-import { createNijisanjiService } from "@liver-streams/service-nijisanji";
+import { createHololiveService } from "@liver-streams/services-hololive";
+import { createNijisanjiService } from "@liver-streams/services-nijisanji";
 import type { EventService, LiverEvent } from "@liver-streams/core";
 
 const iconBaseUrl = import.meta.env.DEV
   ? "/icons"
-  : "https://raw.githubusercontent.com/miyaoka/liver-streams/main/public/icons";
+  : "https://raw.githubusercontent.com/miyaoka/liver-streams/main/packages/ui/public/icons";
 
 const nijiApiBaseUrl = import.meta.env.VITE_NIJI_API_BASE;
 

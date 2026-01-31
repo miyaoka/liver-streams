@@ -1,11 +1,10 @@
-# @liver-streams/service-hololive
+# @liver-streams/services-hololive
 
 ホロライブ配信情報を取得するサービスパッケージ。
 
 ## 開発コマンド
 
 ```bash
-pnpm test        # テスト実行
 pnpm typecheck   # 型チェック
 pnpm lint        # リント実行
 pnpm lint:fix    # リント自動修正
@@ -16,8 +15,9 @@ pnpm lint:fix    # リント自動修正
 - `src/index.ts` - エントリーポイント、`createHololiveService()` を export
 - `src/api.ts` - ホロライブ公式 API からのデータ取得
 - `src/icons.ts` - アイコン URL 解決
-- `src/icons.json` - タレント名 → アイコンパスのマッピング
-- `src/sample4.json` - テスト用サンプルデータ
+- `data/icons.json` - タレント名 → アイコンパスのマッピング
+- `data/channels.json` - フィルター UI 用のチャンネル階層データ
+- `data/dev/schedule.json` - 開発用 API レスポンススナップショット
 
 ## 主要な API
 
@@ -26,7 +26,7 @@ pnpm lint:fix    # リント自動修正
 `EventService` インターフェースを実装したサービスを生成する。
 
 ```typescript
-import { createHololiveService } from "@liver-streams/service-hololive";
+import { createHololiveService } from "@liver-streams/services-hololive";
 
 const service = createHololiveService({
   iconBaseUrl: "/icons",
@@ -44,7 +44,11 @@ const iconUrl = service.getIcon("さくらみこ");
 ホロライブ公式 API から配信スケジュールを取得する。
 
 - エンドポイント: `https://schedule.hololive.tv/api/list/7`
-- `options.useTestData: true` でテストデータを使用
+- `options.useTestData: true` で開発用データを使用
+
+### hololiveChannels
+
+フィルター UI 用のチャンネル階層データ。
 
 ## 依存関係
 
@@ -53,5 +57,4 @@ const iconUrl = service.getIcon("さくらみこ");
 ## 技術スタック
 
 - TypeScript
-- bun test（テスト）
 - ESLint

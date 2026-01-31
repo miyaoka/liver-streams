@@ -26,12 +26,12 @@ const defaultApiBase = "https://nijiapi-proxy.vercel.app/api";
 
 export function fetchNijiLiverMap(): Promise<NijiLiverMap> {
   // APIが重いので常にローカルファイルから取得する
-  return import("./livers.json").then((res) => res.default);
+  return import("../data/livers.json").then((res) => res.default);
 }
 
 export function fetchNijiStreamList(options: FetchDataOptions = {}): Promise<NijiStream[]> {
   if (options.useTestData) {
-    return import("./sample3/streams.json").then((res) => res.default);
+    return import("../data/dev/streams.json").then((res) => res.default);
   }
 
   const apiBase = options.apiBaseUrl || defaultApiBase;

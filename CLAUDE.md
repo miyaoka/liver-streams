@@ -41,9 +41,11 @@ pnpm format
 ```
 packages/
 ├── core/                  # 共通型定義、ビジネスロジック、ユーティリティ
-├── service-hololive/      # ホロライブ配信情報取得サービス
-├── service-nijisanji/     # にじさんじ配信情報取得サービス
 └── ui/                    # フロントエンド（Vue 3 + Vite）
+
+services/
+├── hololive/              # ホロライブ配信情報取得サービス
+└── nijisanji/             # にじさんじ配信情報取得サービス
 ```
 
 ### 技術スタック
@@ -75,9 +77,10 @@ packages/
 
 タレントが増えた場合、以下のファイルを更新する必要がある:
 
-- `packages/service-hololive/src/icons.json` - ホロライブタレント名 → アイコンパスのマッピング
-- `packages/service-nijisanji/src/icons.json` - にじさんじタレント名 → アイコンパスのマッピング
-- `packages/service-nijisanji/src/livers.json` - talentId → タレント名の対応
+- `services/hololive/data/icons.json` - ホロライブタレント名 → アイコンパスのマッピング
+- `services/hololive/data/channels.json` - ホロライブのユニット・グループ階層データ
+- `services/nijisanji/data/icons.json` - にじさんじタレント名 → アイコンパスのマッピング
+- `services/nijisanji/data/livers.json` - talentId → タレント名の対応
+- `services/nijisanji/data/channels.json` - にじさんじのユニット・グループ階層データ
 - `packages/ui/public/icons/` - タレントアイコン画像の配置先
-- `packages/core/src/data/channel.ts` - ユニット・グループでタレント名をまとめたもの（ユニット情報は人力で設定）
 - `scripts/` - アイコン取得スクリプト（root 直下）

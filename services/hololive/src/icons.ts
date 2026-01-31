@@ -1,4 +1,4 @@
-import icons from "./icons.json";
+import icons from "../data/icons.json";
 
 const iconMap: Record<string, string> = icons;
 

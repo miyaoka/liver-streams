@@ -12,8 +12,5 @@ export * from "./lib/liverEvent";
 export * from "./utils/date";
 export * from "./utils/dateFormat";
 
-// Data
-export * from "./data/channel";
-
 // Logic
 export * from "./logic/eventFilter";
