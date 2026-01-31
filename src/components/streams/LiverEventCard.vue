@@ -93,7 +93,7 @@ function setSearchString(str: string) {
   >
     <a :href="liverEvent.url" target="_blank" @click="onClickCard">
       <div
-        class="absolute -top-0 left-0 z-20 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow"
+        class="absolute top-0 left-0 z-20 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow-sm"
         :class="{
           'bg-red-600 text-white': isLive,
           'bg-gray-300 text-gray-700': isFinished,
@@ -138,7 +138,7 @@ function setSearchString(str: string) {
           class="relative flex h-full flex-1 flex-col items-start justify-center pb-2 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter"
         >
           <h3 class="line-clamp-1 font-bold">{{ liverEvent.talent.name }}</h3>
-          <div class="line-clamp-2 [overflow-wrap:anywhere]">
+          <div class="line-clamp-2 wrap-anywhere">
             {{ liverEvent.title }}
           </div>
           <div class="absolute bottom-px z-10 flex flex-row">
@@ -146,7 +146,7 @@ function setSearchString(str: string) {
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :src="talent.image"
-              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline outline-1 outline-gray-300 hover:outline hover:outline-2 hover:outline-red-500"
+              class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline-1 outline-gray-300 outline-solid hover:outline-2 hover:outline-red-500 hover:outline-solid"
               :title="talent.name"
               loading="lazy"
               @mouseenter="focusStore.setHoveredTalents(talent.name)"
@@ -192,14 +192,14 @@ function setSearchString(str: string) {
 
         <div
           v-if="firstHash"
-          class="absolute bottom-0 right-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
+          class="absolute right-0 bottom-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md"
           :class="{
             'bg-amber-600 text-amber-100': hasHoveredHash,
             'bg-blue-600 text-blue-100': !hasHoveredHash,
           }"
           @contextmenu.prevent="setSearchString(firstHash)"
         >
-          <span class="whitespace-nowrap text-xs">#{{ firstHash }}</span>
+          <span class="text-xs whitespace-nowrap">#{{ firstHash }}</span>
         </div>
 
         <div

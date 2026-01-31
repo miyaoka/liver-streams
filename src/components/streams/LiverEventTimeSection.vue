@@ -49,7 +49,7 @@ function getTimeColor(hour: number) {
   >
     <div v-if="isCurrentTime" class="pointer-events-none flex w-full">
       <div
-        class="mt-8 flex select-none items-center gap-2 bg-black/70 py-1 pl-2 pr-12 text-base font-bold text-white [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);]"
+        class="[clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);] mt-8 flex items-center gap-2 bg-black/70 py-1 pr-12 pl-2 text-base font-bold text-white select-none"
       >
         <i class="i-mdi-clock-outline size-6" />
         <p>now {{ hhss }}</p>
@@ -57,7 +57,7 @@ function getTimeColor(hour: number) {
     </div>
     <template v-if="hasEvents">
       <div
-        class="pointer-events-none flex w-full select-none items-baseline justify-start gap-[2px] px-[clamp(2px,2px+0.5vw,16px)] font-['Poppins'] font-bold leading-none text-gray-800/30"
+        class="pointer-events-none flex w-full items-baseline justify-start gap-[2px] px-[clamp(2px,2px+0.5vw,16px)] font-['Poppins'] leading-none font-bold text-gray-800/30 select-none"
       >
         <span class="text-5xl tracking-tight drop-shadow-md">
           {{ hour.toFixed(0).padStart(2, "0") }}

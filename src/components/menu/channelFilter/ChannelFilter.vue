@@ -41,7 +41,7 @@ function reset() {
     <i class="i-mdi-person-outline size-[32px] text-gray-800" />
   </button>
 
-  <popover.PopOver class="bottom-auto left-auto right-0 top-0 w-[350px] overflow-visible p-0">
+  <popover.PopOver class="top-0 right-0 bottom-auto left-auto w-[350px] overflow-visible p-0">
     <div class="flex max-h-dvh flex-col overflow-hidden">
       <div class="flex min-h-11 place-items-center bg-gray-200 px-4 font-bold">
         <p>フィルター（{{ filterCount }}）</p>
@@ -54,7 +54,7 @@ function reset() {
         </button>
       </div>
 
-      <div class="flex place-content-between p-4 shadow">
+      <div class="flex place-content-between p-4 shadow-sm">
         <fieldset class="flex gap-2">
           <label
             class="grid size-11 cursor-pointer place-items-center rounded-lg focus-within:outline hover:bg-gray-200 has-[input:checked]:bg-gray-200"
@@ -82,7 +82,7 @@ function reset() {
       </div>
 
       <div
-        class="-ml-4 flex-1 overflow-auto p-2 pb-12 pt-4"
+        class="-ml-4 flex-1 overflow-auto p-2 pt-4 pb-12"
         ref="talentNodeEl"
         v-if="rootNode"
         :key="rootNode.name"

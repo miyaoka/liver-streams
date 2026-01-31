@@ -22,7 +22,7 @@ const hasLiveEvents = computed(() => eventListStore.onLiveEventList.length > 0);
       }"
     />
     <p
-      class="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white"
+      class="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white"
       :class="{
         'bg-red-700': hasLiveEvents,
         'bg-gray-700': !hasLiveEvents,

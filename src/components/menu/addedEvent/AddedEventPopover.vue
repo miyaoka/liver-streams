@@ -14,7 +14,7 @@ const eventCount = computed(() => eventListStore.addedEventList.length);
 
 <template>
   <div
-    class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
+    class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline-2 outline-solid"
   >
     <div class="flex h-11 items-center justify-start gap-1 bg-black p-2 text-white">
       <i class="i-mdi-sparkles size-5" />

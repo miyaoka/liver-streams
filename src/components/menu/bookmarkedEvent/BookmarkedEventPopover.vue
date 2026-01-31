@@ -54,7 +54,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline outline-2"
+    class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline-2 outline-solid"
   >
     <div class="flex h-11 items-center justify-start gap-1 bg-black p-2 text-white">
       <i class="i-mdi-bookmark size-5" />
@@ -87,7 +87,7 @@ onMounted(() => {
               class="_thumb aspect-video h-[36px] w-[64px] bg-gray-800 object-cover p-0 transition-colors"
               loading="lazy"
             />
-            <p class="line-clamp-2 flex-1 text-sm [overflow-wrap:anywhere]">
+            <p class="line-clamp-2 flex-1 text-sm wrap-anywhere">
               {{ liverEvent.title }}
             </p>
             <div class="w-12 text-center text-sm">
@@ -98,7 +98,7 @@ onMounted(() => {
         </button>
         <div class="flex justify-center p-2">
           <button
-            class="rounded bg-gray-200 px-4 py-2 text-sm hover:bg-gray-300"
+            class="rounded-sm bg-gray-200 px-4 py-2 text-sm hover:bg-gray-300"
             @click.prevent="bookmarkStore.bookmarkEventMap.clear"
           >
             clear all

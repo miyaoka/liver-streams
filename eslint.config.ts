@@ -1,7 +1,7 @@
 import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
+import pluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import pluginImportX from "eslint-plugin-import-x";
-import pluginTailwindcss from "eslint-plugin-tailwindcss";
 import pluginUnusedImports from "eslint-plugin-unused-imports";
 import pluginVue from "eslint-plugin-vue";
 import type { ESLint } from "eslint";
@@ -18,7 +18,14 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
 
   // Tailwind設定
-  ...pluginTailwindcss.configs["flat/recommended"],
+  {
+    ...pluginBetterTailwindcss.configs.recommended,
+    settings: {
+      "better-tailwindcss": {
+        entryPoint: "src/assets/main.css",
+      },
+    },
+  },
 
   // Prettier（最後に配置）
   skipFormatting,
@@ -73,12 +80,26 @@ export default defineConfigWithVueTs(
       ],
 
       // Tailwind
-      "tailwindcss/no-custom-classname": [
+      // 各ルールは独立したワーカーで Tailwind Design System をロードするため、
+      // 有効なルール数に比例して初期化コストが増加する（1ルールあたり約1秒）
+      "better-tailwindcss/no-unknown-classes": [
         "warn",
         {
-          whitelist: ["_.*"],
+          ignore: ["_.*"],
         },
       ],
+      // lint 実行に時間がかかるため off
+      // このルールは初回呼び出しで全クラスのシグネチャを計算するため、
+      // iconify のように大量のクラスがある場合に重くなる
+      "better-tailwindcss/enforce-canonical-classes": "off",
+      // Prettier と競合するため off
+      // このルールはクラスを複数行に分割するが、Prettier が単一行に戻す
+      "better-tailwindcss/enforce-consistent-line-wrapping": "off",
+      // Prettier と競合するため off
+      // VSCode で formatOnSave と source.fixAll を両方有効にしていると、
+      // Prettier と ESLint が同時にファイルを編集して文字が消えることがある
+      // 例: "flex  items-center" → "flex tems-center"
+      "better-tailwindcss/no-unnecessary-whitespace": "off",
     },
   },
 );

@@ -30,9 +30,9 @@ const sectionInfo = computed(() => {
 </script>
 
 <template>
-  <section class="relative pb-12 pt-0" data-id="date-section" :data-time="`${dateSection.time}`">
+  <section class="relative pt-0 pb-12" data-id="date-section" :data-time="`${dateSection.time}`">
     <div class="absolute -top-1 w-full border-t-2 border-dashed border-white/80" />
-    <header class="pointer-events-none sticky top-0 z-30 flex pl-2 pt-2">
+    <header class="pointer-events-none sticky top-0 z-30 flex pt-2 pl-2">
       <button
         class="pointer-events-auto flex flex-row items-center gap-1 rounded-lg border-0 px-2 py-1 shadow-md"
         :class="{

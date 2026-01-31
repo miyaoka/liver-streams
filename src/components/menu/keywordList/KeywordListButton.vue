@@ -21,7 +21,7 @@ const popover = usePopover();
   </button>
 
   <popover.PopOver
-    class="bottom-20 left-auto right-1 top-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
+    class="top-auto right-1 bottom-20 left-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
   >
     <KeywordListPopover />
   </popover.PopOver>
