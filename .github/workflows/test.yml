@@ -1,32 +1,53 @@
-name: Type Check and Test
+name: code_validation
 
 on:
-  - push
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  type-check-and-test:
+  validation:
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: typecheck
+            command: pnpm run typecheck
+
+          - name: lint
+            command: pnpm run lint
+
+          - name: test
+            command: pnpm run test
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
+      - name: Setup environment
+        uses: ./.github/actions/setup-environment
+
+      - name: Run ${{ matrix.name }}
+        run: ${{ matrix.command }}
+
+  all-green:
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - validation
+    steps:
+      - name: Check all CI jobs status
+        uses: re-actors/alls-green@release/v1
         with:
-          version: 9
-          run_install: false
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Run TypeScript type check
-        run: pnpm run type-check
-
-      - name: Run Test
-        run: pnpm run test
+          jobs: ${{ toJSON(needs) }}
