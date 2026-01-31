@@ -1,12 +1,12 @@
-import channelsData from "../data/channels.json";
-import { fetchHoloEventList } from "./api";
-import { getIcon as getIconPath } from "./icons";
 import type {
   ChannelNode,
   EventService,
   EventServiceConfig,
   LiverEvent,
 } from "@liver-streams/core";
+import channelsData from "../data/channels.json";
+import { fetchHoloEventList } from "./api";
+import { getIcon as getIconPath } from "./icons";
 
 export function createHololiveService(config: EventServiceConfig): EventService {
   return {
