@@ -20,10 +20,10 @@
   "devDependencies": {
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
-    "eslint": "9.39.2",
-    "eslint-plugin-import-x": "4.16.1",
-    "eslint-plugin-unused-imports": "4.3.0",
+    "eslint": "catalog:",
+    "eslint-plugin-import-x": "catalog:",
+    "eslint-plugin-unused-imports": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.54.0"
+    "typescript-eslint": "catalog:"
   }
 }

@@ -14,14 +14,14 @@
     "prepare": "lefthook install"
   },
   "devDependencies": {
-    "@happy-dom/global-registrator": "20.4.0",
+    "@happy-dom/global-registrator": "catalog:",
     "@tsconfig/node24": "catalog:",
-    "@types/node": "24.10.9",
-    "eslint": "9.39.2",
-    "eslint-plugin-import-x": "4.16.1",
-    "eslint-plugin-unused-imports": "4.3.0",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-import-x": "catalog:",
+    "eslint-plugin-unused-imports": "catalog:",
     "lefthook": "2.0.16",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.54.0"
+    "typescript-eslint": "catalog:"
   }
 }
