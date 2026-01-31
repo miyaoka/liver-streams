@@ -27,21 +27,12 @@ importers:
       '@iconify-json/eva':
         specifier: ^1.2.3
         version: 1.2.3
-      '@iconify-json/f7':
-        specifier: ^1.2.2
-        version: 1.2.2
-      '@iconify-json/ic':
-        specifier: ^1.2.4
-        version: 1.2.4
       '@iconify-json/icon-park-outline':
         specifier: ^1.2.4
         version: 1.2.4
       '@iconify-json/icon-park-solid':
         specifier: ^1.2.4
         version: 1.2.4
-      '@iconify-json/lucide':
-        specifier: ^1.2.87
-        version: 1.2.87
       '@iconify-json/mdi':
         specifier: ^1.2.3
         version: 1.2.3
@@ -520,20 +511,11 @@ packages:
   '@iconify-json/eva@1.2.3':
     resolution: {integrity: sha512-67nZvxOHdoV2SaTLBw+seq+pbfB8OFRB7CVNI5gGJCGPXJKniPo/x9H/dYGovxq7q+GU0NwKrPxBcHyEFDwSUw==}
 
-  '@iconify-json/f7@1.2.2':
-    resolution: {integrity: sha512-7+RhvnncD+LRu0smuHOun4emOUu48XUGG6G0tYYbrXS7n4Io2xntx6nxa09/iI41t9hnH2oHHU3Dg7Ee60Ovow==}
-
-  '@iconify-json/ic@1.2.4':
-    resolution: {integrity: sha512-pzPMmrZrBQuwT7nmtrYdkttun8KalRGgZPIL1Ny9KpF2zjRGIUPN+npTfuD3lrgO/OnSwAoJWuekQwBpt/Cqrw==}
-
   '@iconify-json/icon-park-outline@1.2.4':
     resolution: {integrity: sha512-NyZxXe2gD2TbTOyoRRMdtEJhr6i2KQCdDlYYoOn5oZLndQjwpIhw79hzeFhXvP38/o40D3gQ+l+IaSJgbB+0TQ==}
 
   '@iconify-json/icon-park-solid@1.2.4':
     resolution: {integrity: sha512-030MChSP6lCY7N+U5J5R7YguHTGcm7qQEI/ivBjk77El/i8yJatoj568cwwXGM8c6HEU/kIxEE4m3O/6w0WBGg==}
-
-  '@iconify-json/lucide@1.2.87':
-    resolution: {integrity: sha512-wxYIAp0f8Uw0rJa6BMWMaRbiHk3yV4XczA38GKXFlqyZtTdmHM1QOF4NZw5xpMlRDzbh2MnB7wjteLeFnn/ciQ==}
 
   '@iconify-json/mdi@1.2.3':
     resolution: {integrity: sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg==}
@@ -3079,23 +3061,11 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/f7@1.2.2':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/ic@1.2.4':
-    dependencies:
-      '@iconify/types': 2.0.0
-
   '@iconify-json/icon-park-outline@1.2.4':
     dependencies:
       '@iconify/types': 2.0.0
 
   '@iconify-json/icon-park-solid@1.2.4':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/lucide@1.2.87':
     dependencies:
       '@iconify/types': 2.0.0
 

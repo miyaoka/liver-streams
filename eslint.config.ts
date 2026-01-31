@@ -80,12 +80,26 @@ export default defineConfigWithVueTs(
       ],
 
       // Tailwind
+      // 各ルールは独立したワーカーで Tailwind Design System をロードするため、
+      // 有効なルール数に比例して初期化コストが増加する（1ルールあたり約1秒）
       "better-tailwindcss/no-unknown-classes": [
         "warn",
         {
           ignore: ["_.*"],
         },
       ],
+      // lint 実行に時間がかかるため off
+      // このルールは初回呼び出しで全クラスのシグネチャを計算するため、
+      // iconify のように大量のクラスがある場合に重くなる
+      "better-tailwindcss/enforce-canonical-classes": "off",
+      // Prettier と競合するため off
+      // このルールはクラスを複数行に分割するが、Prettier が単一行に戻す
+      "better-tailwindcss/enforce-consistent-line-wrapping": "off",
+      // Prettier と競合するため off
+      // VSCode で formatOnSave と source.fixAll を両方有効にしていると、
+      // Prettier と ESLint が同時にファイルを編集して文字が消えることがある
+      // 例: "flex  items-center" → "flex tems-center"
+      "better-tailwindcss/no-unnecessary-whitespace": "off",
     },
   },
 );
