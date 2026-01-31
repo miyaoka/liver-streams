@@ -96,10 +96,10 @@ async function onNodeChange() {
 </script>
 
 <template>
-  <div open class="ml-4 flex select-none flex-col items-start gap-2 text-sm font-bold">
+  <div open class="ml-4 flex flex-col items-start gap-2 text-sm font-bold select-none">
     <div class="flex flex-col items-start">
       <label
-        class="flex h-9 cursor-pointer place-items-center gap-1 whitespace-nowrap rounded-lg bg-gray-100 px-2 hover:outline hover:outline-2 has-[:checked]:bg-red-200 has-[:checked]:text-red-900 has-[:focus-visible]:outline"
+        class="flex h-9 cursor-pointer place-items-center gap-1 rounded-lg bg-gray-100 px-2 whitespace-nowrap hover:outline-2 hover:outline-solid has-checked:bg-red-200 has-checked:text-red-900 has-focus-visible:outline-solid"
       >
         <input ref="groupEl" type="checkbox" class="sr-only" @click="onGroupClick" />
         <i class="i-mdi-folder-open size-6"></i>
@@ -113,12 +113,12 @@ async function onNodeChange() {
       <div
         ref="namesEl"
         v-if="children.names.length > 0"
-        class="ml-4 flex flex-col gap-px rounded-xl px-2 pb-3 pt-1"
+        class="ml-4 flex flex-col gap-px rounded-xl px-2 pt-1 pb-3"
       >
         <label
           v-for="name in children.names"
           :key="name"
-          class="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-[:focus-visible]:outline"
+          class="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-focus-visible:outline"
           :title="name"
           @contextmenu.prevent="searchStore.setFocusedTalent(name)"
         >
@@ -137,11 +137,11 @@ async function onNodeChange() {
           <img
             :src="getChannelIcon(name)"
             alt="icon"
-            class="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline group-hover:outline-2"
+            class="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline-2 group-hover:outline-solid"
             loading="lazy"
           />
           <div
-            class="rounded-lg bg-gray-100 px-2 py-1 group-hover:outline group-hover:outline-2 group-has-[:checked]:bg-red-200 group-has-[:checked]:text-red-900 group-has-[:focus-visible]:outline-2"
+            class="rounded-lg bg-gray-100 px-2 py-1 group-hover:outline-2 group-hover:outline-solid group-has-checked:bg-red-200 group-has-checked:text-red-900 group-has-focus-visible:outline-2"
           >
             {{ name }}
           </div>

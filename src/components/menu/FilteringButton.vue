@@ -13,7 +13,7 @@ function close() {
 <template>
   <div
     v-if="searchStore.hasQuery"
-    class="_container fixed inset-0 bottom-4 top-auto z-10 m-auto flex w-fit items-center justify-center gap-2 max-md:bottom-16"
+    class="_container fixed inset-0 top-auto bottom-4 z-10 m-auto flex w-fit items-center justify-center gap-2 max-md:bottom-16"
   >
     <button
       class="flex h-11 w-fit items-center gap-2 rounded-full border-2 bg-blue-600 px-2 text-sm font-bold text-white shadow-md"

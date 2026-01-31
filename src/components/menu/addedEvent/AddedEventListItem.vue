@@ -56,10 +56,10 @@ function onClickEvent() {
       class="size-8 rounded-full"
       :title="liverEvent.talent.name"
     />
-    <p class="line-clamp-2 flex-1 text-sm [overflow-wrap:anywhere]">
+    <p class="line-clamp-2 flex-1 text-sm wrap-anywhere">
       {{ liverEvent.title }}
     </p>
     <p class="w-12 text-right text-sm">{{ eventTime }}</p>
-    <i class="i-mdi-circle absolute right-0 top-2 size-2 text-red-700" v-if="isUnread" />
+    <i class="absolute top-2 right-0 i-mdi-circle size-2 text-red-700" v-if="isUnread" />
   </button>
 </template>

@@ -21,7 +21,7 @@ function setSearchString(str: string) {
 </script>
 
 <template>
-  <div class="grid gap-1 overflow-y-scroll pb-6 pt-2 [scrollbar-width:none]">
+  <div class="grid gap-1 overflow-y-scroll pt-2 pb-6 [scrollbar-width:none]">
     <button
       v-for="item in itemList"
       :key="item.value"
@@ -29,7 +29,7 @@ function setSearchString(str: string) {
       @click="setSearchString(item.value)"
     >
       <div class="flex items-center gap-2 px-3 text-start">
-        <p class="line-clamp-2 flex-1 [overflow-wrap:anywhere]">
+        <p class="line-clamp-2 flex-1 wrap-anywhere">
           {{ item.value }}
         </p>
         <div class="w-12 text-center">

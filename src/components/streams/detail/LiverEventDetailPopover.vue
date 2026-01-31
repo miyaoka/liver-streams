@@ -93,7 +93,7 @@ async function onClickNotify(id: string) {
     <a :href="liverEvent.url" target="_blank">
       <img
         :src="getThumbnail(liverEvent.thumbnail, 'sd')"
-        class="_thumb [@starting-style:opacity-0] aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
+        class="_thumb aspect-video w-[480px] bg-gray-800 object-cover p-0 transition-colors"
         loading="lazy"
       />
     </a>
@@ -123,7 +123,7 @@ async function onClickNotify(id: string) {
 
       <div class="flex flex-row items-center gap-2">
         <button
-          class="size-[70px] overflow-hidden rounded-full border hover:outline hover:outline-2 hover:outline-red-500"
+          class="size-[70px] overflow-hidden rounded-full border hover:outline-2 hover:outline-red-500 hover:outline-solid"
           @mouseover="focusStore.setHoveredTalents(liverEvent.talent.name)"
           @mouseleave="focusStore.clearHoveredTalents()"
           @click.prevent="searchStore.setFocusedTalent(liverEvent.talent.name)"
@@ -137,7 +137,7 @@ async function onClickNotify(id: string) {
           </div>
           <div class="flex flex-row flex-wrap">
             <button
-              class="w-[40px] overflow-hidden rounded-full hover:outline hover:outline-2 hover:outline-red-500 max-sm:w-[30px]"
+              class="w-[40px] overflow-hidden rounded-full hover:outline-2 hover:outline-red-500 hover:outline-solid max-sm:w-[30px]"
               v-for="talent in liverEvent.collaboTalents"
               :key="talent.image"
               :title="talent.name"
@@ -197,7 +197,7 @@ async function onClickNotify(id: string) {
         </div>
       </div>
     </div>
-    <permissionPopover.PopOver class="bottom-4 top-auto overflow-visible bg-transparent p-0">
+    <permissionPopover.PopOver class="top-auto bottom-4 overflow-visible bg-transparent p-0">
       <button
         class="rounded-full bg-yellow-400 p-4 text-sm shadow-md"
         @click="permissionPopover.hidePopover()"

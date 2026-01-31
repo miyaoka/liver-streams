@@ -45,7 +45,7 @@ function selectAll() {
   <footer class="relative z-30">
     <FilteringButton />
 
-    <div class="fixed bottom-4 right-4 flex flex-col items-end gap-2">
+    <div class="fixed right-4 bottom-4 flex flex-col items-end gap-2">
       <div
         v-if="focusStore.isMultiSelectMode"
         class="flex items-center justify-center gap-4 rounded-xl bg-green-700 px-4 py-2 text-white shadow-md"

@@ -41,14 +41,14 @@ const bookmarkCount = computed(() => bookmarkEventList.value.length);
     />
     <p
       v-if="bookmarkCount > 0"
-      class="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white"
+      class="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white"
     >
       {{ bookmarkCount }}
     </p>
   </button>
 
   <popover.PopOver
-    class="bottom-20 left-auto right-1 top-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
+    class="top-auto right-1 bottom-20 left-auto max-w-[calc(100%-8px)] overflow-visible bg-transparent p-0"
   >
     <BookmarkedEventPopover :bookmarkEventList="bookmarkEventList" />
   </popover.PopOver>

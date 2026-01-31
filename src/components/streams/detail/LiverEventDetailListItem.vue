@@ -14,7 +14,7 @@ const popover = usePopover({
 
 <template>
   <popover.PopOver
-    class="bottom-2 top-auto max-w-[calc(100%-16px)] overflow-visible bg-transparent p-0"
+    class="top-auto bottom-2 max-w-[calc(100%-16px)] overflow-visible bg-transparent p-0"
   >
     <LiverEventDetailPopover :liverEvent="liverEvent" />
   </popover.PopOver>
