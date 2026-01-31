@@ -6,7 +6,7 @@ import { useEventListStore } from "@/store/eventListStore";
 
 const eventListStore = useEventListStore();
 
-let lastCloseTime = ref(0);
+const lastCloseTime = ref(0);
 const popover = usePopover({
   onHide: () => {
     lastCloseTime.value = Date.now();
