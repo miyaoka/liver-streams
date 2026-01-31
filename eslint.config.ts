@@ -1,7 +1,7 @@
 import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
+import pluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import pluginImportX from "eslint-plugin-import-x";
-import pluginTailwindcss from "eslint-plugin-tailwindcss";
 import pluginUnusedImports from "eslint-plugin-unused-imports";
 import pluginVue from "eslint-plugin-vue";
 import type { ESLint } from "eslint";
@@ -18,7 +18,14 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
 
   // Tailwind設定
-  ...pluginTailwindcss.configs["flat/recommended"],
+  {
+    ...pluginBetterTailwindcss.configs.recommended,
+    settings: {
+      "better-tailwindcss": {
+        entryPoint: "src/assets/main.css",
+      },
+    },
+  },
 
   // Prettier（最後に配置）
   skipFormatting,
@@ -73,10 +80,10 @@ export default defineConfigWithVueTs(
       ],
 
       // Tailwind
-      "tailwindcss/no-custom-classname": [
+      "better-tailwindcss/no-unknown-classes": [
         "warn",
         {
-          whitelist: ["_.*"],
+          ignore: ["_.*"],
         },
       ],
     },
