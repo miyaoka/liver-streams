@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*",
+    "@liver-streams/services-hololive": "workspace:*",
+    "@liver-streams/services-nijisanji": "workspace:*",
     "@vueuse/core": "14.1.0",
     "pinia": "3.0.4",
     "vue": "3.5.27",

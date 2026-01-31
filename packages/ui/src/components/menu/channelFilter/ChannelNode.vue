@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import type { ChannelNode } from "@liver-streams/core";
+import { getChannelIcon } from "@/services";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";
-import { getChannelIcon } from "@/utils/icons";
 
 const props = defineProps<{
   node: ChannelNode;

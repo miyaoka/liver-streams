@@ -1,17 +1,16 @@
-import { acceptHMRUpdate, defineStore } from "pinia";
-import { computed, ref } from "vue";
-import { useBookmarkStore } from "./bookmarkStore";
-import { useSearchStore } from "./searchStore";
-import { useStorageStore } from "./storageStore";
 import {
   getFilteredEventList,
   talentFilter,
   createDateSectionList,
   hhmmDateFormatter,
 } from "@liver-streams/core";
+import { acceptHMRUpdate, defineStore } from "pinia";
+import { computed, ref } from "vue";
+import { useBookmarkStore } from "./bookmarkStore";
+import { useSearchStore } from "./searchStore";
+import { useStorageStore } from "./storageStore";
 import type { LiverEvent } from "@liver-streams/core";
-import { fetchLiverEventList } from "@/services/api";
-import type { NijiLiverMap } from "@/services/nijisanji";
+import { fetchAllEvents } from "@/services";
 
 interface AddedEventId {
   id: string;
@@ -82,9 +81,9 @@ export const useEventListStore = defineStore("eventListStore", () => {
     });
   });
 
-  async function updateLiverEventList(nijiLiverMap: NijiLiverMap) {
+  async function updateLiverEventList() {
     // list取得
-    const newLiverEventList = await fetchLiverEventList({ nijiLiverMap });
+    const newLiverEventList = await fetchAllEvents();
 
     // map更新
     const eventMap = new Map<string, LiverEvent>();

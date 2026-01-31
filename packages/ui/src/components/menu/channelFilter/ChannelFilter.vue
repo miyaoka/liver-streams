@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { hololiveChannels } from "@liver-streams/services-hololive";
+import { nijisanjiChannels } from "@liver-streams/services-nijisanji";
 import { computed, ref } from "vue";
 import ChannelNode from "./ChannelNode.vue";
-import { talents } from "@liver-streams/core";
 import { usePopover } from "@/composable/usePopover";
+import { getChannelIcon } from "@/services";
 import { useStorageStore } from "@/store/storageStore";
-import { getChannelIcon } from "@/utils/icons";
 
 const storageStore = useStorageStore();
 const popover = usePopover({
@@ -21,8 +22,10 @@ const talentNodeEl = ref<HTMLElement | null>(null);
 
 const filterCount = computed(() => storageStore.talentFilterMap.size);
 
+const channels = [hololiveChannels, nijisanjiChannels];
+
 const rootNode = computed(() => {
-  return talents.filter((talent) => talent.name === selectedGroup.value)[0];
+  return channels.find((channel) => channel.name === selectedGroup.value);
 });
 
 function reset() {

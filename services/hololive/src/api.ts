@@ -1,4 +1,5 @@
-import { createLiverEvent, type LiverEvent } from "../api";
+import { createLiverEvent } from "@liver-streams/core";
+import type { LiverEvent } from "@liver-streams/core";
 
 const holoAPI = "https://schedule.hololive.tv/api/list/7";
 
@@ -29,17 +30,21 @@ export interface HoloTalent {
   iconImageUrl: string;
 }
 
-function fetchData(): Promise<HoloSchedule> {
-  if (import.meta.env.VITE_TEST_DATA) {
-    return import("./sample4.json").then((res) => res.default);
+export interface FetchDataOptions {
+  useTestData?: boolean;
+}
+
+function fetchData(options: FetchDataOptions): Promise<HoloSchedule> {
+  if (options.useTestData) {
+    return import("../data/dev/schedule.json").then((res) => res.default);
   }
   return fetch(holoAPI)
     .then((res) => res.json())
-    .catch(() => []);
+    .catch(() => ({ dateGroupList: [] }));
 }
 
-export async function fetchHoloEventList(): Promise<LiverEvent[]> {
-  const data = await fetchData();
+export async function fetchHoloEventList(options: FetchDataOptions = {}): Promise<LiverEvent[]> {
+  const data = await fetchData(options);
 
   const wholeVideoList = data.dateGroupList.map((dateGroup) => dateGroup.videoList).flat();
 

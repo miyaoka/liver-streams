@@ -8,7 +8,7 @@ pre-commit:
     eslint-root:
       root: "."
       glob: "*.{ts}"
-      exclude: "packages/**"
+      exclude: "{packages,services}/**"
       run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
       stage_fixed: true
     eslint-core:
@@ -19,5 +19,15 @@ pre-commit:
     eslint-ui:
       root: "packages/ui"
       glob: "*.{ts,vue}"
+      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
+      stage_fixed: true
+    eslint-services-hololive:
+      root: "services/hololive"
+      glob: "*.ts"
+      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
+      stage_fixed: true
+    eslint-services-nijisanji:
+      root: "services/nijisanji"
+      glob: "*.ts"
       run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
       stage_fixed: true
