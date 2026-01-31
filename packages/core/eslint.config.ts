@@ -7,7 +7,7 @@ import type { ESLint } from "eslint";
 export default defineConfig(
   // ファイル対象設定
   { files: ["**/*.ts"] },
-  { ignores: ["dist/**", "node_modules/**", "packages/**"] },
+  { ignores: ["dist/**", "node_modules/**"] },
 
   // TypeScript設定
   tseslint.configs.recommended,

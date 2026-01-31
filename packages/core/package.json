@@ -1,0 +1,29 @@
+{
+  "name": "@liver-streams/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix -c eslint.config.fix.ts"
+  },
+  "devDependencies": {
+    "@tsconfig/node24": "catalog:",
+    "@types/bun": "catalog:",
+    "eslint": "9.39.2",
+    "eslint-plugin-import-x": "4.16.1",
+    "eslint-plugin-unused-imports": "4.3.0",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.54.0"
+  }
+}
