@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write src/",
-    "prepare": "husky"
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "@vueuse/core": "^11.1.0",
@@ -42,10 +42,9 @@
     "eslint-plugin-tailwindcss": "^3.18.2",
     "eslint-plugin-unused-imports": "^4.3.0",
     "eslint-plugin-vue": "^10.7.0",
-    "husky": "^9.1.6",
     "jiti": "^2.6.1",
     "jsdom": "^24.1.3",
-    "lint-staged": "^15.2.10",
+    "lefthook": "^2.0.16",
     "npm-run-all2": "^6.2.3",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
@@ -55,9 +54,5 @@
     "vite-plugin-vue-devtools": "^7.4.5",
     "vitest": "^1.6.0",
     "vue-tsc": "^2.1.6"
-  },
-  "lint-staged": {
-    "*.{js,ts,vue}": "eslint --cache --fix",
-    "*.{js,ts,vue,css,scss,md}": "prettier --write"
   }
 }
