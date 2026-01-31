@@ -1,13 +1,14 @@
 import { createLiverEvent } from "@liver-streams/core";
+import channelsData from "../data/channels.json";
 import { fetchNijiLiverMap, fetchNijiStreamList } from "./api";
 import { getIcon as getIconPath } from "./icons";
 import type { NijiLiverMap, NijiStream } from "./api";
 import type {
+  ChannelNode,
   EventService,
   EventServiceConfig,
   LiverEvent,
   LiverTalent,
-  ChannelNode,
 } from "@liver-streams/core";
 
 export interface NijisanjiServiceConfig extends EventServiceConfig {
@@ -87,5 +88,4 @@ async function getNijiEvents({
 export { fetchNijiLiverMap, fetchNijiStreamList } from "./api";
 export type { NijiLiver, NijiStream, NijiLiverMap } from "./api";
 
-import channelsData from "../data/channels.json";
 export const nijisanjiChannels: ChannelNode = channelsData;
