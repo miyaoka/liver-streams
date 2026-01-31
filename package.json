@@ -16,10 +16,10 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
-    "@vueuse/core": "^14.1.0",
-    "pinia": "^3.0.4",
-    "vue": "^3.5.27",
-    "vue-router": "^4.6.4"
+    "@vueuse/core": "14.1.0",
+    "pinia": "3.0.4",
+    "vue": "3.5.27",
+    "vue-router": "4.6.4"
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "1.9.0",
