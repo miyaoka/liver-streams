@@ -4,3 +4,6 @@ onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
   - vue-demi
+minimumReleaseAgeExclude:
+  # Renovate security update: vite@5.4.21
+  - vite@5.4.21
