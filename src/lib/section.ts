@@ -13,9 +13,9 @@ export interface TimeSection {
 }
 
 export function createDateSectionList(liverEventList: LiverEvent[]): DateSection[] {
-  if (liverEventList.length === 0) return [];
   const firstEvent = liverEventList[0];
   const lastEvent = liverEventList[liverEventList.length - 1];
+  if (!firstEvent || !lastEvent) return [];
 
   const oneHour = 3600000;
   const oneDay = 86400000;

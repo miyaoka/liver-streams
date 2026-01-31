@@ -107,10 +107,11 @@ export function createSearchRegexp(queryArray: string[]): RegExp | null {
     })
     .filter((item) => item);
 
-  if (regexParts.length === 0) return null;
+  const firstPart = regexParts[0];
+  if (!firstPart) return null;
 
   // OR 条件を正規表現で組み合わせる
-  const pattern = regexParts.length > 1 ? `(${regexParts.join("|")})` : regexParts[0];
+  const pattern = regexParts.length > 1 ? `(${regexParts.join("|")})` : firstPart;
   const regexp = new RegExp(pattern, "i");
 
   return regexp;

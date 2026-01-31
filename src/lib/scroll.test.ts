@@ -2,10 +2,11 @@ import { describe, it, expect, vi } from "vitest";
 import { scrollToCurrentTime } from "./scroll";
 import type { DateSection } from "./section";
 
-function createDateSection(times: number[]): DateSection {
+function createDateSection(times: [number, ...number[]]): DateSection {
+  const firstTime = times[0];
   return {
-    time: times[0],
-    date: new Date(times[0]),
+    time: firstTime,
+    date: new Date(firstTime),
     timeSectionList: times.map((t) => ({ time: t, events: [] })),
   };
 }

@@ -30,8 +30,12 @@ describe("createDateSectionList", () => {
     ];
     const list = createDateSectionList(events);
     expect(list.length).toBe(2);
-    const firstDay = list[0].timeSectionList;
-    const secondDay = list[1].timeSectionList;
+    const [firstSection, secondSection] = list;
+    if (!firstSection || !secondSection) {
+      throw new Error("Expected 2 sections");
+    }
+    const firstDay = firstSection.timeSectionList;
+    const secondDay = secondSection.timeSectionList;
     expect(firstDay.find((s) => s.events.some((e) => e.id === "1"))).toBeDefined();
     expect(firstDay.find((s) => s.events.some((e) => e.id === "2"))).toBeDefined();
     expect(secondDay.find((s) => s.events.some((e) => e.id === "3"))).toBeDefined();
