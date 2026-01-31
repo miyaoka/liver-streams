@@ -52,6 +52,8 @@ export default defineConfigWithVueTs(
 
       // import-x
       "import-x/no-duplicates": "warn",
+      // 保存時の自動 lint で並び替えが発生すると編集中に邪魔なので off
+      // lint:fix や pre-commit hook では eslint.config.fix.ts で有効化
       "import-x/order": [
         "off",
         {
