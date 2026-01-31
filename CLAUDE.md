@@ -17,10 +17,9 @@ pnpm dev
 
 # テスト実行
 pnpm test
-pnpm vitest run  # 単発実行
 
 # 特定のテストのみ実行
-pnpm vitest run "<file path>" -t "<test name>"
+pnpm test "<file path>" -t "<test name>"
 
 # 型チェック
 pnpm run typecheck
@@ -85,32 +84,24 @@ interface NijiLiverMap {
 ### 技術スタック
 
 - **ツール管理**: mise.toml (bun, pnpm, node)
-- **フレームワーク**: Vue 3 (Composition API, `<script setup>` 構文)
-- **ビルドツール**: Vite 5
-- **型チェック**: TypeScript 5 + vue-tsc
-- **テスト**: Vitest + jsdom
+- **フレームワーク**: Vue (Composition API, `<script setup>` 構文)
+- **ビルドツール**: Vite
+- **型チェック**: TypeScript + vue-tsc
+- **テスト**: bun test + happy-dom
 - **状態管理**: Pinia
-- **ルーティング**: Vue Router 4
+- **ルーティング**: Vue Router
 - **スタイリング**: Tailwind CSS
 - **リンター**: ESLint + Prettier
 - **パッケージマネージャー**: pnpm
 
-### コーディング規約
-
-- Vue ファイルは `<script setup>` 構文を使用
-- インポート順序は ESLint ルールに従う（自動整形）
-- 未使用のインポートは自動削除される
-- コンポーネント名は複数単語推奨（ESLint warning）
-- ref のオペランドとしての使用はエラー
-
 ### テスト方針
 
-- ユニットテストは Vitest で記述
+- ユニットテストは bun test で記述
 - テストファイルは対象ファイルと同じディレクトリに `*.test.ts` として配置
 - `describe` と `it` でテストを構造化
 - 新規機能にはテストを追加
 
 ### Git フック
 
-- Husky + lint-staged でコミット前に自動整形
+- lefthook でコミット前に自動整形
 - 対象ファイル: `*.{js,ts,vue,css,scss,md}`
