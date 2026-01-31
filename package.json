@@ -28,7 +28,7 @@
     "@iconify-json/icon-park-solid": "^1.2.4",
     "@iconify-json/mdi": "^1.2.3",
     "@tailwindcss/vite": "^4.1.18",
-    "@tsconfig/node20": "^20.1.4",
+    "@tsconfig/node22": "^22.0.0",
     "@types/eslint": "^9.6.1",
     "@types/eslint-plugin-tailwindcss": "^3.17.0",
     "@types/node": "^24.10.9",
