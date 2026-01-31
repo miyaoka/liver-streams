@@ -1,9 +1,10 @@
 import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
-import { flatConfigs as importXConfigs } from "eslint-plugin-import-x";
+import pluginImportX from "eslint-plugin-import-x";
 import pluginTailwindcss from "eslint-plugin-tailwindcss";
 import pluginUnusedImports from "eslint-plugin-unused-imports";
 import pluginVue from "eslint-plugin-vue";
+import type { ESLint } from "eslint";
 
 export default defineConfigWithVueTs(
   // ファイル対象設定
@@ -19,16 +20,15 @@ export default defineConfigWithVueTs(
   // Tailwind設定
   ...pluginTailwindcss.configs["flat/recommended"],
 
-  // import-x設定
-  importXConfigs.recommended,
-  importXConfigs.typescript,
-
   // Prettier（最後に配置）
   skipFormatting,
 
   // カスタムルール
   {
     plugins: {
+      // eslint-plugin-import-x の型が @typescript-eslint/utils の型を使用しており、
+      // ESLint の defineConfig 型と互換性がない (typescript-eslint/typescript-eslint#11543)
+      "import-x": pluginImportX as unknown as ESLint.Plugin,
       "unused-imports": pluginUnusedImports,
     },
     rules: {
@@ -51,8 +51,6 @@ export default defineConfigWithVueTs(
       ],
 
       // import-x
-      // TypeScript が既にチェックしているため不要
-      "import-x/no-unresolved": "off",
       "import-x/no-duplicates": "warn",
       "import-x/order": [
         "warn",
