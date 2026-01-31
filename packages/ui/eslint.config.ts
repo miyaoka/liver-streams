@@ -16,6 +16,16 @@ export default defineConfigWithVueTs(
   // TypeScript設定
   vueTsConfigs.recommended,
 
+  // tsconfigRootDir: モノレポで複数の tsconfig.json が存在する場合、
+  // このパッケージの tsconfig.json を使用するよう明示的に指定
+  {
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+
   // Tailwind設定
   {
     ...pluginBetterTailwindcss.configs.recommended,
