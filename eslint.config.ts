@@ -31,17 +31,6 @@ export default defineConfigWithVueTs(
     plugins: {
       "unused-imports": pluginUnusedImports,
     },
-    settings: {
-      // Workaround: Project References の paths が自動解決されない問題
-      // https://github.com/import-js/eslint-import-resolver-typescript/issues/474
-      "import-x/resolver": {
-        typescript: {
-          project: ["tsconfig.app.json", "tsconfig.node.json"],
-          // 複数プロジェクト指定は意図的なので警告を抑制
-          noWarnOnMultipleProjects: true,
-        },
-      },
-    },
     rules: {
       // Vue
       "vue/no-ref-as-operand": "error",
@@ -62,6 +51,8 @@ export default defineConfigWithVueTs(
       ],
 
       // import-x
+      // TypeScript が既にチェックしているため不要
+      "import-x/no-unresolved": "off",
       "import-x/no-duplicates": "warn",
       "import-x/order": [
         "warn",
