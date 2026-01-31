@@ -53,7 +53,7 @@ export default defineConfigWithVueTs(
       // import-x
       "import-x/no-duplicates": "warn",
       "import-x/order": [
-        "warn",
+        "off",
         {
           groups: [
             "builtin",
@@ -65,7 +65,7 @@ export default defineConfigWithVueTs(
             "object",
             "type",
           ],
-          pathGroupsExcludedImportTypes: ["builtin"],
+          pathGroupsExcludedImportTypes: ["builtin", "external", "type"],
           alphabetize: { order: "asc", caseInsensitive: true },
         },
       ],

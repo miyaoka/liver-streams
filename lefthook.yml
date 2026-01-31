@@ -3,7 +3,7 @@ pre-commit:
   commands:
     eslint:
       glob: "*.{js,ts,vue}"
-      run: pnpm eslint --cache --fix {staged_files}
+      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
       stage_fixed: true
     prettier:
       glob: "*.{js,ts,vue,css,scss,md}"
