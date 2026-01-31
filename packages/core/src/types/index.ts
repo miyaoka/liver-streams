@@ -1,3 +1,5 @@
+export * from "./service";
+
 export interface LiverEvent {
   id: string;
   title: string;

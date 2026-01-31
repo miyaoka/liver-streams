@@ -6,6 +6,7 @@ export * from "./lib/text";
 export * from "./lib/search";
 export * from "./lib/section";
 export * from "./lib/youtube";
+export * from "./lib/liverEvent";
 
 // Utils
 export * from "./utils/date";

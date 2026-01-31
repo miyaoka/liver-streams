@@ -44,6 +44,17 @@ interface LiverTalent {
   name: string;
   image: string;
 }
+
+// src/types/service.ts
+interface EventService {
+  readonly affiliation: "hololive" | "nijisanji";
+  fetchEventList(): Promise<LiverEvent[]>;
+  getIcon(name: string): string | undefined;
+}
+
+interface EventServiceConfig {
+  iconBaseUrl: string;
+}
 ```
 
 ## lib モジュール
@@ -79,6 +90,13 @@ YouTube 関連:
 
 - `getThumbnail()` - サムネイル URL の画質を変更
 - `getYouTubeVideoId()` - 各種 YouTube URL から動画 ID を抽出
+
+### liverEvent.ts
+
+LiverEvent 生成:
+
+- `createLiverEvent()` - API レスポンスから LiverEvent オブジェクトを生成
+- `createId()` - YouTube 動画 ID またはハッシュベースの ID を生成
 
 ## utils モジュール
 

@@ -1,10 +1,5 @@
 export interface NijiLiver {
-  // slug: string;
   name: string;
-  // enName: string;
-  // image: string;
-  // subscriberCount: number;
-  // hidden: boolean;
 }
 
 export interface NijiStream {
@@ -21,20 +16,26 @@ export interface NijiStream {
 export interface NijiLiverMap {
   [talentId: string]: NijiLiver;
 }
-const proxyApiBase = import.meta.env.VITE_NIJI_API_BASE || "https://nijiapi-proxy.vercel.app/api";
 
-export async function fetchNijiLiverMap(): Promise<NijiLiverMap> {
+export interface FetchDataOptions {
+  useTestData?: boolean;
+  apiBaseUrl?: string;
+}
+
+const defaultApiBase = "https://nijiapi-proxy.vercel.app/api";
+
+export function fetchNijiLiverMap(): Promise<NijiLiverMap> {
   // APIが重いので常にローカルファイルから取得する
   return import("./livers.json").then((res) => res.default);
 }
 
-export async function fetchNijiStreamList(): Promise<NijiStream[]> {
-  // test用
-  if (import.meta.env.VITE_TEST_DATA) {
-    return await import("./sample3/streams.json").then((res) => res.default);
+export function fetchNijiStreamList(options: FetchDataOptions = {}): Promise<NijiStream[]> {
+  if (options.useTestData) {
+    return import("./sample3/streams.json").then((res) => res.default);
   }
 
-  const url = new URL(`${proxyApiBase}/streams`);
+  const apiBase = options.apiBaseUrl || defaultApiBase;
+  const url = new URL(`${apiBase}/streams`);
   return fetch(url)
     .then((res) => res.json())
     .catch(() => []);

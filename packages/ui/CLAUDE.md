@@ -27,22 +27,13 @@ pnpm lint:fix    # リント自動修正
 
 ## services
 
-### api.ts
+### index.ts
 
-- `fetchLiverEventList()` - ホロライブ・にじさんじの配信情報を統合取得
-- `createLiverEvent()` - LiverEvent オブジェクトを生成
-- `createId()` - YouTube 動画 ID またはハッシュベースの ID を生成
+サービス統合レイヤー。`@liver-streams/service-hololive` と `@liver-streams/service-nijisanji` を統合。
 
-### hololive/index.ts
-
-- `fetchHoloEventList()` - ホロライブ公式 API からスケジュール取得
-- API エンドポイント: `https://schedule.hololive.tv/api/list/7`
-
-### nijisanji/index.ts
-
-- `fetchNijiLiverMap()` - タレント情報（ローカル JSON から取得）
-- `fetchNijiStreamList()` - 配信情報取得
-- API エンドポイント: 環境変数 `VITE_NIJI_API_BASE` または `https://nijiapi-proxy.vercel.app/api`
+- `services` - EventService の配列
+- `fetchAllEvents()` - ホロライブ・にじさんじの配信情報を統合取得
+- `getChannelIcon()` - タレント名からアイコン URL を取得
 
 ## store
 

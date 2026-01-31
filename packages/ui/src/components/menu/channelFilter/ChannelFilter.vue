@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { talents } from "@liver-streams/core";
 import { computed, ref } from "vue";
 import ChannelNode from "./ChannelNode.vue";
-import { talents } from "@liver-streams/core";
 import { usePopover } from "@/composable/usePopover";
+import { getChannelIcon } from "@/services";
 import { useStorageStore } from "@/store/storageStore";
-import { getChannelIcon } from "@/utils/icons";
 
 const storageStore = useStorageStore();
 const popover = usePopover({
