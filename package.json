@@ -11,7 +11,7 @@
     "typecheck": "tsc -p tsconfig.node.json --noEmit && pnpm -r typecheck",
     "lint": "eslint . && pnpm -r lint",
     "lint:fix": "eslint . --fix -c eslint.config.fix.ts && pnpm -r lint:fix",
-    "prepare": "lefthook install"
+    "prepare": "git config --unset core.hooksPath 2>/dev/null; rm -rf .husky 2>/dev/null; lefthook install"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "catalog:",
