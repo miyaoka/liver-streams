@@ -1,42 +1,77 @@
-# タレント自動更新
+# タレント情報と画像の管理
 
-新規タレントを自動検出し、データファイルとアイコン画像を更新する仕組み。
+## 画像管理
 
-## アーキテクチャ
+### 設計方針
+
+- **画像の実体**: 各 service パッケージ（`services/*/assets/icons/`）で管理
+- **公開の責務**: UI パッケージ（`packages/ui`）が担う
+
+この分離により、タレント情報と画像を service 単位で一元管理しつつ、公開は UI に任せる構成になっている。
 
 ### ファイル配置
 
 ```
 services/
 ├── hololive/
-│   ├── assets/icons/         # アイコン画像
+│   ├── assets/icons/         # アイコン画像（実体）
 │   ├── data/
 │   │   ├── icons.json        # name → パス
 │   │   └── channels.json     # フィルターUI用階層データ
 │   └── scripts/
-│       └── update-talents.ts # 更新スクリプト
+│       └── update-talents.ts
 └── nijisanji/
-    ├── assets/icons/         # アイコン画像
+    ├── assets/icons/         # アイコン画像（実体）
     ├── data/
     │   ├── icons.json        # name → パス
     │   ├── livers.json       # id → name
     │   └── channels.json     # フィルターUI用階層データ
     └── scripts/
-        └── update-talents.ts # 更新スクリプト
+        └── update-talents.ts
 
 packages/ui/public/icons/
-├── hololive -> ../../../../services/hololive/assets/icons  # シンボリックリンク
-└── nijisanji -> ../../../../services/nijisanji/assets/icons
+├── hololive -> ../../../../services/hololive/assets/icons   # symlink
+└── nijisanji -> ../../../../services/nijisanji/assets/icons # symlink
 ```
 
-### 画像パスの解決
+### 開発時と本番時の画像パス
+
+| 環境          | パス解決                                 | 理由                                     |
+| ------------- | ---------------------------------------- | ---------------------------------------- |
+| 開発（dev）   | `/icons/hololive/xxx.jpg`（symlink経由） | Vite dev server がローカルファイルを配信 |
+| 本番（build） | GitHub raw URL                           | ホスティング先のアクセス制限回避         |
+
+本番で GitHub raw URL を使う理由:
+
+- 数百人のタレント画像を一度に読み込むと、ホスティングサービス（Vercel等）のアクセス回数制限に抵触する可能性がある
+- GitHub の CDN に負荷を分散させる
+
+> [!NOTE]
+> build 時に symlink は実体として dist に含まれるが、実際には使用されない。
+
+## サービス間のデータ構造の違い
+
+### にじさんじ
+
+タレント一覧 API があり、構造的にデータをリンクさせる:
 
 ```
-開発時（dev）: localIconBaseUrl → /icons/hololive/xxx.jpg
-本番（build）: GitHub raw URL → https://raw.githubusercontent.com/.../services/hololive/assets/icons/xxx.jpg
+livers.json (id → name) → icons.json (name → path)
+                        → channels.json (グループ階層)
 ```
 
-## API エンドポイント
+### ホロライブ
+
+タレント一覧 API がなく、配信スケジュール API のイベント情報にタレント情報が含まれる:
+
+```
+配信API → イベントごとに talent { name, iconImageUrl } を持つ
+        → icons.json に name が未登録なら新規タレントとして検出
+```
+
+## 自動更新
+
+### API エンドポイント
 
 | サービス   | 用途               | URL                                                                           |
 | ---------- | ------------------ | ----------------------------------------------------------------------------- |
@@ -44,33 +79,33 @@ packages/ui/public/icons/
 | にじさんじ | タレント一覧（JP） | `https://www.nijisanji.jp/api/livers?affiliation=nijisanji&includeAll=true`   |
 | にじさんじ | タレント一覧（EN） | `https://www.nijisanji.jp/api/livers?affiliation=nijisanjien&includeAll=true` |
 
-## 更新フロー
-
-### にじさんじ
+### 更新フロー
 
 ```mermaid
 flowchart TD
-    A[タレントAPI取得] --> B{livers.jsonと比較}
-    B -->|差分あり| C[livers.json更新]
-    C --> D[icons.json更新]
-    D --> E[アイコンダウンロード]
-    E --> F[channels.jsonの未分類に追加]
-    B -->|差分なし| G[終了]
+    subgraph にじさんじ
+        N1[タレントAPI取得] --> N2{livers.jsonと比較}
+        N2 -->|差分あり| N3[livers.json更新]
+        N3 --> N4[icons.json更新]
+        N4 --> N5[アイコンDL]
+        N5 --> N6[channels.json更新]
+        N2 -->|差分なし| N7[終了]
+    end
 ```
-
-### ホロライブ
 
 ```mermaid
 flowchart TD
-    A[配信API取得] --> B[全タレント抽出]
-    B --> C{icons.jsonと比較}
-    C -->|差分あり| D[icons.json更新]
-    D --> E[アイコンダウンロード]
-    E --> F[channels.jsonの未分類に追加]
-    C -->|差分なし| G[終了]
+    subgraph ホロライブ
+        H1[配信API取得] --> H2[全タレント抽出]
+        H2 --> H3{icons.jsonと比較}
+        H3 -->|差分あり| H4[icons.json更新]
+        H4 --> H5[アイコンDL]
+        H5 --> H6[channels.json更新]
+        H3 -->|差分なし| H7[終了]
+    end
 ```
 
-## スクリプト実行
+### スクリプト実行
 
 ```bash
 # にじさんじ
@@ -80,13 +115,13 @@ pnpm --filter @liver-streams/services-nijisanji update-talents
 pnpm --filter @liver-streams/services-hololive update-talents
 ```
 
-## GitHub Actions
+### GitHub Actions
 
 - **スケジュール**: 毎日 JST 00:10（UTC 15:10）
 - **手動実行**: workflow_dispatch
-- **処理内容**: 両スクリプトを実行し、差分があればPR作成
+- **処理内容**: 両スクリプトを実行し、差分があれば PR 作成
 
-## 新規タレントの扱い
+### 新規タレントの扱い
 
 - 検出された新規タレントは `channels.json` の「未分類」グループに追加される
 - 適切なユニット・グループへの移動は手動で行う
