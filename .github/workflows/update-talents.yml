@@ -1,0 +1,56 @@
+name: update-talents
+
+on:
+  schedule:
+    # 毎日 UTC 15:10（JST 00:10）に実行
+    - cron: "10 15 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Setup environment
+        uses: ./.github/actions/setup-environment
+
+      - name: Update nijisanji talents
+        run: pnpm --filter @liver-streams/services-nijisanji update-talents
+
+      - name: Update hololive talents
+        run: pnpm --filter @liver-streams/services-hololive update-talents
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="update-talents-$(date +%Y%m%d)"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "タレント情報を更新"
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "タレント情報を更新（$(date +%Y-%m-%d)）" \
+            --body "自動更新により新規タレントを検出しました。" \
+            --reviewer miyaoka
