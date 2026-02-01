@@ -1,5 +1,5 @@
 import { useEventListener } from "@vueuse/core";
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, h, ref } from "vue";
 
 interface PopoverOptions {
   mountAtOpen?: boolean;
@@ -60,29 +60,23 @@ export function usePopover(options: PopoverOptions = {}) {
   }
 
   const PopOver = defineComponent({
-    setup() {
+    setup(_, { slots }) {
       const isMountable = computed(() => {
         if (!mountAtOpen) return true;
         return isShow.value;
       });
 
-      return {
-        popoverEl,
-        popoverId,
-        isMountable,
-      };
+      return () =>
+        h(
+          "div",
+          {
+            ref: popoverEl,
+            id: popoverId,
+            popover: "",
+          },
+          isMountable.value ? slots.default?.() : undefined,
+        );
     },
-    template: `
-      <div
-        ref="popoverEl"
-        :id="popoverId"
-        popover
-      >
-        <template v-if="isMountable">
-          <slot />
-        </template>
-      </div>
-    `,
   });
 
   return {
