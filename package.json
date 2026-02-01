@@ -9,8 +9,8 @@
     "preview": "pnpm --filter @liver-streams/ui preview",
     "test": "pnpm -r --parallel test",
     "typecheck": "tsgo -p tsconfig.node.json --noEmit && pnpm -r --parallel typecheck",
-    "lint": "eslint . && pnpm -r --parallel lint",
-    "lint:fix": "eslint . --fix -c eslint.config.fix.ts && pnpm -r --parallel lint:fix",
+    "lint": "oxlint --type-aware . && pnpm -r --parallel lint",
+    "lint:fix": "oxlint --type-aware --fix . && pnpm -r --parallel lint:fix",
     "prepare": "git config --unset core.hooksPath 2>/dev/null; rm -rf .husky 2>/dev/null; lefthook install"
   },
   "devDependencies": {
@@ -18,11 +18,10 @@
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
     "@typescript/native-preview": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-import-x": "catalog:",
-    "eslint-plugin-unused-imports": "catalog:",
     "lefthook": "2.0.16",
-    "typescript": "catalog:",
-    "typescript-eslint": "catalog:"
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "typescript": "catalog:"
   }
 }

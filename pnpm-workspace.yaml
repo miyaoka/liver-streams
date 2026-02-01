@@ -11,6 +11,9 @@ catalog:
   eslint: 9.39.2
   eslint-plugin-import-x: 4.16.1
   eslint-plugin-unused-imports: 4.3.0
+  oxfmt: 0.27.0
+  oxlint: 1.42.0
+  oxlint-tsgolint: 0.11.3
   typescript: 5.9.3
   typescript-eslint: 8.54.0
   unplugin-dts: 1.0.0-beta.6

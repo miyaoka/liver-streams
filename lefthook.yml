@@ -1,33 +1,42 @@
 pre-commit:
   parallel: true
   commands:
-    prettier:
+    # Formatter
+    oxfmt:
+      glob: "*.{ts,css,scss,md}"
+      exclude: "packages/ui/**"
+      run: pnpm oxfmt --write {staged_files}
+      stage_fixed: true
+    prettier-ui:
+      root: "packages/ui"
       glob: "*.{ts,vue,css,scss,md}"
       run: pnpm prettier --write {staged_files}
       stage_fixed: true
-    eslint-root:
+
+    # Linter
+    oxlint-root:
       root: "."
-      glob: "*.{ts}"
+      glob: "*.ts"
       exclude: "{packages,services}/**"
-      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
+      run: pnpm oxlint --type-aware --fix {staged_files}
       stage_fixed: true
-    eslint-core:
+    oxlint-core:
       root: "packages/core"
       glob: "*.ts"
-      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
+      run: pnpm oxlint --type-aware --fix {staged_files}
+      stage_fixed: true
+    oxlint-services-hololive:
+      root: "services/hololive"
+      glob: "*.ts"
+      run: pnpm oxlint --type-aware --fix {staged_files}
+      stage_fixed: true
+    oxlint-services-nijisanji:
+      root: "services/nijisanji"
+      glob: "*.ts"
+      run: pnpm oxlint --type-aware --fix {staged_files}
       stage_fixed: true
     eslint-ui:
       root: "packages/ui"
       glob: "*.{ts,vue}"
-      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
-      stage_fixed: true
-    eslint-services-hololive:
-      root: "services/hololive"
-      glob: "*.ts"
-      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
-      stage_fixed: true
-    eslint-services-nijisanji:
-      root: "services/nijisanji"
-      glob: "*.ts"
       run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
       stage_fixed: true

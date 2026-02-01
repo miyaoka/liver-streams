@@ -17,18 +17,17 @@
     "dev": "vite build --watch",
     "test": "bun test",
     "typecheck": "tsgo --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix -c eslint.config.fix.ts"
+    "lint": "oxlint --type-aware .",
+    "lint:fix": "oxlint --type-aware --fix ."
   },
   "devDependencies": {
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native-preview": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-import-x": "catalog:",
-    "eslint-plugin-unused-imports": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "unplugin-dts": "catalog:",
     "vite": "catalog:"
   }
