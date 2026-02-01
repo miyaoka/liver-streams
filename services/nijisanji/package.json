@@ -15,7 +15,7 @@
     "prepare": "vite build",
     "build": "vite build",
     "dev": "vite build --watch",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsgo --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix -c eslint.config.fix.ts"
   },
@@ -25,6 +25,7 @@
   "devDependencies": {
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
+    "@typescript/native-preview": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-import-x": "catalog:",
     "eslint-plugin-unused-imports": "catalog:",
