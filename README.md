@@ -4,9 +4,8 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 
 🔗 **[liver-streams.vercel.app](https://liver-streams.vercel.app)**
 
-<!-- スクリーンショット
-![アプリのスクリーンショット](docs/screenshot.png)
--->
+<img width="2048" height="1199" alt="liver-streams-git-main-miyaokamiyaos-projects vercel app_" src="https://github.com/user-attachments/assets/b42388bf-5abd-4d4a-b809-d7528a8834c7" />
+
 
 ## 機能
 
