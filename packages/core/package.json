@@ -7,8 +7,8 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
@@ -17,18 +17,17 @@
     "dev": "vite build --watch",
     "test": "bun test",
     "typecheck": "tsgo --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix -c eslint.config.fix.ts"
+    "lint": "oxlint --type-aware .",
+    "fix": "oxlint --type-aware --fix . && oxfmt --write ."
   },
   "devDependencies": {
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
     "@typescript/native-preview": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-import-x": "catalog:",
-    "eslint-plugin-unused-imports": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "unplugin-dts": "catalog:",
     "vite": "catalog:"
   }

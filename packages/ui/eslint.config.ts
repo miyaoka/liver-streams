@@ -2,7 +2,7 @@ import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
 import pluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import pluginVue from "eslint-plugin-vue";
-import { baseRules } from "../../eslint.base";
+import { baseRules } from "./eslint.base";
 
 export default defineConfigWithVueTs(
   // ignores 設定
