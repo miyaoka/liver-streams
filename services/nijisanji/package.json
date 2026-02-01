@@ -17,7 +17,7 @@
     "dev": "vite build --watch",
     "typecheck": "tsgo --noEmit",
     "lint": "oxlint --type-aware .",
-    "lint:fix": "oxlint --type-aware --fix ."
+    "fix": "oxlint --type-aware --fix . && oxfmt --write ."
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*"

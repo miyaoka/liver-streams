@@ -10,7 +10,7 @@
     "test": "pnpm -r --parallel test",
     "typecheck": "tsgo -p tsconfig.node.json --noEmit && pnpm -r --parallel typecheck",
     "lint": "oxlint --type-aware . && pnpm -r --parallel lint",
-    "lint:fix": "oxlint --type-aware --fix . && pnpm -r --parallel lint:fix",
+    "fix": "oxlint --type-aware --fix . && oxfmt --write . && pnpm -r --parallel fix",
     "prepare": "git config --unset core.hooksPath 2>/dev/null; rm -rf .husky 2>/dev/null; lefthook install"
   },
   "devDependencies": {
