@@ -17,7 +17,8 @@
     "dev": "vite build --watch",
     "typecheck": "tsgo --noEmit",
     "lint": "oxlint --type-aware .",
-    "fix": "oxlint --type-aware --fix . && oxfmt --write ."
+    "fix": "oxlint --type-aware --fix . && oxfmt --write .",
+    "update-talents": "bun scripts/update-talents.ts"
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*"
