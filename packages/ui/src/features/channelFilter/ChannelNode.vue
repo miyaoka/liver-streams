@@ -1,3 +1,9 @@
+<doc lang="md">
+チャンネルツリーの再帰的なノード表示。グループノードとタレント名を階層構造で表示する。
+
+グループ単位でまとめてチェック/解除でき、子ノードのチェック状態に応じて親のチェック状態も連動する。
+</doc>
+
 <script setup lang="ts">
 import type { ChannelNode } from "@liver-streams/core";
 import { computed, onMounted, ref } from "vue";

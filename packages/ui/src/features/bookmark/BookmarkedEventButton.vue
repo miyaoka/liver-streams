@@ -1,3 +1,7 @@
+<doc lang="md">
+ブックマーク一覧のポップオーバーを開くボタン。ブックマーク数をバッジで表示する。
+</doc>
+
 <script setup lang="ts">
 import type { LiverEvent } from "@liver-streams/core";
 import { computed } from "vue";

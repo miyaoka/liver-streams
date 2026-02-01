@@ -1,3 +1,9 @@
+<doc lang="md">
+時間帯単位のセクション。同じ開始時刻の配信をグリッド表示する。
+
+時間帯に応じた背景色（深夜・朝・昼・夕方・夜）で視覚的に区別し、現在時刻のセクションには「now」インジケーターを表示する。
+</doc>
+
 <script setup lang="ts">
 import type { TimeSection } from "@liver-streams/core";
 import { hhmmDateFormatter } from "@liver-streams/core";

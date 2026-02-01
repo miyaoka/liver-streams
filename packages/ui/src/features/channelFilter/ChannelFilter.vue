@@ -1,3 +1,7 @@
+<doc lang="md">
+タレントフィルターのポップオーバー。ホロライブ/にじさんじを切り替えて、グループ・タレント単位で表示対象を選択する。
+</doc>
+
 <script setup lang="ts">
 import { hololiveChannels } from "@liver-streams/services-hololive";
 import { nijisanjiChannels } from "@liver-streams/services-nijisanji";

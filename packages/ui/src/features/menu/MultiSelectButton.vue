@@ -1,3 +1,7 @@
+<doc lang="md">
+マルチセレクトモードの切り替えボタン。複数の配信を選択してマルチビュー画面で開くために使用する。
+</doc>
+
 <script setup lang="ts">
 import { useMultiSelectStore } from "../../shared/stores/multiSelectStore";
 

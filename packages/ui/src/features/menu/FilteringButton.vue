@@ -1,3 +1,7 @@
+<doc lang="md">
+検索・フィルター適用中に表示されるインジケーター。絞り込み件数を表示し、クリックで解除する。
+</doc>
+
 <script setup lang="ts">
 import { useSearchStore } from "../../shared/stores/searchStore";
 import { useEventListStore } from "../../store/eventListStore";

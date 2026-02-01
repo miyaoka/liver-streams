@@ -1,3 +1,7 @@
+<doc lang="md">
+イベント詳細ポップオーバーのラッパー。イベント ID を popover ID として設定し、カードからの参照を可能にする。
+</doc>
+
 <script setup lang="ts">
 import type { LiverEvent } from "@liver-streams/core";
 import { usePopover } from "../../../shared/composables/usePopover";

@@ -1,3 +1,13 @@
+<doc lang="md">
+配信一覧のメインビュー。にじさんじ・ホロライブの配信情報を統合表示する。
+
+## 機能
+
+- イベント情報を1分間隔で自動更新
+- 日付・時間セクションで配信を整理して表示
+- ヘッダー・フッターメニューによる操作
+</doc>
+
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
 import { onMounted } from "vue";

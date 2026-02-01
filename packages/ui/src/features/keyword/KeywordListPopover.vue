@@ -1,3 +1,9 @@
+<doc lang="md">
+トレンドキーワード一覧のポップオーバー UI。配信タイトルから抽出したキーワード・ハッシュタグを出現回数順で表示する。
+
+大文字小文字を区別せずにカウントし、最も多く使われている表記をキーとして採用する。
+</doc>
+
 <script setup lang="ts">
 import { getFilteredEventList } from "@liver-streams/core";
 import { computed } from "vue";

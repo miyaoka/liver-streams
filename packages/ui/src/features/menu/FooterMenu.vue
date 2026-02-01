@@ -1,3 +1,12 @@
+<doc lang="md">
+画面右下に固定表示されるフッターメニュー。各種操作ボタンを配置する。
+
+## 機能
+
+- マルチセレクトモードの操作パネル（選択数表示、マルチビュー画面を開く）
+- キーワード一覧、ブックマーク、新着、ライブ中フィルター、スクロールボタン
+</doc>
+
 <script setup lang="ts">
 import { getYouTubeVideoId } from "@liver-streams/core";
 import { useMultiSelectStore } from "../../shared/stores/multiSelectStore";

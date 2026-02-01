@@ -1,3 +1,9 @@
+<doc lang="md">
+日付単位のセクション。1日分の配信をまとめて表示する。
+
+ヘッダーに日付と「今日」「明日」などの相対表記を表示し、クリックでセクション先頭にスクロールする。
+</doc>
+
 <script setup lang="ts">
 import type { DateSection } from "@liver-streams/core";
 import { compareDate, mdDateFormatter, relativeDateFormatter } from "@liver-streams/core";

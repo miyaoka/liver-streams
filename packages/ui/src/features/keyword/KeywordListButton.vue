@@ -1,3 +1,7 @@
+<doc lang="md">
+トレンドキーワード一覧のポップオーバーを開くボタン。
+</doc>
+
 <script setup lang="ts">
 import { usePopover } from "../../shared/composables/usePopover";
 import KeywordListPopover from "./KeywordListPopover.vue";

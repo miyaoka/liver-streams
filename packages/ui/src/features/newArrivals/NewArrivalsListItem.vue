@@ -1,3 +1,7 @@
+<doc lang="md">
+新着イベント一覧の各アイテム表示。未読マーク付きで表示し、クリックでカードにスクロールする。
+</doc>
+
 <script setup lang="ts">
 import type { LiverEvent } from "@liver-streams/core";
 import { compareDate, getDateTime, hhmmDateFormatter, toRelativeTime } from "@liver-streams/core";

@@ -1,3 +1,20 @@
+<doc lang="md">
+配信イベントのカード表示。サムネイル、タレント情報、配信状態を1枚のカードで表現する。
+
+## 状態表示
+
+- 配信中（赤）、配信予定（黒）、配信済み（灰）で色分け
+- 新着イベント、ブックマーク、通知のバッジ表示
+- コラボメンバーのアイコン一覧
+
+## インタラクション
+
+- クリックで詳細ポップオーバーを開く
+- ホイールクリックでYouTubeを直接開く
+- 右クリックでタレントをフォーカス検索
+- マルチセレクトモード対応
+</doc>
+
 <script setup lang="ts">
 import { getThumbnail, hhss } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";

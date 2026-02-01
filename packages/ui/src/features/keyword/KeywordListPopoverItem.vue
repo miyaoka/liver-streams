@@ -1,3 +1,7 @@
+<doc lang="md">
+キーワード一覧の各アイテム表示。クリックで検索クエリに設定する。
+</doc>
+
 <script setup lang="ts">
 import { useSearchStore } from "../../shared/stores/searchStore";
 import type { KeywordItem } from "./KeywordListPopover.vue";

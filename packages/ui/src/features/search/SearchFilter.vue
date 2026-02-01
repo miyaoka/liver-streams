@@ -1,3 +1,9 @@
+<doc lang="md">
+検索フィルターの入力 UI。クリックで展開し、入力中は遅延実行で検索クエリを更新する。
+
+外部から検索文字列が設定された場合（タレント名クリックなど）は自動で展開する。
+</doc>
+
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useSearchStore } from "../../shared/stores/searchStore";
