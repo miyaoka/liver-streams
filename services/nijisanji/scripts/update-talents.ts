@@ -1,3 +1,15 @@
+/**
+ * にじさんじタレント自動更新スクリプト
+ *
+ * にじさんじ公式APIからタレント情報を取得し、新規タレントを検出して以下を更新する:
+ * - livers.json: タレントID → 名前のマッピング
+ * - icons.json: タレント名 → アイコンパスのマッピング
+ * - channels.json: 新規タレントを「未分類」グループに追加
+ * - assets/icons/: アイコン画像をダウンロード
+ *
+ * 実行: pnpm --filter @liver-streams/services-nijisanji update-talents
+ */
+
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";

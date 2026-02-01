@@ -1,3 +1,14 @@
+/**
+ * ホロライブタレント自動更新スクリプト
+ *
+ * ホロライブ公式スケジュールAPIから配信情報を取得し、新規タレントを検出して以下を更新する:
+ * - icons.json: タレント名 → アイコンパスのマッピング
+ * - channels.json: 新規タレントを「未分類」グループに追加
+ * - assets/icons/: アイコン画像をダウンロード
+ *
+ * 実行: pnpm --filter @liver-streams/services-hololive update-talents
+ */
+
 import { mkdir, readFile, writeFile } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
