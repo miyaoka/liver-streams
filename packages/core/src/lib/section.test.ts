@@ -1,6 +1,6 @@
 import { describe, it, expect } from "bun:test";
-import { createDateSectionList } from "./section";
 import type { LiverEvent } from "../types";
+import { createDateSectionList } from "./section";
 
 function createEvent(id: string, startAt: string): LiverEvent {
   return {

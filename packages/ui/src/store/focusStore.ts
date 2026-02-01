@@ -1,6 +1,6 @@
+import type { LiverEvent } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { ref } from "vue";
-import type { LiverEvent } from "@liver-streams/core";
 
 export const useFocusStore = defineStore("focusStore", () => {
   const hoveredTalent = ref<string | null>(null);

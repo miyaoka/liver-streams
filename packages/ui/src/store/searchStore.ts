@@ -1,7 +1,7 @@
+import { parseSearchString, searchQueryToSearchString } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useScrollStore } from "./scrollStore";
-import { parseSearchString, searchQueryToSearchString } from "@liver-streams/core";
 
 export const useSearchStore = defineStore("searchStore", () => {
   const scrollStore = useScrollStore();

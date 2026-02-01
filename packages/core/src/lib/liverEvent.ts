@@ -1,6 +1,6 @@
+import type { LiverEvent, LiverTalent } from "../types";
 import { extractParenthesizedText, getHashTagList } from "./text";
 import { getYouTubeVideoId } from "./youtube";
-import type { LiverEvent, LiverTalent } from "../types";
 
 async function digestMessage(message: string) {
   const msgUint8 = new TextEncoder().encode(message);

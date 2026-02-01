@@ -1,5 +1,5 @@
-import { hashtagPrefixPattern } from "./text";
 import type { LiverEvent } from "../types";
+import { hashtagPrefixPattern } from "./text";
 
 type SearchQuery = {
   wordList: string[];

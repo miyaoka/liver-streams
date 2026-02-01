@@ -1,7 +1,7 @@
 import { compareLiverEvent } from "@liver-streams/core";
+import type { EventService, LiverEvent } from "@liver-streams/core";
 import { createHololiveService } from "@liver-streams/services-hololive";
 import { createNijisanjiService } from "@liver-streams/services-nijisanji";
-import type { EventService, LiverEvent } from "@liver-streams/core";
 
 const iconBaseUrl = import.meta.env.DEV
   ? "/icons"

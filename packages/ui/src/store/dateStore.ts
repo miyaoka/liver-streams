@@ -1,7 +1,7 @@
+import { getDateTime, getHourTime } from "@liver-streams/core";
 import { useIntervalFn } from "@vueuse/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { getDateTime, getHourTime } from "@liver-streams/core";
 
 export const useDateStore = defineStore("dateStore", () => {
   const currentDate = ref(new Date());
