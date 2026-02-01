@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { getThumbnail, hhss } from "@liver-streams/core";
+import type { LiverEvent } from "@liver-streams/core";
 import { computed, toRaw, toRefs } from "vue";
 import { useLiverEvent } from "./useLiverEvent";
-import type { LiverEvent } from "@liver-streams/core";
 import { getChannelIcon } from "@/services";
 import { useFocusStore } from "@/store/focusStore";
 import { useSearchStore } from "@/store/searchStore";

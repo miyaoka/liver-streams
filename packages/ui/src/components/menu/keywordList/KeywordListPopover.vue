@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { getFilteredEventList } from "@liver-streams/core";
 import { computed } from "vue";
 import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
-import { getFilteredEventList } from "@liver-streams/core";
 import { useEventListStore } from "@/store/eventListStore";
 import { useSearchStore } from "@/store/searchStore";
 import { useStorageStore } from "@/store/storageStore";

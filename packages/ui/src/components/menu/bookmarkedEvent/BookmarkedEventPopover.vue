@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
 import type { LiverEvent } from "@liver-streams/core";
 import {
   getThumbnail,
@@ -8,6 +7,7 @@ import {
   hhmmDateFormatter,
   toRelativeTime,
 } from "@liver-streams/core";
+import { computed, onMounted } from "vue";
 import { scrollToLiverEventTop } from "@/lib/scroll";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useDateStore } from "@/store/dateStore";
