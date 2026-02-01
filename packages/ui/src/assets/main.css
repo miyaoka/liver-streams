@@ -1,2 +1,8 @@
 @import "tailwindcss";
 @plugin "@egoist/tailwindcss-icons";
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}
