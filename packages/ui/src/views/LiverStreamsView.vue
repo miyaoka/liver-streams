@@ -23,8 +23,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="text-[clamp(11px,11px+0.25vw,15px)]" v-if="eventListStore.liverEventList">
-    <LiverEventDateSectionList :dateSectionList="eventListStore.dateSectionList" />
+  <main class="text-[clamp(11px,11px+0.25vw,15px)]">
+    <LiverEventDateSectionList
+      :dateSectionList="eventListStore.dateSectionList"
+      :isLoading="eventListStore.isLoading"
+    />
     <LiverEventDetailList />
     <HeaderMenu />
     <FooterMenu />

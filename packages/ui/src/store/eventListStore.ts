@@ -4,12 +4,12 @@ import {
   createDateSectionList,
   hhmmDateFormatter,
 } from "@liver-streams/core";
+import type { LiverEvent } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useBookmarkStore } from "./bookmarkStore";
 import { useSearchStore } from "./searchStore";
 import { useStorageStore } from "./storageStore";
-import type { LiverEvent } from "@liver-streams/core";
 import { fetchAllEvents } from "@/services";
 
 interface AddedEventId {
@@ -74,6 +74,9 @@ export const useEventListStore = defineStore("eventListStore", () => {
   const onLiveEventList = computed(() => {
     return filteredEventList.value.filter((event) => event.isLive);
   });
+
+  // ローディング状態（初回データ取得前）
+  const isLoading = computed(() => liverEventList.value === null);
 
   const dateSectionList = computed(() => {
     return createDateSectionList(filteredEventList.value).filter((dateSection) => {
@@ -180,6 +183,7 @@ export const useEventListStore = defineStore("eventListStore", () => {
     liverEventMap,
     addedEventList,
     addedEventIdSet,
+    isLoading,
     updateLiverEventList,
     clearAddedEventList,
   };
