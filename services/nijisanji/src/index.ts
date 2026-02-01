@@ -11,11 +11,16 @@ import { fetchNijiLiverMap, fetchNijiStreamList } from "./api";
 import type { NijiLiverMap, NijiStream } from "./api";
 import { getIcon as getIconPath } from "./icons";
 
+const GITHUB_ICON_URL =
+  "https://raw.githubusercontent.com/miyaoka/liver-streams/main/services/nijisanji/assets/icons";
+
 export interface NijisanjiServiceConfig extends EventServiceConfig {
   apiBaseUrl?: string;
 }
 
 export function createNijisanjiService(config: NijisanjiServiceConfig): EventService {
+  const iconBaseUrl = config.localIconBaseUrl ?? GITHUB_ICON_URL;
+
   return {
     affiliation: "nijisanji",
     async fetchEventList(): Promise<LiverEvent[]> {
@@ -26,11 +31,11 @@ export function createNijisanjiService(config: NijisanjiServiceConfig): EventSer
       return getNijiEvents({
         nijiLiverMap,
         nijiStreams,
-        iconBaseUrl: config.iconBaseUrl,
+        iconBaseUrl,
       });
     },
     getIcon(name: string): string | undefined {
-      return getIconPath(name, config.iconBaseUrl);
+      return getIconPath(name, iconBaseUrl);
     },
   };
 }
