@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import LiverEventCard from "./LiverEventCard.vue";
 import type { TimeSection } from "@liver-streams/core";
 import { hhmmDateFormatter } from "@liver-streams/core";
+import { computed, ref } from "vue";
+import LiverEventCard from "./LiverEventCard.vue";
 import { useDateStore } from "@/store/dateStore";
 
 const props = defineProps<{
@@ -49,7 +49,7 @@ function getTimeColor(hour: number) {
   >
     <div v-if="isCurrentTime" class="pointer-events-none flex w-full">
       <div
-        class="[clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%);] mt-8 flex items-center gap-2 bg-black/70 py-1 pr-12 pl-2 text-base font-bold text-white select-none"
+        class="mt-8 flex items-center gap-2 bg-black/70 py-1 pr-12 pl-2 text-base font-bold text-white select-none [clip-path:polygon(0%_0%,85%_0%,100%_45%,100%_55%,85%_100%,0%_100%)]"
       >
         <i class="i-mdi-clock-outline size-6" />
         <p>now {{ hhss }}</p>
