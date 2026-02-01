@@ -4,13 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm --filter @liver-streams/ui dev",
-    "build": "pnpm --filter @liver-streams/ui build",
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
     "preview": "pnpm --filter @liver-streams/ui preview",
-    "test": "pnpm -r test",
-    "typecheck": "tsc -p tsconfig.node.json --noEmit && pnpm -r typecheck",
-    "lint": "eslint . && pnpm -r lint",
-    "lint:fix": "eslint . --fix -c eslint.config.fix.ts && pnpm -r lint:fix",
+    "test": "pnpm -r --parallel test",
+    "typecheck": "tsc -p tsconfig.node.json --noEmit && pnpm -r --parallel typecheck",
+    "lint": "eslint . && pnpm -r --parallel lint",
+    "lint:fix": "eslint . --fix -c eslint.config.fix.ts && pnpm -r --parallel lint:fix",
     "prepare": "git config --unset core.hooksPath 2>/dev/null; rm -rf .husky 2>/dev/null; lefthook install"
   },
   "devDependencies": {

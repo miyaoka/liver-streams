@@ -33,6 +33,12 @@ catalogs:
     typescript-eslint:
       specifier: 8.54.0
       version: 8.54.0
+    unplugin-dts:
+      specifier: 1.0.0-beta.6
+      version: 1.0.0-beta.6
+    vite:
+      specifier: 8.0.0-beta.11
+      version: 8.0.0-beta.11
 
 importers:
 
@@ -89,6 +95,12 @@ importers:
       typescript-eslint:
         specifier: 'catalog:'
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      unplugin-dts:
+        specifier: 'catalog:'
+        version: 1.0.0-beta.6(esbuild@0.27.2)(typescript@5.9.3)(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1))
+      vite:
+        specifier: 'catalog:'
+        version: 8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)
 
   packages/ui:
     dependencies:
@@ -226,6 +238,12 @@ importers:
       typescript-eslint:
         specifier: 'catalog:'
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      unplugin-dts:
+        specifier: 'catalog:'
+        version: 1.0.0-beta.6(esbuild@0.27.2)(typescript@5.9.3)(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1))
+      vite:
+        specifier: 'catalog:'
+        version: 8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)
 
   services/nijisanji:
     dependencies:
@@ -254,6 +272,12 @@ importers:
       typescript-eslint:
         specifier: 'catalog:'
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      unplugin-dts:
+        specifier: 'catalog:'
+        version: 1.0.0-beta.6(esbuild@0.27.2)(typescript@5.9.3)(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1))
+      vite:
+        specifier: 'catalog:'
+        version: 8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)
 
 packages:
 
@@ -796,6 +820,15 @@ packages:
   '@rolldown/pluginutils@1.0.0-rc.2':
     resolution: {integrity: sha512-izyXV/v+cHiRfozX62W9htOAvwMo4/bXKDrQ+vom1L1qRuexPock/7VZDAhnpHCLNejd3NJ6hiab+tO0D44Rgw==}
 
+  '@rollup/pluginutils@5.3.0':
+    resolution: {integrity: sha512-5EdhGZtnu3V88ces7s53hhfK5KSASnJZv8Lulpc04cWO3REESroJXg73DFsOmgbU2BhwV0E20bu2IDZb3VKW4Q==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
   '@tailwindcss/node@4.1.18':
     resolution: {integrity: sha512-DoR7U1P7iYhw16qJ49fgXUlry1t4CpXeErJHnQ44JgTSKMaZUdf17cfn5mHchfJ4KRBZRFA/Coo+MUF5+gOaCQ==}
 
@@ -1302,6 +1335,9 @@ packages:
   comment-parser@1.4.5:
     resolution: {integrity: sha512-aRDkn3uyIlCFfk5NUA+VdwMmMsh8JGhc4hapfV4yxymHGQ3BVskMQfoXGpCo5IoBuQ9tS5iiVKhCpTcB4pW4qw==}
     engines: {node: '>= 12.0.0'}
+
+  compare-versions@6.1.1:
+    resolution: {integrity: sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==}
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
@@ -2260,9 +2296,43 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
+  unplugin-dts@1.0.0-beta.6:
+    resolution: {integrity: sha512-+xbFv5aVFtLZFNBAKI4+kXmd2h+T42/AaP8Bsp0YP/je/uOTN94Ame2Xt3e9isZS+Z7/hrLCLbsVJh+saqFMfQ==}
+    peerDependencies:
+      '@microsoft/api-extractor': '>=7'
+      '@rspack/core': ^1
+      '@vue/language-core': ~3.0.1
+      esbuild: '*'
+      rolldown: '*'
+      rollup: '>=3'
+      typescript: '>=4'
+      vite: '>=3'
+      webpack: ^4 || ^5
+    peerDependenciesMeta:
+      '@microsoft/api-extractor':
+        optional: true
+      '@rspack/core':
+        optional: true
+      '@vue/language-core':
+        optional: true
+      esbuild:
+        optional: true
+      rolldown:
+        optional: true
+      rollup:
+        optional: true
+      vite:
+        optional: true
+      webpack:
+        optional: true
+
   unplugin-utils@0.3.1:
     resolution: {integrity: sha512-5lWVjgi6vuHhJ526bI4nlCOmkCIF3nnfXkCMDeMJrtdvxTs6ZFCM8oNufGTsDbKv/tJ/xj8RpvXjRuPBZJuJog==}
     engines: {node: '>=20.19.0'}
+
+  unplugin@2.3.11:
+    resolution: {integrity: sha512-5uKD0nqiYVzlmCRs01Fhs2BdkEgBS3SAVP6ndrBsuK42iC2+JHyxM05Rm9G8+5mkmRtzMZGY8Ct5+mliZxU/Ww==}
+    engines: {node: '>=18.12.0'}
 
   unrs-resolver@1.11.1:
     resolution: {integrity: sha512-bSjt9pjaEBnNiGgc9rUiHGKv5l4/TGzDmYw3RhnkJGtLhbnnA/5qJj7x3dNDCRx/PJxu774LlH8lCOlB4hEfKg==}
@@ -2385,6 +2455,9 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  webpack-virtual-modules@0.6.2:
+    resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
@@ -2937,6 +3010,12 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.0-rc.2': {}
 
+  '@rollup/pluginutils@5.3.0':
+    dependencies:
+      '@types/estree': 1.0.8
+      estree-walker: 2.0.2
+      picomatch: 4.0.3
+
   '@tailwindcss/node@4.1.18':
     dependencies:
       '@jridgewell/remapping': 2.3.5
@@ -3467,6 +3546,8 @@ snapshots:
   color-name@1.1.4: {}
 
   comment-parser@1.4.5: {}
+
+  compare-versions@6.1.1: {}
 
   concat-map@0.0.1: {}
 
@@ -4310,10 +4391,34 @@ snapshots:
 
   undici-types@7.16.0: {}
 
+  unplugin-dts@1.0.0-beta.6(esbuild@0.27.2)(typescript@5.9.3)(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)):
+    dependencies:
+      '@rollup/pluginutils': 5.3.0
+      '@volar/typescript': 2.4.27
+      compare-versions: 6.1.1
+      debug: 4.4.3
+      kolorist: 1.8.0
+      local-pkg: 1.1.2
+      magic-string: 0.30.21
+      typescript: 5.9.3
+      unplugin: 2.3.11
+    optionalDependencies:
+      esbuild: 0.27.2
+      vite: 8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)
+    transitivePeerDependencies:
+      - supports-color
+
   unplugin-utils@0.3.1:
     dependencies:
       pathe: 2.0.3
       picomatch: 4.0.3
+
+  unplugin@2.3.11:
+    dependencies:
+      '@jridgewell/remapping': 2.3.5
+      acorn: 8.15.0
+      picomatch: 4.0.3
+      webpack-virtual-modules: 0.6.2
 
   unrs-resolver@1.11.1:
     dependencies:
@@ -4458,6 +4563,8 @@ snapshots:
       '@vue/shared': 3.5.27
     optionalDependencies:
       typescript: 5.9.3
+
+  webpack-virtual-modules@0.6.2: {}
 
   whatwg-mimetype@3.0.0: {}
 
