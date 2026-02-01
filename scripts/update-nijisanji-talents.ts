@@ -107,4 +107,4 @@ async function main() {
 }
 
 // スクリプト実行
-main();
+void main();

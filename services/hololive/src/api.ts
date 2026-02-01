@@ -16,7 +16,7 @@ export interface HoloVideoDetail {
   displayDate: string;
   datetime: string;
   isLive: boolean;
-  platformType: 0 | 1 | number; // 0: 他チャンネル, 1: 自チャンネル
+  platformType: number; // 0: 他チャンネル, 1: 自チャンネル
   url: string;
   thumbnail: string;
   title: string;
