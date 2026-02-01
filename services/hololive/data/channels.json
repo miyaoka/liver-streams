@@ -5,48 +5,99 @@
       "name": "ホロライブ",
       "children": [
         {
+          "name": "未分類",
+          "children": [
+            "ホロカ公式"
+          ]
+        },
+        {
           "name": "公式",
-          "children": ["ホロライブ", "Blue Journey"]
+          "children": [
+            "ホロライブ",
+            "Blue Journey"
+          ]
         },
         {
           "name": "0期生",
           "initial": "0",
-          "children": ["ときのそら", "ロボ子さん", "AZKi", "さくらみこ", "星街すいせい"]
+          "children": [
+            "ときのそら",
+            "ロボ子さん",
+            "AZKi",
+            "さくらみこ",
+            "星街すいせい"
+          ]
         },
         {
           "name": "1期生",
           "initial": "1",
-          "children": ["アキロゼ", "赤井はあと", "白上フブキ", "夏色まつり"]
+          "children": [
+            "アキロゼ",
+            "赤井はあと",
+            "白上フブキ",
+            "夏色まつり"
+          ]
         },
         {
           "name": "2期生",
           "initial": "2",
-          "children": ["紫咲シオン", "百鬼あやめ", "癒月ちょこ", "大空スバル"]
+          "children": [
+            "紫咲シオン",
+            "百鬼あやめ",
+            "癒月ちょこ",
+            "大空スバル"
+          ]
         },
         {
           "name": "ゲーマーズ",
           "initial": "G",
-          "children": ["白上フブキ", "大神ミオ", "猫又おかゆ", "戌神ころね"]
+          "children": [
+            "白上フブキ",
+            "大神ミオ",
+            "猫又おかゆ",
+            "戌神ころね"
+          ]
         },
         {
           "name": "3期生",
           "initial": "3",
-          "children": ["兎田ぺこら", "不知火フレア", "白銀ノエル", "宝鐘マリン"]
+          "children": [
+            "兎田ぺこら",
+            "不知火フレア",
+            "白銀ノエル",
+            "宝鐘マリン"
+          ]
         },
         {
           "name": "4期生",
           "initial": "4",
-          "children": ["天音かなた", "角巻わため", "常闘トワ", "姫森ルーナ"]
+          "children": [
+            "天音かなた",
+            "角巻わため",
+            "常闘トワ",
+            "姫森ルーナ"
+          ]
         },
         {
           "name": "5期生",
           "initial": "5",
-          "children": ["雪花ラミィ", "桃鈴ねね", "獅白ぼたん", "尾丸ポルカ"]
+          "children": [
+            "雪花ラミィ",
+            "桃鈴ねね",
+            "獅白ぼたん",
+            "尾丸ポルカ"
+          ]
         },
         {
           "name": "holoX",
           "initial": "X",
-          "children": ["ラプラス", "鷹嶺ルイ", "博衣こより", "沙花叉クロヱ", "風真いろは"]
+          "children": [
+            "ラプラス",
+            "鷹嶺ルイ",
+            "博衣こより",
+            "沙花叉クロヱ",
+            "風真いろは"
+          ]
         }
       ]
     },
@@ -55,11 +106,20 @@
       "children": [
         {
           "name": "公式",
-          "children": ["hololive DEV_IS"]
+          "children": [
+            "hololive DEV_IS"
+          ]
         },
         {
           "name": "ReGLOSS",
-          "children": ["ReGLOSS", "火威青", "音乃瀬奏", "一条莉々華", "儒烏風亭らでん", "轟はじめ"]
+          "children": [
+            "ReGLOSS",
+            "火威青",
+            "音乃瀬奏",
+            "一条莉々華",
+            "儒烏風亭らでん",
+            "轟はじめ"
+          ]
         },
         {
           "name": "FLOW GLOW",
@@ -79,23 +139,47 @@
       "children": [
         {
           "name": "公式",
-          "children": ["holo EN"]
+          "children": [
+            "holo EN"
+          ]
         },
         {
           "name": "Myth",
-          "children": ["Calli", "Kiara", "Ina", "Gura", "Amelia"]
+          "children": [
+            "Calli",
+            "Kiara",
+            "Ina",
+            "Gura",
+            "Amelia"
+          ]
         },
         {
           "name": "Promise",
-          "children": ["IRyS", "Fauna", "Kronii", "Mumei", "Baelz"]
+          "children": [
+            "IRyS",
+            "Fauna",
+            "Kronii",
+            "Mumei",
+            "Baelz"
+          ]
         },
         {
           "name": "Advent",
-          "children": ["Shiori", "Bijou", "Nerissa", "FUWAMOCO"]
+          "children": [
+            "Shiori",
+            "Bijou",
+            "Nerissa",
+            "FUWAMOCO"
+          ]
         },
         {
           "name": "Justice",
-          "children": ["Elizabeth", "Gigi", "Cecilia", "Raora"]
+          "children": [
+            "Elizabeth",
+            "Gigi",
+            "Cecilia",
+            "Raora"
+          ]
         }
       ]
     },
@@ -104,19 +188,33 @@
       "children": [
         {
           "name": "公式",
-          "children": ["holo ID"]
+          "children": [
+            "holo ID"
+          ]
         },
         {
           "name": "1期生",
-          "children": ["Risu", "Moona", "Iofi"]
+          "children": [
+            "Risu",
+            "Moona",
+            "Iofi"
+          ]
         },
         {
           "name": "2期生",
-          "children": ["Ollie", "Anya", "Reine"]
+          "children": [
+            "Ollie",
+            "Anya",
+            "Reine"
+          ]
         },
         {
           "name": "3期生",
-          "children": ["Zeta", "Kaela", "Kobo"]
+          "children": [
+            "Zeta",
+            "Kaela",
+            "Kobo"
+          ]
         }
       ]
     }
