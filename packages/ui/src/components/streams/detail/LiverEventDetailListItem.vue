@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LiverEventDetailPopover from "./LiverEventDetailPopover.vue";
 import type { LiverEvent } from "@liver-streams/core";
+import LiverEventDetailPopover from "./LiverEventDetailPopover.vue";
 import { usePopover } from "@/composable/usePopover";
 
 const props = defineProps<{
@@ -14,7 +14,7 @@ const popover = usePopover({
 
 <template>
   <popover.PopOver
-    class="top-auto bottom-2 max-w-[calc(100%-16px)] overflow-visible bg-transparent p-0"
+    class="inset-x-0 top-auto bottom-2 mx-auto max-w-[calc(100%-16px)] overflow-visible bg-transparent p-0"
   >
     <LiverEventDetailPopover :liverEvent="liverEvent" />
   </popover.PopOver>

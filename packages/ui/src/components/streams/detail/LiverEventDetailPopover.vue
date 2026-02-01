@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, toRef } from "vue";
-import { useLiverEvent } from "../useLiverEvent";
 import type { LiverEvent } from "@liver-streams/core";
 import { parseSegment, getThumbnail, fullDateFormatter } from "@liver-streams/core";
+import { computed, toRef } from "vue";
+import { useLiverEvent } from "../useLiverEvent";
 import { usePopover } from "@/composable/usePopover";
 import { useBookmarkStore } from "@/store/bookmarkStore";
 import { useFocusStore } from "@/store/focusStore";
@@ -195,12 +195,14 @@ async function onClickNotify(id: string) {
         </div>
       </div>
     </div>
-    <permissionPopover.PopOver class="top-auto bottom-4 overflow-visible bg-transparent p-0">
+    <permissionPopover.PopOver
+      class="inset-x-0 top-auto bottom-4 mx-auto overflow-visible bg-transparent p-0"
+    >
       <button
         class="rounded-full bg-yellow-400 p-4 text-sm shadow-md"
         @click="permissionPopover.hidePopover()"
       >
-        通知を許可してください
+        ブラウザのサイト設定で通知を許可してください
       </button>
     </permissionPopover.PopOver>
   </div>
