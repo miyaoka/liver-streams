@@ -204,6 +204,9 @@ importers:
       vite:
         specifier: 8.0.0-beta.11
         version: 8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)
+      vite-plugin-doc-block:
+        specifier: 0.0.2
+        version: 0.0.2(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1))(vue@3.5.27(typescript@5.9.3))
       vite-plugin-vue-devtools:
         specifier: 8.0.5
         version: 8.0.5(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1))(vue@3.5.27(typescript@5.9.3))
@@ -2367,6 +2370,12 @@ packages:
     peerDependencies:
       vite: ^2.6.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0
 
+  vite-plugin-doc-block@0.0.2:
+    resolution: {integrity: sha512-rH5J6azVjCbPdfvzA+6OGJsQh4b3pAVbb5MewB82ljNB6K5PYNPCf4KawrjL6vpgSZlNuS3/9/LXUj+9Tao/YQ==}
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+      vue: ^3.0.0
+
   vite-plugin-inspect@11.3.3:
     resolution: {integrity: sha512-u2eV5La99oHoYPHE6UvbwgEqKKOQGz86wMg40CCosP6q8BkB6e5xPneZfYagK4ojPJSj5anHCrnvC20DpwVdRA==}
     engines: {node: '>=14'}
@@ -4469,6 +4478,11 @@ snapshots:
   vite-hot-client@2.1.0(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)):
     dependencies:
       vite: 8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)
+
+  vite-plugin-doc-block@0.0.2(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1))(vue@3.5.27(typescript@5.9.3)):
+    dependencies:
+      vite: 8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)
+      vue: 3.5.27(typescript@5.9.3)
 
   vite-plugin-inspect@11.3.3(vite@8.0.0-beta.11(@types/node@24.10.9)(esbuild@0.27.2)(jiti@2.6.1)):
     dependencies:
