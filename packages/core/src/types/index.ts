@@ -1,5 +1,7 @@
 export * from "./service";
 
+export const DEFAULT_AVATAR_URL = "/icons/defaultAccount.svg";
+
 export interface ChannelNode {
   name: string;
   children: (string | ChannelNode)[];

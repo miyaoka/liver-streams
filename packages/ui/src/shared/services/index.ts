@@ -22,12 +22,10 @@ export async function fetchAllEvents(): Promise<LiverEvent[]> {
 
 const defaultIcon = "/icons/defaultAccount.svg";
 
-export function getChannelIcon(name: string): string {
-  for (const service of services) {
-    const icon = service.getIcon(name);
-    if (icon) return icon;
-  }
-  return defaultIcon;
+export function getAffiliationLogo(affiliation: string): string {
+  const service = services.find((s) => s.affiliation === affiliation);
+  if (!service) return defaultIcon;
+  return service.getLogo();
 }
 
 // Re-export types

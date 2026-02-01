@@ -10,6 +10,9 @@ export default defineConfig({
       fileName: "index",
     },
     outDir: "dist",
+    watch: {
+      include: ["src/**/*"],
+    },
   },
   plugins: [dts({ exclude: ["**/*.test.ts"] })],
 });

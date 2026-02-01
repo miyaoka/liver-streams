@@ -19,7 +19,7 @@
 import { getThumbnail, hhss } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
 import { computed, toRaw, toRefs } from "vue";
-import { getChannelIcon } from "../../shared/services";
+import { getAffiliationLogo } from "../../shared/services";
 import { useHoverStore } from "../../shared/stores/hoverStore";
 import { useMultiSelectStore } from "../../shared/stores/multiSelectStore";
 import { useSearchStore } from "../../shared/stores/searchStore";
@@ -131,7 +131,7 @@ function setSearchString(str: string) {
       </div>
 
       <img
-        :src="getChannelIcon(`${liverEvent.affiliation}_logo`)"
+        :src="getAffiliationLogo(liverEvent.affiliation)"
         class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
         loading="lazy"
       />

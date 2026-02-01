@@ -19,8 +19,11 @@ export function createHololiveService(config: EventServiceConfig): EventService 
     async fetchEventList(): Promise<LiverEvent[]> {
       return fetchHoloEventList();
     },
-    getIcon(name: string): string | undefined {
+    getIcon(name: string): string {
       return getIconPath(name, iconBaseUrl);
+    },
+    getLogo(): string {
+      return getIconPath("hololive_logo", iconBaseUrl);
     },
   };
 }

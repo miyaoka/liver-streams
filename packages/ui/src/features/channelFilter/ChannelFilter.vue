@@ -7,7 +7,7 @@ import { hololiveChannels } from "@liver-streams/services-hololive";
 import { nijisanjiChannels } from "@liver-streams/services-nijisanji";
 import { computed, ref } from "vue";
 import { usePopover } from "../../shared/composables/usePopover";
-import { getChannelIcon } from "../../shared/services";
+import { getAffiliationLogo, services } from "../../shared/services";
 import ChannelNode from "./ChannelNode.vue";
 import { useTalentFilterStore } from "./talentFilterStore";
 
@@ -17,8 +17,8 @@ const popover = usePopover({
 });
 
 const groups = [
-  { key: "hololive", icon: "hololive_logo" },
-  { key: "にじさんじ", icon: "nijisanji_logo" },
+  { key: "hololive", affiliation: "hololive" },
+  { key: "にじさんじ", affiliation: "nijisanji" },
 ] as const;
 
 const selectedGroup = ref<string>("hololive");
@@ -30,6 +30,12 @@ const channels = [hololiveChannels, nijisanjiChannels];
 
 const rootNode = computed(() => {
   return channels.find((channel) => channel.name === selectedGroup.value);
+});
+
+const selectedService = computed(() => {
+  const group = groups.find((g) => g.key === selectedGroup.value);
+  if (!group) return undefined;
+  return services.find((s) => s.affiliation === group.affiliation);
 });
 
 function reset() {
@@ -76,7 +82,7 @@ function reset() {
               class="sr-only"
             />
             <img
-              :src="getChannelIcon(group.icon)"
+              :src="getAffiliationLogo(group.affiliation)"
               alt="icon"
               class="size-[32px] rounded-full bg-white"
             />
@@ -91,10 +97,10 @@ function reset() {
       <div
         class="-ml-4 flex-1 overflow-auto p-2 pt-4 pb-12"
         ref="talentNodeEl"
-        v-if="rootNode"
+        v-if="rootNode && selectedService"
         :key="rootNode.name"
       >
-        <ChannelNode :node="rootNode" :key="rootNode.name" />
+        <ChannelNode :node="rootNode" :service="selectedService" :key="rootNode.name" />
       </div>
     </div>
   </popover.PopOver>
