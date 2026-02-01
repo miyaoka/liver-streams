@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { LiverEvent } from "@liver-streams/core";
 import { computed } from "vue";
-import BookmarkedEventPopover from "./BookmarkedEventPopover.vue";
-import { usePopover } from "@/composable/usePopover";
+import { usePopover } from "../../../composable/usePopover";
 
-import { useBookmarkStore } from "@/store/bookmarkStore";
-import { useEventListStore } from "@/store/eventListStore";
+import { useBookmarkStore } from "../../../store/bookmarkStore";
+import { useEventListStore } from "../../../store/eventListStore";
+import BookmarkedEventPopover from "./BookmarkedEventPopover.vue";
 
 const eventListStore = useEventListStore();
 const bookmarkStore = useBookmarkStore();

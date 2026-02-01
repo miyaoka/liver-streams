@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { usePopover } from "../../../composable/usePopover";
+import { useEventListStore } from "../../../store/eventListStore";
 import AddedEventPopover from "./AddedEventPopover.vue";
-import { usePopover } from "@/composable/usePopover";
-import { useEventListStore } from "@/store/eventListStore";
 
 const eventListStore = useEventListStore();
 

@@ -2,8 +2,8 @@
 import type { TimeSection } from "@liver-streams/core";
 import { hhmmDateFormatter } from "@liver-streams/core";
 import { computed, ref } from "vue";
+import { useDateStore } from "../../store/dateStore";
 import LiverEventCard from "./LiverEventCard.vue";
-import { useDateStore } from "@/store/dateStore";
 
 const props = defineProps<{
   section: TimeSection;

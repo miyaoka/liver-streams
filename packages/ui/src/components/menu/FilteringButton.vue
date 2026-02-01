@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useEventListStore } from "@/store/eventListStore";
-import { useSearchStore } from "@/store/searchStore";
+import { useEventListStore } from "../../store/eventListStore";
+import { useSearchStore } from "../../store/searchStore";
 
 const searchStore = useSearchStore();
 const eventListStore = useEventListStore();

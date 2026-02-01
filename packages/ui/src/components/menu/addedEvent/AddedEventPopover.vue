@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useEventListStore } from "../../../store/eventListStore";
+import { closePopover } from "../../../utils/popover";
 import AddedEventListItem from "./AddedEventListItem.vue";
-import { useEventListStore } from "@/store/eventListStore";
-import { closePopover } from "@/utils/popover";
 
 defineProps<{
   lastCloseTime: number;

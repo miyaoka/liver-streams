@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { DateSection } from "@liver-streams/core";
 import { nextTick, onMounted, watch } from "vue";
+import { scrollToCurrentTime } from "../../lib/scroll";
+import { useEventListStore } from "../../store/eventListStore";
+import LoadingSpinner from "../common/LoadingSpinner.vue";
 import LiverEventDateSection from "./LiverEventDateSection.vue";
-import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
-import { scrollToCurrentTime } from "@/lib/scroll";
-import { useEventListStore } from "@/store/eventListStore";
 
 const props = defineProps<{
   dateSectionList: DateSection[];

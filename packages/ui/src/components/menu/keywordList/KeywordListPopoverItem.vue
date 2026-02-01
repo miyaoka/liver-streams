@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { useSearchStore } from "../../../store/searchStore";
 import type { KeywordItem } from "./KeywordListPopover.vue";
-import { useSearchStore } from "@/store/searchStore";
 
 defineProps<{
   itemList: KeywordItem[];

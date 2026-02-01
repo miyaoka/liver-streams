@@ -7,10 +7,10 @@ import {
 import type { LiverEvent } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { fetchAllEvents } from "../services";
 import { useBookmarkStore } from "./bookmarkStore";
 import { useSearchStore } from "./searchStore";
 import { useStorageStore } from "./storageStore";
-import { fetchAllEvents } from "@/services";
 
 interface AddedEventId {
   id: string;

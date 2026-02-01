@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { scrollToCurrentTime } from "@/lib/scroll";
-import { useEventListStore } from "@/store/eventListStore";
+import { scrollToCurrentTime } from "../../lib/scroll";
+import { useEventListStore } from "../../store/eventListStore";
 
 const eventListStore = useEventListStore();
 </script>

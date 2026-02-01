@@ -2,10 +2,10 @@
 import { getThumbnail, hhss } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
 import { computed, toRaw, toRefs } from "vue";
+import { getChannelIcon } from "../../services";
+import { useFocusStore } from "../../store/focusStore";
+import { useSearchStore } from "../../store/searchStore";
 import { useLiverEvent } from "./useLiverEvent";
-import { getChannelIcon } from "@/services";
-import { useFocusStore } from "@/store/focusStore";
-import { useSearchStore } from "@/store/searchStore";
 
 const props = defineProps<{
   liverEvent: LiverEvent;

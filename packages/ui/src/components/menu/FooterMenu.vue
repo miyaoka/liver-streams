@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { getYouTubeVideoId } from "@liver-streams/core";
+import { useEventListStore } from "../../store/eventListStore";
+import { useFocusStore } from "../../store/focusStore";
+import { useSearchStore } from "../../store/searchStore";
 import AddedEventButton from "./addedEvent/AddedEventButton.vue";
 import BookmarkedEventButton from "./bookmarkedEvent/BookmarkedEventButton.vue";
 import FilteringButton from "./FilteringButton.vue";
@@ -7,9 +10,6 @@ import KeywordListButton from "./keywordList/KeywordListButton.vue";
 import LiveFilterButton from "./LiveFilterButton.vue";
 import MultiSelectButton from "./MultiSelectButton.vue";
 import ScrollButton from "./ScrollButton.vue";
-import { useEventListStore } from "@/store/eventListStore";
-import { useFocusStore } from "@/store/focusStore";
-import { useSearchStore } from "@/store/searchStore";
 
 const focusStore = useFocusStore();
 const eventListStore = useEventListStore();

@@ -2,10 +2,10 @@
 import { hololiveChannels } from "@liver-streams/services-hololive";
 import { nijisanjiChannels } from "@liver-streams/services-nijisanji";
 import { computed, ref } from "vue";
+import { usePopover } from "../../../composable/usePopover";
+import { getChannelIcon } from "../../../services";
+import { useStorageStore } from "../../../store/storageStore";
 import ChannelNode from "./ChannelNode.vue";
-import { usePopover } from "@/composable/usePopover";
-import { getChannelIcon } from "@/services";
-import { useStorageStore } from "@/store/storageStore";
 
 const storageStore = useStorageStore();
 const popover = usePopover({

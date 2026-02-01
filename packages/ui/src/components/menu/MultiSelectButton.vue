@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useFocusStore } from "@/store/focusStore";
+import { useFocusStore } from "../../store/focusStore";
 
 const focusStore = useFocusStore();
 </script>

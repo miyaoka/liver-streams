@@ -2,13 +2,13 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { parseSegment, getThumbnail, fullDateFormatter } from "@liver-streams/core";
 import { computed, toRef } from "vue";
+import { usePopover } from "../../../composable/usePopover";
+import { useBookmarkStore } from "../../../store/bookmarkStore";
+import { useFocusStore } from "../../../store/focusStore";
+import { useNotificationStore } from "../../../store/notificationStore";
+import { useSearchStore } from "../../../store/searchStore";
+import { closePopover } from "../../../utils/popover";
 import { useLiverEvent } from "../useLiverEvent";
-import { usePopover } from "@/composable/usePopover";
-import { useBookmarkStore } from "@/store/bookmarkStore";
-import { useFocusStore } from "@/store/focusStore";
-import { useNotificationStore } from "@/store/notificationStore";
-import { useSearchStore } from "@/store/searchStore";
-import { closePopover } from "@/utils/popover";
 
 const props = defineProps<{
   liverEvent: LiverEvent;

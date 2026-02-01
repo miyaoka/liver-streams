@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { getFilteredEventList } from "@liver-streams/core";
 import { computed } from "vue";
+import { useEventListStore } from "../../../store/eventListStore";
+import { useSearchStore } from "../../../store/searchStore";
+import { useStorageStore } from "../../../store/storageStore";
+import { closePopover } from "../../../utils/popover";
 import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
-import { useEventListStore } from "@/store/eventListStore";
-import { useSearchStore } from "@/store/searchStore";
-import { useStorageStore } from "@/store/storageStore";
-import { closePopover } from "@/utils/popover";
 
 export interface KeywordItem {
   value: string;
