@@ -1,22 +1,50 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import LiverEventDateSection from "./LiverEventDateSection.vue";
 import type { DateSection } from "@liver-streams/core";
+import { nextTick, onMounted, watch } from "vue";
+import LiverEventDateSection from "./LiverEventDateSection.vue";
+import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
 import { scrollToCurrentTime } from "@/lib/scroll";
 import { useEventListStore } from "@/store/eventListStore";
 
 const props = defineProps<{
   dateSectionList: DateSection[];
+  isLoading: boolean;
 }>();
 
 const eventListStore = useEventListStore();
 
+// ローディング完了後に現在時刻へスクロール
+watch(
+  () => props.isLoading,
+  async (isLoading, wasLoading) => {
+    if (wasLoading && !isLoading) {
+      // DOM更新を待ってからスクロール
+      await nextTick();
+      scrollToCurrentTime(eventListStore.dateSectionList, { behavior: "instant" });
+    }
+  },
+);
+
 onMounted(() => {
-  scrollToCurrentTime(eventListStore.dateSectionList, { behavior: "instant" });
+  if (!props.isLoading) {
+    scrollToCurrentTime(eventListStore.dateSectionList, { behavior: "instant" });
+  }
 });
 </script>
 <template>
-  <div class="overflow-x-clip pb-60" v-if="props.dateSectionList.length > 0" data-id="event-list">
+  <!-- ローディング中 -->
+  <div
+    v-if="props.isLoading"
+    class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white"
+  >
+    <LoadingSpinner size="lg" message="読み込み中..." />
+  </div>
+  <!-- イベントリスト -->
+  <div
+    v-else-if="props.dateSectionList.length > 0"
+    class="overflow-x-clip pb-60"
+    data-id="event-list"
+  >
     <LiverEventDateSection
       v-for="(dateSection, i) in dateSectionList"
       :key="dateSection.time"
@@ -28,6 +56,7 @@ onMounted(() => {
       class="pointer-events-none fixed inset-0 bottom-auto z-10 h-20 bg-linear-to-b from-black/40"
     />
   </div>
+  <!-- データなし -->
   <div v-else class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
     <i class="i-mdi-file-document-error size-16" />
     <p class="text-base font-bold">no data</p>
