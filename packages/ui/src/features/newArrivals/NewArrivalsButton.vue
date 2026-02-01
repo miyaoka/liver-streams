@@ -1,3 +1,7 @@
+<doc lang="md">
+新着イベント一覧のポップオーバーを開くボタン。ポップオーバーを閉じてから追加されたイベント数をバッジで表示する。
+</doc>
+
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { usePopover } from "../../shared/composables/usePopover";

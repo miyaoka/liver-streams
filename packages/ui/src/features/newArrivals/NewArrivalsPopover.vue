@@ -1,3 +1,7 @@
+<doc lang="md">
+新着イベント一覧のポップオーバー UI。ブラウザを開いてから追加されたイベントを新着順（逆順）で表示する。
+</doc>
+
 <script setup lang="ts">
 import { computed } from "vue";
 import { closePopover } from "../../shared/utils/popover";

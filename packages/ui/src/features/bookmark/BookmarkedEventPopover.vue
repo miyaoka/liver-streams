@@ -1,3 +1,9 @@
+<doc lang="md">
+ブックマーク一覧のポップオーバー UI。ブックマークしたイベントを時系列で表示する。
+
+クリックで対象イベントのカードにスクロールし、詳細ポップオーバーを開く。一括クリア機能あり。
+</doc>
+
 <script setup lang="ts">
 import type { LiverEvent } from "@liver-streams/core";
 import {

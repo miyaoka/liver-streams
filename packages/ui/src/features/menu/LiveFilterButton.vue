@@ -1,3 +1,7 @@
+<doc lang="md">
+ライブ中の配信のみを表示するフィルターボタン。ライブ中イベント数をバッジで表示する。
+</doc>
+
 <script setup lang="ts">
 import { computed } from "vue";
 import { useSearchStore } from "../../shared/stores/searchStore";

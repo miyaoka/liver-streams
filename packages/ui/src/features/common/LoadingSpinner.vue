@@ -1,3 +1,7 @@
+<doc lang="md">
+ローディングスピナー。サイズ（sm/md/lg）とメッセージを指定可能。
+</doc>
+
 <script setup lang="ts">
 defineProps<{
   size?: "sm" | "md" | "lg";

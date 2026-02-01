@@ -1,3 +1,15 @@
+<doc lang="md">
+イベント詳細のポップオーバー UI。カードクリックで開き、配信の詳細情報を表示する。
+
+## 機能
+
+- 大きめのサムネイル表示
+- タイトル内のキーワード・ハッシュタグをクリックして検索
+- コラボメンバーのアイコン一覧と検索
+- ブックマーク・通知の追加/解除
+- 通知許可リクエスト（未許可時）
+</doc>
+
 <script setup lang="ts">
 import type { LiverEvent } from "@liver-streams/core";
 import { parseSegment, getThumbnail, fullDateFormatter } from "@liver-streams/core";
