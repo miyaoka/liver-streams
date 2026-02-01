@@ -6,7 +6,6 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 
 <img width="2048" height="1199" alt="liver-streams-git-main-miyaokamiyaos-projects vercel app_" src="https://github.com/user-attachments/assets/b42388bf-5abd-4d4a-b809-d7528a8834c7" />
 
-
 ## 機能
 
 - **配信スケジュール一覧** - にじさんじ・ホロライブの配信予定を日付・時間ごとに表示
