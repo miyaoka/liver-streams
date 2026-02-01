@@ -1,4 +1,4 @@
-# データフローとフィルタリング処理
+# アプリ内部のデータフローと UI
 
 ## 概要
 
@@ -310,38 +310,6 @@ const [holoEvents, nijiStreams] = await Promise.all([fetchHoloEventList(), fetch
 3. ブックマークイベントの処理
 4. フィルタリングの再適用
 5. UI の更新
-
-## 既知の問題
-
-### にじさんじの新規タレント表示問題
-
-現在、にじさんじのタレント情報は静的ファイル (`src/services/nijisanji/sample3/livers.json`) から読み込まれています。
-そのため、以下の問題が発生します：
-
-**問題の詳細**:
-
-1. APIから新しいタレントの配信情報が取得されても表示されない
-2. `getNijiEvents` 関数（`src/services/api.ts:144-149`）で、`nijiLiverMap` に存在しないタレントIDは除外される
-3. コンソールに `talent not found: [タレントID]` の警告が出力される
-
-**該当コード**:
-
-```typescript
-// src/services/api.ts
-function getTalent(id: string) {
-  const talent = nijiLiverMap[id];
-  if (!talent) {
-    console.warn(`talent not found: ${id}`);
-    return null; // ← ここで null を返すと配信が除外される
-  }
-  // ...
-}
-```
-
-**解決方法**:
-
-- `livers.json` を定期的に更新する
-- または、動的にタレント情報を取得するAPIエンドポイントを使用する
 
 ## まとめ
 
