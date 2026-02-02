@@ -29,6 +29,7 @@
     "@iconify-json/icon-park-outline": "1.2.4",
     "@iconify-json/icon-park-solid": "1.2.4",
     "@iconify-json/mdi": "1.2.3",
+    "@miyaoka/vite-plugin-doc-block": "0.0.2",
     "@tailwindcss/vite": "4.1.18",
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
@@ -49,7 +50,6 @@
     "tailwindcss": "4.1.18",
     "typescript": "catalog:",
     "vite": "8.0.0-beta.11",
-    "vite-plugin-doc-block": "0.0.2",
     "vite-plugin-vue-devtools": "8.0.5",
     "vue-tsc": "3.2.4"
   }
