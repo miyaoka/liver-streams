@@ -5,16 +5,12 @@
       "name": "ホロライブ",
       "children": [
         {
-          "name": "未分類",
-          "children": [
-            "ホロカ公式"
-          ]
-        },
-        {
           "name": "公式",
           "children": [
             "ホロライブ",
-            "Blue Journey"
+            "Blue Journey",
+            "ホロカ公式",
+            "holoAN room"
           ]
         },
         {
