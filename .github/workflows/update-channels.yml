@@ -1,0 +1,37 @@
+name: update-channels
+
+on:
+  schedule:
+    # 毎日 UTC 15:10（JST 00:10）に実行
+    - cron: "10 15 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Setup environment
+        uses: ./.github/actions/setup-environment
+
+      - name: Update nijisanji channels
+        run: pnpm --filter @liver-streams/services-nijisanji update-channels
+
+      - name: Update hololive channels
+        run: pnpm --filter @liver-streams/services-hololive update-channels
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
+        with:
+          branch: update-channels
+          title: チャンネル情報を更新
+          body: 自動更新により新規チャンネルを検出しました。
+          commit-message: チャンネル情報を更新
+          reviewers: miyaoka
