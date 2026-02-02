@@ -18,7 +18,7 @@
     "typecheck": "tsgo --noEmit",
     "lint": "oxlint --type-aware .",
     "fix": "oxlint --type-aware --fix . && oxfmt --write .",
-    "update-talents": "bun scripts/update-talents.ts"
+    "update-channels": "bun scripts/update-channels.ts"
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*"
