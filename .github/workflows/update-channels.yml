@@ -28,6 +28,7 @@ jobs:
         run: pnpm --filter @liver-streams/services-hololive update-channels
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
         with:
           branch: update-channels
@@ -35,3 +36,9 @@ jobs:
           body: 自動更新により新規チャンネルを検出しました。
           commit-message: チャンネル情報を更新
           reviewers: miyaoka
+
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        run: gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
