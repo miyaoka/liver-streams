@@ -3,5 +3,12 @@
   "extends": ["config:best-practices", ":pinDependencies"],
   "labels": ["dependencies"],
   "assignees": ["miyaoka"],
-  "reviewers": ["miyaoka"]
+  "reviewers": ["miyaoka"],
+  "packageRules": [
+    {
+      "description": "tsgo dev preview は日次更新のため auto-merge",
+      "matchPackageNames": ["@typescript/native-preview"],
+      "automerge": true
+    }
+  ]
 }
