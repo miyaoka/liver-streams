@@ -21,7 +21,7 @@ catalog:
 
 minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
-  - vite-plugin-doc-block
+  - "@miyaoka/vite-plugin-doc-block"
 
 onlyBuiltDependencies:
   - esbuild
