@@ -34,8 +34,11 @@ export function createNijisanjiService(config: NijisanjiServiceConfig): EventSer
         iconBaseUrl,
       });
     },
-    getIcon(name: string): string | undefined {
+    getIcon(name: string): string {
       return getIconPath(name, iconBaseUrl);
+    },
+    getLogo(): string {
+      return getIconPath("nijisanji_logo", iconBaseUrl);
     },
   };
 }
@@ -51,21 +54,18 @@ async function getNijiEvents({
   nijiStreams,
   iconBaseUrl,
 }: GetNijiEventsParams): Promise<LiverEvent[]> {
-  const defaultIcon = `${iconBaseUrl}/defaultAccount.svg`;
-
   function getTalent(id: string): LiverTalent {
     const talent = nijiLiverMap[id];
     if (!talent) {
       console.warn(`talent not found: ${id}`);
       return {
         name: `Unknown (${id})`,
-        image: defaultIcon,
+        image: getIconPath("", iconBaseUrl),
       };
     }
-    const icon = getIconPath(talent.name, iconBaseUrl);
     return {
       name: talent.name,
-      image: icon ?? defaultIcon,
+      image: getIconPath(talent.name, iconBaseUrl),
     };
   }
 

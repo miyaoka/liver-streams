@@ -5,15 +5,19 @@
 </doc>
 
 <script setup lang="ts">
-import type { ChannelNode } from "@liver-streams/core";
+import type { ChannelNode, EventService } from "@liver-streams/core";
 import { computed, onMounted, ref } from "vue";
-import { getChannelIcon } from "../../shared/services";
 import { useSearchStore } from "../../shared/stores/searchStore";
 import { useTalentFilterStore } from "./talentFilterStore";
 
 const props = defineProps<{
   node: ChannelNode;
+  service: EventService;
 }>();
+
+function getIcon(name: string): string {
+  return props.service.getIcon(name);
+}
 const emit = defineEmits<{
   change: [];
 }>();
@@ -141,7 +145,7 @@ async function onNodeChange() {
             ></i>
           </p> -->
           <img
-            :src="getChannelIcon(name)"
+            :src="getIcon(name)"
             alt="icon"
             class="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline-2 group-hover:outline-solid"
             loading="lazy"
@@ -157,6 +161,7 @@ async function onNodeChange() {
         <ChannelNode
           v-for="child in children.childNodes"
           :node="child"
+          :service="service"
           :key="child.name"
           @change="onNodeChange"
         />
