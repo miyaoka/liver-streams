@@ -23,7 +23,7 @@
     "vue-router": "5.0.1"
   },
   "devDependencies": {
-    "@egoist/tailwindcss-icons": "1.9.0",
+    "@egoist/tailwindcss-icons": "1.9.2",
     "@happy-dom/global-registrator": "catalog:",
     "@iconify-json/eva": "1.2.3",
     "@iconify-json/icon-park-outline": "1.2.4",
