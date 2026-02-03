@@ -17,7 +17,7 @@
     "@liver-streams/core": "workspace:*",
     "@liver-streams/services-hololive": "workspace:*",
     "@liver-streams/services-nijisanji": "workspace:*",
-    "@vueuse/core": "14.1.0",
+    "@vueuse/core": "14.2.0",
     "pinia": "3.0.4",
     "vue": "3.5.27",
     "vue-router": "5.0.1"
