@@ -1,9 +1,9 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { computed, toRaw, type Ref } from "vue";
 import { useBookmarkStore } from "../../features/bookmark/bookmarkStore";
+import { useNewArrivalsStore } from "../../features/newArrivals/newArrivalsStore";
 import { useDateStore } from "../../shared/stores/dateStore";
 import { useHoverStore } from "../../shared/stores/hoverStore";
-import { useEventListStore } from "../../store/eventListStore";
 
 const oneHour = 60 * 60 * 1000;
 
@@ -13,7 +13,7 @@ const liveEndDuration = 60 * 60 * 1000;
 
 export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
   const dateStore = useDateStore();
-  const eventListStore = useEventListStore();
+  const newArrivalsStore = useNewArrivalsStore();
   const bookmarkStore = useBookmarkStore();
   const hoverStore = useHoverStore();
 
@@ -85,7 +85,7 @@ export const useLiverEvent = (liverEvent: Ref<LiverEvent>) => {
   });
 
   const isNew = computed(() => {
-    return eventListStore.addedEventIdSet.has(liverEvent.value.id);
+    return newArrivalsStore.newArrivalsIdSet.has(liverEvent.value.id);
   });
 
   const hasBookmark = computed(() => {

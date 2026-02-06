@@ -5,15 +5,15 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { closePopover } from "../../shared/utils/popover";
-import { useEventListStore } from "../../store/eventListStore";
 import NewArrivalsListItem from "./NewArrivalsListItem.vue";
+import { useNewArrivalsStore } from "./newArrivalsStore";
 
 defineProps<{
   lastCloseTime: number;
 }>();
 
-const eventListStore = useEventListStore();
-const eventCount = computed(() => eventListStore.addedEventList.length);
+const newArrivalsStore = useNewArrivalsStore();
+const eventCount = computed(() => newArrivalsStore.newArrivalsList.length);
 </script>
 
 <template>
@@ -39,7 +39,7 @@ const eventCount = computed(() => eventListStore.addedEventList.length);
       <!-- 逆順表示 -->
       <div v-else class="flex flex-col-reverse">
         <NewArrivalsListItem
-          v-for="{ liverEvent, addedTime } in eventListStore.addedEventList"
+          v-for="{ liverEvent, addedTime } in newArrivalsStore.newArrivalsList"
           :key="liverEvent.id"
           :addedTime="addedTime"
           :lastCloseTime="lastCloseTime"

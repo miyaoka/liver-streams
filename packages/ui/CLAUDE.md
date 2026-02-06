@@ -32,14 +32,13 @@ pnpm lint:fix    # リント自動修正
 サービス統合レイヤー。`@liver-streams/service-hololive` と `@liver-streams/service-nijisanji` を統合。
 
 - `services` - EventService の配列
-- `fetchAllEvents()` - ホロライブ・にじさんじの配信情報を統合取得
-- `getChannelIcon()` - タレント名からアイコン URL を取得
+- `getAffiliationLogo()` - 所属ロゴ URL を取得
 
 ## store
 
 ### eventListStore.ts
 
-メインのイベント管理:
+メインのイベント管理。各サービス（ホロライブ・にじさんじ）を並列で取得し、完了したサービスから順次表示するインクリメンタル更新方式:
 
 - `liverEventList` - 全イベントリスト
 - `filteredEventList` - フィルター適用後のリスト

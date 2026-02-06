@@ -1,11 +1,15 @@
-import { getFilteredEventList, createDateSectionList } from "@liver-streams/core";
+import {
+  getFilteredEventList,
+  createDateSectionList,
+  compareLiverEvent,
+} from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { processBookmarkNotification } from "../features/bookmark/useBookmarkNotification";
 import { useTalentFilterStore } from "../features/channelFilter/talentFilterStore";
 import { useNewArrivalsStore } from "../features/newArrivals/newArrivalsStore";
-import { fetchAllEvents } from "../shared/services";
+import { services } from "../shared/services";
 import { useSearchStore } from "../shared/stores/searchStore";
 
 export const useEventListStore = defineStore("eventListStore", () => {
@@ -39,29 +43,41 @@ export const useEventListStore = defineStore("eventListStore", () => {
   });
 
   async function updateLiverEventList() {
-    // list取得
-    const newLiverEventList = await fetchAllEvents();
+    const prevList = liverEventList.value;
 
-    // map更新
-    const eventMap = new Map<string, LiverEvent>();
-    newLiverEventList.forEach((liverEvent) => {
-      eventMap.set(liverEvent.id, liverEvent);
+    // 各サービスを並列で開始し、失敗したサービスは空配列として扱う
+    const promises = services.map(async (service) => {
+      try {
+        return await service.fetchEventList();
+      } catch {
+        return [];
+      }
     });
-    liverEventMap.value = eventMap;
 
-    // 新着更新
-    newArrivalsStore.updateNewArrivals(newLiverEventList, liverEventList.value, eventMap);
+    // サービス結果を蓄積し、完了するたびに画面を更新する
+    const serviceResults: LiverEvent[][] = [];
+    let merged: LiverEvent[] = [];
+    for (const promise of promises) {
+      const result = await promise;
+      serviceResults.push(result);
 
-    // list更新
-    liverEventList.value = newLiverEventList;
+      merged = serviceResults.flat().sort(compareLiverEvent);
 
-    // bookmark通知処理
-    processBookmarkNotification(eventMap);
+      // map更新
+      const eventMap = new Map<string, LiverEvent>();
+      merged.forEach((e) => eventMap.set(e.id, e));
+      liverEventMap.value = eventMap;
+
+      // list更新（即座に画面反映）
+      liverEventList.value = merged;
+    }
+
+    // 全サービス完了後: 新着更新
+    newArrivalsStore.updateNewArrivals(merged, prevList, liverEventMap.value);
+
+    // 全サービス完了後: bookmark通知処理
+    processBookmarkNotification(liverEventMap.value);
   }
-
-  // 後方互換性のためのエイリアス
-  const addedEventList = computed(() => newArrivalsStore.newArrivalsList);
-  const addedEventIdSet = computed(() => newArrivalsStore.newArrivalsIdSet);
 
   return {
     liverEventList,
@@ -69,11 +85,8 @@ export const useEventListStore = defineStore("eventListStore", () => {
     onLiveEventList,
     dateSectionList,
     liverEventMap,
-    addedEventList,
-    addedEventIdSet,
     isLoading,
     updateLiverEventList,
-    clearAddedEventList: () => newArrivalsStore.clearNewArrivals(),
   };
 });
 
