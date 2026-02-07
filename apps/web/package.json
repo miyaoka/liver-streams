@@ -11,7 +11,7 @@
     "build-only": "vite build",
     "typecheck": "vue-tsc --build --force",
     "lint": "eslint .",
-    "fix": "eslint . --fix -c eslint.config.fix.ts && oxfmt --write ."
+    "fix": "eslint . --fix -c eslint.config.fix.ts && oxfmt ."
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*",

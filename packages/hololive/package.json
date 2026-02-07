@@ -17,7 +17,7 @@
     "dev": "vite build --watch",
     "typecheck": "tsgo --noEmit",
     "lint": "oxlint --type-aware .",
-    "fix": "oxlint --type-aware --fix . && oxfmt --write .",
+    "fix": "oxlint --type-aware --fix . && oxfmt .",
     "update-channels": "bun scripts/update-channels.ts"
   },
   "dependencies": {

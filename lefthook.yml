@@ -1,3 +1,4 @@
+# ** が0階層以上にマッチするようにする（デフォルトは1階層以上）
 glob_matcher: doublestar
 
 output:
@@ -9,7 +10,7 @@ pre-commit:
     # Formatter（ts/vue 以外。ts/vue は各 linter ジョブで oxfmt を実行）
     - name: oxfmt
       glob: "**/*.{css,scss,md}"
-      run: pnpm exec oxfmt --write {staged_files}
+      run: pnpm exec oxfmt {staged_files}
       stage_fixed: true
 
     # Linter + Formatter
@@ -18,30 +19,59 @@ pre-commit:
       exclude:
         - "apps/**"
         - "packages/**"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
       stage_fixed: true
     - name: oxlint-core
       root: "packages/core/"
       glob: "**/*.ts"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
       stage_fixed: true
     - name: oxlint-hololive
       root: "packages/hololive/"
       glob: "**/*.ts"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
       stage_fixed: true
     - name: oxlint-nijisanji
       root: "packages/nijisanji/"
       glob: "**/*.ts"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
       stage_fixed: true
-    - name: oxlint-web
-      root: "apps/web/"
-      glob: "**/*.ts"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
-      stage_fixed: true
-    - name: eslint-web
-      root: "apps/web/"
-      glob: "**/*.{ts,vue}"
-      run: pnpm exec eslint --cache --fix -c eslint.config.fix.ts {staged_files} && pnpm exec oxfmt --write {staged_files}
-      stage_fixed: true
+
+    # apps/web: .ts は oxlint、.vue は eslint。oxfmt は全ファイルに適用
+    # 同一ファイルへの競合を避けるため piped で直列実行
+    - name: web
+      root: apps/web/
+      glob: "**/*.{ts,vue,css,scss,md}"
+      group:
+        piped: true
+        jobs:
+          - name: oxlint
+            glob: "**/*.ts"
+            run: pnpm exec oxlint --type-aware --fix {staged_files}
+            stage_fixed: true
+          - name: eslint
+            glob: "**/*.vue"
+            run: pnpm exec eslint --cache --fix -c eslint.config.fix.ts {staged_files}
+            stage_fixed: true
+          - name: oxfmt
+            run: pnpm exec oxfmt {staged_files}
+            stage_fixed: true
+
+# git pull / merge 後に lockfile の変更を検出し、pnpm install を促す
+post-merge:
+  jobs:
+    - name: check-lockfile
+      run: |
+        if git diff --name-only ORIG_HEAD HEAD | grep -q "pnpm-lock.yaml"; then
+          printf '\033[33m⚠️  pnpm-lock.yaml has changed. Run pnpm install to update dependencies.\033[0m\n'
+        fi
+
+# ブランチ切り替え後に lockfile の変更を検出し、pnpm install を促す
+# {3}=1: branch checkout, {3}=0: file checkout
+post-checkout:
+  jobs:
+    - name: check-lockfile
+      run: |
+        if [ "{3}" = "1" ] && git diff --name-only {1} {2} | grep -q "pnpm-lock.yaml"; then
+          printf '\033[33m⚠️  pnpm-lock.yaml has changed. Run pnpm install to update dependencies.\033[0m\n'
+        fi

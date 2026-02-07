@@ -18,7 +18,7 @@
     "test": "bun test",
     "typecheck": "tsgo --noEmit",
     "lint": "oxlint --type-aware .",
-    "fix": "oxlint --type-aware --fix . && oxfmt --write ."
+    "fix": "oxlint --type-aware --fix . && oxfmt ."
   },
   "devDependencies": {
     "@tsconfig/node24": "catalog:",
