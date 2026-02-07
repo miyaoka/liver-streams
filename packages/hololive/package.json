@@ -1,5 +1,5 @@
 {
-  "name": "@liver-streams/services-hololive",
+  "name": "@liver-streams/hololive",
   "version": "0.0.0",
   "private": true,
   "type": "module",

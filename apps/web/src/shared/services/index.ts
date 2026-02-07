@@ -1,7 +1,7 @@
 import { compareLiverEvent } from "@liver-streams/core";
 import type { EventService, LiverEvent } from "@liver-streams/core";
-import { createHololiveService } from "@liver-streams/services-hololive";
-import { createNijisanjiService } from "@liver-streams/services-nijisanji";
+import { createHololiveService } from "@liver-streams/hololive";
+import { createNijisanjiService } from "@liver-streams/nijisanji";
 
 const nijiApiBaseUrl = import.meta.env.VITE_NIJI_API_BASE;
 

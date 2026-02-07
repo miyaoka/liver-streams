@@ -1,5 +1,5 @@
 {
-  "name": "@liver-streams/services-nijisanji",
+  "name": "@liver-streams/nijisanji",
   "version": "0.0.0",
   "private": true,
   "type": "module",

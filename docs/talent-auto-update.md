@@ -4,15 +4,15 @@
 
 ### 設計方針
 
-- **画像の実体**: 各 service パッケージ（`services/*/assets/icons/`）で管理
-- **公開の責務**: UI パッケージ（`packages/ui`）が担う
+- **画像の実体**: 各データソースパッケージ（`packages/*/assets/icons/`）で管理
+- **公開の責務**: web アプリ（`apps/web`）が担う
 
-この分離により、タレント情報と画像を service 単位で一元管理しつつ、公開は UI に任せる構成になっている。
+この分離により、タレント情報と画像をパッケージ単位で一元管理しつつ、公開は web に任せる構成になっている。
 
 ### ファイル配置
 
 ```
-services/
+packages/
 ├── hololive/
 │   ├── assets/icons/         # アイコン画像（実体）
 │   ├── data/
@@ -29,9 +29,9 @@ services/
     └── scripts/
         └── update-talents.ts
 
-packages/ui/public/icons/
-├── hololive -> ../../../../services/hololive/assets/icons   # symlink
-└── nijisanji -> ../../../../services/nijisanji/assets/icons # symlink
+apps/web/public/icons/
+├── hololive -> ../../../../packages/hololive/assets/icons   # symlink
+└── nijisanji -> ../../../../packages/nijisanji/assets/icons # symlink
 ```
 
 ### 開発時と本番時の画像パス
@@ -109,10 +109,10 @@ flowchart TD
 
 ```bash
 # にじさんじ
-pnpm --filter @liver-streams/services-nijisanji update-talents
+pnpm --filter @liver-streams/nijisanji update-talents
 
 # ホロライブ
-pnpm --filter @liver-streams/services-hololive update-talents
+pnpm --filter @liver-streams/hololive update-talents
 ```
 
 ### GitHub Actions

@@ -1,6 +1,6 @@
-# @liver-streams/services-hololive
+# @liver-streams/hololive
 
-ホロライブ配信情報を取得するサービスパッケージ。
+ホロライブ配信情報を取得するパッケージ。
 
 ## 開発コマンド
 
@@ -26,7 +26,7 @@ pnpm lint:fix    # リント自動修正
 `EventService` インターフェースを実装したサービスを生成する。
 
 ```typescript
-import { createHololiveService } from "@liver-streams/services-hololive";
+import { createHololiveService } from "@liver-streams/hololive";
 
 const service = createHololiveService({
   iconBaseUrl: "/icons",

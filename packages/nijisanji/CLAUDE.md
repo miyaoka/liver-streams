@@ -1,6 +1,6 @@
-# @liver-streams/services-nijisanji
+# @liver-streams/nijisanji
 
-にじさんじ配信情報を取得するサービスパッケージ。
+にじさんじ配信情報を取得するパッケージ。
 
 ## 開発コマンド
 
@@ -27,7 +27,7 @@ pnpm lint:fix    # リント自動修正
 `EventService` インターフェースを実装したサービスを生成する。
 
 ```typescript
-import { createNijisanjiService } from "@liver-streams/services-nijisanji";
+import { createNijisanjiService } from "@liver-streams/nijisanji";
 
 const service = createNijisanjiService({
   iconBaseUrl: "/icons",

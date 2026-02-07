@@ -7,7 +7,7 @@
  * - channels.json: 新規タレントを「未分類」グループに追加
  * - assets/icons/: アイコン画像をダウンロード
  *
- * 実行: pnpm --filter @liver-streams/services-nijisanji update-talents
+ * 実行: pnpm --filter @liver-streams/nijisanji update-talents
  */
 
 import { mkdir, readFile, writeFile } from "fs/promises";
