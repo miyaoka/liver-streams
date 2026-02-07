@@ -8,7 +8,7 @@
     "build": "pnpm -r build",
     "preview": "pnpm --filter @liver-streams/ui preview",
     "test": "pnpm -r --parallel test",
-    "typecheck": "tsgo -p tsconfig.node.json --noEmit && pnpm -r --parallel typecheck",
+    "typecheck": "tsgo --noEmit && pnpm -r --parallel typecheck",
     "lint": "oxlint --type-aware . && pnpm -r --parallel lint",
     "fix": "oxlint --type-aware --fix . && oxfmt --write . && pnpm -r --parallel fix",
     "prepare": "git config --unset core.hooksPath 2>/dev/null; rm -rf .husky 2>/dev/null; lefthook install"
