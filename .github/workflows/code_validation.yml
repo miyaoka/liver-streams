@@ -23,13 +23,13 @@ jobs:
       matrix:
         include:
           - name: typecheck
-            command: pnpm run typecheck
+            command: pnpm run typecheck:all
 
           - name: lint
-            command: pnpm run lint
+            command: pnpm run lint:all
 
           - name: test
-            command: pnpm run test
+            command: pnpm run test:all
 
     steps:
       - name: Checkout code

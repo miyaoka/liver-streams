@@ -7,11 +7,13 @@
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
     "preview": "pnpm --filter @liver-streams/web preview",
-    "test": "pnpm -r --parallel test",
-    "typecheck": "tsgo --noEmit && pnpm -r --parallel typecheck",
-    "lint": "oxlint --type-aware . && pnpm -r --parallel lint",
-    "fix": "oxlint --type-aware --fix . && oxfmt --write . && pnpm -r --parallel fix",
-    "prepare": "git config --unset core.hooksPath 2>/dev/null; rm -rf .husky 2>/dev/null; lefthook install"
+    "test:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only test",
+    "typecheck": "tsgo --noEmit",
+    "typecheck:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only typecheck",
+    "lint:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only lint",
+    "fix": "oxfmt '!apps/**' '!packages/**'",
+    "fix:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only fix",
+    "prepare": "lefthook install"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "catalog:",
