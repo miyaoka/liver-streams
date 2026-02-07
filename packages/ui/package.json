@@ -11,7 +11,7 @@
     "build-only": "vite build",
     "typecheck": "vue-tsc --build --force",
     "lint": "eslint .",
-    "fix": "eslint . --fix -c eslint.config.fix.ts && prettier --write ."
+    "fix": "eslint . --fix -c eslint.config.fix.ts && oxfmt --write ."
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*",
@@ -46,7 +46,7 @@
     "happy-dom": "20.5.0",
     "jiti": "2.6.1",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.8.1",
+    "oxfmt": "catalog:",
     "tailwindcss": "4.1.18",
     "typescript": "catalog:",
     "vite": "8.0.0-beta.12",

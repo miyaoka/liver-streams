@@ -3,11 +3,11 @@ packages:
   - services/*
 
 catalog:
-  "@happy-dom/global-registrator": 20.5.0
-  "@tsconfig/node24": 24.0.4
-  "@typescript/native-preview": 7.0.0-dev.20260203.1
-  "@types/bun": 1.3.8
-  "@types/node": 24.10.10
+  '@happy-dom/global-registrator': 20.5.0
+  '@tsconfig/node24': 24.0.4
+  '@types/bun': 1.3.8
+  '@types/node': 24.10.10
+  '@typescript/native-preview': 7.0.0-dev.20260203.1
   eslint: 9.39.2
   eslint-plugin-import-x: 4.16.1
   eslint-plugin-unused-imports: 4.3.0
@@ -20,8 +20,9 @@ catalog:
   vite: 8.0.0-beta.12
 
 minimumReleaseAge: 4320
+
 minimumReleaseAgeExclude:
-  - "@miyaoka/vite-plugin-doc-block"
+  - '@miyaoka/vite-plugin-doc-block'
 
 onlyBuiltDependencies:
   - esbuild

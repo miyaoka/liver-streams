@@ -37,7 +37,7 @@ export default defineConfigWithVueTs(
     },
   },
 
-  // Prettier（最後に配置）
+  // フォーマット系ルール無効化（最後に配置）
   skipFormatting,
 
   // Vue と Tailwind のカスタムルール
@@ -60,12 +60,12 @@ export default defineConfigWithVueTs(
       // このルールは初回呼び出しで全クラスのシグネチャを計算するため、
       // iconify のように大量のクラスがある場合に重くなる
       "better-tailwindcss/enforce-canonical-classes": "off",
-      // Prettier と競合するため off
-      // このルールはクラスを複数行に分割するが、Prettier が単一行に戻す
+      // フォーマッタと競合するため off
+      // このルールはクラスを複数行に分割するが、フォーマッタが単一行に戻す
       "better-tailwindcss/enforce-consistent-line-wrapping": "off",
-      // Prettier と競合するため off
+      // フォーマッタと競合するため off
       // VSCode で formatOnSave と source.fixAll を両方有効にしていると、
-      // Prettier と ESLint が同時にファイルを編集して文字が消えることがある
+      // フォーマッタと ESLint が同時にファイルを編集して文字が消えることがある
       // 例: "flex  items-center" → "flex tems-center"
       "better-tailwindcss/no-unnecessary-whitespace": "off",
     },
