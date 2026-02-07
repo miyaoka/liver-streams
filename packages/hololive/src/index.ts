@@ -9,7 +9,7 @@ import { fetchHoloEventList } from "./api";
 import { getIcon as getIconPath } from "./icons";
 
 const GITHUB_ICON_URL =
-  "https://raw.githubusercontent.com/miyaoka/liver-streams/main/services/hololive/assets/icons";
+  "https://raw.githubusercontent.com/miyaoka/liver-streams/main/packages/hololive/assets/icons";
 
 export function createHololiveService(config: EventServiceConfig): EventService {
   const iconBaseUrl = config.localIconBaseUrl ?? GITHUB_ICON_URL;

@@ -6,7 +6,7 @@
  * - channels.json: 新規タレントを「未分類」グループに追加
  * - assets/icons/: アイコン画像をダウンロード
  *
- * 実行: pnpm --filter @liver-streams/services-hololive update-talents
+ * 実行: pnpm --filter @liver-streams/hololive update-talents
  */
 
 import { mkdir, readFile, writeFile } from "fs/promises";

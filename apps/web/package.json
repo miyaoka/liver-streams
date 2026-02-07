@@ -1,5 +1,5 @@
 {
-  "name": "@liver-streams/ui",
+  "name": "@liver-streams/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*",
-    "@liver-streams/services-hololive": "workspace:*",
-    "@liver-streams/services-nijisanji": "workspace:*",
+    "@liver-streams/hololive": "workspace:*",
+    "@liver-streams/nijisanji": "workspace:*",
     "@vueuse/core": "14.2.0",
     "pinia": "3.0.4",
     "vue": "3.5.27",

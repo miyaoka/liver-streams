@@ -1,4 +1,4 @@
-# @liver-streams/ui
+# @liver-streams/web
 
 VTuber 配信情報アプリケーションのフロントエンド。Vue 3 + Vite で構築。
 
@@ -29,7 +29,7 @@ pnpm lint:fix    # リント自動修正
 
 ### index.ts
 
-サービス統合レイヤー。`@liver-streams/service-hololive` と `@liver-streams/service-nijisanji` を統合。
+サービス統合レイヤー。`@liver-streams/hololive` と `@liver-streams/nijisanji` を統合。
 
 - `services` - EventService の配列
 - `fetchAllEvents()` - ホロライブ・にじさんじの配信情報を統合取得

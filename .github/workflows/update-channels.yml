@@ -22,10 +22,10 @@ jobs:
         uses: ./.github/actions/setup-environment
 
       - name: Update nijisanji channels
-        run: pnpm --filter @liver-streams/services-nijisanji update-channels
+        run: pnpm --filter @liver-streams/nijisanji update-channels
 
       - name: Update hololive channels
-        run: pnpm --filter @liver-streams/services-hololive update-channels
+        run: pnpm --filter @liver-streams/hololive update-channels
 
       - name: Create Pull Request
         id: cpr

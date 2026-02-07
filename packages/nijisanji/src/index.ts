@@ -12,7 +12,7 @@ import type { NijiLiverMap, NijiStream } from "./api";
 import { getIcon as getIconPath } from "./icons";
 
 const GITHUB_ICON_URL =
-  "https://raw.githubusercontent.com/miyaoka/liver-streams/main/services/nijisanji/assets/icons";
+  "https://raw.githubusercontent.com/miyaoka/liver-streams/main/packages/nijisanji/assets/icons";
 
 export interface NijisanjiServiceConfig extends EventServiceConfig {
   apiBaseUrl?: string;

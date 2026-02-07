@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
-    "preview": "pnpm --filter @liver-streams/ui preview",
+    "preview": "pnpm --filter @liver-streams/web preview",
     "test": "pnpm -r --parallel test",
     "typecheck": "tsgo --noEmit && pnpm -r --parallel typecheck",
     "lint": "oxlint --type-aware . && pnpm -r --parallel lint",

@@ -3,8 +3,8 @@
 </doc>
 
 <script setup lang="ts">
-import { hololiveChannels } from "@liver-streams/services-hololive";
-import { nijisanjiChannels } from "@liver-streams/services-nijisanji";
+import { hololiveChannels } from "@liver-streams/hololive";
+import { nijisanjiChannels } from "@liver-streams/nijisanji";
 import { computed, ref } from "vue";
 import { usePopover } from "../../shared/composables/usePopover";
 import { getAffiliationLogo, services } from "../../shared/services";

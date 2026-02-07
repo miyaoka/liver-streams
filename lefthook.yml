@@ -16,8 +16,8 @@ pre-commit:
     - name: oxlint-root
       glob: "*.ts"
       exclude:
+        - "apps/**"
         - "packages/**"
-        - "services/**"
       run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
     - name: oxlint-core
@@ -25,18 +25,23 @@ pre-commit:
       glob: "**/*.ts"
       run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
-    - name: oxlint-services-hololive
-      root: "services/hololive/"
+    - name: oxlint-hololive
+      root: "packages/hololive/"
       glob: "**/*.ts"
       run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
-    - name: oxlint-services-nijisanji
-      root: "services/nijisanji/"
+    - name: oxlint-nijisanji
+      root: "packages/nijisanji/"
       glob: "**/*.ts"
       run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
-    - name: eslint-ui
-      root: "packages/ui/"
+    - name: oxlint-web
+      root: "apps/web/"
+      glob: "**/*.ts"
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
+      stage_fixed: true
+    - name: eslint-web
+      root: "apps/web/"
       glob: "**/*.{ts,vue}"
       run: pnpm exec eslint --cache --fix -c eslint.config.fix.ts {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
