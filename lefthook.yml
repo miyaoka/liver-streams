@@ -1,42 +1,42 @@
+glob_matcher: doublestar
+
+output:
+  - execution_out
+
 pre-commit:
   parallel: true
-  commands:
-    # Formatter
-    oxfmt:
-      glob: "*.{ts,css,scss,md}"
-      exclude: "packages/ui/**"
-      run: pnpm oxfmt --write {staged_files}
-      stage_fixed: true
-    prettier-ui:
-      root: "packages/ui"
-      glob: "*.{ts,vue,css,scss,md}"
-      run: pnpm prettier --write {staged_files}
+  jobs:
+    # Formatter（ts/vue 以外。ts/vue は各 linter ジョブで oxfmt を実行）
+    - name: oxfmt
+      glob: "**/*.{css,scss,md}"
+      run: pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
 
-    # Linter
-    oxlint-root:
-      root: "."
+    # Linter + Formatter
+    - name: oxlint-root
       glob: "*.ts"
-      exclude: "{packages,services}/**"
-      run: pnpm oxlint --type-aware --fix {staged_files}
+      exclude:
+        - "packages/**"
+        - "services/**"
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
-    oxlint-core:
-      root: "packages/core"
-      glob: "*.ts"
-      run: pnpm oxlint --type-aware --fix {staged_files}
+    - name: oxlint-core
+      root: "packages/core/"
+      glob: "**/*.ts"
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
-    oxlint-services-hololive:
-      root: "services/hololive"
-      glob: "*.ts"
-      run: pnpm oxlint --type-aware --fix {staged_files}
+    - name: oxlint-services-hololive
+      root: "services/hololive/"
+      glob: "**/*.ts"
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
-    oxlint-services-nijisanji:
-      root: "services/nijisanji"
-      glob: "*.ts"
-      run: pnpm oxlint --type-aware --fix {staged_files}
+    - name: oxlint-services-nijisanji
+      root: "services/nijisanji/"
+      glob: "**/*.ts"
+      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
-    eslint-ui:
-      root: "packages/ui"
-      glob: "*.{ts,vue}"
-      run: pnpm eslint --cache --fix -c eslint.config.fix.ts {staged_files}
+    - name: eslint-ui
+      root: "packages/ui/"
+      glob: "**/*.{ts,vue}"
+      run: pnpm exec eslint --cache --fix -c eslint.config.fix.ts {staged_files} && pnpm exec oxfmt --write {staged_files}
       stage_fixed: true
