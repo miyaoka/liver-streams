@@ -5,6 +5,12 @@
       "name": "ホロライブ",
       "children": [
         {
+          "name": "未分類",
+          "children": [
+            "Elizabeth Sub"
+          ]
+        },
+        {
           "name": "公式",
           "children": [
             "ホロライブ",
