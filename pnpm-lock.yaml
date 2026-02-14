@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@happy-dom/global-registrator':
-      specifier: 20.5.3
-      version: 20.5.3
+      specifier: 20.6.1
+      version: 20.6.1
     '@tsconfig/node24':
       specifier: 24.0.4
       version: 24.0.4
@@ -55,7 +55,7 @@ importers:
     devDependencies:
       '@happy-dom/global-registrator':
         specifier: 'catalog:'
-        version: 20.5.3
+        version: 20.6.1
       '@tsconfig/node24':
         specifier: 'catalog:'
         version: 24.0.4
@@ -110,7 +110,7 @@ importers:
         version: 1.9.2(tailwindcss@4.1.18)
       '@happy-dom/global-registrator':
         specifier: 'catalog:'
-        version: 20.5.3
+        version: 20.6.1
       '@iconify-json/eva':
         specifier: 1.2.3
         version: 1.2.3
@@ -166,8 +166,8 @@ importers:
         specifier: 10.7.0
         version: 10.7.0(@typescript-eslint/parser@8.54.0(eslint@10.0.0(jiti@2.6.1))(typescript@5.9.3))(eslint@10.0.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@10.0.0(jiti@2.6.1)))
       happy-dom:
-        specifier: 20.5.3
-        version: 20.5.3
+        specifier: 20.6.1
+        version: 20.6.1
       jiti:
         specifier: 2.6.1
         version: 2.6.1
@@ -649,8 +649,8 @@ packages:
     resolution: {integrity: sha512-bIZEUzOI1jkhviX2cp5vNyXQc6olzb2ohewQubuYlMXZ2Q/XjBO0x0XhGPvc9fjSIiUN0vw+0hq53BJ4eQSJKQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@happy-dom/global-registrator@20.5.3':
-    resolution: {integrity: sha512-9wJc80/X6ZRD/9e4YjtDU1dtYQJbK/PPkUEs/GGcTingZpo/JVe792UgJogsSobfPxt1DG9zx3le0SkQfhb9bg==}
+  '@happy-dom/global-registrator@20.6.1':
+    resolution: {integrity: sha512-4Aji+soqukwUxq2DgHmkjxdGnG7hEiJuprqDlW4Wu6AQ0t8U9ItlICcM5to89pulIsEGrF1CkCoNrufQTcqb8A==}
     engines: {node: '>=20.0.0'}
 
   '@humanfs/core@0.19.1':
@@ -1839,8 +1839,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  happy-dom@20.5.3:
-    resolution: {integrity: sha512-xqAxGnkRU0KNhheHpxb3uScqg/aehqUiVto/a9ApWMyNvnH9CAqHYq9dEPAovM6bOGbLstmTfGIln5ZIezEU0g==}
+  happy-dom@20.6.1:
+    resolution: {integrity: sha512-+0vhESXXhFwkdjZnJ5DlmJIfUYGgIEEjzIjB+aKJbFuqlvvKyOi+XkI1fYbgYR9QCxG5T08koxsQ6HrQfa5gCQ==}
     engines: {node: '>=20.0.0'}
 
   has-flag@4.0.0:
@@ -3084,10 +3084,10 @@ snapshots:
       '@eslint/core': 1.1.0
       levn: 0.4.1
 
-  '@happy-dom/global-registrator@20.5.3':
+  '@happy-dom/global-registrator@20.6.1':
     dependencies:
       '@types/node': 24.10.12
-      happy-dom: 20.5.3
+      happy-dom: 20.6.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4241,7 +4241,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  happy-dom@20.5.3:
+  happy-dom@20.6.1:
     dependencies:
       '@types/node': 24.10.12
       '@types/whatwg-mimetype': 3.0.2
