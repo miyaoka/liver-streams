@@ -20,7 +20,7 @@
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
     "@typescript/native-preview": "catalog:",
-    "lefthook": "2.1.0",
+    "lefthook": "2.1.1",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
