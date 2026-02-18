@@ -36,7 +36,6 @@ jobs:
           title: チャンネル情報を更新
           body: 自動更新により新規チャンネルを検出しました。
           commit-message: チャンネル情報を更新
-          reviewers: miyaoka
 
       - name: Enable auto-merge
         if: steps.cpr.outputs.pull-request-operation == 'created'
