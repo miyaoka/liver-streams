@@ -15,7 +15,7 @@ catalog:
   oxlint: 1.47.0
   oxlint-tsgolint: 0.13.0
   typescript: 5.9.3
-  typescript-eslint: 8.55.0
+  typescript-eslint: 8.56.0
   unplugin-dts: 1.0.0-beta.6
   vite: 8.0.0-beta.14
 
