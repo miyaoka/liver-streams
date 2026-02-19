@@ -39,7 +39,7 @@
     "@vue/eslint-config-typescript": "14.6.0",
     "@vue/tsconfig": "0.8.1",
     "eslint": "catalog:",
-    "eslint-plugin-better-tailwindcss": "4.2.0",
+    "eslint-plugin-better-tailwindcss": "4.3.0",
     "eslint-plugin-import-x": "catalog:",
     "eslint-plugin-unused-imports": "catalog:",
     "eslint-plugin-vue": "10.8.0",
