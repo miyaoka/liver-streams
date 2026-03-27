@@ -23,6 +23,8 @@ minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
   - '@miyaoka/vite-plugin-doc-block'
+  # Renovate security update: happy-dom@20.8.8
+  - happy-dom@20.8.8
 
 onlyBuiltDependencies:
   - esbuild
