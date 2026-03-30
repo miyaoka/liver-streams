@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@happy-dom/global-registrator':
-      specifier: 20.8.8
-      version: 20.8.8
+      specifier: 20.8.9
+      version: 20.8.9
     '@tsconfig/node24':
       specifier: 24.0.4
       version: 24.0.4
@@ -55,7 +55,7 @@ importers:
     devDependencies:
       '@happy-dom/global-registrator':
         specifier: 'catalog:'
-        version: 20.8.8
+        version: 20.8.9
       '@tsconfig/node24':
         specifier: 'catalog:'
         version: 24.0.4
@@ -110,7 +110,7 @@ importers:
         version: 1.9.2(tailwindcss@4.2.2)
       '@happy-dom/global-registrator':
         specifier: 'catalog:'
-        version: 20.8.8
+        version: 20.8.9
       '@iconify-json/eva':
         specifier: 1.2.3
         version: 1.2.3
@@ -484,8 +484,8 @@ packages:
     resolution: {integrity: sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@happy-dom/global-registrator@20.8.8':
-    resolution: {integrity: sha512-2NE+gfUX092su6oZYw6yOfgPYAfx9NBLFdMLNdZZtkupCP9oZfz6qFRYf1o8la2Le7Tyb94O5TONzcozENx2xg==}
+  '@happy-dom/global-registrator@20.8.9':
+    resolution: {integrity: sha512-DtZeRRHY9A/bisTJziUBBPrdnPui7+R185G/hzi6/Boymhqh7/wi53AY+IvQHS1+7OPaqfO/1XNpngNwthLz+A==}
     engines: {node: '>=20.0.0'}
 
   '@humanfs/core@0.19.1':
@@ -2902,10 +2902,10 @@ snapshots:
       '@eslint/core': 1.1.1
       levn: 0.4.1
 
-  '@happy-dom/global-registrator@20.8.8':
+  '@happy-dom/global-registrator@20.8.9':
     dependencies:
       '@types/node': 24.12.0
-      happy-dom: 20.8.8
+      happy-dom: 20.8.9
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
