@@ -4,6 +4,9 @@
   "labels": ["dependencies"],
   "assignees": ["miyaoka"],
   "reviewers": ["miyaoka"],
+  "lockFileMaintenance": {
+    "automerge": true
+  },
   "packageRules": [
     {
       "description": "tsgo dev preview は日次更新のため auto-merge",
