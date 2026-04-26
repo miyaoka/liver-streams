@@ -27,8 +27,10 @@ export function getThumbnail(url: string, quality: YoutubeImageQuality) {
 // 埋め込みURL: https://www.youtube.com/embed/videoId
 // 短縮URL: https://www.youtube.com/v/videoId
 // ライブURL: https://www.youtube.com/live/videoId
+const youtubeHostPattern = /^https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\//;
 const videoIdPattern = /(?:v=|\/(?:embed|v|live)\/|youtu\.be\/)([0-9A-Za-z_-]+)/;
 export function getYouTubeVideoId(url: string): string | undefined {
+  if (!youtubeHostPattern.test(url)) return undefined;
   const videoId = url.match(videoIdPattern)?.[1];
   return videoId;
 }
