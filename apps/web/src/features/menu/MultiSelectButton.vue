@@ -3,7 +3,7 @@
 </doc>
 
 <script setup lang="ts">
-import { useMultiSelectStore } from "../../shared/stores/multiSelectStore";
+import { useMultiSelectStore } from "../../shared/stores";
 
 const multiSelectStore = useMultiSelectStore();
 </script>

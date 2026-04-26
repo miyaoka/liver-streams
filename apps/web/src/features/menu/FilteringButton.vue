@@ -3,7 +3,7 @@
 </doc>
 
 <script setup lang="ts">
-import { useSearchStore } from "../../shared/stores/searchStore";
+import { useSearchStore } from "../../shared/stores";
 import { useEventListStore } from "../../store/eventListStore";
 
 const searchStore = useSearchStore();

@@ -3,7 +3,7 @@
 </doc>
 
 <script setup lang="ts">
-import { scrollToCurrentTime } from "../../shared/lib/scroll";
+import { scrollToCurrentTime } from "../../shared/lib";
 import { useEventListStore } from "../../store/eventListStore";
 
 const eventListStore = useEventListStore();

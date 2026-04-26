@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import type { ChannelNode, EventService } from "@liver-streams/core";
 import { computed, onMounted, ref } from "vue";
-import { useSearchStore } from "../../shared/stores/searchStore";
-import { useTalentFilterStore } from "./talentFilterStore";
+import { useSearchStore } from "../../shared/stores";
+import { useTalentFilterStore } from "./";
 
 const props = defineProps<{
   node: ChannelNode;

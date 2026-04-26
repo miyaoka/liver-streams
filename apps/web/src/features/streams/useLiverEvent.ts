@@ -1,9 +1,8 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { computed, toRaw, type Ref } from "vue";
-import { useBookmarkStore } from "../../features/bookmark/bookmarkStore";
-import { useDateStore } from "../../shared/stores/dateStore";
-import { useHoverStore } from "../../shared/stores/hoverStore";
+import { useDateStore, useHoverStore } from "../../shared/stores";
 import { useEventListStore } from "../../store/eventListStore";
+import { useBookmarkStore } from "../bookmark";
 
 const oneHour = 60 * 60 * 1000;
 

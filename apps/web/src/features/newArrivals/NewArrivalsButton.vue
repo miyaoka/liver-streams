@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { usePopover } from "../../shared/composables/usePopover";
+import { usePopover } from "../../shared/composables";
 import { useEventListStore } from "../../store/eventListStore";
 import NewArrivalsPopover from "./NewArrivalsPopover.vue";
 

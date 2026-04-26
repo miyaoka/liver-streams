@@ -1,6 +1,6 @@
 import { describe, it, expect, spyOn, mock } from "bun:test";
-import { scrollToCurrentTime } from "./scroll";
 import type { DateSection } from "./section";
+import { scrollToCurrentTime } from "./";
 
 function createDateSection(times: [number, ...number[]]): DateSection {
   const firstTime = times[0];

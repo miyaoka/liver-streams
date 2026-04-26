@@ -6,9 +6,8 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { compareDate, getDateTime, hhmmDateFormatter, toRelativeTime } from "@liver-streams/core";
 import { computed } from "vue";
-import { scrollToLiverEventTop } from "../../shared/lib/scroll";
-import { useDateStore } from "../../shared/stores/dateStore";
-import { useHoverStore } from "../../shared/stores/hoverStore";
+import { scrollToLiverEventTop } from "../../shared/lib";
+import { useDateStore, useHoverStore } from "../../shared/stores";
 
 const props = defineProps<{
   liverEvent: LiverEvent;

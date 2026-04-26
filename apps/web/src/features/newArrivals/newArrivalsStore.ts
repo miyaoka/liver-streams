@@ -2,7 +2,7 @@ import type { LiverEvent } from "@liver-streams/core";
 import { talentFilter } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useTalentFilterStore } from "../channelFilter/talentFilterStore";
+import { useTalentFilterStore } from "../channelFilter";
 
 interface NewArrivalId {
   id: string;

@@ -9,12 +9,11 @@
 
 <script setup lang="ts">
 import { getYouTubeVideoId } from "@liver-streams/core";
-import { useMultiSelectStore } from "../../shared/stores/multiSelectStore";
-import { useSearchStore } from "../../shared/stores/searchStore";
+import { useMultiSelectStore, useSearchStore } from "../../shared/stores";
 import { useEventListStore } from "../../store/eventListStore";
-import BookmarkedEventButton from "../bookmark/BookmarkedEventButton.vue";
-import KeywordListButton from "../keyword/KeywordListButton.vue";
-import NewArrivalsButton from "../newArrivals/NewArrivalsButton.vue";
+import { BookmarkedEventButton } from "../bookmark";
+import { KeywordListButton } from "../keyword";
+import { NewArrivalsButton } from "../newArrivals";
 import FilteringButton from "./FilteringButton.vue";
 import LiveFilterButton from "./LiveFilterButton.vue";
 import MultiSelectButton from "./MultiSelectButton.vue";

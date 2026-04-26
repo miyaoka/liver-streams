@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import type { LiverEvent } from "@liver-streams/core";
-import { usePopover } from "../../../shared/composables/usePopover";
+import { usePopover } from "../../../shared/composables";
 import LiverEventDetailPopover from "./LiverEventDetailPopover.vue";
 
 const props = defineProps<{

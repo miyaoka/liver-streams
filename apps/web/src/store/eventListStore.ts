@@ -2,11 +2,11 @@ import { getFilteredEventList, createDateSectionList } from "@liver-streams/core
 import type { LiverEvent } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { processBookmarkNotification } from "../features/bookmark/useBookmarkNotification";
-import { useTalentFilterStore } from "../features/channelFilter/talentFilterStore";
-import { useNewArrivalsStore } from "../features/newArrivals/newArrivalsStore";
+import { processBookmarkNotification } from "../features/bookmark";
+import { useTalentFilterStore } from "../features/channelFilter";
+import { useNewArrivalsStore } from "../features/newArrivals";
 import { fetchAllEvents } from "../shared/services";
-import { useSearchStore } from "../shared/stores/searchStore";
+import { useSearchStore } from "../shared/stores";
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const talentFilterStore = useTalentFilterStore();

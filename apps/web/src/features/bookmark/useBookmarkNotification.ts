@@ -1,6 +1,6 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { hhmmDateFormatter } from "@liver-streams/core";
-import { useBookmarkStore } from "./bookmarkStore";
+import { useBookmarkStore } from "./";
 
 export function processBookmarkNotification(liverEventMap: Map<string, LiverEvent>) {
   const bookmarkStore = useBookmarkStore();

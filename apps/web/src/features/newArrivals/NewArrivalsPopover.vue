@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { closePopover } from "../../shared/utils/popover";
+import { closePopover } from "../../shared/utils";
 import { useEventListStore } from "../../store/eventListStore";
 import NewArrivalsListItem from "./NewArrivalsListItem.vue";
 
