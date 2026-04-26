@@ -8,7 +8,12 @@ type YoutubeImageQuality = "" | "mq" | "hq" | "sd" | "maxres";
  * @example
  * getThumbnail("https://i.ytimg.com/vi/VIDEO_ID/default.jpg", "hq") // "https://i.ytimg.com/vi/VIDEO_ID/hqdefault.jpg"
  */
+export function getYouTubeThumbnailUrl(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`;
+}
+
 export function getThumbnail(url: string, quality: YoutubeImageQuality) {
+  if (!url) return "";
   const groups = url.match(/^(?<base>.+\/)(.*default)(?<filename>(_live)?\..+)$/)?.groups;
   if (!groups) return url;
 

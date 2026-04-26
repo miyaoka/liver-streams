@@ -1,4 +1,4 @@
-import { createLiverEvent } from "@liver-streams/core";
+import { createLiverEvent, getYouTubeThumbnailUrl, getYouTubeVideoId } from "@liver-streams/core";
 import type {
   ChannelNode,
   EventService,
@@ -69,6 +69,14 @@ async function getNijiEvents({
     };
   }
 
+  // API が稀に thumbnail: null を返すため、YouTube URL から補完する
+  function resolveThumbnail(thumbnail: string | null, url: string): string {
+    if (thumbnail) return thumbnail;
+    const videoId = getYouTubeVideoId(url);
+    if (videoId) return getYouTubeThumbnailUrl(videoId);
+    return "";
+  }
+
   const events = nijiStreams.map(async (stream) => {
     const { title, url, thumbnail, startAt, endAt, isLive, talentId, collaboTalentIds } = stream;
     const talent = getTalent(talentId);
@@ -78,7 +86,7 @@ async function getNijiEvents({
       startAt,
       title,
       url,
-      thumbnail,
+      thumbnail: resolveThumbnail(thumbnail, url),
       endAt,
       isLive,
       talent,
