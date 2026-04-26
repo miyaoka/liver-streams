@@ -1,5 +1,7 @@
 <doc lang="md">
 タレントフィルターのポップオーバー。ホロライブ/にじさんじを切り替えて、グループ・タレント単位で表示対象を選択する。
+
+フィルター状態はプリセットとして名前付きで複数保存でき、切り替えて使用できる。
 </doc>
 
 <script setup lang="ts">
@@ -9,6 +11,7 @@ import { computed, ref } from "vue";
 import { usePopover } from "../../shared/composables";
 import { getAffiliationLogo, services } from "../../shared/services";
 import ChannelNode from "./ChannelNode.vue";
+import FilterPresetSelector from "./FilterPresetSelector.vue";
 import { useTalentFilterStore } from "./";
 
 const talentFilterStore = useTalentFilterStore();
@@ -22,7 +25,7 @@ const groups = [
 ] as const;
 
 const selectedGroup = ref<string>("hololive");
-const talentNodeEl = ref<HTMLElement | null>(null);
+const treeVersion = ref(0);
 
 const filterCount = computed(() => talentFilterStore.talentFilterMap.size);
 
@@ -40,9 +43,11 @@ const selectedService = computed(() => {
 
 function reset() {
   talentFilterStore.resetTalentFilter();
-  talentNodeEl.value?.querySelectorAll("input").forEach((input) => {
-    input.checked = false;
-  });
+  treeVersion.value++;
+}
+
+function onPresetLoaded() {
+  treeVersion.value++;
 }
 </script>
 
@@ -95,12 +100,15 @@ function reset() {
       </div>
 
       <div
-        class="-ml-4 flex-1 overflow-auto p-2 pt-4 pb-12"
-        ref="talentNodeEl"
+        class="-ml-4 flex-1 overflow-auto p-2 pt-4 pb-4"
         v-if="rootNode && selectedService"
-        :key="rootNode.name"
+        :key="`${rootNode.name}-${treeVersion}`"
       >
-        <ChannelNode :node="rootNode" :service="selectedService" :key="rootNode.name" />
+        <ChannelNode :node="rootNode" :service="selectedService" />
+      </div>
+
+      <div class="bg-gray-800 px-4 py-3 shadow-[0_-2px_4px_rgba(0,0,0,0.08)]">
+        <FilterPresetSelector @loaded="onPresetLoaded" />
       </div>
     </div>
   </popover.PopOver>
