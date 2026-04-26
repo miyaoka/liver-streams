@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { scrollToCurrentTime } from "../../shared/lib";
-import { useEventListStore } from "../../store/eventListStore";
+import { useEventListStore } from "../streams";
 
 const eventListStore = useEventListStore();
 </script>

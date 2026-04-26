@@ -2,11 +2,11 @@ import { getFilteredEventList, createDateSectionList } from "@liver-streams/core
 import type { LiverEvent } from "@liver-streams/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { processBookmarkNotification } from "../features/bookmark";
-import { useTalentFilterStore } from "../features/channelFilter";
-import { useNewArrivalsStore } from "../features/newArrivals";
-import { fetchAllEvents } from "../shared/services";
-import { useSearchStore } from "../shared/stores";
+import { fetchAllEvents } from "../../shared/services";
+import { useSearchStore } from "../../shared/stores";
+import { processBookmarkNotification } from "../bookmark";
+import { useTalentFilterStore } from "../channelFilter";
+import { useNewArrivalsStore } from "../newArrivals";
 
 export const useEventListStore = defineStore("eventListStore", () => {
   const talentFilterStore = useTalentFilterStore();
@@ -29,7 +29,6 @@ export const useEventListStore = defineStore("eventListStore", () => {
     return filteredEventList.value.filter((event) => event.isLive);
   });
 
-  // ローディング状態（初回データ取得前）
   const isLoading = computed(() => liverEventList.value === null);
 
   const dateSectionList = computed(() => {
@@ -39,29 +38,20 @@ export const useEventListStore = defineStore("eventListStore", () => {
   });
 
   async function updateLiverEventList() {
-    // list取得
     const newLiverEventList = await fetchAllEvents();
 
-    // map更新
     const eventMap = new Map<string, LiverEvent>();
     newLiverEventList.forEach((liverEvent) => {
       eventMap.set(liverEvent.id, liverEvent);
     });
     liverEventMap.value = eventMap;
 
-    // 新着更新
     newArrivalsStore.updateNewArrivals(newLiverEventList, liverEventList.value, eventMap);
 
-    // list更新
     liverEventList.value = newLiverEventList;
 
-    // bookmark通知処理
     processBookmarkNotification(eventMap);
   }
-
-  // 後方互換性のためのエイリアス
-  const addedEventList = computed(() => newArrivalsStore.newArrivalsList);
-  const addedEventIdSet = computed(() => newArrivalsStore.newArrivalsIdSet);
 
   return {
     liverEventList,
@@ -69,11 +59,8 @@ export const useEventListStore = defineStore("eventListStore", () => {
     onLiveEventList,
     dateSectionList,
     liverEventMap,
-    addedEventList,
-    addedEventIdSet,
     isLoading,
     updateLiverEventList,
-    clearAddedEventList: () => newArrivalsStore.clearNewArrivals(),
   };
 });
 

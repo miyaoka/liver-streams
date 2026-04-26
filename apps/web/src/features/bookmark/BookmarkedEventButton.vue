@@ -6,7 +6,7 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { computed } from "vue";
 import { usePopover } from "../../shared/composables";
-import { useEventListStore } from "../../store/eventListStore";
+import { useEventListStore } from "../streams";
 import BookmarkedEventPopover from "./BookmarkedEventPopover.vue";
 import { useBookmarkStore } from "./";
 

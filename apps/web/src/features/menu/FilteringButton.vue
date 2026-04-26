@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { useSearchStore } from "../../shared/stores";
-import { useEventListStore } from "../../store/eventListStore";
+import { useEventListStore } from "../streams";
 
 const searchStore = useSearchStore();
 const eventListStore = useEventListStore();

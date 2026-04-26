@@ -10,10 +10,10 @@
 <script setup lang="ts">
 import { getYouTubeVideoId } from "@liver-streams/core";
 import { useMultiSelectStore, useSearchStore } from "../../shared/stores";
-import { useEventListStore } from "../../store/eventListStore";
 import { BookmarkedEventButton } from "../bookmark";
 import { KeywordListButton } from "../keyword";
 import { NewArrivalsButton } from "../newArrivals";
+import { useEventListStore } from "../streams";
 import FilteringButton from "./FilteringButton.vue";
 import LiveFilterButton from "./LiveFilterButton.vue";
 import MultiSelectButton from "./MultiSelectButton.vue";

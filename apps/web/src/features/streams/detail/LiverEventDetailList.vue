@@ -5,7 +5,7 @@
 </doc>
 
 <script setup lang="ts">
-import { useEventListStore } from "../../../store/eventListStore";
+import { useEventListStore } from "../eventListStore";
 import LiverEventDetailListItem from "./LiverEventDetailListItem.vue";
 
 const eventListStore = useEventListStore();

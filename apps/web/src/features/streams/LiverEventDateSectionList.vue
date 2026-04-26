@@ -8,8 +8,8 @@
 import type { DateSection } from "@liver-streams/core";
 import { nextTick, onMounted, watch } from "vue";
 import { scrollToCurrentTime } from "../../shared/lib";
-import { useEventListStore } from "../../store/eventListStore";
 import { LoadingSpinner } from "../common";
+import { useEventListStore } from "./eventListStore";
 import LiverEventDateSection from "./LiverEventDateSection.vue";
 
 const props = defineProps<{

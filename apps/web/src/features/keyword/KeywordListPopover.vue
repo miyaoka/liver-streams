@@ -9,8 +9,8 @@ import { getFilteredEventList } from "@liver-streams/core";
 import { computed } from "vue";
 import { useSearchStore } from "../../shared/stores";
 import { closePopover } from "../../shared/utils";
-import { useEventListStore } from "../../store/eventListStore";
 import { useTalentFilterStore } from "../channelFilter";
+import { useEventListStore } from "../streams";
 import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 
 export interface KeywordItem {
