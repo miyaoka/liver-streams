@@ -21,24 +21,46 @@ pre-commit:
         - "packages/**"
       run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
       stage_fixed: true
-    - name: oxlint-core
+    # packages/core: fix: oxlint + oxfmt → knip
+    - name: core
       root: "packages/core/"
       glob: "**/*.ts"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
-      stage_fixed: true
-    - name: oxlint-hololive
+      group:
+        piped: true
+        jobs:
+          - name: oxlint
+            run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
+            stage_fixed: true
+          - name: knip
+            run: pnpm -w run knip -W packages/core --fix
+
+    # packages/hololive: fix: oxlint + oxfmt → knip
+    - name: hololive
       root: "packages/hololive/"
       glob: "**/*.ts"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
-      stage_fixed: true
-    - name: oxlint-nijisanji
+      group:
+        piped: true
+        jobs:
+          - name: oxlint
+            run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
+            stage_fixed: true
+          - name: knip
+            run: pnpm -w run knip -W packages/hololive --fix
+
+    # packages/nijisanji: fix: oxlint + oxfmt → knip
+    - name: nijisanji
       root: "packages/nijisanji/"
       glob: "**/*.ts"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
-      stage_fixed: true
+      group:
+        piped: true
+        jobs:
+          - name: oxlint
+            run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
+            stage_fixed: true
+          - name: knip
+            run: pnpm -w run knip -W packages/nijisanji --fix
 
-    # apps/web: .ts は oxlint、.vue は eslint。oxfmt は全ファイルに適用
-    # 同一ファイルへの競合を避けるため piped で直列実行
+    # apps/web: fix: oxlint + eslint + oxfmt → knip（fix 完了後の状態で解析するため piped で直列実行）
     - name: web
       root: apps/web/
       glob: "**/*.{ts,vue,css,scss,md}"
@@ -56,6 +78,9 @@ pre-commit:
           - name: oxfmt
             run: pnpm exec oxfmt {staged_files}
             stage_fixed: true
+          - name: knip
+            glob: "**/*.{ts,vue}"
+            run: pnpm -w run knip -W apps/web --fix
 
 # git pull / merge 後に lockfile の変更を検出し、pnpm install を促す
 post-merge:

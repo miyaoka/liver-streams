@@ -2,13 +2,13 @@ import { useLocalStorage } from "@vueuse/core";
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { computed } from "vue";
 
-export interface TreeNode {
+interface TreeNode {
   id: string;
   checked: boolean;
   children?: TreeNode[];
 }
 
-export interface Node {
+interface Node {
   [key: string]: string[] | Node;
 }
 

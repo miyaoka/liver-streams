@@ -70,8 +70,10 @@ packages/
 
 ### Git フック
 
-- lefthook でコミット前に自動整形
-- 対象ファイル: `*.{js,ts,vue,css,scss,md}`
+- lefthook でコミット前に自動整形・不要コード削除を実行
+- oxlint + eslint + oxfmt でリント・フォーマット（`stage_fixed` で自動ステージ）
+- knip --fix で未使用 export を自動削除（変更は unstaged で残るので、確認して git add → 再コミット）
+- フォーマットや不要 export の整理はコミットフックで自動的に行われるため、手動で実行しない
 
 ## Vue コンポーネント
 

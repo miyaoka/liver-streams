@@ -1,6 +1,6 @@
+import type { DateSection } from "@liver-streams/core";
 import { describe, it, expect, spyOn, mock } from "bun:test";
 import { scrollToCurrentTime } from "./scroll";
-import type { DateSection } from "./section";
 
 function createDateSection(times: [number, ...number[]]): DateSection {
   const firstTime = times[0];

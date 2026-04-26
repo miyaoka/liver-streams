@@ -25,4 +25,5 @@ catalog:
 minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
+  - '@miyaoka/eslint-plugin-barrel-import'
   - '@miyaoka/vite-plugin-doc-block'

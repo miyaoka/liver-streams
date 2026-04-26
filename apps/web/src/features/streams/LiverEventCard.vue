@@ -20,9 +20,7 @@ import { getThumbnail, hhss } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
 import { computed, toRaw, toRefs } from "vue";
 import { getAffiliationLogo } from "../../shared/services";
-import { useHoverStore } from "../../shared/stores/hoverStore";
-import { useMultiSelectStore } from "../../shared/stores/multiSelectStore";
-import { useSearchStore } from "../../shared/stores/searchStore";
+import { useHoverStore, useMultiSelectStore, useSearchStore } from "../../shared/stores";
 import { useLiverEvent } from "./useLiverEvent";
 
 const props = defineProps<{

@@ -4,11 +4,11 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { usePopover } from "../../shared/composables/usePopover";
-import { useEventListStore } from "../../store/eventListStore";
+import { usePopover } from "../../shared/composables";
 import NewArrivalsPopover from "./NewArrivalsPopover.vue";
+import { useNewArrivalsStore } from "./newArrivalsStore";
 
-const eventListStore = useEventListStore();
+const newArrivalsStore = useNewArrivalsStore();
 
 const lastCloseTime = ref(0);
 const popover = usePopover({
@@ -18,7 +18,8 @@ const popover = usePopover({
 });
 
 const unreadCount = computed(
-  () => eventListStore.addedEventList.filter((item) => item.addedTime > lastCloseTime.value).length,
+  () =>
+    newArrivalsStore.newArrivalsList.filter((item) => item.addedTime > lastCloseTime.value).length,
 );
 </script>
 

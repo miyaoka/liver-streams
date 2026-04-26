@@ -13,6 +13,7 @@
     "lint:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only lint",
     "fix": "oxfmt '!apps/**' '!packages/**'",
     "fix:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only fix",
+    "knip": "knip",
     "prepare": "lefthook install"
   },
   "devDependencies": {
@@ -20,6 +21,7 @@
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
     "@typescript/native-preview": "catalog:",
+    "knip": "^6.6.1",
     "lefthook": "2.1.6",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",

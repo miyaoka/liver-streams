@@ -11,11 +11,12 @@
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
 import { onMounted } from "vue";
-import FooterMenu from "../features/menu/FooterMenu.vue";
-import HeaderMenu from "../features/menu/HeaderMenu.vue";
-import LiverEventDetailList from "../features/streams/detail/LiverEventDetailList.vue";
-import LiverEventDateSectionList from "../features/streams/LiverEventDateSectionList.vue";
-import { useEventListStore } from "../store/eventListStore";
+import { FooterMenu, HeaderMenu } from "../features/menu";
+import {
+  LiverEventDateSectionList,
+  LiverEventDetailList,
+  useEventListStore,
+} from "../features/streams";
 
 const fetchInterval = 1 * 60 * 1000; // 1min
 const eventListStore = useEventListStore();

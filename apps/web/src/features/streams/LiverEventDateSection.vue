@@ -8,8 +8,8 @@
 import type { DateSection } from "@liver-streams/core";
 import { compareDate, mdDateFormatter, relativeDateFormatter } from "@liver-streams/core";
 import { computed } from "vue";
-import { scrollToSectionTop } from "../../shared/lib/scroll";
-import { useDateStore } from "../../shared/stores/dateStore";
+import { scrollToSectionTop } from "../../shared/lib";
+import { useDateStore } from "../../shared/stores";
 import LiverEventTimeSection from "./LiverEventTimeSection.vue";
 
 const props = defineProps<{

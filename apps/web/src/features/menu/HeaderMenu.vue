@@ -3,8 +3,8 @@
 </doc>
 
 <script setup lang="ts">
-import ChannelFilter from "../channelFilter/ChannelFilter.vue";
-import SearchFilter from "../search/SearchFilter.vue";
+import { ChannelFilter } from "../channelFilter";
+import { SearchFilter } from "../search";
 </script>
 
 <template>

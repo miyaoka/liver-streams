@@ -3,7 +3,7 @@
 </doc>
 
 <script setup lang="ts">
-import { usePopover } from "../../shared/composables/usePopover";
+import { usePopover } from "../../shared/composables";
 import KeywordListPopover from "./KeywordListPopover.vue";
 
 const popover = usePopover();

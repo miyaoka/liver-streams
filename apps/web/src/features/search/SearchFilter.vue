@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useSearchStore } from "../../shared/stores/searchStore";
+import { useSearchStore } from "../../shared/stores";
 
 const searchStore = useSearchStore();
 const inputEl = ref<HTMLInputElement | null>(null);

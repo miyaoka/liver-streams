@@ -7,10 +7,10 @@
 <script setup lang="ts">
 import { getFilteredEventList } from "@liver-streams/core";
 import { computed } from "vue";
-import { useSearchStore } from "../../shared/stores/searchStore";
-import { closePopover } from "../../shared/utils/popover";
-import { useEventListStore } from "../../store/eventListStore";
-import { useTalentFilterStore } from "../channelFilter/talentFilterStore";
+import { useSearchStore } from "../../shared/stores";
+import { closePopover } from "../../shared/utils";
+import { useTalentFilterStore } from "../channelFilter";
+import { useEventListStore } from "../streams";
 import KeywordListPopoverItem from "./KeywordListPopoverItem.vue";
 
 export interface KeywordItem {

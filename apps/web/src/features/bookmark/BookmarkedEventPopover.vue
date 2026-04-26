@@ -14,11 +14,10 @@ import {
   toRelativeTime,
 } from "@liver-streams/core";
 import { computed, onMounted } from "vue";
-import { scrollToLiverEventTop } from "../../shared/lib/scroll";
-import { useDateStore } from "../../shared/stores/dateStore";
-import { useHoverStore } from "../../shared/stores/hoverStore";
-import { closePopover } from "../../shared/utils/popover";
-import { useBookmarkStore } from "./bookmarkStore";
+import { scrollToLiverEventTop } from "../../shared/lib";
+import { useDateStore, useHoverStore } from "../../shared/stores";
+import { closePopover } from "../../shared/utils";
+import { useBookmarkStore } from "./";
 
 const props = defineProps<{
   bookmarkEventList: LiverEvent[];

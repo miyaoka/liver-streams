@@ -3,7 +3,7 @@
 </doc>
 
 <script setup lang="ts">
-import { useSearchStore } from "../../shared/stores/searchStore";
+import { useSearchStore } from "../../shared/stores";
 import type { KeywordItem } from "./KeywordListPopover.vue";
 
 defineProps<{

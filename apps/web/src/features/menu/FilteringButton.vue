@@ -3,8 +3,8 @@
 </doc>
 
 <script setup lang="ts">
-import { useSearchStore } from "../../shared/stores/searchStore";
-import { useEventListStore } from "../../store/eventListStore";
+import { useSearchStore } from "../../shared/stores";
+import { useEventListStore } from "../streams";
 
 const searchStore = useSearchStore();
 const eventListStore = useEventListStore();

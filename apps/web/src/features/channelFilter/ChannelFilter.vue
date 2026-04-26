@@ -6,10 +6,10 @@
 import { hololiveChannels } from "@liver-streams/hololive";
 import { nijisanjiChannels } from "@liver-streams/nijisanji";
 import { computed, ref } from "vue";
-import { usePopover } from "../../shared/composables/usePopover";
+import { usePopover } from "../../shared/composables";
 import { getAffiliationLogo, services } from "../../shared/services";
 import ChannelNode from "./ChannelNode.vue";
-import { useTalentFilterStore } from "./talentFilterStore";
+import { useTalentFilterStore } from "./";
 
 const talentFilterStore = useTalentFilterStore();
 const popover = usePopover({
