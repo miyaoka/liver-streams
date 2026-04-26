@@ -29,4 +29,3 @@ export function getAffiliationLogo(affiliation: string): string {
 }
 
 // Re-export types
-export type { LiverEvent } from "@liver-streams/core";

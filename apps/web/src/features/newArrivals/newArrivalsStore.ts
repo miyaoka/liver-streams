@@ -9,7 +9,7 @@ interface NewArrivalId {
   addedTime: number;
 }
 
-export interface NewArrival {
+interface NewArrival {
   addedTime: number;
   liverEvent: LiverEvent;
 }
