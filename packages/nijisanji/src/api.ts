@@ -5,7 +5,8 @@ export interface NijiLiver {
 export interface NijiStream {
   title: string;
   url: string;
-  thumbnail: string;
+  // API が稀に null を返す
+  thumbnail: string | null;
   startAt: string;
   endAt: string | null;
   isLive: boolean;

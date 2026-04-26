@@ -8,7 +8,12 @@ type YoutubeImageQuality = "" | "mq" | "hq" | "sd" | "maxres";
  * @example
  * getThumbnail("https://i.ytimg.com/vi/VIDEO_ID/default.jpg", "hq") // "https://i.ytimg.com/vi/VIDEO_ID/hqdefault.jpg"
  */
+export function getYouTubeThumbnailUrl(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`;
+}
+
 export function getThumbnail(url: string, quality: YoutubeImageQuality) {
+  if (!url) return "";
   const groups = url.match(/^(?<base>.+\/)(.*default)(?<filename>(_live)?\..+)$/)?.groups;
   if (!groups) return url;
 
@@ -22,8 +27,10 @@ export function getThumbnail(url: string, quality: YoutubeImageQuality) {
 // 埋め込みURL: https://www.youtube.com/embed/videoId
 // 短縮URL: https://www.youtube.com/v/videoId
 // ライブURL: https://www.youtube.com/live/videoId
+const youtubeHostPattern = /^https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\//;
 const videoIdPattern = /(?:v=|\/(?:embed|v|live)\/|youtu\.be\/)([0-9A-Za-z_-]+)/;
 export function getYouTubeVideoId(url: string): string | undefined {
+  if (!youtubeHostPattern.test(url)) return undefined;
   const videoId = url.match(videoIdPattern)?.[1];
   return videoId;
 }
