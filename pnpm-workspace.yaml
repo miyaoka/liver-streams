@@ -1,6 +1,9 @@
 packages:
   - apps/*
   - packages/*
+allowBuilds:
+  lefthook: true
+  unrs-resolver: true
 
 catalog:
   '@happy-dom/global-registrator': 20.9.0
@@ -23,13 +26,3 @@ minimumReleaseAge: 4320
 
 minimumReleaseAgeExclude:
   - '@miyaoka/vite-plugin-doc-block'
-  # Renovate security update: happy-dom@20.8.8 || 20.8.9
-  - happy-dom@20.8.8 || 20.8.9
-  # Renovate security update: vite@8.0.5
-  - vite@8.0.5
-
-onlyBuiltDependencies:
-  - esbuild
-  - lefthook
-  - unrs-resolver
-  - vue-demi
