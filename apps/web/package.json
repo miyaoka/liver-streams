@@ -29,6 +29,7 @@
     "@iconify-json/icon-park-outline": "1.2.4",
     "@iconify-json/icon-park-solid": "1.2.4",
     "@iconify-json/mdi": "1.2.3",
+    "@miyaoka/eslint-plugin-barrel-import": "^0.0.0",
     "@miyaoka/vite-plugin-doc-block": "0.0.2",
     "@tailwindcss/vite": "4.2.4",
     "@tsconfig/node24": "catalog:",

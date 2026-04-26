@@ -123,6 +123,9 @@ importers:
       '@iconify-json/mdi':
         specifier: 1.2.3
         version: 1.2.3
+      '@miyaoka/eslint-plugin-barrel-import':
+        specifier: ^0.0.0
+        version: 0.0.0(eslint@10.2.1(jiti@2.6.1))
       '@miyaoka/vite-plugin-doc-block':
         specifier: 0.0.2
         version: 0.0.2(vite@8.0.10(@types/node@24.12.2)(jiti@2.6.1)(yaml@2.8.3))(vue@3.5.33(typescript@6.0.3))
@@ -537,6 +540,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@miyaoka/eslint-plugin-barrel-import@0.0.0':
+    resolution: {integrity: sha512-j8uDx/SCXcplFzCyYAy9jhy/zgXYE9CHIm4XC22FmdEpF4DctebObC9+1l000QfFaSnTr7PFPkJjxHLzZXKn4Q==}
+    peerDependencies:
+      eslint: '>=9'
 
   '@miyaoka/vite-plugin-doc-block@0.0.2':
     resolution: {integrity: sha512-YRw8jgPIo1RyXNN4GY1lGOSrzillJzbor5gm2FT//cy3Xher069HoaZS7IMN9r2trpzfY3PkE14wEw9s/CGx+A==}
@@ -2954,6 +2962,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@miyaoka/eslint-plugin-barrel-import@0.0.0(eslint@10.2.1(jiti@2.6.1))':
+    dependencies:
+      eslint: 10.2.1(jiti@2.6.1)
 
   '@miyaoka/vite-plugin-doc-block@0.0.2(vite@8.0.10(@types/node@24.12.2)(jiti@2.6.1)(yaml@2.8.3))(vue@3.5.33(typescript@6.0.3))':
     dependencies:
