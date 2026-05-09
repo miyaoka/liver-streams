@@ -23,6 +23,7 @@ catalog:
   vite: 8.0.10
 
 minimumReleaseAge: 4320
+minimumReleaseAgeStrict: false
 
 minimumReleaseAgeExclude:
   - '@miyaoka/eslint-plugin-barrel-import'
