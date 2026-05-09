@@ -15,7 +15,7 @@ catalog:
   eslint-plugin-import-x: 4.16.2
   eslint-plugin-unused-imports: 4.4.1
   oxfmt: 0.48.0
-  oxlint: 1.62.0
+  oxlint: 1.63.0
   oxlint-tsgolint: 0.22.1
   typescript: 6.0.3
   typescript-eslint: 8.59.2
