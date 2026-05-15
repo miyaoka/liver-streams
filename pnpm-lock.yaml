@@ -16,8 +16,8 @@ catalogs:
       specifier: 1.3.13
       version: 1.3.13
     '@types/node':
-      specifier: 24.12.3
-      version: 24.12.3
+      specifier: 24.12.4
+      version: 24.12.4
     '@typescript/native-preview':
       specifier: 7.0.0-dev.20260511.1
       version: 7.0.0-dev.20260511.1
@@ -61,7 +61,7 @@ importers:
         version: 24.0.4
       '@types/node':
         specifier: 'catalog:'
-        version: 24.12.3
+        version: 24.12.4
       '@typescript/native-preview':
         specifier: 'catalog:'
         version: 7.0.0-dev.20260511.1
@@ -131,10 +131,10 @@ importers:
         version: 0.0.0(eslint@10.3.0(jiti@2.7.0))
       '@miyaoka/vite-plugin-doc-block':
         specifier: 0.0.2
-        version: 0.0.2(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))
+        version: 0.0.2(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))
       '@tailwindcss/vite':
         specifier: 4.3.0
-        version: 4.3.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
+        version: 4.3.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
       '@tsconfig/node24':
         specifier: 'catalog:'
         version: 24.0.4
@@ -143,10 +143,10 @@ importers:
         version: 1.3.13
       '@types/node':
         specifier: 'catalog:'
-        version: 24.12.3
+        version: 24.12.4
       '@vitejs/plugin-vue':
         specifier: 6.0.6
-        version: 6.0.6(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))
+        version: 6.0.6(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))
       '@vue/eslint-config-prettier':
         specifier: 10.2.0
         version: 10.2.0(eslint@10.3.0(jiti@2.7.0))(prettier@3.8.3)
@@ -191,10 +191,10 @@ importers:
         version: 6.0.3
       vite:
         specifier: 'catalog:'
-        version: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+        version: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
       vite-plugin-vue-devtools:
         specifier: 8.1.2
-        version: 8.1.2(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))
+        version: 8.1.2(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))
       vue-tsc:
         specifier: 3.2.8
         version: 3.2.8(typescript@6.0.3)
@@ -224,10 +224,10 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
+        version: 1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
       vite:
         specifier: 'catalog:'
-        version: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+        version: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
 
   packages/hololive:
     dependencies:
@@ -258,10 +258,10 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
+        version: 1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
       vite:
         specifier: 'catalog:'
-        version: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+        version: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
 
   packages/nijisanji:
     dependencies:
@@ -292,10 +292,10 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
+        version: 1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
       vite:
         specifier: 'catalog:'
-        version: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+        version: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
 
 packages:
 
@@ -1327,11 +1327,11 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@24.12.2':
-    resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
-
   '@types/node@24.12.3':
     resolution: {integrity: sha512-8oljBDGun9cIsZRJR6fkihn0TSXJI0UDOOhncYaERq6M0JMDoPLxyscwruJcb4GKS6dvK/d8xebYBg27h/duaQ==}
+
+  '@types/node@24.12.4':
+    resolution: {integrity: sha512-GUUEShf+PBCGW2KaXwcIt3Yk+e3pkKwWKb9GSyM9WQVE+ep2jzmHdGsHzu4wgcZy5fN9FBdVzjpBQsYlpfpgLA==}
 
   '@types/web-bluetooth@0.0.21':
     resolution: {integrity: sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==}
@@ -3190,7 +3190,7 @@ snapshots:
 
   '@happy-dom/global-registrator@20.9.0':
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.3
       happy-dom: 20.9.0
     transitivePeerDependencies:
       - bufferutil
@@ -3259,9 +3259,9 @@ snapshots:
     dependencies:
       eslint: 10.3.0(jiti@2.7.0)
 
-  '@miyaoka/vite-plugin-doc-block@0.0.2(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))':
+  '@miyaoka/vite-plugin-doc-block@0.0.2(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))':
     dependencies:
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
       vue: 3.5.34(typescript@6.0.3)
 
   '@napi-rs/wasm-runtime@0.2.12':
@@ -3681,12 +3681,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.0
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.0
 
-  '@tailwindcss/vite@4.3.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))':
+  '@tailwindcss/vite@4.3.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))':
     dependencies:
       '@tailwindcss/node': 4.3.0
       '@tailwindcss/oxide': 4.3.0
       tailwindcss: 4.3.0
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
 
   '@tsconfig/node24@24.0.4': {}
 
@@ -3705,11 +3705,11 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@24.12.2':
+  '@types/node@24.12.3':
     dependencies:
       undici-types: 7.16.0
 
-  '@types/node@24.12.3':
+  '@types/node@24.12.4':
     dependencies:
       undici-types: 7.16.0
 
@@ -3719,7 +3719,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.3
 
   '@typescript-eslint/eslint-plugin@8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
@@ -3906,10 +3906,10 @@ snapshots:
     dependencies:
       valibot: 1.4.0(typescript@6.0.3)
 
-  '@vitejs/plugin-vue@6.0.6(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))':
+  '@vitejs/plugin-vue@6.0.6(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-rc.13
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
       vue: 3.5.34(typescript@6.0.3)
 
   '@volar/language-core@2.4.28':
@@ -4172,7 +4172,7 @@ snapshots:
 
   bun-types@1.3.13:
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.3
 
   bundle-name@4.1.0:
     dependencies:
@@ -4469,7 +4469,7 @@ snapshots:
 
   happy-dom@20.9.0:
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.3
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.1
       entities: 7.0.1
@@ -5080,7 +5080,7 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  unplugin-dts@1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)):
+  unplugin-dts@1.0.0(rolldown@1.0.0)(typescript@6.0.3)(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)):
     dependencies:
       '@rollup/pluginutils': 5.3.0
       '@volar/typescript': 2.4.28
@@ -5093,7 +5093,7 @@ snapshots:
       unplugin: 2.3.11
     optionalDependencies:
       rolldown: 1.0.0
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -5155,17 +5155,17 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  vite-dev-rpc@1.1.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)):
+  vite-dev-rpc@1.1.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)):
     dependencies:
       birpc: 2.9.0
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
-      vite-hot-client: 2.2.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
+      vite-hot-client: 2.2.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
 
-  vite-hot-client@2.2.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)):
+  vite-hot-client@2.2.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)):
     dependencies:
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
 
-  vite-plugin-inspect@11.3.3(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)):
+  vite-plugin-inspect@11.3.3(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)):
     dependencies:
       ansis: 4.2.0
       debug: 4.4.3
@@ -5175,26 +5175,26 @@ snapshots:
       perfect-debounce: 2.1.0
       sirv: 3.0.2
       unplugin-utils: 0.3.1
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
-      vite-dev-rpc: 1.1.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
+      vite-dev-rpc: 1.1.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-vue-devtools@8.1.2(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3)):
+  vite-plugin-vue-devtools@8.1.2(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))(vue@3.5.34(typescript@6.0.3)):
     dependencies:
       '@vue/devtools-core': 8.1.2(vue@3.5.34(typescript@6.0.3))
       '@vue/devtools-kit': 8.1.2
       '@vue/devtools-shared': 8.1.2
       sirv: 3.0.2
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
-      vite-plugin-inspect: 11.3.3(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
-      vite-plugin-vue-inspector: 6.0.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4))
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
+      vite-plugin-inspect: 11.3.3(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
+      vite-plugin-vue-inspector: 6.0.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4))
     transitivePeerDependencies:
       - '@nuxt/kit'
       - supports-color
       - vue
 
-  vite-plugin-vue-inspector@6.0.0(vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)):
+  vite-plugin-vue-inspector@6.0.0(vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)):
     dependencies:
       '@babel/core': 7.29.0
       '@babel/plugin-proposal-decorators': 7.29.0(@babel/core@7.29.0)
@@ -5205,11 +5205,11 @@ snapshots:
       '@vue/compiler-dom': 3.5.34
       kolorist: 1.8.0
       magic-string: 0.30.21
-      vite: 8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4)
+      vite: 8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4)
     transitivePeerDependencies:
       - supports-color
 
-  vite@8.0.12(@types/node@24.12.3)(jiti@2.7.0)(yaml@2.8.4):
+  vite@8.0.12(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.8.4):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
@@ -5217,7 +5217,7 @@ snapshots:
       rolldown: 1.0.0
       tinyglobby: 0.2.16
     optionalDependencies:
-      '@types/node': 24.12.3
+      '@types/node': 24.12.4
       fsevents: 2.3.3
       jiti: 2.7.0
       yaml: 2.8.4
