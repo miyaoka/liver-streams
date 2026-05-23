@@ -43,8 +43,8 @@ catalogs:
       specifier: 6.0.3
       version: 6.0.3
     unplugin-dts:
-      specifier: 1.0.0
-      version: 1.0.0
+      specifier: 1.0.1
+      version: 1.0.1
     vite:
       specifier: 8.0.13
       version: 8.0.13
@@ -224,7 +224,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.0(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0))
+        version: 1.0.1(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0))
       vite:
         specifier: 'catalog:'
         version: 8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0)
@@ -258,7 +258,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.0(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0))
+        version: 1.0.1(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0))
       vite:
         specifier: 'catalog:'
         version: 8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0)
@@ -292,7 +292,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.0(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0))
+        version: 1.0.1(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0))
       vite:
         specifier: 'catalog:'
         version: 8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0)
@@ -2711,8 +2711,8 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  unplugin-dts@1.0.0:
-    resolution: {integrity: sha512-qz+U1lCscwq+t8Mkaxy5Esa7IQ5wWV18b4mnioOXSdnPaNiJ0+qgE3I+KL6UkXYZWxxGo2qdGone8LEQ52Sfkw==}
+  unplugin-dts@1.0.1:
+    resolution: {integrity: sha512-EdJZxdWP4Tm/xhe58/zAge3Tu0OKDYygm8rucRrcCZ4XzgA31jexUKhaJuEMddOPBDs9ONnq6vwigbjeBqkfuw==}
     peerDependencies:
       '@microsoft/api-extractor': '>=7'
       '@rspack/core': ^1
@@ -5101,7 +5101,7 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  unplugin-dts@1.0.0(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0)):
+  unplugin-dts@1.0.1(rolldown@1.0.1)(typescript@6.0.3)(vite@8.0.13(@types/node@24.12.4)(jiti@2.7.0)(yaml@2.9.0)):
     dependencies:
       '@rollup/pluginutils': 5.3.0
       '@volar/typescript': 2.4.28
