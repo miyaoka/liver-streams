@@ -46,7 +46,7 @@
     "eslint-plugin-vue": "10.9.1",
     "happy-dom": "20.9.0",
     "jiti": "2.7.0",
-    "npm-run-all2": "9.0.0",
+    "npm-run-all2": "9.0.1",
     "oxfmt": "catalog:",
     "tailwindcss": "4.3.0",
     "typescript": "catalog:",
