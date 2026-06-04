@@ -20,7 +20,7 @@ catalog:
   typescript: 6.0.3
   typescript-eslint: 8.60.0
   unplugin-dts: 1.0.1
-  vite: 8.0.14
+  vite: 8.0.16
 
 minimumReleaseAge: 4320
 minimumReleaseAgeStrict: false
