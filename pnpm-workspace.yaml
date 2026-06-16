@@ -6,7 +6,7 @@ allowBuilds:
   unrs-resolver: true
 
 catalog:
-  '@happy-dom/global-registrator': 20.10.2
+  '@happy-dom/global-registrator': 20.10.3
   '@tsconfig/node24': 24.0.4
   '@types/bun': 1.3.14
   '@types/node': 24.13.2
