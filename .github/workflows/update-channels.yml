@@ -35,14 +35,21 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
-          app-id: ${{ secrets.APP_ID }}
+          client-id: ${{ secrets.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          # 必要権限をコードで宣言し、App インストール権限への暗黙依存をなくす（SSOT）。
+          # push に contents:write、PR 作成と auto-merge に pull-requests:write が要る。
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ steps.app-token.outputs.token }}
+          # API 経由で署名コミットを作り、author/committer を App bot に統一する。
+          # 未指定だと author が github.actor（schedule 実行時は個人）になり個人依存が残る。
+          sign-commits: true
           branch: update-channels
           title: チャンネル情報を更新
           body: 自動更新により新規チャンネルを検出しました。
