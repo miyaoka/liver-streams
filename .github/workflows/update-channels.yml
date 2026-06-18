@@ -10,9 +10,10 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # PR 作成・auto-merge は App トークンが担うため、デフォルト GITHUB_TOKEN は
+    # checkout の fetch に必要な read のみに絞る。
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
 
     steps:
       - name: Checkout code
@@ -27,11 +28,28 @@ jobs:
       - name: Update hololive channels
         run: pnpm --filter @liver-streams/hololive update-channels
 
+      # GitHub App の短命インストールトークンを発行する。
+      # デフォルトの GITHUB_TOKEN で作った PR は CI / auto-merge を発火させないため、
+      # 別 actor のトークンが必要。長命な PAT の代わりに App トークンを使う。
+      - name: Generate app token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          # 必要権限をコードで宣言し、App インストール権限への暗黙依存をなくす（SSOT）。
+          # push に contents:write、PR 作成と auto-merge に pull-requests:write が要る。
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ steps.app-token.outputs.token }}
+          # API 経由で署名コミットを作り、author/committer を App bot に統一する。
+          # 未指定だと author が github.actor（schedule 実行時は個人）になり個人依存が残る。
+          sign-commits: true
           branch: update-channels
           title: チャンネル情報を更新
           body: 自動更新により新規チャンネルを検出しました。
@@ -41,4 +59,4 @@ jobs:
         if: steps.cpr.outputs.pull-request-operation == 'created'
         run: gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}"
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
