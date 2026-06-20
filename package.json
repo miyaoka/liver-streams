@@ -21,7 +21,7 @@
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
     "@typescript/native-preview": "catalog:",
-    "knip": "6.16.1",
+    "knip": "6.17.1",
     "lefthook": "2.1.9",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
