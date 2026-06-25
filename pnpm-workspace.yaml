@@ -12,7 +12,7 @@ catalog:
   '@types/node': 24.13.2
   '@typescript/native-preview': 7.0.0-dev.20260622.1
   eslint: 10.5.0
-  eslint-plugin-import-x: 4.16.2
+  eslint-plugin-import-x: 4.17.0
   eslint-plugin-unused-imports: 4.4.1
   oxfmt: 0.55.0
   oxlint: 1.70.0
