@@ -43,8 +43,8 @@ catalogs:
       specifier: 6.0.3
       version: 6.0.3
     unplugin-dts:
-      specifier: 1.0.2
-      version: 1.0.2
+      specifier: 1.0.3
+      version: 1.0.3
     vite:
       specifier: 8.1.0
       version: 8.1.0
@@ -224,7 +224,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.2(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
+        version: 1.0.3(@vue/language-core@3.3.5)(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
       vite:
         specifier: 'catalog:'
         version: 8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
@@ -258,7 +258,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.2(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
+        version: 1.0.3(@vue/language-core@3.3.5)(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
       vite:
         specifier: 'catalog:'
         version: 8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
@@ -292,7 +292,7 @@ importers:
         version: 6.0.3
       unplugin-dts:
         specifier: 'catalog:'
-        version: 1.0.2(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
+        version: 1.0.3(@vue/language-core@3.3.5)(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
       vite:
         specifier: 'catalog:'
         version: 8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
@@ -2763,12 +2763,12 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  unplugin-dts@1.0.2:
-    resolution: {integrity: sha512-VbNiMD0LMl/t6nJueGtrCp79N7ZO1nquxj/FUybJDnKwZGsnW2wjdwBSzA3QEHujoxmxZIptsG43hL7LzXE96w==}
+  unplugin-dts@1.0.3:
+    resolution: {integrity: sha512-/GR887wfG4r1cWyt1UZsLRuMIjsmEbGkS9yJrz+0dsToHAYUD5CTyP3JMGVLv25j9K0mJcwAVvZno/aTuSUvNg==}
     peerDependencies:
       '@microsoft/api-extractor': '>=7'
       '@rspack/core': ^1
-      '@vue/language-core': ~3.1.5
+      '@vue/language-core': ^3.1.5
       esbuild: '*'
       rolldown: '*'
       rollup: '>=3'
@@ -5207,7 +5207,7 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  unplugin-dts@1.0.2(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)):
+  unplugin-dts@1.0.3(@vue/language-core@3.3.5)(rolldown@1.1.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)):
     dependencies:
       '@rollup/pluginutils': 5.4.0
       '@volar/typescript': 2.4.28
@@ -5219,6 +5219,7 @@ snapshots:
       typescript: 6.0.3
       unplugin: 2.3.11
     optionalDependencies:
+      '@vue/language-core': 3.3.5
       rolldown: 1.1.2
       vite: 8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
     transitivePeerDependencies:
