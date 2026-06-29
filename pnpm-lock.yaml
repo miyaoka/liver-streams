@@ -193,8 +193,8 @@ importers:
         specifier: 'catalog:'
         version: 8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
       vite-plugin-vue-devtools:
-        specifier: 8.1.3
-        version: 8.1.3(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        specifier: 8.1.4
+        version: 8.1.4(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       vue-tsc:
         specifier: 3.3.5
         version: 3.3.5(typescript@6.0.3)
@@ -2877,8 +2877,8 @@ packages:
       '@nuxt/kit':
         optional: true
 
-  vite-plugin-vue-devtools@8.1.3:
-    resolution: {integrity: sha512-KBTUhbTXvY+GsCdShnCHG4WdijEV74KIDxhF8erfSs5g5mS13g/cPRUf4mLpD10qr5FqHYosNt0j6rP5kpiS1Q==}
+  vite-plugin-vue-devtools@8.1.4:
+    resolution: {integrity: sha512-sKrK1piX0KweFobf967lB4HFze5ADyciIVuIEBHXjE6RBrnthlsEVq7tKz6apOpuqvop4lRrE5vx8D/O1kmJJg==}
     engines: {node: '>=v14.21.3'}
     peerDependencies:
       vite: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -5341,7 +5341,7 @@ snapshots:
       vite: 8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
       vite-dev-rpc: 2.0.0(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
 
-  vite-plugin-vue-devtools@8.1.3(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3)):
+  vite-plugin-vue-devtools@8.1.4(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3)):
     dependencies:
       '@vue/devtools-core': 8.1.4(vue@3.5.39(typescript@6.0.3))
       '@vue/devtools-kit': 8.1.4
