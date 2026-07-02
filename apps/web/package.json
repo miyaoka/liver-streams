@@ -51,7 +51,7 @@
     "tailwindcss": "4.3.1",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-vue-devtools": "8.1.4",
+    "vite-plugin-vue-devtools": "8.1.5",
     "vue-tsc": "3.3.5"
   }
 }
