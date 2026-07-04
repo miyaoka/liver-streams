@@ -52,6 +52,6 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-vue-devtools": "8.1.4",
-    "vue-tsc": "3.3.5"
+    "vue-tsc": "3.3.6"
   }
 }
