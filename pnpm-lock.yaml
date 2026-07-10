@@ -130,8 +130,8 @@ importers:
         specifier: 0.0.0
         version: 0.0.0(eslint@10.6.0(jiti@2.7.0))
       '@miyaoka/vite-plugin-doc-block':
-        specifier: 0.0.2
-        version: 0.0.2(vite@8.1.3(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        specifier: 0.0.3
+        version: 0.0.3(vite@8.1.3(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@tailwindcss/vite':
         specifier: 4.3.2
         version: 4.3.2(vite@8.1.3(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))
@@ -589,8 +589,8 @@ packages:
     peerDependencies:
       eslint: '>=9'
 
-  '@miyaoka/vite-plugin-doc-block@0.0.2':
-    resolution: {integrity: sha512-YRw8jgPIo1RyXNN4GY1lGOSrzillJzbor5gm2FT//cy3Xher069HoaZS7IMN9r2trpzfY3PkE14wEw9s/CGx+A==}
+  '@miyaoka/vite-plugin-doc-block@0.0.3':
+    resolution: {integrity: sha512-QR2NIMgyeUWXBnC9dDvaMbj6UgItoBnqZx/eMB+0mT09Cyc3Wj7MHz+CPrFxJ7RJ0axcNLyAM5yZHNstJ2OU1A==}
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
       vue: ^3.0.0
@@ -3409,7 +3409,7 @@ snapshots:
     dependencies:
       eslint: 10.6.0(jiti@2.7.0)
 
-  '@miyaoka/vite-plugin-doc-block@0.0.2(vite@8.1.3(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))':
+  '@miyaoka/vite-plugin-doc-block@0.0.3(vite@8.1.3(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))':
     dependencies:
       vite: 8.1.3(@types/node@24.13.2)(jiti@2.7.0)(yaml@2.9.0)
       vue: 3.5.39(typescript@6.0.3)
