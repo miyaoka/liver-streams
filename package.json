@@ -22,7 +22,7 @@
     "@types/node": "catalog:",
     "@typescript/native-preview": "catalog:",
     "knip": "6.25.0",
-    "lefthook": "2.1.9",
+    "lefthook": "2.1.10",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
