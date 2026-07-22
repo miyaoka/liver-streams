@@ -63,7 +63,6 @@ pre-commit:
     # apps/web: fix: oxlint + eslint + oxfmt → knip（fix 完了後の状態で解析するため piped で直列実行）
     - name: web
       root: apps/web/
-      glob: "**/*.{ts,vue,css,scss,md}"
       group:
         piped: true
         jobs:
@@ -76,6 +75,7 @@ pre-commit:
             run: pnpm exec eslint --cache --fix -c eslint.config.fix.ts {staged_files}
             stage_fixed: true
           - name: oxfmt
+            glob: "**/*.{ts,vue,css,scss,md}"
             run: pnpm exec oxfmt {staged_files}
             stage_fixed: true
           - name: knip
