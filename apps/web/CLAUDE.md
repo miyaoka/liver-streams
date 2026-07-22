@@ -11,7 +11,7 @@ pnpm preview     # ビルドプレビュー
 pnpm test        # テスト実行
 pnpm typecheck   # 型チェック
 pnpm lint        # リント実行
-pnpm lint:fix    # リント自動修正
+pnpm fix         # リント・フォーマット自動修正
 ```
 
 ## ディレクトリ構造

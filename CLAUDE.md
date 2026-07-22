@@ -15,23 +15,23 @@ pnpm install
 # 開発サーバー起動（http://localhost:5173）
 pnpm dev
 
-# テスト実行
-pnpm test
+# 全ワークスペースのテスト実行
+pnpm test:all
 
-# 特定のテストのみ実行
-pnpm test "<file path>" -t "<test name>"
+# 特定のテストのみ実行（test スクリプトがあるのは core と web）
+pnpm --filter @liver-streams/core test "<file path>" -t "<test name>"
 
-# 型チェック
-pnpm typecheck
+# 全ワークスペースの型チェック
+pnpm typecheck:all
 
-# リント実行・自動修正
-pnpm lint
+# 全ワークスペースのリント
+pnpm lint:all
+
+# 全ワークスペースのリント・フォーマット自動修正
+pnpm fix:all
 
 # ビルド
 pnpm build
-
-# フォーマット
-pnpm format
 ```
 
 ## アーキテクチャ
