@@ -76,7 +76,7 @@ onMounted(() => {
         <i class="i-mdi-close size-6" />
       </button>
     </div>
-    <div class="flex w-full flex-col gap-2 overflow-auto p-1 pb-10 [scrollbar-width:none]">
+    <div class="flex w-full [scrollbar-width:none] flex-col gap-2 overflow-auto p-1 pb-10">
       <div v-if="bookmarkCount === 0" class="p-2">Bookmarkしたイベントがここに載ります</div>
 
       <div v-else class="grid">
