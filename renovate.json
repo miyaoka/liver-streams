@@ -1,10 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices",
-    ":pinDependencies",
-    "github>miyaoka/renovate-config"
-  ],
+  "extends": ["config:best-practices", ":pinDependencies", "github>miyaoka/renovate-config"],
   "labels": ["dependencies"],
   "assignees": ["miyaoka"],
   "reviewers": ["miyaoka"]
