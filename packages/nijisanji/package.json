@@ -15,7 +15,7 @@
     "prepare": "vite build",
     "build": "vite build",
     "dev": "vite build --watch",
-    "typecheck": "tsgo --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint": "oxlint --type-aware .",
     "fix": "oxlint --type-aware --fix . && oxfmt .",
     "update-channels": "bun scripts/update-channels.ts"
@@ -26,7 +26,7 @@
   "devDependencies": {
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
-    "@typescript/native-preview": "catalog:",
+    "@typescript/native": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
