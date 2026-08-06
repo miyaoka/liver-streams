@@ -22,7 +22,7 @@ catalog:
   oxlint: 1.76.0
   oxlint-tsgolint: 7.0.2001
   typescript: npm:@typescript/typescript6@6.0.2
-  typescript-eslint: 8.65.0
+  typescript-eslint: 8.66.0
   unplugin-dts: 1.0.3
   vite: 8.2.0
 
