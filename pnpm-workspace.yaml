@@ -7,7 +7,7 @@ allowBuilds:
 
 catalog:
   "@happy-dom/global-registrator": 20.11.2
-  "@tsconfig/node24": 24.0.4
+  "@tsconfig/node24": 24.0.5
   "@types/bun": 1.3.14
   "@types/node": 24.13.3
   # TS7 (native) は programmatic API を持たない（7.1 で新 API 予定）ため、compiler API を
