@@ -44,7 +44,7 @@
     "eslint-plugin-import-x": "catalog:",
     "eslint-plugin-unused-imports": "catalog:",
     "eslint-plugin-vue": "10.10.0",
-    "happy-dom": "20.11.2",
+    "happy-dom": "20.11.6",
     "jiti": "2.7.0",
     "npm-run-all2": "9.0.3",
     "oxfmt": "catalog:",
