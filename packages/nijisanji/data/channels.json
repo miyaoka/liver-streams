@@ -468,12 +468,6 @@
       "name": "EN",
       "children": [
         {
-          "name": "未分類",
-          "children": [
-            "BY THE BEAT"
-          ]
-        },
-        {
           "name": "公式",
           "children": [
             "NIJISANJI EN"
@@ -565,6 +559,7 @@
         {
           "name": "BY THE BEAT",
           "children": [
+            "BY THE BEAT",
             "ジール・ギンジョウカ",
             "フリオドール",
             "セイブル",
