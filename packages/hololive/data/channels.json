@@ -10,9 +10,6 @@
             "Elizabeth Sub",
             "癒月ちょこSub",
             "ホロアース",
-            "UNIT B",
-            "ACHRORA",
-            "mekPark",
             "ホロドリ"
           ]
         },
@@ -85,6 +82,10 @@
           ]
         }
       ]
+    },
+    {
+      "name": "mekPark",
+      "children": ["mekPark", "ACHRORA", "UNIT B"]
     },
     {
       "name": "ホロライブEnglish",
