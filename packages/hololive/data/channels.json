@@ -10,9 +10,6 @@
             "Elizabeth Sub",
             "癒月ちょこSub",
             "ホロアース",
-            "UNIT B",
-            "ACHRORA",
-            "mekPark",
             "ホロドリ"
           ]
         },
@@ -48,7 +45,7 @@
         {
           "name": "4期生",
           "initial": "4",
-          "children": ["天音かなた", "角巻わため", "常闘トワ", "姫森ルーナ"]
+          "children": ["天音かなた", "角巻わため", "常闇トワ", "姫森ルーナ"]
         },
         {
           "name": "5期生",
@@ -85,6 +82,10 @@
           ]
         }
       ]
+    },
+    {
+      "name": "mekPark",
+      "children": ["mekPark", "ACHRORA", "UNIT B"]
     },
     {
       "name": "ホロライブEnglish",
