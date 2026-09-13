@@ -9,7 +9,7 @@ catalog:
   "@happy-dom/global-registrator": 20.14.0
   "@tsconfig/node24": 24.0.5
   "@types/bun": 1.4.2
-  "@types/node": 24.13.3
+  "@types/node": 24.13.4
   # TS7 (native) は programmatic API を持たない（7.1 で新 API 予定）ため、compiler API を
   # 埋め込む tooling（vue-tsc / typescript-eslint）は TS6 に据え置く。TS 7.0 公式処方の
   # dual alias: `tsc` バイナリは @typescript/native、`typescript` の import 名は TS6 API を
