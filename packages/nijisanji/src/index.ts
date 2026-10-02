@@ -97,5 +97,7 @@ async function getNijiEvents({
 
 export { fetchNijiLiverMap, fetchNijiStreamList } from "./api";
 export type { NijiLiver, NijiStream, NijiLiverMap } from "./api";
+export { toNijiStreams } from "./streams";
+export type { NijisanjiApiStream } from "./streams";
 
 export const nijisanjiChannels: ChannelNode = channelsData;

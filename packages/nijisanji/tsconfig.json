@@ -10,6 +10,7 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "resolveJsonModule": true,
+    "types": ["bun"],
     "lib": ["ESNext", "DOM"]
   },
   "include": ["src/**/*", "src/**/*.json"]

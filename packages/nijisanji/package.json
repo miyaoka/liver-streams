@@ -15,6 +15,7 @@
     "prepare": "vite build",
     "build": "vite build",
     "dev": "vite build --watch",
+    "test": "bun test",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint --type-aware .",
     "fix": "oxlint --type-aware --fix . && oxfmt .",

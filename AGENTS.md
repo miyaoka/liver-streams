@@ -18,7 +18,7 @@ pnpm dev
 # 全ワークスペースのテスト実行
 pnpm test:all
 
-# 特定のテストのみ実行（test スクリプトがあるのは core と web）
+# 特定のテストのみ実行（test スクリプトがあるのは core、nijisanji、web）
 pnpm --filter @liver-streams/core test "<file path>" -t "<test name>"
 
 # 全ワークスペースの型チェック
