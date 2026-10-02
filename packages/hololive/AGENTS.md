@@ -29,7 +29,7 @@ pnpm fix         # リント・フォーマット自動修正
 import { createHololiveService } from "@liver-streams/hololive";
 
 const service = createHololiveService({
-  iconBaseUrl: "/icons",
+  iconBaseUrl: "/icons/hololive",
 });
 
 // 配信イベントを取得

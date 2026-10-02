@@ -34,20 +34,9 @@ apps/web/public/icons/
 └── nijisanji -> ../../../../packages/nijisanji/assets/icons # symlink
 ```
 
-### 開発時と本番時の画像パス
+### 画像の配信
 
-| 環境          | パス解決                                 | 理由                                     |
-| ------------- | ---------------------------------------- | ---------------------------------------- |
-| 開発（dev）   | `/icons/hololive/xxx.jpg`（symlink経由） | Vite dev server がローカルファイルを配信 |
-| 本番（build） | GitHub raw URL                           | ホスティング先のアクセス制限回避         |
-
-本番で GitHub raw URL を使う理由:
-
-- 数百人のタレント画像を一度に読み込むと、ホスティングサービス（Vercel等）のアクセス回数制限に抵触する可能性がある
-- GitHub の CDN に負荷を分散させる
-
-> [!NOTE]
-> build 時に symlink は実体として dist に含まれるが、実際には使用されない。
+画像の実体は各パッケージの `assets/icons/` が持ち、web アプリが `apps/web/public/icons/` の symlink を通して `/icons/hololive/` と `/icons/nijisanji/` で公開する。開発時も本番時も、画像はアプリと同じオリジンから配信される。
 
 ## サービス間のデータ構造の違い
 
