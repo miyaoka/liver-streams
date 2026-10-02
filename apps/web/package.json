@@ -8,7 +8,9 @@
     "build": "run-p typecheck \"build-only {@}\" --",
     "preview": "vite preview",
     "test": "bun test",
-    "build-only": "vite build",
+    "build-only": "cf build",
+    "deploy": "cf deploy --prebuilt --mode production",
+    "deploy:check": "cf deploy --prebuilt --mode production --dry-run",
     "typecheck": "vue-tsc --build --force",
     "lint": "eslint .",
     "fix": "eslint . --fix -c eslint.config.fix.ts && oxfmt ."
@@ -23,6 +25,7 @@
     "vue-router": "5.3.1"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "2.0.0-beta.sha-ad79608dd",
     "@egoist/tailwindcss-icons": "1.9.2",
     "@happy-dom/global-registrator": "catalog:",
     "@iconify-json/eva": "1.2.3",
@@ -39,6 +42,7 @@
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.9.0",
     "@vue/tsconfig": "0.9.1",
+    "cf": "1.0.0-beta.5",
     "eslint": "catalog:",
     "eslint-plugin-better-tailwindcss": "4.7.0",
     "eslint-plugin-import-x": "catalog:",

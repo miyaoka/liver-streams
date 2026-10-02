@@ -40,5 +40,5 @@ liver-streams の技術ドキュメント。
 
 ## 関連リンク
 
-- [本番環境](https://liver-streams.vercel.app/)
+- [本番環境](https://liver-streams.miyaoka.workers.dev/)
 - [GitHub リポジトリ](https://github.com/miyaoka/liver-streams)
