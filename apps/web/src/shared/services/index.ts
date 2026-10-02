@@ -3,15 +3,13 @@ import type { EventService, LiverEvent } from "@liver-streams/core";
 import { createHololiveService } from "@liver-streams/hololive";
 import { createNijisanjiService } from "@liver-streams/nijisanji";
 
-const nijiApiBaseUrl = import.meta.env.VITE_NIJI_API_BASE;
-
 export const services: EventService[] = [
   createHololiveService({
     iconBaseUrl: "/icons/hololive",
   }),
   createNijisanjiService({
     iconBaseUrl: "/icons/nijisanji",
-    apiBaseUrl: nijiApiBaseUrl,
+    apiBaseUrl: "/api",
   }),
 ];
 

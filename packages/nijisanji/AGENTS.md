@@ -31,7 +31,7 @@ import { createNijisanjiService } from "@liver-streams/nijisanji";
 
 const service = createNijisanjiService({
   iconBaseUrl: "/icons/nijisanji",
-  apiBaseUrl: "https://nijiapi-proxy.vercel.app/api", // オプション
+  apiBaseUrl: "/api",
 });
 
 // 配信イベントを取得
@@ -47,10 +47,8 @@ const iconUrl = service.getIcon("月ノ美兎");
 
 ### fetchNijiStreamList(options)
 
-にじさんじ API から配信情報を取得する。
+`${options.apiBaseUrl}/streams` から配信情報を取得する。にじさんじ API は CORS を許可しないため、`apiBaseUrl` にはにじさんじ API を中継するエンドポイントを渡す。
 
-- デフォルトエンドポイント: `https://nijiapi-proxy.vercel.app/api/streams`
-- `options.apiBaseUrl` でカスタム API を指定可能
 - `options.useTestData: true` で開発用データを使用
 
 ### nijisanjiChannels

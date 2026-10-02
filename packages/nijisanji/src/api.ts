@@ -20,24 +20,20 @@ export interface NijiLiverMap {
 
 export interface FetchDataOptions {
   useTestData?: boolean;
-  apiBaseUrl?: string;
+  apiBaseUrl: string;
 }
-
-const defaultApiBase = "https://nijiapi-proxy.vercel.app/api";
 
 export function fetchNijiLiverMap(): Promise<NijiLiverMap> {
   // APIが重いので常にローカルファイルから取得する
   return import("../data/livers.json").then((res) => res.default);
 }
 
-export function fetchNijiStreamList(options: FetchDataOptions = {}): Promise<NijiStream[]> {
+export function fetchNijiStreamList(options: FetchDataOptions): Promise<NijiStream[]> {
   if (options.useTestData) {
     return import("../data/dev/streams.json").then((res) => res.default);
   }
 
-  const apiBase = options.apiBaseUrl || defaultApiBase;
-  const url = new URL(`${apiBase}/streams`);
-  return fetch(url)
+  return fetch(`${options.apiBaseUrl}/streams`)
     .then((res) => res.json())
     .catch(() => []);
 }

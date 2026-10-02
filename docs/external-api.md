@@ -12,7 +12,7 @@ graph TB
 
     subgraph "にじさんじ"
         N1[にじさんじ公式API<br/>配信: nijisanji.jp/api/streams<br/>タレント: nijisanji.jp/api/livers]
-        N2[プロキシAPI<br/>nijiapi-proxy.vercel.app]
+        N2[中継API<br/>アプリの Worker の /api/streams]
         N3[配信情報のみ]
         N4[ローカルJSON<br/>livers.json]
         N5[配信情報<br/>+<br/>タレントID]

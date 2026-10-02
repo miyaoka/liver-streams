@@ -46,9 +46,9 @@ graph TD
 
 - **元API**: `https://www.nijisanji.jp/api/streams?day_offset={offset}`
   - `day_offset`: -3〜3まで指定可能（-1=前日、0=当日、1=翌日）
-- **プロキシAPI**: `https://nijiapi-proxy.vercel.app/api/streams`
+- **中継API**: `/api/streams`（アプリと同じ Worker の `apps/web/worker/`）
   - CORS制限を回避するためのプロキシ
-  - -1、0、1の3日分のデータをまとめてキャッシュして返す
+  - -1、0、1の3日分のデータをまとめて返し、ブラウザに60秒のキャッシュを許可する
   - ホロライブと同じ範囲（前日〜翌日）に統一
 
 ### データ取得の流れ

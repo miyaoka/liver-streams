@@ -11,7 +11,7 @@
     "build-only": "cf build",
     "deploy": "cf deploy --prebuilt --mode production",
     "deploy:check": "cf deploy --prebuilt --mode production --dry-run",
-    "typecheck": "vue-tsc --build --force",
+    "typecheck": "cf workers types && vue-tsc --build --force",
     "lint": "eslint .",
     "fix": "eslint . --fix -c eslint.config.fix.ts && oxfmt ."
   },

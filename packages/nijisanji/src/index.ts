@@ -12,7 +12,7 @@ import type { NijiLiverMap, NijiStream } from "./api";
 import { getIcon as getIconPath } from "./icons";
 
 export interface NijisanjiServiceConfig extends EventServiceConfig {
-  apiBaseUrl?: string;
+  apiBaseUrl: string;
 }
 
 export function createNijisanjiService(config: NijisanjiServiceConfig): EventService {

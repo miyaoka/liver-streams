@@ -10,14 +10,7 @@ export default defineConfig({
   server: {
     open: true,
   },
-  plugins: [
-    docBlockPlugin(),
-    tailwindcss(),
-    vue(),
-    vueDevTools(),
-    // Worker コードを持たない静的アセットのみの構成なので、型生成は不要
-    cloudflare({ types: { generate: false } }),
-  ],
+  plugins: [docBlockPlugin(), tailwindcss(), vue(), vueDevTools(), cloudflare()],
   resolve: {
     tsconfigPaths: true,
   },
