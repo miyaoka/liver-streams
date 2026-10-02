@@ -15,7 +15,8 @@ export default defineConfig({
     tailwindcss(),
     vue(),
     vueDevTools(),
-    // Worker コードを持たない静的アセットのみの構成なので、型生成は不要
+    // Workers の型は typecheck スクリプトの cf workers types だけが生成する。
+    // build は typecheck と並行に走るため、両方が同じファイルを書かないようにする
     cloudflare({ types: { generate: false } }),
   ],
   resolve: {

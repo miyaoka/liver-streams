@@ -30,13 +30,13 @@ liver-streams の技術ドキュメント。
 
 ## API エンドポイント
 
-| サービス   | 種別                 | エンドポイント                                                |
-| ---------- | -------------------- | ------------------------------------------------------------- |
-| ホロライブ | 配信情報             | `https://schedule.hololive.tv/api/list/7`                     |
-| にじさんじ | 配信情報（公式）     | `https://www.nijisanji.jp/api/streams?day_offset={-1,0,1}`    |
-| にじさんじ | 配信情報（プロキシ） | `https://nijiapi-proxy.vercel.app/api/streams`                |
-| にじさんじ | タレント情報（JP）   | `https://www.nijisanji.jp/api/livers?affiliation=nijisanji`   |
-| にじさんじ | タレント情報（EN）   | `https://www.nijisanji.jp/api/livers?affiliation=nijisanjien` |
+| サービス   | 種別               | エンドポイント                                                |
+| ---------- | ------------------ | ------------------------------------------------------------- |
+| ホロライブ | 配信情報           | `https://schedule.hololive.tv/api/list/7`                     |
+| にじさんじ | 配信情報（公式）   | `https://www.nijisanji.jp/api/streams?day_offset={-1,0,1}`    |
+| にじさんじ | 配信情報（中継）   | `/api/streams`（アプリの Worker）                             |
+| にじさんじ | タレント情報（JP） | `https://www.nijisanji.jp/api/livers?affiliation=nijisanji`   |
+| にじさんじ | タレント情報（EN） | `https://www.nijisanji.jp/api/livers?affiliation=nijisanjien` |
 
 ## 関連リンク
 

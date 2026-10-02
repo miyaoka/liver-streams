@@ -46,18 +46,18 @@ graph TD
 
 - **元API**: `https://www.nijisanji.jp/api/streams?day_offset={offset}`
   - `day_offset`: -3〜3まで指定可能（-1=前日、0=当日、1=翌日）
-- **プロキシAPI**: `https://nijiapi-proxy.vercel.app/api/streams`
-  - CORS制限を回避するためのプロキシ
-  - -1、0、1の3日分のデータをまとめてキャッシュして返す
+- **中継API**: `/api/streams`（アプリと同じ Worker の `apps/web/worker/`）
+  - CORS制限を回避するための中継
+  - -1、0、1の3日分のデータをまとめて返し、ブラウザに60秒のキャッシュを許可する
   - ホロライブと同じ範囲（前日〜翌日）に統一
 
 ### データ取得の流れ
 
-#### 1. 初期データ取得 (`src/services/api.ts`)
+#### 1. 初期データ取得 (`apps/web/src/shared/services/index.ts`)
 
 ```typescript
-// fetchLiverEventList 関数で両方のAPIを並列取得
-const [holoEvents, nijiStreams] = await Promise.all([fetchHoloEventList(), fetchNijiStreamList()]);
+// fetchAllEvents 関数で各サービスの配信を並列取得する
+const results = await Promise.all(services.map((s) => s.fetchEventList()));
 ```
 
 #### 2. データ変換
@@ -292,7 +292,7 @@ collaboTalentSet: new Set(collaboTalents.map((t) => t.name));
 Promise.all を使用して API 呼び出しを並列化：
 
 ```typescript
-const [holoEvents, nijiStreams] = await Promise.all([fetchHoloEventList(), fetchNijiStreamList()]);
+const results = await Promise.all(services.map((s) => s.fetchEventList()));
 ```
 
 ## データ更新サイクル

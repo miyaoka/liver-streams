@@ -1,0 +1,17 @@
+{
+  "include": ["worker/**/*.ts", "cloudflare.config.ts", ".cloudflare/types/index.d.ts"],
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker.tsbuildinfo",
+
+    "target": "ES2024",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2024"],
+    "types": [],
+    "strict": true,
+    "skipLibCheck": true
+  }
+}

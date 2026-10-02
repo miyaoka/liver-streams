@@ -24,6 +24,7 @@ pnpm fix         # リント・フォーマット自動修正
 - `src/router/` - Vue Router 設定
 - `src/lib/` - ユーティリティ
 - `src/utils/` - ヘルパー関数
+- `worker/` - Cloudflare Worker。`/api/*` を処理し、CORS を許可しないにじさんじ API を同じオリジンへ中継する
 
 ## services
 
@@ -107,8 +108,3 @@ UI 状態管理
 - @vueuse/core
 - bun test + happy-dom（テスト）
 - vue-tsc（型チェック）
-
-## 環境変数
-
-- `VITE_NIJI_API_BASE` - にじさんじ API のベース URL
-- `VITE_TEST_DATA` - テストデータ使用フラグ

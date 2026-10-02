@@ -5,6 +5,7 @@
 ## 開発コマンド
 
 ```bash
+pnpm test        # テスト実行
 pnpm typecheck   # 型チェック
 pnpm lint        # リント実行
 pnpm fix         # リント・フォーマット自動修正
@@ -14,6 +15,7 @@ pnpm fix         # リント・フォーマット自動修正
 
 - `src/index.ts` - エントリーポイント、`createNijisanjiService()` を export
 - `src/api.ts` - にじさんじ API からのデータ取得
+- `src/streams.ts` - にじさんじ API の配信の型と、アプリの `NijiStream` 形式への変換
 - `src/icons.ts` - アイコン URL 解決
 - `data/icons.json` - タレント名 → アイコンパスのマッピング
 - `data/livers.json` - talentId → タレント情報のマッピング
@@ -31,7 +33,7 @@ import { createNijisanjiService } from "@liver-streams/nijisanji";
 
 const service = createNijisanjiService({
   iconBaseUrl: "/icons/nijisanji",
-  apiBaseUrl: "https://nijiapi-proxy.vercel.app/api", // オプション
+  apiBaseUrl: "/api",
 });
 
 // 配信イベントを取得
@@ -47,11 +49,13 @@ const iconUrl = service.getIcon("月ノ美兎");
 
 ### fetchNijiStreamList(options)
 
-にじさんじ API から配信情報を取得する。
+`${options.apiBaseUrl}/streams` から配信情報を取得する。にじさんじ API は CORS を許可しないため、`apiBaseUrl` にはにじさんじ API を中継するエンドポイントを渡す。
 
-- デフォルトエンドポイント: `https://nijiapi-proxy.vercel.app/api/streams`
-- `options.apiBaseUrl` でカスタム API を指定可能
 - `options.useTestData: true` で開発用データを使用
+
+### toNijiStreams(streams)
+
+にじさんじ API の配信（`NijisanjiApiStream`）を `NijiStream` に変換する。YouTube の配信だけを返す。中継エンドポイントがこの変換を使う。
 
 ### nijisanjiChannels
 
