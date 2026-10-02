@@ -8,5 +8,5 @@ export interface EventService {
 }
 
 export interface EventServiceConfig {
-  localIconBaseUrl?: string;
+  iconBaseUrl: string;
 }

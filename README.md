@@ -2,9 +2,9 @@
 
 VTuber の配信情報を一覧表示するウェブアプリケーション。にじさんじとホロライブの配信スケジュールを統合し、リアルタイムで確認できます。
 
-🔗 **[liver-streams.vercel.app](https://liver-streams.vercel.app)**
+🔗 **[liver-streams.miyaoka.workers.dev](https://liver-streams.miyaoka.workers.dev)**
 
-<img width="1733" height="1033" alt="liver-streams vercel app_" src="https://github.com/user-attachments/assets/e6a416d4-a8b4-4645-a30b-17266508f2ad" />
+<img width="1733" height="1033" alt="liver-streams" src="https://github.com/user-attachments/assets/e6a416d4-a8b4-4645-a30b-17266508f2ad" />
 
 ## 機能
 
@@ -21,14 +21,14 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 
 ### 全体
 
-| カテゴリ       | 技術              |
-| -------------- | ----------------- |
-| 言語           | TypeScript        |
-| パッケージ管理 | pnpm              |
-| テスト         | bun test          |
-| リント         | ESLint + Prettier |
-| Git フック     | lefthook          |
-| ホスティング   | Vercel            |
+| カテゴリ       | 技術               |
+| -------------- | ------------------ |
+| 言語           | TypeScript         |
+| パッケージ管理 | pnpm               |
+| テスト         | bun test           |
+| リント         | ESLint + Prettier  |
+| Git フック     | lefthook           |
+| ホスティング   | Cloudflare Workers |
 
 ### UI
 

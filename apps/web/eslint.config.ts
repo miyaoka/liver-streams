@@ -6,7 +6,7 @@ import { baseRules } from "./eslint.base";
 
 export default defineConfigWithVueTs(
   // ignores 設定
-  { ignores: ["dist/**", "node_modules/**"] },
+  { ignores: [".cloudflare/**", "node_modules/**"] },
 
   // Vue推奨設定
   pluginVue.configs["flat/essential"],

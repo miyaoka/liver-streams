@@ -30,7 +30,7 @@ pnpm fix         # リント・フォーマット自動修正
 import { createNijisanjiService } from "@liver-streams/nijisanji";
 
 const service = createNijisanjiService({
-  iconBaseUrl: "/icons",
+  iconBaseUrl: "/icons/nijisanji",
   apiBaseUrl: "https://nijiapi-proxy.vercel.app/api", // オプション
 });
 

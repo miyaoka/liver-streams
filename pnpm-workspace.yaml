@@ -4,6 +4,7 @@ packages:
 allowBuilds:
   lefthook: true
   unrs-resolver: true
+  workerd: true
 
 catalog:
   "@happy-dom/global-registrator": 20.14.5

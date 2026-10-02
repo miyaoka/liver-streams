@@ -7,10 +7,10 @@ const nijiApiBaseUrl = import.meta.env.VITE_NIJI_API_BASE;
 
 export const services: EventService[] = [
   createHololiveService({
-    localIconBaseUrl: import.meta.env.DEV ? "/icons/hololive" : undefined,
+    iconBaseUrl: "/icons/hololive",
   }),
   createNijisanjiService({
-    localIconBaseUrl: import.meta.env.DEV ? "/icons/nijisanji" : undefined,
+    iconBaseUrl: "/icons/nijisanji",
     apiBaseUrl: nijiApiBaseUrl,
   }),
 ];
