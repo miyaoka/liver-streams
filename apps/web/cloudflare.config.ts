@@ -6,6 +6,7 @@ export default defineConfig({
     name: "liver-streams",
     entrypoint,
     compatibilityDate: "2026-09-25",
+    observability: { enabled: true },
     assets: {
       notFoundHandling: "single-page-application",
       // ブラウザのアドレスバーから開いた場合も SPA の index.html ではなく Worker が応答する
