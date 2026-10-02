@@ -23,7 +23,7 @@ const multiSelectStore = useMultiSelectStore();
 const eventListStore = useEventListStore();
 const searchStore = useSearchStore();
 
-const multiviewPlayerUrl = "https://multiview-player.vercel.app/";
+const multiviewPlayerUrl = "https://multiview-player.miyaoka.workers.dev/";
 
 function openInMultiPlayer() {
   const idList = Array.from(multiSelectStore.multiSelectEventIdSet);
