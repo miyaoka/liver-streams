@@ -51,7 +51,7 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant C as クライアント
-    participant P as プロキシAPI
+    participant P as 中継API（/api/streams）
     participant N as にじさんじAPI
     participant L as ローカルJSON
     participant PR as 処理
@@ -65,7 +65,7 @@ sequenceDiagram
     P->>N: GET /streams?day_offset=1
     N-->>P: 3日分の配信データ
     P-->>C: まとめた配信データ
-    Note over P,C: CORS回避のため<br/>プロキシ経由
+    Note over P,C: CORS回避のため<br/>中継API経由
 
     C->>PR: データ結合処理
     Note over PR: NijiStream {<br/>  talentId: "abc123"<br/>} + nijiLiverMap
@@ -92,7 +92,7 @@ graph TD
 | 項目           | ホロライブ       | にじさんじ                   |
 | -------------- | ---------------- | ---------------------------- |
 | タレント情報源 | APIレスポンス内  | 静的ファイル（livers.json）  |
-| CORS制限       | なし             | あり（プロキシ必要）         |
+| CORS制限       | なし             | あり（中継API必要）          |
 | データ取得     | 1回のAPI呼び出し | 配信API + 事前のタレント情報 |
 
 > [!NOTE]

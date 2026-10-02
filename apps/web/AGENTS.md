@@ -108,7 +108,3 @@ UI 状態管理
 - @vueuse/core
 - bun test + happy-dom（テスト）
 - vue-tsc（型チェック）
-
-## 環境変数
-
-- `VITE_TEST_DATA` - テストデータ使用フラグ
