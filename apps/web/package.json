@@ -25,7 +25,7 @@
     "vue-router": "5.3.1"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "2.0.0-beta.sha-ad79608dd",
+    "@cloudflare/vite-plugin": "2.0.0-beta.sha-c82c3efb3",
     "@egoist/tailwindcss-icons": "1.9.2",
     "@happy-dom/global-registrator": "catalog:",
     "@iconify-json/eva": "1.2.3",
