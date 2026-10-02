@@ -6,8 +6,7 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "eslint.config.*",
-    "cloudflare.config.*"
+    "eslint.config.*"
   ],
   "compilerOptions": {
     "composite": false,

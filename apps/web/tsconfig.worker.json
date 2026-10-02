@@ -1,9 +1,9 @@
 {
-  "include": ["worker/**/*.ts", ".cloudflare/types/index.d.ts"],
-  "exclude": ["worker/**/*.test.ts"],
+  "include": ["worker/**/*.ts", "cloudflare.config.ts", ".cloudflare/types/index.d.ts"],
   "compilerOptions": {
     "composite": false,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker.tsbuildinfo",
 
     "target": "ES2024",

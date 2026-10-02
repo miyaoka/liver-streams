@@ -10,7 +10,15 @@ export default defineConfig({
   server: {
     open: true,
   },
-  plugins: [docBlockPlugin(), tailwindcss(), vue(), vueDevTools(), cloudflare()],
+  plugins: [
+    docBlockPlugin(),
+    tailwindcss(),
+    vue(),
+    vueDevTools(),
+    // Workers の型は typecheck スクリプトの cf workers types だけが生成する。
+    // build は typecheck と並行に走るため、両方が同じファイルを書かないようにする
+    cloudflare({ types: { generate: false } }),
+  ],
   resolve: {
     tsconfigPaths: true,
   },

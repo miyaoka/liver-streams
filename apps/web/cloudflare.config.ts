@@ -1,10 +1,10 @@
 import { defineConfig } from "cf/config";
+import * as entrypoint from "./worker/index.ts" with { type: "cf-worker" };
 
 export default defineConfig({
   worker: {
     name: "liver-streams",
-    // Worker のコードは tsconfig.worker.json で型検査するため、import せずパスで渡す
-    entrypoint: "./worker/index.ts",
+    entrypoint,
     compatibilityDate: "2026-09-25",
     assets: {
       notFoundHandling: "single-page-application",
