@@ -160,8 +160,8 @@ importers:
         specifier: 0.9.1
         version: 0.9.1(@typescript/typescript6@6.0.2)(vue@3.5.43(@typescript/typescript6@6.0.2))
       cf:
-        specifier: 1.0.0-beta.10
-        version: 1.0.0-beta.10(@types/node@24.19.1)
+        specifier: 1.0.0-beta.11
+        version: 1.0.0-beta.11(@types/node@24.19.1)
       eslint:
         specifier: 'catalog:'
         version: 10.11.0(jiti@2.7.0)(supports-color@10.2.2)
@@ -2194,8 +2194,8 @@ packages:
   caniuse-lite@1.0.30001814:
     resolution: {integrity: sha512-/Uaf1lAzr59XcMpW0o96WoEfr+VXK2OX4U9AgFoiSHsVJ4HppnIFUjtYzsyDH2+tgANaQb2/oxYGwCPapN1FpA==}
 
-  cf@1.0.0-beta.10:
-    resolution: {integrity: sha512-pv3zg8Y0sjgNuyKpDNsEBszTvSgRDzHccvHybJ6u4BjvesMZpS2T2twnOGvDo0PSnie/bCbA+hgzKWaDuIKtBw==}
+  cf@1.0.0-beta.11:
+    resolution: {integrity: sha512-GqWsnqtqvkGRj+PE6dUPViuv2/WFwUWi7I0IsCN1tCmXcGayhxOtBpohQtQ1IhxQ2eUigrKKE7Ii/vt3vniarw==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -5091,7 +5091,7 @@ snapshots:
 
   caniuse-lite@1.0.30001814: {}
 
-  cf@1.0.0-beta.10(@types/node@24.19.1):
+  cf@1.0.0-beta.11(@types/node@24.19.1):
     dependencies:
       '@cloudflare/build-output-utils': 0.8.4
       '@cloudflare/codemods': 0.3.0
