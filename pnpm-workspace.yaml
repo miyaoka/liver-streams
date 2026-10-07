@@ -24,7 +24,7 @@ catalog:
   oxlint-tsgolint: 7.0.2003
   typescript: npm:@typescript/typescript6@6.0.2
   typescript-eslint: 8.71.0
-  unplugin-dts: 1.1.1
+  unplugin-dts: 1.1.2
   vite: 8.3.2
 
 minimumReleaseAgeExclude:
