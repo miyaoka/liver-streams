@@ -11,8 +11,7 @@ export default defineConfig({
   },
   plugins: [
     tailwindcss(),
-    // defineVaporComponent の中だけを Vapor にし、外側は仮想 DOM のまま扱う
-    vueJsxVapor({ interop: true }),
+    vueJsxVapor(),
     vueDevTools(),
     // Workers の型はルートの check:types の cf workers types だけが生成する
     cloudflare({ types: { generate: false } }),

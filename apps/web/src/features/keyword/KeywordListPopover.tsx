@@ -102,7 +102,7 @@ export default defineVaporComponent(
 
           <button
             class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
-            onClick={(e) => closePopover(asNativeEvent<MouseEvent>(e))}
+            onClick={(e) => closePopover(asNativeEvent(e))}
           >
             <i class="i-mdi-close size-6" />
           </button>

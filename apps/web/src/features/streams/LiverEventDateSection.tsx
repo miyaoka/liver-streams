@@ -6,6 +6,7 @@
 import type { DateSection } from "@liver-streams/core";
 import { compareDate, mdDateFormatter, relativeDateFormatter } from "@liver-streams/core";
 import { computed, defineVaporComponent } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { scrollToSectionTop } from "../../shared/lib";
 import { useDateStore } from "../../shared/stores";
 import LiverEventTimeSection from "./LiverEventTimeSection";
@@ -60,14 +61,15 @@ export default defineVaporComponent(
             </span>
           </button>
         </header>
-        {props.dateSection.timeSectionList.map((section, i) => (
-          <LiverEventTimeSection
-            key={section.time}
-            section={section}
-            nextSection={props.dateSection.timeSectionList[i + 1]}
-            isCurrentTime={section.time === dateStore.currentHourTime}
-          />
-        ))}
+        <VaporFor in={props.dateSection.timeSectionList} getKey={(section) => section.time}>
+          {(section, i) => (
+            <LiverEventTimeSection
+              section={section.value}
+              nextSection={props.dateSection.timeSectionList[i.value + 1]}
+              isCurrentTime={section.value.time === dateStore.currentHourTime}
+            />
+          )}
+        </VaporFor>
       </section>
     );
   },

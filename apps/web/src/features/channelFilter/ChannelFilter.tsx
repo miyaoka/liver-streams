@@ -6,6 +6,7 @@
 import { hololiveChannels } from "@liver-streams/hololive";
 import { nijisanjiChannels } from "@liver-streams/nijisanji";
 import { computed, defineVaporComponent, ref } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { usePopover } from "../../shared/composables";
 import { getAffiliationLogo, services } from "../../shared/services";
 import ChannelNode from "./ChannelNode";
@@ -74,26 +75,25 @@ export default defineVaporComponent(
 
             <div class="flex place-content-between p-4 shadow-sm">
               <fieldset class="flex gap-2">
-                {groups.map((group) => (
-                  <label
-                    class="grid size-11 cursor-pointer place-items-center rounded-lg focus-within:outline hover:bg-gray-200 has-[input:checked]:bg-gray-200"
-                    key={group.key}
-                  >
-                    <input
-                      type="radio"
-                      checked={selectedGroup.value === group.key}
-                      onChange={() => (selectedGroup.value = group.key)}
-                      value={group.key}
-                      name="channel"
-                      class="sr-only"
-                    />
-                    <img
-                      src={getAffiliationLogo(group.affiliation)}
-                      alt="icon"
-                      class="size-[32px] rounded-full bg-white"
-                    />
-                  </label>
-                ))}
+                <VaporFor in={groups} getKey={(group) => group.key}>
+                  {(group) => (
+                    <label class="grid size-11 cursor-pointer place-items-center rounded-lg focus-within:outline hover:bg-gray-200 has-[input:checked]:bg-gray-200">
+                      <input
+                        type="radio"
+                        checked={selectedGroup.value === group.value.key}
+                        onChange={() => (selectedGroup.value = group.value.key)}
+                        value={group.value.key}
+                        name="channel"
+                        class="sr-only"
+                      />
+                      <img
+                        src={getAffiliationLogo(group.value.affiliation)}
+                        alt="icon"
+                        class="size-[32px] rounded-full bg-white"
+                      />
+                    </label>
+                  )}
+                </VaporFor>
               </fieldset>
               <button
                 class="flex h-11 place-items-center rounded-full bg-slate-100 px-2"

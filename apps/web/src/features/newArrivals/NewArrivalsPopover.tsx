@@ -2,6 +2,7 @@
  * 新着イベント一覧のポップオーバー UI。ブラウザを開いてから追加されたイベントを新着順（逆順）で表示する。
  */
 import { computed, defineVaporComponent } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { asNativeEvent } from "../../shared/lib";
 import { closePopover } from "../../shared/utils";
 import NewArrivalsListItem from "./NewArrivalsListItem";
@@ -24,7 +25,7 @@ export default defineVaporComponent(
 
           <button
             class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
-            onClick={(e) => closePopover(asNativeEvent<MouseEvent>(e))}
+            onClick={(e) => closePopover(asNativeEvent(e))}
           >
             <i class="i-mdi-close size-6" />
           </button>
@@ -35,14 +36,18 @@ export default defineVaporComponent(
           ) : (
             // 逆順表示
             <div class="flex flex-col-reverse">
-              {newArrivalsStore.newArrivalsList.map(({ liverEvent, addedTime }) => (
-                <NewArrivalsListItem
-                  key={liverEvent.id}
-                  addedTime={addedTime}
-                  lastCloseTime={props.lastCloseTime}
-                  liverEvent={liverEvent}
-                />
-              ))}
+              <VaporFor
+                in={newArrivalsStore.newArrivalsList}
+                getKey={({ liverEvent }) => liverEvent.id}
+              >
+                {(item) => (
+                  <NewArrivalsListItem
+                    addedTime={item.value.addedTime}
+                    lastCloseTime={props.lastCloseTime}
+                    liverEvent={item.value.liverEvent}
+                  />
+                )}
+              </VaporFor>
             </div>
           )}
         </div>

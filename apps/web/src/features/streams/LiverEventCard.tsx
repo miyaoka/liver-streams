@@ -17,6 +17,7 @@
 import { getThumbnail, hhss } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
 import { computed, defineVaporComponent, toRaw, toRefs } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { asNativeEvent } from "../../shared/lib";
 import { getAffiliationLogo } from "../../shared/services";
 import { useHoverStore, useMultiSelectStore, useSearchStore } from "../../shared/stores";
@@ -111,7 +112,7 @@ export default defineVaporComponent(
         <a
           href={liverEvent.value.url}
           target="_blank"
-          onClick={(e) => onClickCard(asNativeEvent<MouseEvent>(e))}
+          onClick={(e) => onClickCard(asNativeEvent(e))}
         >
           <div
             class={[
@@ -129,11 +130,9 @@ export default defineVaporComponent(
               <>
                 <span class="font-normal">{`(${liveDurationLabel.value.fixed}h)`}</span>
                 <div class="flex items-center opacity-50">
-                  {Array.from({ length: liveDurationLabel.value.count }, (_, i) => i + 1).map(
-                    (time) => (
-                      <i key={time} class="i-mdi-clock size-4" />
-                    ),
-                  )}
+                  <VaporFor in={liveDurationLabel.value.count} getKey={(time) => time}>
+                    {() => <i class="i-mdi-clock size-4" />}
+                  </VaporFor>
                 </div>
               </>
             )}
@@ -170,21 +169,22 @@ export default defineVaporComponent(
               <h3 class="line-clamp-1 font-bold">{liverEvent.value.talent.name}</h3>
               <div class="line-clamp-2 wrap-anywhere">{liverEvent.value.title}</div>
               <div class="absolute bottom-px z-10 flex flex-row">
-                {liverEvent.value.collaboTalents.map((talent) => (
-                  <img
-                    key={talent.image}
-                    src={talent.image}
-                    class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline-1 outline-gray-300 outline-solid hover:outline-2 hover:outline-red-500 hover:outline-solid"
-                    title={talent.name}
-                    loading="lazy"
-                    onMouseenter={() => hoverStore.setHoveredTalents(talent.name)}
-                    onMouseleave={() => hoverStore.clearHoveredTalents()}
-                    onContextmenu={(e) => {
-                      e.preventDefault();
-                      searchStore.setFocusedTalent(talent.name);
-                    }}
-                  />
-                ))}
+                <VaporFor in={liverEvent.value.collaboTalents} getKey={(talent) => talent.image}>
+                  {(talent) => (
+                    <img
+                      src={talent.value.image}
+                      class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline-1 outline-gray-300 outline-solid hover:outline-2 hover:outline-red-500 hover:outline-solid"
+                      title={talent.value.name}
+                      loading="lazy"
+                      onMouseenter={() => hoverStore.setHoveredTalents(talent.value.name)}
+                      onMouseleave={() => hoverStore.clearHoveredTalents()}
+                      onContextmenu={(e) => {
+                        e.preventDefault();
+                        searchStore.setFocusedTalent(talent.value.name);
+                      }}
+                    />
+                  )}
+                </VaporFor>
               </div>
             </div>
 

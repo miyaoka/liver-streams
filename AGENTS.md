@@ -49,7 +49,7 @@ packages/
 
 - **ツール管理**: mise.toml (bun, pnpm, node)
 - **フレームワーク**: Vue 3.6（Vapor Mode の TSX。SFC は使わない）
-- **ビルドツール**: Vite + vue-jsx-vapor（interop。`defineVaporComponent` の中だけを Vapor にする）
+- **ビルドツール**: Vite + vue-jsx-vapor（JSX はすべて Vapor にコンパイルする。vue-router の `RouterView` は仮想 DOM のコンポーネントなので、`main.ts` で `vaporInteropPlugin` を入れて Vapor と混在させる）
 - **型チェック**: bun check
 - **テスト**: bun test + happy-dom
 - **状態管理**: Pinia
@@ -74,7 +74,7 @@ packages/
 
 ## Vue コンポーネント
 
-`.tsx` で `defineVaporComponent((props: Props) => <JSX />, { name, props: [...] })` の形で書く。setup は 1 回だけ走り、JSX の中の式だけが変化に追従するので、setup で値を読んで変数に入れたり、早期 return で出し分けたりしない。Transition 系は `VaporTransition` / `VaporTransitionGroup` を使う。実行時 props の配列には Props の全キーを書く（漏れたキーは attrs に落ちる）。emit は使わず `onXxx` のコールバック props にする。DOM のイベント型で書いたハンドラは `shared/lib` の `asNativeEvent` を通して渡す（vue-jsx-vapor の JSX 型が React の合成イベントを前提にしているため）。
+`.tsx` で `defineVaporComponent((props: Props) => <JSX />, { name, props: [...] })` の形で書く。setup は 1 回だけ走り、JSX の中の式だけが変化に追従するので、setup で値を読んで変数に入れたり、早期 return で出し分けたりしない。Transition 系は `VaporTransition` / `VaporTransitionGroup` を使う。JSX の中の一覧は `.map()` ではなく `vue-jsx-vapor` の `VaporFor` に `getKey` を渡して書く（`.map()` は依存が変わるたびに全件を作り直す。`getKey` を渡すと子の引数は `ShallowRef` になるので `.value` で読む）。`VaporFor` の子が三項式をそのまま返すと 1 回しか評価されないので、`<>…</>` で包んで条件分岐にする。`VaporTransitionGroup` の直下に置く `VaporFor` には静的な `key` を付ける（付けないと子が 1 件のときにトランジションが付かない）。実行時 props の配列には Props の全キーを書く（漏れたキーは attrs に落ちる）。emit は使わず `onXxx` のコールバック props にする。DOM のイベント型で書いたハンドラは `shared/lib` の `asNativeEvent` を通して渡す（vue-jsx-vapor の JSX 型が React の合成イベントを前提にしているため）。
 
 スタイルは Tailwind のクラスで書く。クラスで書けないもの（Transition のクラス、popover の疑似要素、keyframes）だけを同じディレクトリの `<ファイル名>.css` に書き、`assets/main.css` から `@import` する。scoped は無いので、クラス名には接頭辞を付けて衝突を避け、class 属性で使うクラスは `@layer components` に置く（better-tailwindcss が既知のクラスとして扱う）。
 

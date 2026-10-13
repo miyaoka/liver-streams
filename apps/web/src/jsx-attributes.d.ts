@@ -2,6 +2,9 @@
 import "vue-jsx-vapor";
 
 declare module "vue-jsx-vapor" {
+  interface HTMLAttributes<T> {
+    popover?: "" | "auto" | "manual" | "hint";
+  }
   interface ButtonHTMLAttributes<T> {
     popovertarget?: string;
     popovertargetaction?: "hide" | "show" | "toggle";

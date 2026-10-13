@@ -8,6 +8,7 @@
  * - 既存プリセットの上書き保存・削除
  */
 import { defineVaporComponent, nextTick, ref } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { asNativeEvent } from "../../shared/lib";
 import { useTalentFilterStore } from "./";
 
@@ -87,7 +88,7 @@ export default defineVaporComponent(
               type="text"
               class="min-w-0 flex-1 rounded-lg border bg-white px-2 py-1 text-sm"
               placeholder="プリセット名"
-              onKeydown={(e) => onEditKeydown(asNativeEvent<KeyboardEvent>(e))}
+              onKeydown={(e) => onEditKeydown(asNativeEvent(e))}
             />
             <button
               class="grid size-8 shrink-0 place-items-center rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-40"
@@ -108,14 +109,16 @@ export default defineVaporComponent(
             <select
               class="min-w-0 flex-1 rounded-lg border bg-white px-2 py-1 text-sm"
               value={talentFilterStore.activePresetId ?? ""}
-              onChange={(e) => onPresetSelect(asNativeEvent<Event>(e))}
+              onChange={(e) => onPresetSelect(asNativeEvent(e))}
             >
               <option value="">プリセット未選択</option>
-              {talentFilterStore.presets.map((preset) => (
-                <option key={preset.id} value={preset.id}>
-                  {preset.name}（{preset.talents.length}）
-                </option>
-              ))}
+              <VaporFor in={talentFilterStore.presets} getKey={(preset) => preset.id}>
+                {(preset) => (
+                  <option value={preset.value.id}>
+                    {preset.value.name}（{preset.value.talents.length}）
+                  </option>
+                )}
+              </VaporFor>
             </select>
 
             <button

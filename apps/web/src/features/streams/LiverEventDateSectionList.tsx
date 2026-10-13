@@ -5,6 +5,7 @@
  */
 import type { DateSection } from "@liver-streams/core";
 import { defineVaporComponent, nextTick, onMounted, watch } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { scrollToCurrentTime } from "../../shared/lib";
 import { LoadingSpinner } from "../common";
 import { useEventListStore } from "./eventListStore";
@@ -40,25 +41,23 @@ export default defineVaporComponent(
     return (
       <>
         {props.isLoading ? (
-          // ローディング中
           <div class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
             <LoadingSpinner size="lg" message="読み込み中..." />
           </div>
         ) : props.dateSectionList.length > 0 ? (
-          // イベントリスト
           <div class="overflow-x-clip pb-60" data-id="event-list">
-            {props.dateSectionList.map((dateSection, i) => (
-              <LiverEventDateSection
-                key={dateSection.time}
-                dateSection={dateSection}
-                prevSection={props.dateSectionList[i - 1]}
-                nextSection={props.dateSectionList[i + 1]}
-              />
-            ))}
+            <VaporFor in={props.dateSectionList} getKey={(dateSection) => dateSection.time}>
+              {(dateSection, i) => (
+                <LiverEventDateSection
+                  dateSection={dateSection.value}
+                  prevSection={props.dateSectionList[i.value - 1]}
+                  nextSection={props.dateSectionList[i.value + 1]}
+                />
+              )}
+            </VaporFor>
             <div class="pointer-events-none fixed inset-0 bottom-auto z-10 h-20 bg-linear-to-b from-black/40" />
           </div>
         ) : (
-          // データなし
           <div class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
             <i class="i-mdi-file-document-error size-16" />
             <p class="text-base font-bold">no data</p>

@@ -12,6 +12,7 @@ import {
   toRelativeTime,
 } from "@liver-streams/core";
 import { computed, defineVaporComponent, onMounted } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { asNativeEvent, scrollToLiverEventTop } from "../../shared/lib";
 import { useDateStore, useHoverStore } from "../../shared/stores";
 import { closePopover } from "../../shared/utils";
@@ -68,7 +69,7 @@ export default defineVaporComponent(
 
           <button
             class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
-            onClick={(e) => closePopover(asNativeEvent<MouseEvent>(e))}
+            onClick={(e) => closePopover(asNativeEvent(e))}
           >
             <i class="i-mdi-close size-6" />
           </button>
@@ -78,32 +79,35 @@ export default defineVaporComponent(
             <div class="p-2">Bookmarkしたイベントがここに載ります</div>
           ) : (
             <div class="grid">
-              {props.bookmarkEventList.map((liverEvent) => (
-                <button
-                  key={liverEvent.id}
-                  popovertarget={liverEvent.id}
-                  onClick={() => scrollToLiverEventTop(liverEvent.id)}
-                  onMouseover={() => hoverStore.hoverEvent(liverEvent)}
-                  onMouseleave={hoverStore.unhoverEvent}
-                  class="hover:bg-gray-200"
-                  data-fav-event-id={liverEvent.id}
-                >
-                  <div class="flex items-center gap-2 p-2 text-start">
-                    <img
-                      src={getThumbnail(liverEvent.thumbnail, "mq")}
-                      class="aspect-video h-[36px] w-[64px] bg-gray-800 object-cover p-0 transition-colors"
-                      loading="lazy"
-                    />
-                    <p class="line-clamp-2 flex-1 text-sm wrap-anywhere">{liverEvent.title}</p>
-                    <div class="w-12 text-center text-sm">
-                      {getEventTime(liverEvent)}
-                      {liverEvent.isLive && (
-                        <p class="bg-red-600 text-center text-sm text-white">live</p>
-                      )}
+              <VaporFor in={props.bookmarkEventList} getKey={(liverEvent) => liverEvent.id}>
+                {(liverEvent) => (
+                  <button
+                    popovertarget={liverEvent.value.id}
+                    onClick={() => scrollToLiverEventTop(liverEvent.value.id)}
+                    onMouseover={() => hoverStore.hoverEvent(liverEvent.value)}
+                    onMouseleave={hoverStore.unhoverEvent}
+                    class="hover:bg-gray-200"
+                    data-fav-event-id={liverEvent.value.id}
+                  >
+                    <div class="flex items-center gap-2 p-2 text-start">
+                      <img
+                        src={getThumbnail(liverEvent.value.thumbnail, "mq")}
+                        class="aspect-video h-[36px] w-[64px] bg-gray-800 object-cover p-0 transition-colors"
+                        loading="lazy"
+                      />
+                      <p class="line-clamp-2 flex-1 text-sm wrap-anywhere">
+                        {liverEvent.value.title}
+                      </p>
+                      <div class="w-12 text-center text-sm">
+                        {getEventTime(liverEvent.value)}
+                        {liverEvent.value.isLive && (
+                          <p class="bg-red-600 text-center text-sm text-white">live</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                )}
+              </VaporFor>
               <div class="flex justify-center p-2">
                 <button
                   class="rounded-sm bg-gray-200 px-4 py-2 text-sm hover:bg-gray-300"

@@ -12,6 +12,7 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { parseSegment, getThumbnail, fullDateFormatter } from "@liver-streams/core";
 import { computed, defineVaporComponent, toRef } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { usePopover } from "../../../shared/composables";
 import { asNativeEvent } from "../../../shared/lib";
 import { useHoverStore, useSearchStore } from "../../../shared/stores";
@@ -86,7 +87,7 @@ export default defineVaporComponent(
           <div class="font-bold">{fullDate.value}</div>
           <button
             class="absolute right-0 grid size-11 place-items-center text-gray-400 hover:text-gray-200"
-            onClick={(e) => closePopover(asNativeEvent<MouseEvent>(e))}
+            onClick={(e) => closePopover(asNativeEvent(e))}
           >
             <i class="i-mdi-close size-5" />
           </button>
@@ -102,31 +103,22 @@ export default defineVaporComponent(
 
         <div class="relative flex flex-col gap-2 px-6 py-4 max-sm:p-3">
           <div class="text-lg font-bold">
-            {segmentList.value.map((segment, i) => {
-              if (segment.type === "hashtag") {
-                return (
-                  <span
-                    key={i}
-                    class="cursor-pointer text-blue-500 hover:underline"
-                    onClick={() => setSearchString(segment.value)}
-                  >
-                    {segment.value}
-                  </span>
-                );
-              }
-              if (segment.type === "keyword") {
-                return (
-                  <span
-                    key={i}
-                    class="cursor-pointer text-blue-500 hover:underline"
-                    onClick={() => setSearchString(segment.value)}
-                  >
-                    {segment.value}
-                  </span>
-                );
-              }
-              return <span key={i}>{segment.value}</span>;
-            })}
+            <VaporFor in={segmentList.value} getKey={(_, i) => i}>
+              {(segment) => (
+                <>
+                  {segment.value.type === "hashtag" || segment.value.type === "keyword" ? (
+                    <span
+                      class="cursor-pointer text-blue-500 hover:underline"
+                      onClick={() => setSearchString(segment.value.value)}
+                    >
+                      {segment.value.value}
+                    </span>
+                  ) : (
+                    <span>{segment.value.value}</span>
+                  )}
+                </>
+              )}
+            </VaporFor>
           </div>
 
           <div class="flex flex-row items-center gap-2">
@@ -148,25 +140,26 @@ export default defineVaporComponent(
             <div class="flex-1">
               <div class="text-base font-bold">{props.liverEvent.talent.name}</div>
               <div class="flex flex-row flex-wrap">
-                {props.liverEvent.collaboTalents.map((talent) => (
-                  <button
-                    key={talent.image}
-                    class="w-[40px] overflow-hidden rounded-full hover:outline-2 hover:outline-red-500 hover:outline-solid max-sm:w-[30px]"
-                    title={talent.name}
-                    onMouseenter={() => hoverStore.setHoveredTalents(talent.name)}
-                    onMouseleave={() => hoverStore.clearHoveredTalents()}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      searchStore.setFocusedTalent(talent.name);
-                    }}
-                    onContextmenu={(e) => {
-                      e.preventDefault();
-                      searchStore.setFocusedTalent(talent.name);
-                    }}
-                  >
-                    <img class="size-full" src={talent.image} loading="lazy" />
-                  </button>
-                ))}
+                <VaporFor in={props.liverEvent.collaboTalents} getKey={(talent) => talent.image}>
+                  {(talent) => (
+                    <button
+                      class="w-[40px] overflow-hidden rounded-full hover:outline-2 hover:outline-red-500 hover:outline-solid max-sm:w-[30px]"
+                      title={talent.value.name}
+                      onMouseenter={() => hoverStore.setHoveredTalents(talent.value.name)}
+                      onMouseleave={() => hoverStore.clearHoveredTalents()}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        searchStore.setFocusedTalent(talent.value.name);
+                      }}
+                      onContextmenu={(e) => {
+                        e.preventDefault();
+                        searchStore.setFocusedTalent(talent.value.name);
+                      }}
+                    >
+                      <img class="size-full" src={talent.value.image} loading="lazy" />
+                    </button>
+                  )}
+                </VaporFor>
               </div>
             </div>
             <div class="flex flex-col place-items-center">
