@@ -1,7 +1,6 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
-import { docBlockPlugin } from "@miyaoka/vite-plugin-doc-block";
 import tailwindcss from "@tailwindcss/vite";
-import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import { defineConfig } from "vite";
 import vueDevTools from "vite-plugin-vue-devtools";
 
@@ -11,9 +10,8 @@ export default defineConfig({
     open: true,
   },
   plugins: [
-    docBlockPlugin(),
     tailwindcss(),
-    vue(),
+    vueJsx(),
     vueDevTools(),
     // Workers の型は typecheck スクリプトの cf workers types だけが生成する。
     // build は typecheck と並行に走るため、両方が同じファイルを書かないようにする

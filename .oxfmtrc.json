@@ -3,5 +3,6 @@
   "tabWidth": 2,
   "singleQuote": false,
   "printWidth": 100,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "ignorePatterns": ["packages/*/data/channels.json"]
 }

@@ -15,24 +15,21 @@ pnpm install
 # 開発サーバー起動（http://localhost:5173）
 pnpm dev
 
-# 全ワークスペースのテスト実行
-pnpm test:all
+# チェック（リポジトリルートで 1 回だけ定義している。各 package にはチェック用のスクリプトを置かない）
+pnpm check:types   # 全プロジェクトの型チェック（bun check -b）
+pnpm check:lint    # 既定ブランチとの差分だけ lint
+pnpm check:fmt     # 既定ブランチとの差分だけ format を検査
+pnpm check:test    # 既定ブランチとの差分に影響するテストだけ実行
+pnpm fix           # 差分に lint の自動修正と format を適用
 
-# 特定のテストのみ実行（test スクリプトがあるのは core、nijisanji、web）
-pnpm --filter @liver-streams/core test "<file path>" -t "<test name>"
-
-# 全ワークスペースの型チェック
-pnpm typecheck:all
-
-# 全ワークスペースのリント
-pnpm lint:all
-
-# 全ワークスペースのリント・フォーマット自動修正
-pnpm fix:all
+# 比較元を変える（CI は PR の base を渡す）
+CHECK_BASE=<commit> pnpm check:lint
 
 # ビルド
 pnpm build
 ```
+
+ルートの package.json に `lint` / `fmt` という名前のスクリプトを置かない。置くと `bun lint` / `bun fmt` がどこから呼んでもそのスクリプトを実行し、組み込みのコマンドとして動かなくなる。
 
 ## アーキテクチャ
 
@@ -51,14 +48,14 @@ packages/
 ### 技術スタック
 
 - **ツール管理**: mise.toml (bun, pnpm, node)
-- **フレームワーク**: Vue (Composition API, `<script setup>` 構文)
-- **ビルドツール**: Vite
-- **型チェック**: bun check（apps/web は vue-tsc）
+- **フレームワーク**: Vue（TSX。SFC は使わない）
+- **ビルドツール**: Vite + @vitejs/plugin-vue-jsx
+- **型チェック**: bun check
 - **テスト**: bun test + happy-dom
 - **状態管理**: Pinia
 - **ルーティング**: Vue Router
 - **スタイリング**: Tailwind CSS
-- **リンター・フォーマッター**: bun lint + bun fmt（apps/web の lint は eslint の設定とプラグインを使う）
+- **リンター・フォーマッター**: bun lint + bun fmt。設定は `.oxlintrc.json` と `.oxfmtrc.json` の 1 つずつ。独自ルール（barrel-import、better-tailwindcss）は `.oxlintrc.json` の `jsPlugins` で読み込む
 - **パッケージマネージャー**: pnpm
 
 ### テスト方針
@@ -71,13 +68,17 @@ packages/
 ### Git フック
 
 - lefthook でコミット前に自動整形・不要コード削除を実行
-- bun lint + bun fmt でリント・フォーマット（`stage_fixed` で自動ステージ）
+- `pnpm fix:staged`（bun lint + bun fmt）でステージ済みのファイルをリント・フォーマット（`stage_fixed` で自動ステージ）
 - knip --fix で未使用 export を自動削除（変更は unstaged で残るので、確認して git add → 再コミット）
 - フォーマットや不要 export の整理はコミットフックで自動的に行われるため、手動で実行しない
 
 ## Vue コンポーネント
 
-ファイル冒頭に `<doc lang="md">` カスタムブロックを配置し、md 形式でドキュメントを記述する。
+`.tsx` で `defineComponent((props: Props) => () => <JSX />, { name, props: [...] })` の形で書く。実行時 props の配列には Props の全キーを書く（漏れたキーは attrs に落ちる）。emit は使わず `onXxx` のコールバック props にする。
+
+スタイルは Tailwind のクラスで書く。クラスで書けないもの（Transition のクラス、popover の疑似要素、keyframes）だけを同じディレクトリの `<ファイル名>.css` に書き、`assets/main.css` から `@import` する。scoped は無いので、クラス名には接頭辞を付けて衝突を避け、class 属性で使うクラスは `@layer components` に置く（better-tailwindcss が既知のクラスとして扱う）。
+
+ファイル冒頭に JSDoc のブロックコメント（`/** ... */`）を置き、md 形式でドキュメントを記述する。
 
 ### 記述内容
 
@@ -97,7 +98,7 @@ packages/
 
 ### 更新ルール
 
-コンポーネントのコードを編集する際は、必ず `<doc>` ブロックも合わせて更新する。
+コンポーネントのコードを編集する際は、必ず冒頭のドキュメントコメントも合わせて更新する。
 
 ## タレント追加時の更新箇所
 

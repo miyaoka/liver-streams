@@ -1,7 +1,16 @@
 import type { KnipConfig } from "knip";
 
 const config: KnipConfig = {
+  // bun の組み込みサブコマンド（knip は外部バイナリとして扱う）
+  ignoreBinaries: ["check", "lint", "fmt"],
   workspaces: {
+    ".": {
+      // .oxlintrc.json の jsPlugins で使用（knip は jsPlugins を解析できない）
+      ignoreDependencies: [
+        "@miyaoka/eslint-plugin-barrel-import",
+        "eslint-plugin-better-tailwindcss",
+      ],
+    },
     "packages/core": {
       project: ["src/**/*.ts"],
     },
@@ -14,23 +23,15 @@ const config: KnipConfig = {
       project: ["src/**/*.ts", "scripts/**/*.ts"],
     },
     "apps/web": {
-      project: ["src/**/*.{ts,vue}"],
+      project: ["src/**/*.{ts,tsx,css}"],
 
       ignoreDependencies: [
-        // CSS で使用（knip は CSS の @plugin を解析できない）
-        "@egoist/tailwindcss-icons",
+        // @egoist/tailwindcss-icons が CSS の @plugin 経由で読む（knip は辿れない）
         "@iconify-json/eva",
         "@iconify-json/icon-park-outline",
         "@iconify-json/icon-park-solid",
         "@iconify-json/mdi",
-        // bunfig.toml preload で使用（knip は bun preload を解析できない）
-        "@happy-dom/global-registrator",
-        "happy-dom",
       ],
-
-      eslint: {
-        config: ["eslint.config.ts", "eslint.config.fix.ts", "eslint.base.ts"],
-      },
     },
   },
 };

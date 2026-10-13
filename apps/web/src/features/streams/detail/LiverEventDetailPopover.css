@@ -1,0 +1,20 @@
+@layer components {
+  .event-detail-popover-thumb {
+    transition: opacity 1s;
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  .event-detail-popover-permission[popover] {
+    &:popover-open {
+      animation: event-detail-popover-fade-in 0.2s ease-in-out forwards;
+    }
+  }
+
+  @keyframes event-detail-popover-fade-in {
+    from {
+      translate: 0 50%;
+    }
+  }
+}

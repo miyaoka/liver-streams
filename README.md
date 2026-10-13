@@ -25,8 +25,10 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 | -------------- | ------------------ |
 | 言語           | TypeScript         |
 | パッケージ管理 | pnpm               |
+| 型チェック     | bun check          |
 | テスト         | bun test           |
-| リント         | bun lint + bun fmt |
+| リント         | bun lint           |
+| フォーマット   | bun fmt            |
 | Git フック     | lefthook           |
 | ホスティング   | Cloudflare Workers |
 
@@ -34,7 +36,7 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 
 | カテゴリ       | 技術         |
 | -------------- | ------------ |
-| フレームワーク | Vue          |
+| フレームワーク | Vue（TSX）   |
 | ビルドツール   | Vite         |
 | 状態管理       | Pinia        |
 | ルーティング   | Vue Router   |

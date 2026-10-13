@@ -15,10 +15,6 @@
     "prepare": "vite build",
     "build": "vite build",
     "dev": "vite build --watch",
-    "test": "bun test",
-    "typecheck": "bun check",
-    "lint": "bun lint --type-aware .",
-    "fix": "bun lint --type-aware --fix . && bun fmt .",
     "update-channels": "bun scripts/update-channels.ts"
   },
   "dependencies": {

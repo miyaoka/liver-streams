@@ -1,2 +1,2 @@
-export { default as ChannelFilter } from "./ChannelFilter.vue";
+export { default as ChannelFilter } from "./ChannelFilter";
 export { useTalentFilterStore } from "./talentFilterStore";

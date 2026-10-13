@@ -4,12 +4,7 @@ VTuber 配信情報アプリケーションの共有ライブラリ。ビジネ�
 
 ## 開発コマンド
 
-```bash
-pnpm test        # テスト実行
-pnpm typecheck   # 型チェック
-pnpm lint        # リント実行
-pnpm fix         # リント・フォーマット自動修正
-```
+チェック（型チェック・lint・format・テスト）はリポジトリルートで実行する。
 
 ## ディレクトリ構造
 
@@ -129,4 +124,4 @@ LiverEvent 生成:
 
 - TypeScript
 - bun test（テスト）
-- ESLint
+- bun lint

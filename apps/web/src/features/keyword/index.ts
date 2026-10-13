@@ -1,1 +1,1 @@
-export { default as KeywordListButton } from "./KeywordListButton.vue";
+export { default as KeywordListButton } from "./KeywordListButton";

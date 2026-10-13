@@ -1,0 +1,13 @@
+@layer components {
+  .keyword-list-button-popover[popover] {
+    &:popover-open {
+      animation: keyword-list-button-fade-in 0.2s forwards;
+    }
+  }
+
+  @keyframes keyword-list-button-fade-in {
+    from {
+      translate: 0 50%;
+    }
+  }
+}

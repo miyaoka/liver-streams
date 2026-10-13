@@ -5,83 +5,14 @@ output:
   - execution_out
 
 pre-commit:
-  parallel: true
+  piped: true
   jobs:
-    # Formatter（ts/vue 以外。ts/vue は各 linter ジョブで bun fmt を実行）
-    - name: fmt
-      glob: "**/*.{css,scss,md}"
-      run: bun fmt {staged_files}
+    # fix 完了後の状態で knip が解析するため piped で直列実行
+    - name: fix
+      run: pnpm run fix:staged
       stage_fixed: true
-
-    # Linter + Formatter
-    - name: lint-root
-      glob: "*.ts"
-      exclude:
-        - "apps/**"
-        - "packages/**"
-      run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
-      stage_fixed: true
-    # packages/core: fix: lint + fmt → knip
-    - name: core
-      root: "packages/core/"
-      glob: "**/*.ts"
-      group:
-        piped: true
-        jobs:
-          - name: lint
-            run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
-            stage_fixed: true
-          - name: knip
-            run: pnpm -w run knip -W packages/core --fix
-
-    # packages/hololive: fix: lint + fmt → knip
-    - name: hololive
-      root: "packages/hololive/"
-      glob: "**/*.ts"
-      group:
-        piped: true
-        jobs:
-          - name: lint
-            run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
-            stage_fixed: true
-          - name: knip
-            run: pnpm -w run knip -W packages/hololive --fix
-
-    # packages/nijisanji: fix: lint + fmt → knip
-    - name: nijisanji
-      root: "packages/nijisanji/"
-      glob: "**/*.ts"
-      group:
-        piped: true
-        jobs:
-          - name: lint
-            run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
-            stage_fixed: true
-          - name: knip
-            run: pnpm -w run knip -W packages/nijisanji --fix
-
-    # apps/web: fix: lint + fmt → knip（fix 完了後の状態で解析するため piped で直列実行）
-    - name: web
-      root: apps/web/
-      group:
-        piped: true
-        jobs:
-          # .ts にはルートの .oxlintrc.json（oxlint の既定ルール）を当てる
-          - name: lint-ts
-            glob: "**/*.ts"
-            run: bun lint --type-aware --fix {staged_files}
-            stage_fixed: true
-          - name: lint
-            glob: "**/*.{ts,vue}"
-            run: bun lint --fix -c eslint.config.fix.ts {staged_files}
-            stage_fixed: true
-          - name: fmt
-            glob: "**/*.{ts,vue,css,scss,md}"
-            run: bun fmt {staged_files}
-            stage_fixed: true
-          - name: knip
-            glob: "**/*.{ts,vue}"
-            run: pnpm -w run knip -W apps/web --fix
+    - name: knip
+      run: pnpm run knip --fix
 
 # git pull / merge 後に lockfile の変更を検出し、pnpm install を促す
 post-merge:

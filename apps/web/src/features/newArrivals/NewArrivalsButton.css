@@ -1,0 +1,13 @@
+@layer components {
+  .new-arrivals-button-popover[popover] {
+    &:popover-open {
+      animation: new-arrivals-button-fade-in 0.2s forwards;
+    }
+  }
+
+  @keyframes new-arrivals-button-fade-in {
+    from {
+      translate: 0 50%;
+    }
+  }
+}

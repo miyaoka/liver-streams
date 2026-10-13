@@ -4,12 +4,7 @@
 
 ## 開発コマンド
 
-```bash
-pnpm test        # テスト実行
-pnpm typecheck   # 型チェック
-pnpm lint        # リント実行
-pnpm fix         # リント・フォーマット自動修正
-```
+チェック（型チェック・lint・format・テスト）はリポジトリルートで実行する。
 
 ## ディレクトリ構造
 
@@ -68,4 +63,4 @@ const iconUrl = service.getIcon("月ノ美兎");
 ## 技術スタック
 
 - TypeScript
-- ESLint
+- bun lint

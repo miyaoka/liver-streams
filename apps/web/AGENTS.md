@@ -8,11 +8,9 @@ VTuber 配信情報アプリケーションのフロントエンド。Vue 3 + Vi
 pnpm dev         # 開発サーバー起動（http://localhost:5173）
 pnpm build       # ビルド
 pnpm preview     # ビルドプレビュー
-pnpm test        # テスト実行
-pnpm typecheck   # 型チェック
-pnpm lint        # リント実行
-pnpm fix         # リント・フォーマット自動修正
 ```
+
+チェック（型チェック・lint・format・テスト）はリポジトリルートで実行する。
 
 ## ディレクトリ構造
 
@@ -81,18 +79,18 @@ UI 状態管理
 
 配信カード表示:
 
-- `LiverEventCard.vue` - 配信カード
-- `LiverEventDateSection.vue` - 日付セクション
-- `LiverEventTimeSection.vue` - 時間セクション
-- `LiverEventDateSectionList.vue` - セクションリスト
+- `LiverEventCard.tsx` - 配信カード
+- `LiverEventDateSection.tsx` - 日付セクション
+- `LiverEventTimeSection.tsx` - 時間セクション
+- `LiverEventDateSectionList.tsx` - セクションリスト
 - `detail/` - 詳細ポップオーバー
 
 ### menu/
 
 メニュー・フィルター:
 
-- `HeaderMenu.vue` / `FooterMenu.vue` - ヘッダー/フッター
-- `SearchFilter.vue` - 検索フィルター
+- `HeaderMenu.tsx` / `FooterMenu.tsx` - ヘッダー/フッター
+- `SearchFilter.tsx` - 検索フィルター
 - `channelFilter/` - チャンネルフィルター
 - `bookmarkedEvent/` - ブックマーク一覧
 - `addedEvent/` - 新着一覧
@@ -100,11 +98,11 @@ UI 状態管理
 
 ## 技術スタック
 
-- Vue 3（Composition API, `<script setup>`）
+- Vue 3（TSX）
 - Vite 7
 - Pinia（状態管理）
 - Vue Router
 - Tailwind CSS 4
 - @vueuse/core
 - bun test + happy-dom（テスト）
-- vue-tsc（型チェック）
+- bun check（型チェック）
