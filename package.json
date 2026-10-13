@@ -22,7 +22,6 @@
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
     "eslint-plugin-better-tailwindcss": "4.9.0",
-    "eslint-plugin-vue": "10.11.1",
     "knip": "6.41.0",
     "lefthook": "2.2.1"
   }

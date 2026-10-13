@@ -2,8 +2,7 @@
   "plugins": ["typescript", "unicorn", "oxc", "import"],
   "jsPlugins": [
     { "name": "barrel-import", "specifier": "@miyaoka/eslint-plugin-barrel-import" },
-    "eslint-plugin-better-tailwindcss",
-    { "name": "vue-js", "specifier": "eslint-plugin-vue" }
+    "eslint-plugin-better-tailwindcss"
   ],
   "categories": {
     "correctness": "warn"
@@ -63,7 +62,6 @@
     {
       "files": ["apps/web/src/**"],
       "rules": {
-        "vue-js/no-ref-as-operand": "error",
         "barrel-import/barrel-import": [
           "error",
           {

@@ -55,7 +55,7 @@ packages/
 - **状態管理**: Pinia
 - **ルーティング**: Vue Router
 - **スタイリング**: Tailwind CSS
-- **リンター・フォーマッター**: bun lint + bun fmt。設定は `.oxlintrc.json` と `.oxfmtrc.json` の 1 つずつ。独自ルール（barrel-import、better-tailwindcss、eslint-plugin-vue の script 向けルール）は `.oxlintrc.json` の `jsPlugins` で読み込む（eslint-plugin-vue は組み込みの vue と名前がぶつかるので `vue-js` の別名で読む）
+- **リンター・フォーマッター**: bun lint + bun fmt。設定は `.oxlintrc.json` と `.oxfmtrc.json` の 1 つずつ。独自ルール（barrel-import、better-tailwindcss）は `.oxlintrc.json` の `jsPlugins` で読み込む。jsPlugins に入れる ESLint プラグインは、eslint 本体を読み込まないものに限る（eslint-plugin-vue などは eslint 本体を require する）
 - **パッケージマネージャー**: pnpm
 
 ### テスト方針
