@@ -1,17 +1,17 @@
 /**
  * ライブ中の配信のみを表示するフィルターボタン。ライブ中イベント数をバッジで表示する。
  */
-import { computed, defineComponent } from "vue";
+import { computed, defineVaporComponent } from "vue";
 import { useSearchStore } from "../../shared/stores";
 import { useEventListStore } from "../streams";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const searchStore = useSearchStore();
     const eventListStore = useEventListStore();
     const hasLiveEvents = computed(() => eventListStore.onLiveEventList.length > 0);
 
-    return () => (
+    return (
       <button
         title="show only live events"
         class="relative flex size-11 flex-col items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-200"

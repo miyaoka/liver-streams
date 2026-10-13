@@ -11,8 +11,9 @@
  */
 import type { LiverEvent } from "@liver-streams/core";
 import { parseSegment, getThumbnail, fullDateFormatter } from "@liver-streams/core";
-import { computed, defineComponent, toRef } from "vue";
+import { computed, defineVaporComponent, toRef } from "vue";
 import { usePopover } from "../../../shared/composables";
+import { asNativeEvent } from "../../../shared/lib";
 import { useHoverStore, useSearchStore } from "../../../shared/stores";
 import { closePopover } from "../../../shared/utils";
 import { useBookmarkStore, useNotificationStore } from "../../bookmark";
@@ -22,7 +23,7 @@ type Props = {
   liverEvent: LiverEvent;
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const bookmarkStore = useBookmarkStore();
     const hoverStore = useHoverStore();
@@ -79,13 +80,13 @@ export default defineComponent(
       bookmarkStore.toggleNotifyEvent(id);
     }
 
-    return () => (
+    return (
       <div class="w-[480px] max-w-full overflow-hidden rounded-lg border border-gray-500 bg-white pb-2 shadow-xl">
         <div class="flex h-11 items-center bg-gray-800 px-4 text-gray-200">
           <div class="font-bold">{fullDate.value}</div>
           <button
             class="absolute right-0 grid size-11 place-items-center text-gray-400 hover:text-gray-200"
-            onClick={closePopover}
+            onClick={(e) => closePopover(asNativeEvent<MouseEvent>(e))}
           >
             <i class="i-mdi-close size-5" />
           </button>

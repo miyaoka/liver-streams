@@ -1,7 +1,7 @@
 /**
  * Vue Router によるルーティングのエントリーポイント。
  */
-import { defineComponent } from "vue";
+import { defineVaporComponent } from "vue";
 import { RouterView } from "vue-router";
 
-export default defineComponent(() => () => <RouterView />, { name: "App" });
+export default defineVaporComponent(() => <RouterView />, { name: "App" });

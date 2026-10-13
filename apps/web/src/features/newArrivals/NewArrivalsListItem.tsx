@@ -3,7 +3,7 @@
  */
 import type { LiverEvent } from "@liver-streams/core";
 import { compareDate, getDateTime, hhmmDateFormatter, toRelativeTime } from "@liver-streams/core";
-import { computed, defineComponent } from "vue";
+import { computed, defineVaporComponent } from "vue";
 import { scrollToLiverEventTop } from "../../shared/lib";
 import { useDateStore, useHoverStore } from "../../shared/stores";
 
@@ -13,7 +13,7 @@ type Props = {
   lastCloseTime: number;
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const dateStore = useDateStore();
     const hoverStore = useHoverStore();
@@ -42,7 +42,7 @@ export default defineComponent(
       scrollToLiverEventTop(props.liverEvent.id);
     }
 
-    return () => (
+    return (
       <button
         key={props.liverEvent.id}
         class="relative flex flex-row items-center gap-2 p-2 text-start hover:bg-slate-200"

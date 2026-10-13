@@ -1,12 +1,12 @@
 /**
  * 新着イベント一覧のポップオーバーを開くボタン。ポップオーバーを閉じてから追加されたイベント数をバッジで表示する。
  */
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineVaporComponent, ref } from "vue";
 import { usePopover } from "../../shared/composables";
 import NewArrivalsPopover from "./NewArrivalsPopover";
 import { useNewArrivalsStore } from "./newArrivalsStore";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const newArrivalsStore = useNewArrivalsStore();
 
@@ -23,7 +23,7 @@ export default defineComponent(
           .length,
     );
 
-    return () => (
+    return (
       <>
         <button
           class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-200"

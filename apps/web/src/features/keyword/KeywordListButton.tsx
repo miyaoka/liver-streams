@@ -1,15 +1,15 @@
 /**
  * トレンドキーワード一覧のポップオーバーを開くボタン。
  */
-import { defineComponent } from "vue";
+import { defineVaporComponent } from "vue";
 import { usePopover } from "../../shared/composables";
 import KeywordListPopover from "./KeywordListPopover";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const popover = usePopover();
 
-    return () => (
+    return (
       <>
         <button
           class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-200"

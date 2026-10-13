@@ -5,7 +5,7 @@
  */
 import type { DateSection } from "@liver-streams/core";
 import { compareDate, mdDateFormatter, relativeDateFormatter } from "@liver-streams/core";
-import { computed, defineComponent } from "vue";
+import { computed, defineVaporComponent } from "vue";
 import { scrollToSectionTop } from "../../shared/lib";
 import { useDateStore } from "../../shared/stores";
 import LiverEventTimeSection from "./LiverEventTimeSection";
@@ -16,7 +16,7 @@ type Props = {
   nextSection: DateSection | undefined;
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const dateStore = useDateStore();
 
@@ -33,7 +33,7 @@ export default defineComponent(
       };
     });
 
-    return () => (
+    return (
       <section
         class="relative pt-0 pb-12"
         data-id="date-section"

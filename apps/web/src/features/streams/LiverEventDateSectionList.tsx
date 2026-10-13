@@ -4,7 +4,7 @@
  * 初回読み込み完了時に自動で現在時刻までスクロールする。
  */
 import type { DateSection } from "@liver-streams/core";
-import { defineComponent, nextTick, onMounted, watch } from "vue";
+import { defineVaporComponent, nextTick, onMounted, watch } from "vue";
 import { scrollToCurrentTime } from "../../shared/lib";
 import { LoadingSpinner } from "../common";
 import { useEventListStore } from "./eventListStore";
@@ -15,7 +15,7 @@ type Props = {
   isLoading: boolean;
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const eventListStore = useEventListStore();
 
@@ -37,18 +37,15 @@ export default defineComponent(
       }
     });
 
-    return () => {
-      // ローディング中
-      if (props.isLoading) {
-        return (
+    return (
+      <>
+        {props.isLoading ? (
+          // ローディング中
           <div class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
             <LoadingSpinner size="lg" message="読み込み中..." />
           </div>
-        );
-      }
-      // イベントリスト
-      if (props.dateSectionList.length > 0) {
-        return (
+        ) : props.dateSectionList.length > 0 ? (
+          // イベントリスト
           <div class="overflow-x-clip pb-60" data-id="event-list">
             {props.dateSectionList.map((dateSection, i) => (
               <LiverEventDateSection
@@ -60,16 +57,15 @@ export default defineComponent(
             ))}
             <div class="pointer-events-none fixed inset-0 bottom-auto z-10 h-20 bg-linear-to-b from-black/40" />
           </div>
-        );
-      }
-      // データなし
-      return (
-        <div class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
-          <i class="i-mdi-file-document-error size-16" />
-          <p class="text-base font-bold">no data</p>
-        </div>
-      );
-    };
+        ) : (
+          // データなし
+          <div class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
+            <i class="i-mdi-file-document-error size-16" />
+            <p class="text-base font-bold">no data</p>
+          </div>
+        )}
+      </>
+    );
   },
   { name: "LiverEventDateSectionList", props: ["dateSectionList", "isLoading"] },
 );

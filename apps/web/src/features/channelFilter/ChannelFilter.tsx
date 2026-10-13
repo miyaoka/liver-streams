@@ -5,7 +5,7 @@
  */
 import { hololiveChannels } from "@liver-streams/hololive";
 import { nijisanjiChannels } from "@liver-streams/nijisanji";
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineVaporComponent, ref } from "vue";
 import { usePopover } from "../../shared/composables";
 import { getAffiliationLogo, services } from "../../shared/services";
 import ChannelNode from "./ChannelNode";
@@ -19,7 +19,7 @@ const groups = [
 
 const channels = [hololiveChannels, nijisanjiChannels];
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const talentFilterStore = useTalentFilterStore();
     const popover = usePopover({
@@ -50,7 +50,7 @@ export default defineComponent(
       treeVersion.value++;
     }
 
-    return () => (
+    return (
       <>
         <button
           class="flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-100"

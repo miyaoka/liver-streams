@@ -48,8 +48,8 @@ packages/
 ### 技術スタック
 
 - **ツール管理**: mise.toml (bun, pnpm, node)
-- **フレームワーク**: Vue（TSX。SFC は使わない）
-- **ビルドツール**: Vite + @vitejs/plugin-vue-jsx
+- **フレームワーク**: Vue 3.6（Vapor Mode の TSX。SFC は使わない）
+- **ビルドツール**: Vite + vue-jsx-vapor（interop。`defineVaporComponent` の中だけを Vapor にする）
 - **型チェック**: bun check
 - **テスト**: bun test + happy-dom
 - **状態管理**: Pinia
@@ -74,7 +74,7 @@ packages/
 
 ## Vue コンポーネント
 
-`.tsx` で `defineComponent((props: Props) => () => <JSX />, { name, props: [...] })` の形で書く。実行時 props の配列には Props の全キーを書く（漏れたキーは attrs に落ちる）。emit は使わず `onXxx` のコールバック props にする。
+`.tsx` で `defineVaporComponent((props: Props) => <JSX />, { name, props: [...] })` の形で書く。setup は 1 回だけ走り、JSX の中の式だけが変化に追従するので、setup で値を読んで変数に入れたり、早期 return で出し分けたりしない。Transition 系は `VaporTransition` / `VaporTransitionGroup` を使う。実行時 props の配列には Props の全キーを書く（漏れたキーは attrs に落ちる）。emit は使わず `onXxx` のコールバック props にする。DOM のイベント型で書いたハンドラは `shared/lib` の `asNativeEvent` を通して渡す（vue-jsx-vapor の JSX 型が React の合成イベントを前提にしているため）。
 
 スタイルは Tailwind のクラスで書く。クラスで書けないもの（Transition のクラス、popover の疑似要素、keyframes）だけを同じディレクトリの `<ファイル名>.css` に書き、`assets/main.css` から `@import` する。scoped は無いので、クラス名には接頭辞を付けて衝突を避け、class 属性で使うクラスは `@layer components` に置く（better-tailwindcss が既知のクラスとして扱う）。
 

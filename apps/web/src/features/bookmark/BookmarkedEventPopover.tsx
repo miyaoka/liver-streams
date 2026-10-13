@@ -11,8 +11,8 @@ import {
   hhmmDateFormatter,
   toRelativeTime,
 } from "@liver-streams/core";
-import { computed, defineComponent, onMounted } from "vue";
-import { scrollToLiverEventTop } from "../../shared/lib";
+import { computed, defineVaporComponent, onMounted } from "vue";
+import { asNativeEvent, scrollToLiverEventTop } from "../../shared/lib";
 import { useDateStore, useHoverStore } from "../../shared/stores";
 import { closePopover } from "../../shared/utils";
 import { useBookmarkStore } from "./";
@@ -21,7 +21,7 @@ type Props = {
   bookmarkEventList: LiverEvent[];
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const hoverStore = useHoverStore();
     const dateStore = useDateStore();
@@ -60,7 +60,7 @@ export default defineComponent(
       targetEl.scrollIntoView({ behavior: "instant", block: "center" });
     });
 
-    return () => (
+    return (
       <div class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[400px] flex-col overflow-hidden rounded-md bg-white outline-2 outline-solid">
         <div class="flex h-11 items-center justify-start gap-1 bg-black p-2 text-white">
           <i class="i-mdi-bookmark size-5" />
@@ -68,7 +68,7 @@ export default defineComponent(
 
           <button
             class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
-            onClick={closePopover}
+            onClick={(e) => closePopover(asNativeEvent<MouseEvent>(e))}
           >
             <i class="i-mdi-close size-6" />
           </button>

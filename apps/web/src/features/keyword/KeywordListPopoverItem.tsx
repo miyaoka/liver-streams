@@ -1,7 +1,7 @@
 /**
  * キーワード一覧の各アイテム表示。クリックで検索クエリに設定する。
  */
-import { defineComponent } from "vue";
+import { defineVaporComponent } from "vue";
 import { useSearchStore } from "../../shared/stores";
 import type { KeywordItem } from "./KeywordListPopover";
 
@@ -9,7 +9,7 @@ type Props = {
   itemList: KeywordItem[];
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const searchStore = useSearchStore();
 
@@ -24,7 +24,7 @@ export default defineComponent(
       searchStore.setSearchString(formattedStr);
     }
 
-    return () => (
+    return (
       <div class="grid [scrollbar-width:none] gap-1 overflow-y-scroll pt-2 pb-6">
         {props.itemList.map((item) => (
           <button

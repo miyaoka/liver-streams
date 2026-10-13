@@ -4,7 +4,8 @@
  * グループ単位でまとめてチェック/解除でき、子ノードのチェック状態に応じて親のチェック状態も連動する。
  */
 import type { ChannelNode, EventService } from "@liver-streams/core";
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { computed, defineVaporComponent, onMounted, ref } from "vue";
+import { asNativeEvent } from "../../shared/lib";
 import { useSearchStore } from "../../shared/stores";
 import { useTalentFilterStore } from "./";
 
@@ -14,7 +15,7 @@ type Props = {
   onChange?: () => void;
 };
 
-const ChannelNodeComponent = defineComponent(
+const ChannelNodeComponent = defineVaporComponent(
   (props: Props) => {
     function getIcon(name: string): string {
       return props.service.getIcon(name);
@@ -102,11 +103,16 @@ const ChannelNodeComponent = defineComponent(
       props.onChange?.();
     }
 
-    return () => (
+    return (
       <div class="ml-4 flex flex-col items-start gap-2 text-sm font-bold select-none">
         <div class="flex flex-col items-start">
           <label class="flex h-9 cursor-pointer place-items-center gap-1 rounded-lg bg-gray-100 px-2 whitespace-nowrap hover:outline-2 hover:outline-solid has-checked:bg-red-200 has-checked:text-red-900 has-focus-visible:outline-solid">
-            <input ref={groupEl} type="checkbox" class="sr-only" onClick={onGroupClick} />
+            <input
+              ref={groupEl}
+              type="checkbox"
+              class="sr-only"
+              onClick={(e) => onGroupClick(asNativeEvent<MouseEvent>(e))}
+            />
             <i class="i-mdi-folder-open size-6"></i>
             <p>{props.node.name}</p>
           </label>
@@ -128,7 +134,7 @@ const ChannelNodeComponent = defineComponent(
                   <input
                     type="checkbox"
                     class="sr-only"
-                    onChange={(e) => onNameCheck(e, name)}
+                    onChange={(e) => onNameCheck(asNativeEvent<Event>(e), name)}
                     checked={talentFilterStore.talentFilterMap.get(name)}
                   />
                   <img

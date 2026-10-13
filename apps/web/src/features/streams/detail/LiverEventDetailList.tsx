@@ -3,15 +3,15 @@
  *
  * カードクリック時にポップオーバーを即座に表示するため、DOM 上に全イベントのポップオーバー要素を保持する。
  */
-import { defineComponent } from "vue";
+import { defineVaporComponent } from "vue";
 import { useEventListStore } from "../eventListStore";
 import LiverEventDetailListItem from "./LiverEventDetailListItem";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const eventListStore = useEventListStore();
 
-    return () => (
+    return (
       <div>
         {eventListStore.liverEventList?.map((liverEvent) => (
           <LiverEventDetailListItem key={liverEvent.id} liverEvent={liverEvent} />

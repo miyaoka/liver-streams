@@ -8,7 +8,7 @@
  * - ヘッダー・フッターメニューによる操作
  */
 import { useIntervalFn } from "@vueuse/core";
-import { defineComponent, onMounted } from "vue";
+import { defineVaporComponent, onMounted } from "vue";
 import { FooterMenu, HeaderMenu } from "../features/menu";
 import {
   LiverEventDateSectionList,
@@ -18,7 +18,7 @@ import {
 
 const fetchInterval = 1 * 60 * 1000; // 1min
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const eventListStore = useEventListStore();
 
@@ -33,7 +33,7 @@ export default defineComponent(
       void updateList();
     });
 
-    return () => (
+    return (
       <main class="liver-streams-view text-[clamp(11px,11px+0.25vw,15px)]">
         <LiverEventDateSectionList
           dateSectionList={eventListStore.dateSectionList}
