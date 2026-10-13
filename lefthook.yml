@@ -66,6 +66,11 @@ pre-commit:
       group:
         piped: true
         jobs:
+          # .ts にはルートの .oxlintrc.json（oxlint の既定ルール）を当てる
+          - name: lint-ts
+            glob: "**/*.ts"
+            run: bun lint --type-aware --fix {staged_files}
+            stage_fixed: true
           - name: lint
             glob: "**/*.{ts,vue}"
             run: bun lint --fix -c eslint.config.fix.ts {staged_files}

@@ -53,12 +53,12 @@ packages/
 - **ツール管理**: mise.toml (bun, pnpm, node)
 - **フレームワーク**: Vue (Composition API, `<script setup>` 構文)
 - **ビルドツール**: Vite
-- **型チェック**: bun check（apps/web の .vue は vue-tsc）
+- **型チェック**: bun check（apps/web は vue-tsc）
 - **テスト**: bun test + happy-dom
 - **状態管理**: Pinia
 - **ルーティング**: Vue Router
 - **スタイリング**: Tailwind CSS
-- **リンター・フォーマッター**: bun lint + bun fmt（bun の canary）
+- **リンター・フォーマッター**: bun lint + bun fmt
 - **パッケージマネージャー**: pnpm
 
 ### テスト方針
