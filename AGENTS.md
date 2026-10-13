@@ -110,4 +110,4 @@ packages/
 - `packages/nijisanji/data/livers.json` - talentId → タレント名の対応
 - `packages/nijisanji/data/channels.json` - にじさんじのユニット・グループ階層データ
 - `apps/web/public/icons/` - タレントアイコン画像の配置先
-- `scripts/` - アイコン取得スクリプト（root 直下）
+- `packages/*/scripts/update-channels.ts` - チャンネル階層データとアイコンの更新スクリプト
