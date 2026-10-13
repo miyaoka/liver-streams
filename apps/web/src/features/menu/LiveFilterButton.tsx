@@ -1,6 +1,7 @@
 /**
  * ライブ中の配信のみを表示するフィルターボタン。ライブ中イベント数をバッジで表示する。
  */
+import { classNames } from "../../shared/lib";
 import { selectIsLiveOnly, useSearchStore } from "../../shared/stores";
 import { useOnLiveEventList } from "../streams";
 
@@ -17,10 +18,10 @@ export default function LiveFilterButton() {
       onClick={() => toggleLiveOnly()}
     >
       <i
-        className={[
+        className={classNames(
           "size-8",
           isLiveOnly ? "i-eva-radio-fill text-red-700" : "i-eva-radio-outline",
-        ].join(" ")}
+        )}
       />
       {hasLiveEvents && (
         <p className="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-xl bg-red-700 px-1 text-xs text-white">

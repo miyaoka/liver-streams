@@ -19,11 +19,11 @@ function getTimeColor(hour: number) {
   return "var(--hour" + hour + ")";
 }
 
-const selectHhss = (state: Parameters<typeof selectCurrentTime>[0]) =>
-  hhmmDateFormatter.format(selectCurrentTime(state));
-
 export default function LiverEventTimeSection({ section, isCurrentTime }: Props) {
-  const hhss = useDateStore(selectHhss);
+  // 現在時刻のセクションだけが時刻の表示を購読する
+  const hhss = useDateStore((state) =>
+    isCurrentTime ? hhmmDateFormatter.format(selectCurrentTime(state)) : null,
+  );
   const [initialEventIdSet] = useState(() => new Set(section.events.map((event) => event.id)));
 
   const hasEvents = section.events.length > 0;

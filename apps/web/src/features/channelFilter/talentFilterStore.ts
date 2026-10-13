@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { bindLocalStorageItem, createLocalStorageItem } from "../../shared/lib";
+import { persist } from "zustand/middleware";
+import { createLocalStoragePersist, stopOnHotReexecute } from "../../shared/lib";
 
 interface FilterPreset {
   id: string;
@@ -22,89 +23,105 @@ interface TalentFilterState {
   renamePreset: (params: { id: string; name: string }) => void;
 }
 
-const talentFilterMapStorage = createLocalStorageItem("talentFilter", new Map<string, boolean>());
-const talentFilterEnabledStorage = createLocalStorageItem("talentFilterEnabled", true);
-const presetsStorage = createLocalStorageItem<FilterPreset[]>("talentFilterPresets", []);
-const activePresetIdStorage = createLocalStorageItem<string | null>(
-  "talentFilterActivePresetId",
-  null,
+const persisted: Pick<
+  TalentFilterState,
+  "rawTalentFilterMap" | "talentFilterEnabled" | "presets" | "activePresetId"
+> = {
+  rawTalentFilterMap: new Map(),
+  talentFilterEnabled: true,
+  presets: [],
+  activePresetId: null,
+};
+
+const talentFilterPersist = createLocalStoragePersist(
+  "talentFilter",
+  {
+    rawTalentFilterMap: "talentFilter",
+    talentFilterEnabled: "talentFilterEnabled",
+    presets: "talentFilterPresets",
+    activePresetId: "talentFilterActivePresetId",
+  },
+  persisted,
 );
 
 function generateId(): string {
   return crypto.randomUUID();
 }
 
-export const useTalentFilterStore = create<TalentFilterState>()((set, get) => ({
-  rawTalentFilterMap: talentFilterMapStorage.read(),
-  talentFilterEnabled: talentFilterEnabledStorage.read(),
-  presets: presetsStorage.read(),
-  activePresetId: activePresetIdStorage.read(),
+export const useTalentFilterStore = create<TalentFilterState>()(
+  persist(
+    (set, get) => ({
+      ...persisted,
 
-  setTalentFilter: (name, enabled) => {
-    const rawTalentFilterMap = new Map(get().rawTalentFilterMap);
-    if (enabled) {
-      rawTalentFilterMap.set(name, enabled);
-    } else {
-      rawTalentFilterMap.delete(name);
-    }
-    set({ rawTalentFilterMap });
-  },
+      setTalentFilter: (name, enabled) => {
+        const rawTalentFilterMap = new Map(get().rawTalentFilterMap);
+        if (enabled) {
+          rawTalentFilterMap.set(name, enabled);
+        } else {
+          rawTalentFilterMap.delete(name);
+        }
+        set({ rawTalentFilterMap });
+      },
 
-  resetTalentFilter: () => {
-    set({ rawTalentFilterMap: new Map(), activePresetId: null });
-  },
+      resetTalentFilter: () => {
+        set({ rawTalentFilterMap: new Map(), activePresetId: null });
+      },
 
-  savePreset: (name) => {
-    const preset: FilterPreset = {
-      id: generateId(),
-      name,
-      talents: [...get().rawTalentFilterMap.keys()],
-    };
-    set({ presets: [...get().presets, preset], activePresetId: preset.id });
-    return preset;
-  },
+      savePreset: (name) => {
+        const preset: FilterPreset = {
+          id: generateId(),
+          name,
+          talents: [...get().rawTalentFilterMap.keys()],
+        };
+        set({ presets: [...get().presets, preset], activePresetId: preset.id });
+        return preset;
+      },
 
-  updatePreset: (id) => {
-    const talents = [...get().rawTalentFilterMap.keys()];
-    set({
-      presets: get().presets.map((p) => {
-        if (p.id !== id) return p;
-        return { ...p, talents };
-      }),
-    });
-  },
+      updatePreset: (id) => {
+        const talents = [...get().rawTalentFilterMap.keys()];
+        set({
+          presets: get().presets.map((p) => {
+            if (p.id !== id) return p;
+            return { ...p, talents };
+          }),
+        });
+      },
 
-  loadPreset: (id) => {
-    const preset = get().presets.find((p) => p.id === id);
-    if (!preset) return;
-    set({
-      rawTalentFilterMap: new Map(preset.talents.map((name) => [name, true])),
-      activePresetId: id,
-    });
-  },
+      loadPreset: (id) => {
+        const preset = get().presets.find((p) => p.id === id);
+        if (!preset) return;
+        set({
+          rawTalentFilterMap: new Map(preset.talents.map((name) => [name, true])),
+          activePresetId: id,
+        });
+      },
 
-  deletePreset: (id) => {
-    const { presets, activePresetId } = get();
-    set({
-      presets: presets.filter((p) => p.id !== id),
-      activePresetId: activePresetId === id ? null : activePresetId,
-    });
-  },
+      deletePreset: (id) => {
+        const { presets, activePresetId } = get();
+        set({
+          presets: presets.filter((p) => p.id !== id),
+          activePresetId: activePresetId === id ? null : activePresetId,
+        });
+      },
 
-  renamePreset: ({ id, name }) => {
-    set({
-      presets: get().presets.map((p) => {
-        if (p.id !== id) return p;
-        return { ...p, name };
-      }),
-    });
-  },
-}));
+      renamePreset: ({ id, name }) => {
+        set({
+          presets: get().presets.map((p) => {
+            if (p.id !== id) return p;
+            return { ...p, name };
+          }),
+        });
+      },
+    }),
+    talentFilterPersist.options,
+  ),
+);
 
-bindLocalStorageItem(useTalentFilterStore, "rawTalentFilterMap", talentFilterMapStorage);
-bindLocalStorageItem(useTalentFilterStore, "talentFilterEnabled", talentFilterEnabledStorage);
-bindLocalStorageItem(useTalentFilterStore, "presets", presetsStorage);
-bindLocalStorageItem(useTalentFilterStore, "activePresetId", activePresetIdStorage);
+stopOnHotReexecute(
+  import.meta.hot,
+  "storageEvent",
+  talentFilterPersist.rehydrateOnStorageEvent(useTalentFilterStore),
+);
 
 const disabledTalentFilterMap = new Map<string, boolean>();
 

@@ -5,7 +5,7 @@
  */
 import type { DateSection } from "@liver-streams/core";
 import { compareDate, mdDateFormatter, relativeDateFormatter } from "@liver-streams/core";
-import { scrollToSectionTop } from "../../shared/lib";
+import { classNames, scrollToSectionTop } from "../../shared/lib";
 import { selectCurrentDateTime, selectCurrentHourTime, useDateStore } from "../../shared/stores";
 import LiverEventTimeSection from "./LiverEventTimeSection";
 
@@ -26,14 +26,12 @@ export default function LiverEventDateSection({ dateSection }: Props) {
   const relative = relativeDateFormatter.format(dateDiff, "days");
   const mmdd = mdDateFormatter.format(dateSection.date);
 
-  const buttonClassName = [
+  const buttonClassName = classNames(
     "pointer-events-auto flex flex-row items-center gap-1 rounded-lg border-0 px-2 py-1 shadow-md",
     dateDiff === 0 && "border-yellow-100 bg-yellow-400 text-black hover:bg-yellow-500",
     dateDiff > 0 && "border-gray-300 bg-gray-100 text-gray-900 hover:bg-gray-200",
     dateDiff < 0 && "border-gray-300 bg-gray-700  text-gray-300 hover:bg-gray-800",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   return (
     <section

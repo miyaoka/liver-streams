@@ -1,8 +1,7 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { talentFilter } from "@liver-streams/core";
-import { useMemo } from "react";
 import { create } from "zustand";
-import { createMemoSelector } from "../../shared/lib";
+import { createMemoSelector, memoizeLast } from "../../shared/lib";
 import { selectTalentFilterMap, useTalentFilterStore } from "../channelFilter";
 
 interface NewArrivalId {
@@ -79,14 +78,12 @@ export const selectNewArrivalsIdSet = createMemoSelector(
   (newArrivalsIdList) => new Set(newArrivalsIdList.map((item) => item.id)),
 );
 
-/** 新着イベントを現在のタレントフィルターで絞り込んだ一覧 */
-export function useNewArrivalsList(): NewArrival[] {
-  const newArrivalsIdList = useNewArrivalsStore((state) => state.newArrivalsIdList);
-  const liverEventMap = useNewArrivalsStore((state) => state.liverEventMap);
-  const filterMap = useTalentFilterStore(selectTalentFilterMap);
-  const filterEnabled = useTalentFilterStore((state) => state.talentFilterEnabled);
-
-  return useMemo(() => {
+const computeNewArrivalsList = memoizeLast(
+  (
+    newArrivalsIdList: NewArrivalId[],
+    liverEventMap: Map<string, LiverEvent>,
+    filterMap: Map<string, boolean>,
+  ): NewArrival[] => {
     const list = newArrivalsIdList.flatMap((item) => {
       const liverEvent = liverEventMap.get(item.id);
       if (!liverEvent) return [];
@@ -95,12 +92,20 @@ export function useNewArrivalsList(): NewArrival[] {
         liverEvent,
       };
     });
-    if (!filterEnabled || filterMap.size === 0) return list;
+    if (filterMap.size === 0) return list;
     return list.filter((item) =>
       talentFilter({
         liverEvent: item.liverEvent,
         filterMap,
       }),
     );
-  }, [newArrivalsIdList, liverEventMap, filterMap, filterEnabled]);
+  },
+);
+
+/** 新着イベントを現在のタレントフィルターで絞り込んだ一覧 */
+export function useNewArrivalsList(): NewArrival[] {
+  const newArrivalsIdList = useNewArrivalsStore((state) => state.newArrivalsIdList);
+  const liverEventMap = useNewArrivalsStore((state) => state.liverEventMap);
+  const filterMap = useTalentFilterStore(selectTalentFilterMap);
+  return computeNewArrivalsList(newArrivalsIdList, liverEventMap, filterMap);
 }

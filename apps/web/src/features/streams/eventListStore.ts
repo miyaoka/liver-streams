@@ -1,7 +1,7 @@
 import { getFilteredEventList, createDateSectionList } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
-import { useMemo } from "react";
 import { create } from "zustand";
+import { memoizeLast } from "../../shared/lib";
 import { fetchAllEvents } from "../../shared/services";
 import { selectSearchQuery, useSearchStore } from "../../shared/stores";
 import { processBookmarkNotification } from "../bookmark";
@@ -39,32 +39,41 @@ export const useEventListStore = create<EventListState>()((set, get) => ({
 
 export const selectIsLoading = (state: EventListState) => state.liverEventList === null;
 
+const computeFilteredEventList = memoizeLast(
+  (
+    liverEventList: LiverEvent[] | null,
+    filterMap: Map<string, boolean>,
+    searchQuery: ReturnType<typeof selectSearchQuery>,
+  ): LiverEvent[] => {
+    if (!liverEventList) return [];
+    return getFilteredEventList({ liverEventList, filterMap, searchQuery });
+  },
+);
+
+const computeOnLiveEventList = memoizeLast((filteredEventList: LiverEvent[]) =>
+  filteredEventList.filter((event) => event.isLive),
+);
+
+const computeDateSectionList = memoizeLast((filteredEventList: LiverEvent[]) =>
+  createDateSectionList(filteredEventList).filter((dateSection) => {
+    return dateSection.timeSectionList.some((section) => section.events.length > 0);
+  }),
+);
+
 /** タレントフィルターと検索条件を適用したイベント一覧 */
 export function useFilteredEventList(): LiverEvent[] {
   const liverEventList = useEventListStore((state) => state.liverEventList);
   const filterMap = useTalentFilterStore(selectTalentFilterMap);
   const searchQuery = useSearchStore(selectSearchQuery);
-
-  return useMemo(() => {
-    if (!liverEventList) return [];
-    return getFilteredEventList({ liverEventList, filterMap, searchQuery });
-  }, [liverEventList, filterMap, searchQuery]);
+  return computeFilteredEventList(liverEventList, filterMap, searchQuery);
 }
 
 /** useFilteredEventList のうち配信中のもの */
 export function useOnLiveEventList(): LiverEvent[] {
-  const filteredEventList = useFilteredEventList();
-  return useMemo(() => filteredEventList.filter((event) => event.isLive), [filteredEventList]);
+  return computeOnLiveEventList(useFilteredEventList());
 }
 
 /** useFilteredEventList を日付・時間で区切り、イベントのある日付だけを残したもの */
 export function useDateSectionList() {
-  const filteredEventList = useFilteredEventList();
-  return useMemo(
-    () =>
-      createDateSectionList(filteredEventList).filter((dateSection) => {
-        return dateSection.timeSectionList.some((section) => section.events.length > 0);
-      }),
-    [filteredEventList],
-  );
+  return computeDateSectionList(useFilteredEventList());
 }

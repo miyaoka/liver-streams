@@ -73,9 +73,9 @@ packages/
 
 ## React コンポーネント
 
-`.tsx` で関数コンポーネントとして書く。store は zustand の `useXxxStore(selector)` で読み、selector の中で新しい Map / Set / オブジェクトを作って返さない（参照が毎回変わって再描画が止まらない）。必要なら `shared/lib` の `createMemoSelector` を使う。localStorage に保存する状態は `shared/lib` の `createLocalStorageItem` と `bindLocalStorageItem` を通す（保存形式を以前の @vueuse/core の `useLocalStorage` と揃えている）。テキスト入力は IME の変換中に副作用（検索など）を走らせない。
+`.tsx` で関数コンポーネントとして書く。store は zustand の `useXxxStore(selector)` で読み、selector の中で新しい Map / Set / オブジェクトを作って返さない（参照が毎回変わって再描画が止まらない）。必要なら `shared/lib` の `createMemoSelector` を使う。localStorage に保存する状態は zustand の `persist` に `shared/lib` の `createLocalStoragePersist` を渡して保存する。利用者のブラウザに保存済みの値を読めるよう、キー名と保存形式を変えない（形式は `shared/lib/localStorage.ts` とそのテストが正本）。store のモジュールで始める副作用（interval、イベントリスナー）は、HMR の再実行で重ならないよう `shared/lib` の `stopOnHotReexecute` に後始末を渡す。テキスト入力は IME の変換中に副作用（検索など）を走らせない。
 
-スタイルは Tailwind のクラスで書く。クラスで書けないもの（Transition のクラス、popover の疑似要素、keyframes）だけを同じディレクトリの `<ファイル名>.css` に書き、`assets/main.css` から `@import` する。scoped は無いので、クラス名には接頭辞を付けて衝突を避け、class 属性で使うクラスは `@layer components` に置く（better-tailwindcss が既知のクラスとして扱う）。
+スタイルは Tailwind のクラスで書き、条件で切り替えるクラスは `shared/lib` の `classNames` で組み立てる。クラスで書けないもの（`@starting-style` の出現アニメーション、popover の疑似要素、keyframes）だけを同じディレクトリの `<ファイル名>.css` に書き、`assets/main.css` から `@import` する。scoped は無いので、クラス名には接頭辞を付けて衝突を避け、class 属性で使うクラスは `@layer components` に置く（better-tailwindcss が既知のクラスとして扱う）。
 
 ファイル冒頭に JSDoc のブロックコメント（`/** ... */`）を置き、md 形式でドキュメントを記述する。
 
@@ -87,7 +87,7 @@ packages/
 ### 記述しないもの
 
 - ファイル名と同じタイトル（冗長なため）
-- props や emit などの実装詳細（コードを見れば分かるため）
+- props などの実装詳細（コードを見れば分かるため）
 - 単なる配置場所の列挙（役割の説明に含めて記述すればよい）
 
 ### Markdown 記法

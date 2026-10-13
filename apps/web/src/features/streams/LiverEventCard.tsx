@@ -17,7 +17,9 @@
  */
 import { getThumbnail, hhss } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
+import { memo } from "react";
 import type { MouseEvent } from "react";
+import { classNames } from "../../shared/lib";
 import { getAffiliationLogo } from "../../shared/services";
 import { useHoverStore, useMultiSelectStore, useSearchStore } from "../../shared/stores";
 import { useLiverEvent } from "./useLiverEvent";
@@ -27,12 +29,13 @@ type Props = {
   animateEnter?: boolean;
 };
 
-function classNames(...list: (string | false)[]) {
-  return list.filter(Boolean).join(" ");
-}
-
-export default function LiverEventCard({ liverEvent, animateEnter = false }: Props) {
-  const hoveredHashSet = useHoverStore((state) => state.hoveredHashSet);
+function LiverEventCard({ liverEvent, animateEnter = false }: Props) {
+  // ホバー中のイベントのハッシュタグを持つか
+  const hasHoveredHash = useHoverStore(
+    (state) =>
+      state.hoveredHashSet.size > 0 &&
+      liverEvent.hashtagSet.intersection(state.hoveredHashSet).size > 0,
+  );
   const isMultiSelected = useMultiSelectStore(
     (state) => state.isMultiSelectMode && state.multiSelectEventIdSet.has(liverEvent.id),
   );
@@ -65,10 +68,6 @@ export default function LiverEventCard({ liverEvent, animateEnter = false }: Pro
   })();
 
   const hash = liverEvent.hashtagList[0];
-
-  // hoveredHashSetにhashSetが含まれているか
-  const hasHoveredHash =
-    hoveredHashSet.size > 0 && liverEvent.hashtagSet.intersection(hoveredHashSet).size > 0;
 
   // 通常クリック時はpreventしてダイアログを開き、ホイールクリックはリンクを開く
   function onClickCard(evt: MouseEvent) {
@@ -245,3 +244,6 @@ export default function LiverEventCard({ liverEvent, animateEnter = false }: Pro
     </div>
   );
 }
+
+// 親のセクションが時刻で再描画されても、props と購読値が変わらないカードは描画し直さない
+export default memo(LiverEventCard);

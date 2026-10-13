@@ -63,51 +63,49 @@ function getLiveDurationLabel(liveDuration: number) {
 function getIsHovered(
   liverEvent: LiverEvent,
   hoveredTalent: string | null,
-  isInHoveredCollabo: boolean,
+  hoveredCollaboTalentSet: Set<string>,
 ): boolean {
   if (!hoveredTalent) return false;
   // 自身がホバー中のタレントか
   if (hoveredTalent === liverEvent.talent.name) return true;
   // ホバー中のタレントがコラボタレントに含まれているか
   if (liverEvent.collaboTalentSet.has(hoveredTalent)) return true;
-  return isInHoveredCollabo;
+  // ホバー中のコラボタレントにタレントが含まれているか
+  return hoveredCollaboTalentSet.has(liverEvent.talent.name);
 }
 
+/**
+ * カードの表示状態。store は真偽値・文字列・数に絞って購読し、
+ * 時刻やホバーが変わっても値が変わらないカードは再描画しない。
+ */
 export const useLiverEvent = (liverEvent: LiverEvent) => {
-  const { id } = liverEvent;
-  const talentName = liverEvent.talent.name;
+  const { id, isLive } = liverEvent;
+  const startTime = liverEvent.startAt.getTime();
 
-  const currentTime = useDateStore(selectCurrentTime);
+  // 開始時刻からの経過時間
+  const getElapsedTime = (state: Parameters<typeof selectCurrentTime>[0]) =>
+    Math.max(0, selectCurrentTime(state) - startTime);
+  const getLabel = (state: Parameters<typeof selectCurrentTime>[0]) =>
+    getLiveDurationLabel(getLiveDuration(liverEvent, startTime, getElapsedTime(state)));
+
+  const isFinished = useDateStore((state) => getIsFinished(liverEvent, getElapsedTime(state)));
+  const labelFixed = useDateStore((state) => getLabel(state)?.fixed ?? null);
+  const labelCount = useDateStore((state) => getLabel(state)?.count ?? 0);
   const isNew = useNewArrivalsStore((state) => selectNewArrivalsIdSet(state).has(id));
   const hasBookmark = useBookmarkStore(selectHasBookmark(id));
   const hasNotify = useBookmarkStore(selectHasNotify(id));
-  const hoveredTalent = useHoverStore((state) => state.hoveredTalent);
-  // ホバー中のコラボタレントにタレントが含まれているか
-  const isInHoveredCollabo = useHoverStore((state) =>
-    state.hoveredCollaboTalentSet.has(talentName),
+  const isHovered = useHoverStore((state) =>
+    getIsHovered(liverEvent, state.hoveredTalent, state.hoveredCollaboTalentSet),
   );
-
-  const startTime = liverEvent.startAt.getTime();
-  // 開始時刻からの経過時間
-  const elapsedTime = Math.max(0, currentTime - startTime);
-  const isLive = liverEvent.isLive;
-  const isFinished = getIsFinished(liverEvent, elapsedTime);
-  const liveDuration = getLiveDuration(liverEvent, startTime, elapsedTime);
-
-  const isHovered = getIsHovered(liverEvent, hoveredTalent, isInHoveredCollabo);
 
   return {
     isUpcoming: !isLive && !isFinished,
     isLive,
     isFinished,
     isHovered,
-    elapsedTime,
-    liveDuration,
-    liveDurationLabel: getLiveDurationLabel(liveDuration),
+    liveDurationLabel: labelFixed === null ? null : { fixed: labelFixed, count: labelCount },
     isNew,
     hasBookmark,
     hasNotify,
-    // 開始時間前か
-    beforeStartTime: currentTime < startTime,
   };
 };

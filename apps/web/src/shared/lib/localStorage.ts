@@ -1,16 +1,19 @@
 /**
- * localStorage の 1 キーを読み書きする。
+ * zustand の persist に渡す、store のフィールドを localStorage のキーへ 1 つずつ保存する PersistStorage。
  *
- * 保存形式と挙動は @vueuse/core 15.0.0 の useLocalStorage と同じにしてあり、
- * それで保存済みの利用者のデータをそのまま読める。
+ * 利用者のブラウザに保存済みの値を読めるよう、キー名と保存形式を変えない。形式は `serializers` とテストが正本。
+ * 読み書きに失敗したキーは console.error を出して既定値で続ける。例外にすると、壊れた値を持つ利用者がアプリを開けなくなる。
  *
  * ```ts
- * const item = createLocalStorageItem("key", new Map<string, boolean>());
- * export const useXxxStore = create<State>()(() => ({ map: item.read() }));
- * bindLocalStorageItem(useXxxStore, "map", item);
+ * const persisted = { map: new Map<string, boolean>() };
+ * const mapPersist = createLocalStoragePersist("xxx", { map: "storageKey" }, persisted);
+ * export const useXxxStore = create<State>()(
+ *   persist((set) => ({ ...persisted, ...actions }), mapPersist.options),
+ * );
+ * stopOnHotReexecute(import.meta.hot, "storage", mapPersist.rehydrateOnStorageEvent(useXxxStore));
  * ```
  */
-import type { StoreApi } from "zustand";
+import type { PersistOptions, PersistStorage } from "zustand/middleware";
 
 interface Serializer {
   read: (raw: string) => unknown;
@@ -50,99 +53,119 @@ function guessSerializerType(defaults: unknown): SerializerType {
   );
 }
 
-export interface LocalStorageItem<T> {
-  /** 保存値を読む。キーが無ければ既定値を返し、既定値が null でなければ書き込む */
-  read: () => T;
-  /** 値を保存する。null はキーを削除する */
-  write: (value: T) => void;
-  /** 別タブでの変更を受け取る。戻り値で購読を解除する */
-  subscribe: (listener: (value: T) => void) => () => void;
+interface Field {
+  key: string;
+  defaults: unknown;
+  serializer: Serializer;
+  /**
+   * 最後に読み書きした値。同じ参照なら書き込みを省き、同じ文字列なら読み込みで前の参照を返す。
+   * 読めなかったときの raw は undefined で、どの保存値とも一致しない
+   */
+  last: { value: unknown; raw: string | null | undefined } | null;
 }
 
-export function createLocalStorageItem<T>(key: string, defaults: T): LocalStorageItem<T> {
-  const serializer = serializers[guessSerializerType(defaults)];
-  // メモリ上の値を直列化したもの。別タブから同じ値が届いたときに更新を省く
-  let currentSerialized: string | null = null;
+function serialize(field: Field, value: unknown): string | null {
+  if (value == null) return null;
+  return field.serializer.write(value);
+}
 
-  function serialize(value: T): string | null {
-    if (value == null) return null;
-    return serializer.write(value);
-  }
-
-  function parse(raw: string | null): T {
+function readField(field: Field): unknown {
+  try {
+    const raw = localStorage.getItem(field.key);
+    if (field.last && field.last.raw === raw) return field.last.value;
     if (raw === null) {
-      if (defaults !== null) localStorage.setItem(key, serializer.write(defaults));
-      return defaults;
+      const defaultsRaw = serialize(field, field.defaults);
+      if (defaultsRaw !== null) localStorage.setItem(field.key, defaultsRaw);
+      field.last = { value: field.defaults, raw: defaultsRaw };
+      return field.defaults;
     }
-    return serializer.read(raw) as T;
+    const value = field.serializer.read(raw);
+    field.last = { value, raw };
+    return value;
+  } catch (error) {
+    console.error(error);
+    field.last = { value: field.defaults, raw: undefined };
+    return field.defaults;
   }
+}
 
-  function read(): T {
-    try {
-      const value = parse(localStorage.getItem(key));
-      currentSerialized = serialize(value);
-      return value;
-    } catch (error) {
-      console.error(error);
-      currentSerialized = serialize(defaults);
-      return defaults;
+function writeField(field: Field, value: unknown) {
+  if (field.last && Object.is(field.last.value, value)) return;
+  try {
+    const raw = serialize(field, value);
+    field.last = { value, raw };
+    if (raw === null) {
+      localStorage.removeItem(field.key);
+      return;
     }
+    if (localStorage.getItem(field.key) === raw) return;
+    localStorage.setItem(field.key, raw);
+  } catch (error) {
+    console.error(error);
   }
+}
 
-  function write(value: T) {
-    try {
-      const serialized = serialize(value);
-      currentSerialized = serialized;
-      if (serialized === null) {
-        localStorage.removeItem(key);
-        return;
-      }
-      if (localStorage.getItem(key) === serialized) return;
-      localStorage.setItem(key, serialized);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+interface RehydratableStore {
+  persist: { rehydrate: () => Promise<void> | void };
+}
 
-  function subscribe(listener: (value: T) => void) {
+/**
+ * @param name persist の name。localStorage のキーには使わない
+ * @param keys store のフィールド名 → localStorage のキー
+ * @param defaults キーが無いときと読めないときの値。null を既定値にしたフィールドは文字列をそのまま保存する
+ */
+export function createLocalStoragePersist<P extends object>(
+  name: string,
+  keys: { [F in keyof P]: string },
+  defaults: P,
+) {
+  const fieldNames = Object.keys(keys) as (keyof P & string)[];
+  const fields = new Map<keyof P, Field>(
+    fieldNames.map((fieldName) => [
+      fieldName,
+      {
+        key: keys[fieldName],
+        defaults: defaults[fieldName],
+        serializer: serializers[guessSerializerType(defaults[fieldName])],
+        last: null,
+      },
+    ]),
+  );
+  const storageKeySet = new Set(fieldNames.map((fieldName) => keys[fieldName]));
+
+  const storage: PersistStorage<P> = {
+    getItem: () => {
+      const state = {} as P;
+      fields.forEach((field, fieldName) => {
+        state[fieldName] = readField(field) as P[keyof P];
+      });
+      return { state };
+    },
+    setItem: (_name, { state }) => {
+      fields.forEach((field, fieldName) => {
+        writeField(field, state[fieldName]);
+      });
+    },
+    removeItem: () => {
+      fields.forEach((field) => {
+        field.last = null;
+        localStorage.removeItem(field.key);
+      });
+    },
+  };
+
+  const options = { name, storage } satisfies PersistOptions<P, P>;
+
+  /** 別タブでの変更を store に読み直す。戻り値で購読を解除する */
+  function rehydrateOnStorageEvent(store: RehydratableStore): () => void {
     const onStorage = (event: StorageEvent) => {
       if (event.storageArea !== localStorage) return;
-      // localStorage.clear() はキーが null で届く
-      if (event.key === null) {
-        listener(defaults);
-        return;
-      }
-      if (event.key !== key) return;
-      if (event.newValue === currentSerialized) return;
-      try {
-        listener(parse(event.newValue));
-      } catch (error) {
-        console.error(error);
-      }
+      if (event.key !== null && !storageKeySet.has(event.key)) return;
+      void store.persist.rehydrate();
     };
     window.addEventListener("storage", onStorage, { passive: true });
     return () => window.removeEventListener("storage", onStorage);
   }
 
-  return { read, write, subscribe };
-}
-
-/**
- * store の 1 フィールドを localStorage と同期する。
- * フィールドの参照が変わったら保存し、別タブでの変更を store に反映する。
- */
-export function bindLocalStorageItem<S, K extends keyof S>(
-  store: StoreApi<S>,
-  field: K,
-  item: LocalStorageItem<S[K]>,
-) {
-  store.subscribe((state, prevState) => {
-    if (state[field] === prevState[field]) return;
-    item.write(state[field]);
-  });
-  item.subscribe((value) => {
-    const partial: Partial<S> = {};
-    partial[field] = value;
-    store.setState(partial);
-  });
+  return { options, rehydrateOnStorageEvent };
 }

@@ -12,10 +12,15 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { parseSegment, getThumbnail, fullDateFormatter } from "@liver-streams/core";
 import { Popover, usePopover } from "../../../shared/composables";
+import { classNames } from "../../../shared/lib";
 import { useHoverStore, useSearchStore } from "../../../shared/stores";
 import { closePopover } from "../../../shared/utils";
-import { useBookmarkStore, useNotificationStore } from "../../bookmark";
-import { useLiverEvent } from "../useLiverEvent";
+import {
+  selectHasBookmark,
+  selectHasNotify,
+  useBookmarkStore,
+  useNotificationStore,
+} from "../../bookmark";
 
 type Props = {
   liverEvent: LiverEvent;
@@ -24,7 +29,8 @@ type Props = {
 export default function LiverEventDetailPopover({ liverEvent }: Props) {
   const isNotificationSupported = useNotificationStore((state) => state.isSupported);
 
-  const { hasBookmark, hasNotify } = useLiverEvent(liverEvent);
+  const hasBookmark = useBookmarkStore(selectHasBookmark(liverEvent.id));
+  const hasNotify = useBookmarkStore(selectHasNotify(liverEvent.id));
   const permissionPopover = usePopover();
 
   const fullDate = fullDateFormatter.format(liverEvent.startAt);
@@ -181,18 +187,18 @@ export default function LiverEventDetailPopover({ liverEvent }: Props) {
               title="add bookmark"
             >
               <div
-                className={[
+                className={classNames(
                   "grid size-10 place-items-center rounded-full border-2 bg-white group-hover/fav:bg-gray-100",
                   hasBookmark ? "border-green-800" : "border-gray-400",
-                ].join(" ")}
+                )}
               >
                 <i
-                  className={[
+                  className={classNames(
                     "size-7",
                     hasBookmark
                       ? "i-mdi-bookmark text-green-600"
                       : "i-mdi-bookmark-outline text-gray-400",
-                  ].join(" ")}
+                  )}
                 />
               </div>
             </button>
@@ -203,16 +209,16 @@ export default function LiverEventDetailPopover({ liverEvent }: Props) {
                 title="add notification"
               >
                 <div
-                  className={[
+                  className={classNames(
                     "grid size-10 place-items-center rounded-full border-2 border-gray-400 bg-white group-hover/fav:bg-gray-100",
                     hasNotify ? "border-yellow-800" : "border-gray-400",
-                  ].join(" ")}
+                  )}
                 >
                   <i
-                    className={[
+                    className={classNames(
                       "size-7",
                       hasNotify ? "i-mdi-bell text-yellow-600" : "i-mdi-bell-outline text-gray-400",
-                    ].join(" ")}
+                    )}
                   />
                 </div>
               </button>

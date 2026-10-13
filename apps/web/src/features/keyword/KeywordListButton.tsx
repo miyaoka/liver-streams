@@ -2,6 +2,7 @@
  * トレンドキーワード一覧のポップオーバーを開くボタン。
  */
 import { Popover, usePopover } from "../../shared/composables";
+import { classNames } from "../../shared/lib";
 import KeywordListPopover from "./KeywordListPopover";
 
 export default function KeywordListButton() {
@@ -15,10 +16,10 @@ export default function KeywordListButton() {
         title="popular keywords"
       >
         <i
-          className={[
+          className={classNames(
             "size-8",
             popover.isShow ? "i-icon-park-solid-topic" : "i-icon-park-outline-topic",
-          ].join(" ")}
+          )}
         />
       </button>
 

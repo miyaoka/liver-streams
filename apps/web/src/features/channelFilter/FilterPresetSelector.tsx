@@ -8,7 +8,7 @@
  * - 既存プリセットの上書き保存・削除
  */
 import { useEffect, useRef, useState } from "react";
-import type { ChangeEvent, CompositionEvent, KeyboardEvent } from "react";
+import type { ChangeEvent, KeyboardEvent } from "react";
 import {
   selectActivePreset,
   selectIsModified,
@@ -28,11 +28,8 @@ export default function FilterPresetSelector({ onLoaded }: Props) {
   const talentFilterMap = useTalentFilterStore(selectTalentFilterMap);
 
   const [isEditing, setIsEditing] = useState(false);
-  // 入力欄の表示値。IME の変換中も追従させないと React が入力欄を巻き戻す
+  // IME の変換中も追従させる。止めると React が入力欄を巻き戻す
   const [inputValue, setInputValue] = useState("");
-  // 変換中を除いた確定済みの名前
-  const [editName, setEditName] = useState("");
-  const isComposingRef = useRef(false);
   const editNameInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -54,12 +51,11 @@ export default function FilterPresetSelector({ onLoaded }: Props) {
 
   function startSave() {
     setInputValue("");
-    setEditName("");
     setIsEditing(true);
   }
 
   function confirmSave() {
-    const name = editName.trim();
+    const name = inputValue.trim();
     if (!name) return;
     useTalentFilterStore.getState().savePreset(name);
     setIsEditing(false);
@@ -92,17 +88,6 @@ export default function FilterPresetSelector({ onLoaded }: Props) {
 
   function onEditChange(event: ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
-    if (isComposingRef.current) return;
-    setEditName(event.target.value);
-  }
-
-  function onCompositionStart() {
-    isComposingRef.current = true;
-  }
-
-  function onCompositionEnd(event: CompositionEvent<HTMLInputElement>) {
-    isComposingRef.current = false;
-    setEditName(event.currentTarget.value);
   }
 
   return (
@@ -114,8 +99,6 @@ export default function FilterPresetSelector({ onLoaded }: Props) {
             ref={editNameInput}
             value={inputValue}
             onChange={onEditChange}
-            onCompositionStart={onCompositionStart}
-            onCompositionEnd={onCompositionEnd}
             type="text"
             className="min-w-0 flex-1 rounded-lg border bg-white px-2 py-1 text-sm"
             placeholder="プリセット名"
@@ -123,7 +106,7 @@ export default function FilterPresetSelector({ onLoaded }: Props) {
           />
           <button
             className="grid size-8 shrink-0 place-items-center rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-40"
-            disabled={!editName.trim()}
+            disabled={!inputValue.trim()}
             onClick={confirmSave}
           >
             <i className="i-mdi-check size-5" />

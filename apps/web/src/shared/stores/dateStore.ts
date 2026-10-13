@@ -1,5 +1,6 @@
 import { getDateTime, getHourTime } from "@liver-streams/core";
 import { create } from "zustand";
+import { stopOnHotReexecute } from "../lib";
 
 const updateInterval = 5000;
 
@@ -15,9 +16,7 @@ const intervalId = setInterval(() => {
   useDateStore.setState({ currentDate: new Date() });
 }, updateInterval);
 
-if (import.meta.hot) {
-  import.meta.hot.dispose(() => clearInterval(intervalId));
-}
+stopOnHotReexecute(import.meta.hot, "interval", () => clearInterval(intervalId));
 
 export const selectCurrentTime = (state: DateState) => state.currentDate.getTime();
 export const selectCurrentDateTime = (state: DateState) => getDateTime(state.currentDate);

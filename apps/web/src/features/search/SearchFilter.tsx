@@ -6,6 +6,7 @@
  */
 import { useRef, useState } from "react";
 import type { ChangeEvent, CompositionEvent } from "react";
+import { classNames } from "../../shared/lib";
 import { useSearchStore } from "../../shared/stores";
 
 const searchDelay = 500;
@@ -96,7 +97,7 @@ export default function SearchFilter() {
           e.preventDefault();
           onSubmit();
         }}
-        className={["h-full transition-[width]", isInput ? "w-56" : "w-0"].join(" ")}
+        className={classNames("h-full transition-[width]", isInput ? "w-56" : "w-0")}
       >
         <input
           className="size-full rounded-l-full p-2 pl-4 text-base"
@@ -115,7 +116,7 @@ export default function SearchFilter() {
         title="search"
       >
         <i
-          className={["size-8 text-gray-800", isInput ? "i-mdi-close" : "i-mdi-search"].join(" ")}
+          className={classNames("size-8 text-gray-800", isInput ? "i-mdi-close" : "i-mdi-search")}
         />
       </button>
     </div>

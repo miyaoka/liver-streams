@@ -3,6 +3,7 @@
  */
 import { useState } from "react";
 import { Popover, usePopover } from "../../shared/composables";
+import { classNames } from "../../shared/lib";
 import NewArrivalsPopover from "./NewArrivalsPopover";
 import { useNewArrivalsList } from "./newArrivalsStore";
 
@@ -26,8 +27,9 @@ export default function NewArrivalsButton() {
         title="recently added events"
       >
         <i
-          className={["size-8", popover.isShow ? "i-mdi-sparkles" : "i-mdi-sparkles-outline"].join(
-            " ",
+          className={classNames(
+            "size-8",
+            popover.isShow ? "i-mdi-sparkles" : "i-mdi-sparkles-outline",
           )}
         />
         {unreadCount > 0 && (
