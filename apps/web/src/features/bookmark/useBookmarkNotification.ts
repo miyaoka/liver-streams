@@ -1,16 +1,19 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { hhmmDateFormatter } from "@liver-streams/core";
-import { useBookmarkStore } from "./";
+import { useBookmarkStore } from "./bookmarkStore";
 
 export function processBookmarkNotification(liverEventMap: Map<string, LiverEvent>) {
-  const bookmarkStore = useBookmarkStore();
+  const { bookmarkEventMap } = useBookmarkStore.getState();
+  const nextBookmarkEventMap = new Map(bookmarkEventMap);
   const now = Date.now();
+  let changed = false;
 
-  bookmarkStore.bookmarkEventMap.forEach((bookmarkType, id) => {
+  bookmarkEventMap.forEach((bookmarkType, id) => {
     const bookmarkEvent = liverEventMap.get(id);
     // liverEventListに存在しないbookmarkを削除
     if (!bookmarkEvent) {
-      bookmarkStore.bookmarkEventMap.delete(id);
+      nextBookmarkEventMap.delete(id);
+      changed = true;
       return;
     }
 
@@ -31,6 +34,10 @@ export function processBookmarkNotification(liverEventMap: Map<string, LiverEven
       };
     }
     // 通知後はnotifyからbookmarkに変更
-    bookmarkStore.bookmarkEventMap.set(id, "bookmark");
+    nextBookmarkEventMap.set(id, "bookmark");
+    changed = true;
   });
+
+  if (!changed) return;
+  useBookmarkStore.setState({ bookmarkEventMap: nextBookmarkEventMap });
 }

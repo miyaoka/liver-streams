@@ -1,14 +1,11 @@
 import "./assets/main.css";
 
-import { createPinia } from "pinia";
-import { createApp } from "vue";
+import { createElement, StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
 import App from "./App";
-import router from "./router";
 
-const app = createApp(App);
+const container = document.getElementById("app");
+if (!container) throw new Error("#app not found");
 
-app.use(createPinia());
-app.use(router);
-
-app.mount("#app");
+createRoot(container).render(createElement(StrictMode, null, createElement(App)));

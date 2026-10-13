@@ -1,30 +1,26 @@
 /**
  * ローディングスピナー。サイズ（sm/md/lg）とメッセージを指定可能。
  */
-import { defineComponent } from "vue";
 
 type Props = {
   size?: "sm" | "md" | "lg";
   message?: string;
 };
 
-export default defineComponent(
-  (props: Props) => {
-    return () => (
-      <div class="flex flex-col items-center justify-center gap-3">
-        <i
-          class={[
-            "i-mdi-loading animate-spin",
-            {
-              "size-8": props.size === "sm",
-              "size-12": props.size === "md" || !props.size,
-              "size-16": props.size === "lg",
-            },
-          ]}
-        />
-        {props.message && <p class="text-sm font-medium">{props.message}</p>}
-      </div>
-    );
-  },
-  { name: "LoadingSpinner", props: ["size", "message"] },
-);
+export default function LoadingSpinner({ size, message }: Props) {
+  const iconClassName = [
+    "i-mdi-loading animate-spin",
+    size === "sm" && "size-8",
+    (size === "md" || !size) && "size-12",
+    size === "lg" && "size-16",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <div className="flex flex-col items-center justify-center gap-3">
+      <i className={iconClassName} />
+      {message && <p className="text-sm font-medium">{message}</p>}
+    </div>
+  );
+}

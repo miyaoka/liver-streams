@@ -1,32 +1,36 @@
-import { acceptHMRUpdate, defineStore } from "pinia";
-import { ref } from "vue";
+import { create } from "zustand";
 
-export const useMultiSelectStore = defineStore("multiSelectStore", () => {
-  const isMultiSelectMode = ref(false);
-  const multiSelectEventIdSet = ref<Set<string>>(new Set());
-
-  function toggleMultiSelectMode() {
-    isMultiSelectMode.value = !isMultiSelectMode.value;
-    if (!isMultiSelectMode.value) {
-      multiSelectEventIdSet.value.clear();
-    }
-  }
-  function toggleMultiSelectEvent(id: string) {
-    if (multiSelectEventIdSet.value.has(id)) {
-      multiSelectEventIdSet.value.delete(id);
-    } else {
-      multiSelectEventIdSet.value.add(id);
-    }
-  }
-
-  return {
-    isMultiSelectMode,
-    multiSelectEventIdSet,
-    toggleMultiSelectMode,
-    toggleMultiSelectEvent,
-  };
-});
-
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useMultiSelectStore, import.meta.hot));
+interface MultiSelectState {
+  isMultiSelectMode: boolean;
+  multiSelectEventIdSet: Set<string>;
+  toggleMultiSelectMode: () => void;
+  toggleMultiSelectEvent: (id: string) => void;
+  /** 複数選択モードにして、選択を ids だけにする */
+  setMultiSelectEvents: (ids: string[]) => void;
 }
+
+export const useMultiSelectStore = create<MultiSelectState>()((set, get) => ({
+  isMultiSelectMode: false,
+  multiSelectEventIdSet: new Set(),
+
+  toggleMultiSelectMode: () => {
+    const isMultiSelectMode = !get().isMultiSelectMode;
+    if (isMultiSelectMode) {
+      set({ isMultiSelectMode });
+      return;
+    }
+    set({ isMultiSelectMode, multiSelectEventIdSet: new Set() });
+  },
+  toggleMultiSelectEvent: (id) => {
+    const multiSelectEventIdSet = new Set(get().multiSelectEventIdSet);
+    if (multiSelectEventIdSet.has(id)) {
+      multiSelectEventIdSet.delete(id);
+    } else {
+      multiSelectEventIdSet.add(id);
+    }
+    set({ multiSelectEventIdSet });
+  },
+  setMultiSelectEvents: (ids) => {
+    set({ isMultiSelectMode: true, multiSelectEventIdSet: new Set(ids) });
+  },
+}));

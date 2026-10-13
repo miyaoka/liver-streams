@@ -1,31 +1,24 @@
 import { getDateTime, getHourTime } from "@liver-streams/core";
-import { useIntervalFn } from "@vueuse/core";
-import { acceptHMRUpdate, defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { create } from "zustand";
 
-export const useDateStore = defineStore("dateStore", () => {
-  const currentDate = ref(new Date());
+const updateInterval = 5000;
 
-  useIntervalFn(() => {
-    currentDate.value = new Date();
-  }, 5000);
+interface DateState {
+  currentDate: Date;
+}
 
-  const currentTime = computed(() => currentDate.value.getTime());
-  const currentDateTime = computed(() => {
-    return getDateTime(currentDate.value);
-  });
-  const currentHourTime = computed(() => {
-    return getHourTime(currentDate.value);
-  });
+export const useDateStore = create<DateState>()(() => ({
+  currentDate: new Date(),
+}));
 
-  return {
-    currentDate,
-    currentTime,
-    currentDateTime,
-    currentHourTime,
-  };
-});
+const intervalId = setInterval(() => {
+  useDateStore.setState({ currentDate: new Date() });
+}, updateInterval);
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useDateStore, import.meta.hot));
+  import.meta.hot.dispose(() => clearInterval(intervalId));
 }
+
+export const selectCurrentTime = (state: DateState) => state.currentDate.getTime();
+export const selectCurrentDateTime = (state: DateState) => getDateTime(state.currentDate);
+export const selectCurrentHourTime = (state: DateState) => getHourTime(state.currentDate);

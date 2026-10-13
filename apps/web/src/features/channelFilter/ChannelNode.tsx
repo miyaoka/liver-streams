@@ -4,9 +4,10 @@
  * グループ単位でまとめてチェック/解除でき、子ノードのチェック状態に応じて親のチェック状態も連動する。
  */
 import type { ChannelNode, EventService } from "@liver-streams/core";
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { useEffectEvent, useLayoutEffect, useRef } from "react";
+import type { ChangeEvent, MouseEvent } from "react";
 import { useSearchStore } from "../../shared/stores";
-import { useTalentFilterStore } from "./";
+import { selectTalentFilterMap, useTalentFilterStore } from "./";
 
 type Props = {
   node: ChannelNode;
@@ -14,153 +15,151 @@ type Props = {
   onChange?: () => void;
 };
 
-const ChannelNodeComponent = defineComponent(
-  (props: Props) => {
-    function getIcon(name: string): string {
-      return props.service.getIcon(name);
+function splitChildren(node: ChannelNode) {
+  const names: string[] = [];
+  const childNodes: ChannelNode[] = [];
+  node.children.forEach((child) => {
+    if (typeof child === "string") {
+      names.push(child);
+    } else {
+      childNodes.push(child);
     }
+  });
+  return { names, childNodes };
+}
 
-    const talentFilterStore = useTalentFilterStore();
-    const searchStore = useSearchStore();
+// 子孫ノードを含む全てのタレント名
+function collectNames(node: ChannelNode): string[] {
+  return node.children.flatMap((child) =>
+    typeof child === "string" ? [child] : collectNames(child),
+  );
+}
 
-    const children = computed(() => {
-      const names: string[] = [];
-      const childNodes: ChannelNode[] = [];
-      props.node.children.map((child) => {
-        if (typeof child === "string") {
-          names.push(child);
-        } else {
-          childNodes.push(child);
-        }
-      });
-      return { names, childNodes };
+function ChannelNodeComponent({ node, service, onChange }: Props) {
+  const talentFilterMap = useTalentFilterStore(selectTalentFilterMap);
+
+  const children = splitChildren(node);
+
+  const groupEl = useRef<HTMLInputElement>(null);
+  const namesEl = useRef<HTMLDivElement>(null);
+  const childNodeEl = useRef<HTMLDivElement>(null);
+
+  function onNameCheck(evt: ChangeEvent<HTMLInputElement>, name: string) {
+    useTalentFilterStore.getState().setTalentFilter(name, evt.target.checked);
+
+    update();
+  }
+
+  function update() {
+    if (!namesEl.current || !groupEl.current) return;
+    // 全ての名前がチェックされているか
+    const inputs = [...namesEl.current.querySelectorAll("input")];
+    const isAllChecked = inputs.every((input) => {
+      return input.checked;
     });
 
-    const groupEl = ref<HTMLInputElement | null>(null);
-    const namesEl = ref<HTMLElement | null>(null);
-    const childNodeEl = ref<HTMLElement | null>(null);
-    function onNameCheck(evt: Event, name: string) {
-      const input = evt.target as HTMLInputElement;
-      talentFilterStore.setTalentFilter(name, input.checked);
+    // 親ノードのチェック状態を変更
+    groupEl.current.checked = isAllChecked;
+    onChange?.();
+  }
 
-      update();
-    }
+  const onMount = useEffectEvent(() => update());
+  useLayoutEffect(() => {
+    onMount();
+  }, []);
 
-    function update() {
-      if (!namesEl.value || !groupEl.value) return;
-      // 全ての名前がチェックされているか
-      const inputs = [...namesEl.value.querySelectorAll("input")];
-      const isAllChecked = inputs.every((input) => {
-        return input.checked;
-      });
+  function onGroupClick(e: MouseEvent<HTMLInputElement>) {
+    const { checked } = e.currentTarget;
+    onChange?.();
 
-      // 親ノードのチェック状態を変更
-      groupEl.value.checked = isAllChecked;
-      props.onChange?.();
-    }
-
-    onMounted(async () => {
-      update();
+    const { setTalentFilter } = useTalentFilterStore.getState();
+    collectNames(node).forEach((name) => {
+      setTalentFilter(name, checked);
     });
 
-    function onGroupClick(e: Event) {
-      const group = e.target as HTMLInputElement;
-      props.onChange?.();
+    // 子孫のグループのチェックボックスは状態を持たないため DOM を直接揃える
+    childNodeEl.current?.querySelectorAll("input").forEach((input) => {
+      input.checked = checked;
+    });
+  }
 
-      children.value.names.forEach((name) => {
-        talentFilterStore.setTalentFilter(name, group.checked);
-      });
+  async function onNodeChange() {
+    await new Promise((resolve) => requestAnimationFrame(resolve));
 
-      if (childNodeEl.value) {
-        const childInputs = [...childNodeEl.value.querySelectorAll("input")];
+    if (!childNodeEl.current || !groupEl.current) return;
 
-        childInputs.forEach((input) => {
-          input.checked = group.checked;
-          // コンポーネントに変更を通知する
-          input.dispatchEvent(new Event("change"));
-        });
-      }
-    }
+    // 子ノードが全てチェックされているか
+    const childInputs = [...childNodeEl.current.querySelectorAll("input")];
+    const isAllChecked = childInputs.every((input) => {
+      return input.checked;
+    });
 
-    async function onNodeChange() {
-      await new Promise((resolve) => requestAnimationFrame(resolve));
+    if (groupEl.current.checked === isAllChecked) return;
 
-      if (!childNodeEl.value || !groupEl.value) return;
+    // 子ノードの状態に応じて現ノードのチェック状態を変更
+    groupEl.current.checked = isAllChecked;
 
-      // 子ノードが全てチェックされているか
-      const childInputs = [...childNodeEl.value.querySelectorAll("input")];
-      const isAllChecked = childInputs.every((input) => {
-        return input.checked;
-      });
+    // 親に変更を通知
+    onChange?.();
+  }
 
-      if (groupEl.value.checked === isAllChecked) return;
-
-      // 子ノードの状態に応じて現ノードのチェック状態を変更
-      groupEl.value.checked = isAllChecked;
-
-      // 親に変更を通知
-      props.onChange?.();
-    }
-
-    return () => (
-      <div class="ml-4 flex flex-col items-start gap-2 text-sm font-bold select-none">
-        <div class="flex flex-col items-start">
-          <label class="flex h-9 cursor-pointer place-items-center gap-1 rounded-lg bg-gray-100 px-2 whitespace-nowrap hover:outline-2 hover:outline-solid has-checked:bg-red-200 has-checked:text-red-900 has-focus-visible:outline-solid">
-            <input ref={groupEl} type="checkbox" class="sr-only" onClick={onGroupClick} />
-            <i class="i-mdi-folder-open size-6"></i>
-            <p>{props.node.name}</p>
-          </label>
-        </div>
-
-        <div>
-          {children.value.names.length > 0 && (
-            <div ref={namesEl} class="ml-4 flex flex-col gap-px rounded-xl px-2 pt-1 pb-3">
-              {children.value.names.map((name) => (
-                <label
-                  key={name}
-                  class="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-focus-visible:outline"
-                  title={name}
-                  onContextmenu={(e) => {
-                    e.preventDefault();
-                    searchStore.setFocusedTalent(name);
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    class="sr-only"
-                    onChange={(e) => onNameCheck(e, name)}
-                    checked={talentFilterStore.talentFilterMap.get(name)}
-                  />
-                  <img
-                    src={getIcon(name)}
-                    alt="icon"
-                    class="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline-2 group-hover:outline-solid"
-                    loading="lazy"
-                  />
-                  <div class="rounded-lg bg-gray-100 px-2 py-1 group-hover:outline-2 group-hover:outline-solid group-has-checked:bg-red-200 group-has-checked:text-red-900 group-has-focus-visible:outline-2">
-                    {name}
-                  </div>
-                </label>
-              ))}
-            </div>
-          )}
-          {children.value.childNodes.length > 0 && (
-            <div ref={childNodeEl} class="flex flex-col gap-2">
-              {children.value.childNodes.map((child) => (
-                <ChannelNodeComponent
-                  node={child}
-                  service={props.service}
-                  key={child.name}
-                  onChange={onNodeChange}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+  return (
+    <div className="ml-4 flex flex-col items-start gap-2 text-sm font-bold select-none">
+      <div className="flex flex-col items-start">
+        <label className="flex h-9 cursor-pointer place-items-center gap-1 rounded-lg bg-gray-100 px-2 whitespace-nowrap hover:outline-2 hover:outline-solid has-checked:bg-red-200 has-checked:text-red-900 has-focus-visible:outline-solid">
+          <input ref={groupEl} type="checkbox" className="sr-only" onClick={onGroupClick} />
+          <i className="i-mdi-folder-open size-6"></i>
+          <p>{node.name}</p>
+        </label>
       </div>
-    );
-  },
-  { name: "ChannelNode", props: ["node", "service", "onChange"] },
-);
+
+      <div>
+        {children.names.length > 0 && (
+          <div ref={namesEl} className="ml-4 flex flex-col gap-px rounded-xl px-2 pt-1 pb-3">
+            {children.names.map((name) => (
+              <label
+                key={name}
+                className="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-focus-visible:outline"
+                title={name}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  useSearchStore.getState().setFocusedTalent(name);
+                }}
+              >
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  onChange={(e) => onNameCheck(e, name)}
+                  checked={talentFilterMap.get(name) ?? false}
+                />
+                <img
+                  src={service.getIcon(name)}
+                  alt="icon"
+                  className="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline-2 group-hover:outline-solid"
+                  loading="lazy"
+                />
+                <div className="rounded-lg bg-gray-100 px-2 py-1 group-hover:outline-2 group-hover:outline-solid group-has-checked:bg-red-200 group-has-checked:text-red-900 group-has-focus-visible:outline-2">
+                  {name}
+                </div>
+              </label>
+            ))}
+          </div>
+        )}
+        {children.childNodes.length > 0 && (
+          <div ref={childNodeEl} className="flex flex-col gap-2">
+            {children.childNodes.map((child) => (
+              <ChannelNodeComponent
+                node={child}
+                service={service}
+                key={child.name}
+                onChange={onNodeChange}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default ChannelNodeComponent;

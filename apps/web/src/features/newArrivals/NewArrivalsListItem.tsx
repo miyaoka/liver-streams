@@ -3,9 +3,8 @@
  */
 import type { LiverEvent } from "@liver-streams/core";
 import { compareDate, getDateTime, hhmmDateFormatter, toRelativeTime } from "@liver-streams/core";
-import { computed, defineComponent } from "vue";
 import { scrollToLiverEventTop } from "../../shared/lib";
-import { useDateStore, useHoverStore } from "../../shared/stores";
+import { selectCurrentDateTime, useDateStore, useHoverStore } from "../../shared/stores";
 
 type Props = {
   liverEvent: LiverEvent;
@@ -13,55 +12,52 @@ type Props = {
   lastCloseTime: number;
 };
 
-export default defineComponent(
-  (props: Props) => {
-    const dateStore = useDateStore();
-    const hoverStore = useHoverStore();
+function getEventTime(startAt: Date, currentDateTime: number) {
+  const startDateTime = getDateTime(startAt);
 
-    const eventTime = computed(() => {
-      const startAt = props.liverEvent.startAt;
-      const startDateTime = getDateTime(startAt);
+  const dateDiff = compareDate({
+    baseDateTime: currentDateTime,
+    targetDateTime: startDateTime,
+  });
 
-      const dateDiff = compareDate({
-        baseDateTime: dateStore.currentDateTime,
-        targetDateTime: startDateTime,
-      });
+  // 今日なら時刻を返す
+  if (dateDiff === 0) {
+    return hhmmDateFormatter.format(startAt);
+  }
 
-      // 今日なら時刻を返す
-      if (dateDiff === 0) {
-        return hhmmDateFormatter.format(startAt);
-      }
+  // 別の日なら相対時刻を返す
+  return toRelativeTime(startDateTime - currentDateTime);
+}
 
-      // 別の日なら相対時刻を返す
-      return toRelativeTime(startDateTime - dateStore.currentDateTime);
-    });
+export default function NewArrivalsListItem({ liverEvent, addedTime, lastCloseTime }: Props) {
+  const currentDateTime = useDateStore(selectCurrentDateTime);
+  const hoverEvent = useHoverStore((state) => state.hoverEvent);
+  const unhoverEvent = useHoverStore((state) => state.unhoverEvent);
 
-    const isUnread = computed(() => props.addedTime > props.lastCloseTime);
+  const eventTime = getEventTime(liverEvent.startAt, currentDateTime);
+  const isUnread = addedTime > lastCloseTime;
 
-    function onClickEvent() {
-      scrollToLiverEventTop(props.liverEvent.id);
-    }
+  function onClickEvent() {
+    scrollToLiverEventTop(liverEvent.id);
+  }
 
-    return () => (
-      <button
-        key={props.liverEvent.id}
-        class="relative flex flex-row items-center gap-2 p-2 text-start hover:bg-slate-200"
-        popovertarget={props.liverEvent.id}
-        onClick={onClickEvent}
-        onMouseover={() => hoverStore.hoverEvent(props.liverEvent)}
-        onMouseleave={hoverStore.unhoverEvent}
-      >
-        <img
-          src={props.liverEvent.talent.image}
-          loading="lazy"
-          class="size-8 rounded-full"
-          title={props.liverEvent.talent.name}
-        />
-        <p class="line-clamp-2 flex-1 text-sm wrap-anywhere">{props.liverEvent.title}</p>
-        <p class="w-12 text-right text-sm">{eventTime.value}</p>
-        {isUnread.value && <i class="absolute top-2 right-0 i-mdi-circle size-2 text-red-700" />}
-      </button>
-    );
-  },
-  { name: "NewArrivalsListItem", props: ["liverEvent", "addedTime", "lastCloseTime"] },
-);
+  return (
+    <button
+      className="relative flex flex-row items-center gap-2 p-2 text-start hover:bg-slate-200"
+      popoverTarget={liverEvent.id}
+      onClick={onClickEvent}
+      onMouseOver={() => hoverEvent(liverEvent)}
+      onMouseLeave={unhoverEvent}
+    >
+      <img
+        src={liverEvent.talent.image}
+        loading="lazy"
+        className="size-8 rounded-full"
+        title={liverEvent.talent.name}
+      />
+      <p className="line-clamp-2 flex-1 text-sm wrap-anywhere">{liverEvent.title}</p>
+      <p className="w-12 text-right text-sm">{eventTime}</p>
+      {isUnread && <i className="absolute top-2 right-0 i-mdi-circle size-2 text-red-700" />}
+    </button>
+  );
+}

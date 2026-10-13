@@ -4,10 +4,9 @@
  * 初回読み込み完了時に自動で現在時刻までスクロールする。
  */
 import type { DateSection } from "@liver-streams/core";
-import { defineComponent, nextTick, onMounted, watch } from "vue";
+import { useEffectEvent, useLayoutEffect, useRef } from "react";
 import { scrollToCurrentTime } from "../../shared/lib";
 import { LoadingSpinner } from "../common";
-import { useEventListStore } from "./eventListStore";
 import LiverEventDateSection from "./LiverEventDateSection";
 
 type Props = {
@@ -15,61 +14,57 @@ type Props = {
   isLoading: boolean;
 };
 
-export default defineComponent(
-  (props: Props) => {
-    const eventListStore = useEventListStore();
+export default function LiverEventDateSectionList({ dateSectionList, isLoading }: Props) {
+  const wasLoadingRef = useRef(isLoading);
 
-    // ローディング完了後に現在時刻へスクロール
-    watch(
-      () => props.isLoading,
-      async (isLoading, wasLoading) => {
-        if (wasLoading && !isLoading) {
-          // DOM更新を待ってからスクロール
-          await nextTick();
-          scrollToCurrentTime(eventListStore.dateSectionList, { behavior: "instant" });
-        }
-      },
+  const scrollToNow = useEffectEvent(() => {
+    scrollToCurrentTime(dateSectionList, { behavior: "instant" });
+  });
+
+  // ローディング完了後に現在時刻へスクロール
+  useLayoutEffect(() => {
+    const wasLoading = wasLoadingRef.current;
+    wasLoadingRef.current = isLoading;
+    if (wasLoading && !isLoading) {
+      scrollToNow();
+    }
+  }, [isLoading]);
+
+  useLayoutEffect(() => {
+    if (!wasLoadingRef.current) {
+      scrollToNow();
+    }
+  }, []);
+
+  // ローディング中
+  if (isLoading) {
+    return (
+      <div className="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
+        <LoadingSpinner size="lg" message="読み込み中..." />
+      </div>
     );
-
-    onMounted(() => {
-      if (!props.isLoading) {
-        scrollToCurrentTime(eventListStore.dateSectionList, { behavior: "instant" });
-      }
-    });
-
-    return () => {
-      // ローディング中
-      if (props.isLoading) {
-        return (
-          <div class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
-            <LoadingSpinner size="lg" message="読み込み中..." />
-          </div>
-        );
-      }
-      // イベントリスト
-      if (props.dateSectionList.length > 0) {
-        return (
-          <div class="overflow-x-clip pb-60" data-id="event-list">
-            {props.dateSectionList.map((dateSection, i) => (
-              <LiverEventDateSection
-                key={dateSection.time}
-                dateSection={dateSection}
-                prevSection={props.dateSectionList[i - 1]}
-                nextSection={props.dateSectionList[i + 1]}
-              />
-            ))}
-            <div class="pointer-events-none fixed inset-0 bottom-auto z-10 h-20 bg-linear-to-b from-black/40" />
-          </div>
-        );
-      }
-      // データなし
-      return (
-        <div class="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
-          <i class="i-mdi-file-document-error size-16" />
-          <p class="text-base font-bold">no data</p>
-        </div>
-      );
-    };
-  },
-  { name: "LiverEventDateSectionList", props: ["dateSectionList", "isLoading"] },
-);
+  }
+  // イベントリスト
+  if (dateSectionList.length > 0) {
+    return (
+      <div className="overflow-x-clip pb-60" data-id="event-list">
+        {dateSectionList.map((dateSection, i) => (
+          <LiverEventDateSection
+            key={dateSection.time}
+            dateSection={dateSection}
+            prevSection={dateSectionList[i - 1]}
+            nextSection={dateSectionList[i + 1]}
+          />
+        ))}
+        <div className="pointer-events-none fixed inset-0 bottom-auto z-10 h-20 bg-linear-to-b from-black/40" />
+      </div>
+    );
+  }
+  // データなし
+  return (
+    <div className="flex h-screen flex-col items-center justify-center px-4 py-20 text-white">
+      <i className="i-mdi-file-document-error size-16" />
+      <p className="text-base font-bold">no data</p>
+    </div>
+  );
+}

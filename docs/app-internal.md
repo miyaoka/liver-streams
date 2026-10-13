@@ -215,18 +215,7 @@ export function getFilteredEventList({
 
 配信イベントリストの状態管理を行います。
 
-**主要な computed プロパティ**:
-
-```typescript
-const filteredEventList = computed(() => {
-  if (!liverEventList.value) return [];
-  return getFilteredEventList({
-    liverEventList: liverEventList.value,
-    filterMap: storageStore.talentFilterMap,
-    searchQuery: searchStore.searchQuery,
-  });
-});
-```
+派生値（フィルター済みのイベント一覧、日付セクション、ライブ中の一覧）は、`useFilteredEventList` などのフックが store の状態から計算する。
 
 ### storageStore
 
@@ -268,14 +257,7 @@ const filteredEventList = computed(() => {
 
 ### 計算結果のキャッシュ
 
-Vue の `computed` を使用して、依存データが変更されるまで計算結果をキャッシュ：
-
-```typescript
-const filteredEventList = computed(() => {
-  // 依存: liverEventList, talentFilterMap, searchQuery
-  // これらが変更されない限り再計算されない
-});
-```
+派生値のフックは `useMemo` で、依存する状態（イベント一覧、タレントフィルター、検索クエリ）が変わるまで計算結果を使い回す。
 
 ### Set を使用した高速検索
 
@@ -316,6 +298,6 @@ liver-streams のデータフローとフィルタリング処理は、以下の
 
 - **統一データ形式**: 異なるAPIからのデータを統一フォーマットに変換
 - **多層フィルタリング**: タレント、検索、ステータスの3種類のフィルター
-- **リアクティブな更新**: Vue の computed によるリアクティブな状態管理
+- **状態に追従する更新**: zustand の selector と `useMemo` による派生値の再計算
 - **パフォーマンス最適化**: キャッシュ、Set、並列処理による最適化
 - **永続化**: フィルター設定の保存と復元

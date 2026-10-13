@@ -1,88 +1,115 @@
-import { useEventListener } from "@vueuse/core";
-import { computed, defineComponent, h, ref } from "vue";
+/**
+ * Popover API の要素を開閉するフック。描画は `Popover` コンポーネントが行う。
+ *
+ * ```tsx
+ * const popover = usePopover({ onHide: () => setLastCloseTime(Date.now()) });
+ *
+ * <button onClick={popover.togglePopover}>{popover.isShow ? "閉じる" : "開く"}</button>
+ * <Popover control={popover} className="...">
+ *   中身（mountAtOpen が true なら開いている間だけマウントする）
+ * </Popover>
+ * ```
+ *
+ * - `popoverId` を渡すと要素の id になる。省略時は生成する。`popoverTarget` や
+ *   `document.getElementById` から参照できる
+ * - `onShow` / `onHide` は toggle イベントで開閉が確定したときに呼ぶ
+ */
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 interface PopoverOptions {
+  /** 開いている間だけ中身をマウントする（既定 true） */
   mountAtOpen?: boolean;
   popoverId?: string;
   onShow?: () => void;
   onHide?: () => void;
 }
-export function usePopover(options: PopoverOptions = {}) {
+
+export interface PopoverControl {
+  popoverId: string;
+  isShow: boolean;
+  mountAtOpen: boolean;
+  /** Popover コンポーネントが要素に渡す ref */
+  setPopoverElement: (element: HTMLElement | null) => void;
+  showPopover: () => void;
+  hidePopover: () => void;
+  togglePopover: () => void;
+}
+
+export function usePopover(options: PopoverOptions = {}): PopoverControl {
   const { mountAtOpen = true } = options;
-  const popoverId = options.popoverId || `p-${crypto.randomUUID()}`;
-  const popoverEl = ref<HTMLElement | null>(null);
-  const isShow = ref(false);
+  const [generatedId] = useState(() => `p-${crypto.randomUUID()}`);
+  const popoverId = options.popoverId || generatedId;
+  const [popoverElement, setPopoverElement] = useState<HTMLElement | null>(null);
+  const [isShow, setIsShow] = useState(false);
+  const removeOutsideListenersRef = useRef<(() => void) | null>(null);
 
-  let removePointerdownListener: (() => void) | null = null;
-  let removePointerupListener: (() => void) | null = null;
+  const onShow = useEffectEvent(() => options.onShow?.());
+  const onHide = useEffectEvent(() => options.onHide?.());
 
-  useEventListener(popoverEl, "toggle", async (evt: ToggleEvent) => {
-    isShow.value = evt.newState === "open";
-    removePointerdownListener?.();
-    removePointerupListener?.();
+  useEffect(() => {
+    if (!popoverElement) return;
 
-    // 開閉時のハンドラ処理
-    if (!isShow.value) {
-      options.onHide?.();
-      return;
-    }
-    options.onShow?.();
+    const removeOutsideListeners = () => {
+      removeOutsideListenersRef.current?.();
+      removeOutsideListenersRef.current = null;
+    };
 
-    let popover: Element | null = null;
+    const onToggle = (evt: ToggleEvent) => {
+      const isOpen = evt.newState === "open";
+      setIsShow(isOpen);
+      removeOutsideListeners();
 
-    // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
-    // pointerdown時に親を取得
-    removePointerdownListener = useEventListener(document, "pointerdown", (e) => {
-      const target = e.target as HTMLElement;
-      popover = target.closest("[popover]");
-    });
+      if (!isOpen) {
+        onHide();
+        return;
+      }
+      onShow();
 
-    // pointerup時にpopover外なら閉じる
-    removePointerupListener = useEventListener(document, "pointerup", () => {
-      // popover内なら無視する（別のpopover内でも閉じないようにする）
-      if (popover) return;
-      hidePopover();
-    });
-  });
+      // iOS safariではoutsideクリックで閉じないバグがあるので閉じる処理を追加
+      let popover: Element | null = null;
+      // pointerdown時に親を取得
+      const onPointerdown = (e: PointerEvent) => {
+        popover = (e.target as HTMLElement).closest("[popover]");
+      };
+      // pointerup時にpopover外なら閉じる（別のpopover内でも閉じないようにする）
+      const onPointerup = () => {
+        if (popover) return;
+        popoverElement.hidePopover();
+      };
+      document.addEventListener("pointerdown", onPointerdown);
+      document.addEventListener("pointerup", onPointerup);
+      removeOutsideListenersRef.current = () => {
+        document.removeEventListener("pointerdown", onPointerdown);
+        document.removeEventListener("pointerup", onPointerup);
+      };
+    };
+
+    popoverElement.addEventListener("toggle", onToggle);
+    return () => {
+      popoverElement.removeEventListener("toggle", onToggle);
+      removeOutsideListeners();
+    };
+  }, [popoverElement]);
 
   function showPopover() {
-    popoverEl.value?.showPopover();
+    popoverElement?.showPopover();
   }
   function hidePopover() {
-    popoverEl.value?.hidePopover();
+    popoverElement?.hidePopover();
   }
   function togglePopover() {
-    if (isShow.value) {
+    if (isShow) {
       hidePopover();
     } else {
       showPopover();
     }
   }
 
-  const PopOver = defineComponent({
-    setup(_, { slots }) {
-      const isMountable = computed(() => {
-        if (!mountAtOpen) return true;
-        return isShow.value;
-      });
-
-      return () =>
-        h(
-          "div",
-          {
-            ref: popoverEl,
-            id: popoverId,
-            popover: "",
-          },
-          isMountable.value ? slots.default?.() : undefined,
-        );
-    },
-  });
-
   return {
-    PopOver,
     popoverId,
     isShow,
+    mountAtOpen,
+    setPopoverElement,
     showPopover,
     hidePopover,
     togglePopover,
