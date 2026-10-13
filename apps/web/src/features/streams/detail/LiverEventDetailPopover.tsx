@@ -11,8 +11,8 @@
  */
 import type { LiverEvent } from "@liver-streams/core";
 import { parseSegment, getThumbnail, fullDateFormatter } from "@liver-streams/core";
-import { Popover, usePopover } from "../../../shared/composables";
 import { classNames } from "../../../shared/lib";
+import { Popover, usePopover } from "../../../shared/popover";
 import { useHoverStore, useSearchStore } from "../../../shared/stores";
 import { closePopover } from "../../../shared/utils";
 import {

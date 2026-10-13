@@ -1,8 +1,8 @@
 /**
  * トレンドキーワード一覧のポップオーバーを開くボタン。
  */
-import { Popover, usePopover } from "../../shared/composables";
 import { classNames } from "../../shared/lib";
+import { Popover, usePopover } from "../../shared/popover";
 import KeywordListPopover from "./KeywordListPopover";
 
 export default function KeywordListButton() {

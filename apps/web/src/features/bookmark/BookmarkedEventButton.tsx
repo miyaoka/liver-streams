@@ -3,8 +3,8 @@
  */
 import type { LiverEvent } from "@liver-streams/core";
 import { useMemo } from "react";
-import { Popover, usePopover } from "../../shared/composables";
 import { classNames } from "../../shared/lib";
+import { Popover, usePopover } from "../../shared/popover";
 import { useEventListStore } from "../streams";
 import BookmarkedEventPopover from "./BookmarkedEventPopover";
 import { useBookmarkStore } from "./";

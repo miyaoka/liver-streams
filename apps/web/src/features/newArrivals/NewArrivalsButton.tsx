@@ -2,8 +2,8 @@
  * 新着イベント一覧のポップオーバーを開くボタン。ポップオーバーを閉じてから追加されたイベント数をバッジで表示する。
  */
 import { useState } from "react";
-import { Popover, usePopover } from "../../shared/composables";
 import { classNames } from "../../shared/lib";
+import { Popover, usePopover } from "../../shared/popover";
 import NewArrivalsPopover from "./NewArrivalsPopover";
 import { useNewArrivalsList } from "./newArrivalsStore";
 

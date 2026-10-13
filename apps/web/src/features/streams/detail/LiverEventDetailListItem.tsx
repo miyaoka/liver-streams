@@ -2,7 +2,7 @@
  * イベント詳細ポップオーバーのラッパー。イベント ID を popover ID として設定し、カードからの参照を可能にする。
  */
 import type { LiverEvent } from "@liver-streams/core";
-import { Popover, usePopover } from "../../../shared/composables";
+import { Popover, usePopover } from "../../../shared/popover";
 import LiverEventDetailPopover from "./LiverEventDetailPopover";
 
 type Props = {

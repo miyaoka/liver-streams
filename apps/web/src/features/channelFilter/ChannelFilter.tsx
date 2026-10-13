@@ -6,7 +6,7 @@
 import { hololiveChannels } from "@liver-streams/hololive";
 import { nijisanjiChannels } from "@liver-streams/nijisanji";
 import { useState } from "react";
-import { Popover, usePopover } from "../../shared/composables";
+import { Popover, usePopover } from "../../shared/popover";
 import { getAffiliationLogo, services } from "../../shared/services";
 import ChannelNode from "./ChannelNode";
 import FilterPresetSelector from "./FilterPresetSelector";
