@@ -12,8 +12,8 @@
     "deploy": "cf deploy --prebuilt --mode production",
     "deploy:check": "cf deploy --prebuilt --mode production --dry-run",
     "typecheck": "cf workers types && vue-tsc --build --force",
-    "lint": "eslint .",
-    "fix": "eslint . --fix -c eslint.config.fix.ts && oxfmt ."
+    "lint": "bun lint -c eslint.config.ts .",
+    "fix": "bun lint --fix -c eslint.config.fix.ts . && bun fmt ."
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*",
@@ -51,7 +51,6 @@
     "happy-dom": "20.14.6",
     "jiti": "2.7.0",
     "npm-run-all2": "9.0.3",
-    "oxfmt": "catalog:",
     "tailwindcss": "4.3.3",
     "typescript": "catalog:",
     "vite": "catalog:",

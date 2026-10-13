@@ -7,76 +7,77 @@ output:
 pre-commit:
   parallel: true
   jobs:
-    # Formatter（ts/vue 以外。ts/vue は各 linter ジョブで oxfmt を実行）
-    - name: oxfmt
+    # Formatter（ts/vue 以外。ts/vue は各 linter ジョブで bun fmt を実行）
+    - name: fmt
       glob: "**/*.{css,scss,md}"
-      run: pnpm exec oxfmt {staged_files}
+      run: bun fmt {staged_files}
       stage_fixed: true
 
     # Linter + Formatter
-    - name: oxlint-root
+    - name: lint-root
       glob: "*.ts"
       exclude:
         - "apps/**"
         - "packages/**"
-      run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
+      run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
       stage_fixed: true
-    # packages/core: fix: oxlint + oxfmt → knip
+    # packages/core: fix: lint + fmt → knip
     - name: core
       root: "packages/core/"
       glob: "**/*.ts"
       group:
         piped: true
         jobs:
-          - name: oxlint
-            run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
+          - name: lint
+            run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
             stage_fixed: true
           - name: knip
             run: pnpm -w run knip -W packages/core --fix
 
-    # packages/hololive: fix: oxlint + oxfmt → knip
+    # packages/hololive: fix: lint + fmt → knip
     - name: hololive
       root: "packages/hololive/"
       glob: "**/*.ts"
       group:
         piped: true
         jobs:
-          - name: oxlint
-            run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
+          - name: lint
+            run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
             stage_fixed: true
           - name: knip
             run: pnpm -w run knip -W packages/hololive --fix
 
-    # packages/nijisanji: fix: oxlint + oxfmt → knip
+    # packages/nijisanji: fix: lint + fmt → knip
     - name: nijisanji
       root: "packages/nijisanji/"
       glob: "**/*.ts"
       group:
         piped: true
         jobs:
-          - name: oxlint
-            run: pnpm exec oxlint --type-aware --fix {staged_files} && pnpm exec oxfmt {staged_files}
+          - name: lint
+            run: bun lint --type-aware --fix {staged_files} && bun fmt {staged_files}
             stage_fixed: true
           - name: knip
             run: pnpm -w run knip -W packages/nijisanji --fix
 
-    # apps/web: fix: oxlint + eslint + oxfmt → knip（fix 完了後の状態で解析するため piped で直列実行）
+    # apps/web: fix: lint + fmt → knip（fix 完了後の状態で解析するため piped で直列実行）
     - name: web
       root: apps/web/
       group:
         piped: true
         jobs:
-          - name: oxlint
+          # .ts にはルートの .oxlintrc.json（oxlint の既定ルール）を当てる
+          - name: lint-ts
             glob: "**/*.ts"
-            run: pnpm exec oxlint --type-aware --fix {staged_files}
+            run: bun lint --type-aware --fix {staged_files}
             stage_fixed: true
-          - name: eslint
-            glob: "**/*.vue"
-            run: pnpm exec eslint --cache --fix -c eslint.config.fix.ts {staged_files}
+          - name: lint
+            glob: "**/*.{ts,vue}"
+            run: bun lint --fix -c eslint.config.fix.ts {staged_files}
             stage_fixed: true
-          - name: oxfmt
+          - name: fmt
             glob: "**/*.{ts,vue,css,scss,md}"
-            run: pnpm exec oxfmt {staged_files}
+            run: bun fmt {staged_files}
             stage_fixed: true
           - name: knip
             glob: "**/*.{ts,vue}"

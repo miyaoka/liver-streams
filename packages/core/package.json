@@ -16,17 +16,13 @@
     "build": "vite build",
     "dev": "vite build --watch",
     "test": "bun test",
-    "typecheck": "tsc --noEmit",
-    "lint": "oxlint --type-aware .",
-    "fix": "oxlint --type-aware --fix . && oxfmt ."
+    "typecheck": "bun check",
+    "lint": "bun lint --type-aware .",
+    "fix": "bun lint --type-aware --fix . && bun fmt ."
   },
   "devDependencies": {
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
-    "@typescript/native": "catalog:",
-    "oxfmt": "catalog:",
-    "oxlint": "catalog:",
-    "oxlint-tsgolint": "catalog:",
     "typescript": "catalog:",
     "unplugin-dts": "catalog:",
     "vite": "catalog:"
