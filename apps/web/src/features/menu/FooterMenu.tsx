@@ -7,7 +7,7 @@
  * - キーワード一覧、ブックマーク、新着、ライブ中フィルター、スクロールボタン
  */
 import { getYouTubeVideoId } from "@liver-streams/core";
-import { defineComponent } from "vue";
+import { defineVaporComponent } from "vue";
 import { useMultiSelectStore, useSearchStore } from "../../shared/stores";
 import { BookmarkedEventButton } from "../bookmark";
 import { KeywordListButton } from "../keyword";
@@ -20,7 +20,7 @@ import ScrollButton from "./ScrollButton";
 
 const multiviewPlayerUrl = "https://multiview-player.miyaoka.workers.dev/";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const multiSelectStore = useMultiSelectStore();
     const eventListStore = useEventListStore();
@@ -49,7 +49,7 @@ export default defineComponent(
       });
     }
 
-    return () => (
+    return (
       <footer class="relative z-30">
         <FilteringButton />
 

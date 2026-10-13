@@ -3,10 +3,10 @@
  *
  * 外部から検索文字列が設定された場合（タレント名クリックなど）は自動で展開する。
  */
-import { defineComponent, ref, watch } from "vue";
+import { defineVaporComponent, ref, watch } from "vue";
 import { useSearchStore } from "../../shared/stores";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const searchStore = useSearchStore();
     const inputEl = ref<HTMLInputElement | null>(null);
@@ -64,7 +64,7 @@ export default defineComponent(
       { immediate: true },
     );
 
-    return () => (
+    return (
       <div class="group flex flex-row items-center justify-center overflow-hidden rounded-full bg-white shadow-md hover:bg-gray-100">
         <form
           onSubmit={(e) => {

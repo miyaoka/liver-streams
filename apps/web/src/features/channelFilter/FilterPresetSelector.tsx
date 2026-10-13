@@ -7,14 +7,16 @@
  * - 現在のフィルター状態を名前付きで新規追加
  * - 既存プリセットの上書き保存・削除
  */
-import { defineComponent, nextTick, ref } from "vue";
+import { defineVaporComponent, nextTick, ref } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
+import { asNativeEvent } from "../../shared/lib";
 import { useTalentFilterStore } from "./";
 
 type Props = {
   onLoaded?: () => void;
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const talentFilterStore = useTalentFilterStore();
 
@@ -75,7 +77,7 @@ export default defineComponent(
       if (event.key === "Escape") cancelEdit();
     }
 
-    return () => (
+    return (
       <div class="flex flex-col gap-2">
         {/* 行1: プリセット選択 or 名前入力 */}
         {isEditing.value ? (
@@ -86,7 +88,7 @@ export default defineComponent(
               type="text"
               class="min-w-0 flex-1 rounded-lg border bg-white px-2 py-1 text-sm"
               placeholder="プリセット名"
-              onKeydown={onEditKeydown}
+              onKeydown={(e) => onEditKeydown(asNativeEvent(e))}
             />
             <button
               class="grid size-8 shrink-0 place-items-center rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-40"
@@ -107,14 +109,16 @@ export default defineComponent(
             <select
               class="min-w-0 flex-1 rounded-lg border bg-white px-2 py-1 text-sm"
               value={talentFilterStore.activePresetId ?? ""}
-              onChange={onPresetSelect}
+              onChange={(e) => onPresetSelect(asNativeEvent(e))}
             >
               <option value="">プリセット未選択</option>
-              {talentFilterStore.presets.map((preset) => (
-                <option key={preset.id} value={preset.id}>
-                  {preset.name}（{preset.talents.length}）
-                </option>
-              ))}
+              <VaporFor in={talentFilterStore.presets} getKey={(preset) => preset.id}>
+                {(preset) => (
+                  <option value={preset.value.id}>
+                    {preset.value.name}（{preset.value.talents.length}）
+                  </option>
+                )}
+              </VaporFor>
             </select>
 
             <button

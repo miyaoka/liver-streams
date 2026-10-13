@@ -2,13 +2,13 @@
  * ブックマーク一覧のポップオーバーを開くボタン。ブックマーク数をバッジで表示する。
  */
 import type { LiverEvent } from "@liver-streams/core";
-import { computed, defineComponent } from "vue";
+import { computed, defineVaporComponent } from "vue";
 import { usePopover } from "../../shared/composables";
 import { useEventListStore } from "../streams";
 import BookmarkedEventPopover from "./BookmarkedEventPopover";
 import { useBookmarkStore } from "./";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const eventListStore = useEventListStore();
     const bookmarkStore = useBookmarkStore();
@@ -28,7 +28,7 @@ export default defineComponent(
 
     const bookmarkCount = computed(() => bookmarkEventList.value.length);
 
-    return () => (
+    return (
       <>
         <button
           class="relative flex size-11 items-center justify-center rounded-full border bg-white shadow-md hover:bg-gray-200"

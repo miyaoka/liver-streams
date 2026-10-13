@@ -1,14 +1,14 @@
 /**
  * マルチセレクトモードの切り替えボタン。複数の配信を選択してマルチビュー画面で開くために使用する。
  */
-import { defineComponent } from "vue";
+import { defineVaporComponent } from "vue";
 import { useMultiSelectStore } from "../../shared/stores";
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const multiSelectStore = useMultiSelectStore();
 
-    return () => (
+    return (
       <button
         class={[
           "relative flex size-11 items-center justify-center rounded-full border shadow-md",

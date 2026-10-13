@@ -16,7 +16,9 @@
  */
 import { getThumbnail, hhss } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
-import { computed, defineComponent, toRaw, toRefs } from "vue";
+import { computed, defineVaporComponent, toRaw, toRefs } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
+import { asNativeEvent } from "../../shared/lib";
 import { getAffiliationLogo } from "../../shared/services";
 import { useHoverStore, useMultiSelectStore, useSearchStore } from "../../shared/stores";
 import { useLiverEvent } from "./useLiverEvent";
@@ -25,7 +27,7 @@ type Props = {
   liverEvent: LiverEvent;
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const { liverEvent } = toRefs(props);
 
@@ -99,159 +101,160 @@ export default defineComponent(
       searchStore.setSearchString(hashtag);
     }
 
-    return () => {
-      const label = liveDurationLabel.value;
-      const hash = firstHash.value;
-      return (
-        <div
-          class="group relative scroll-mt-16"
-          data-id="liver-event-card"
-          data-event-id={`${liverEvent.value.id}`}
-          onPointerover={() => hoverStore.hoverEvent(liverEvent.value)}
-          onPointerleave={hoverStore.unhoverEvent}
+    return (
+      <div
+        class="group relative scroll-mt-16"
+        data-id="liver-event-card"
+        data-event-id={`${liverEvent.value.id}`}
+        onPointerover={() => hoverStore.hoverEvent(liverEvent.value)}
+        onPointerleave={hoverStore.unhoverEvent}
+      >
+        <a
+          href={liverEvent.value.url}
+          target="_blank"
+          onClick={(e) => onClickCard(asNativeEvent(e))}
         >
-          <a href={liverEvent.value.url} target="_blank" onClick={onClickCard}>
-            <div
-              class={[
-                "absolute top-0 left-0 z-20 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow-sm",
-                {
-                  "bg-red-600 text-white": isLive.value,
-                  "bg-gray-300 text-gray-700": isFinished.value,
-                  "bg-gray-800 text-white": isUpcoming.value,
-                },
-              ]}
-            >
-              {liverEvent.value.isLive && <i class="i-mdi-play-circle size-5" />}
-              <span>{timeDisplay.value}</span>
-              {label && (
-                <>
-                  <span class="font-normal">{`(${label.fixed}h)`}</span>
-                  <div class="flex items-center opacity-50">
-                    {Array.from({ length: label.count }, (_, i) => i + 1).map((time) => (
-                      <i key={time} class="i-mdi-clock size-4" />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+          <div
+            class={[
+              "absolute top-0 left-0 z-20 flex -translate-y-1/2 flex-row items-center gap-1 rounded-full px-2 font-bold shadow-sm",
+              {
+                "bg-red-600 text-white": isLive.value,
+                "bg-gray-300 text-gray-700": isFinished.value,
+                "bg-gray-800 text-white": isUpcoming.value,
+              },
+            ]}
+          >
+            {liverEvent.value.isLive && <i class="i-mdi-play-circle size-5" />}
+            <span>{timeDisplay.value}</span>
+            {liveDurationLabel.value && (
+              <>
+                <span class="font-normal">{`(${liveDurationLabel.value.fixed}h)`}</span>
+                <div class="flex items-center opacity-50">
+                  <VaporFor in={liveDurationLabel.value.count} getKey={(time) => time}>
+                    {() => <i class="i-mdi-clock size-4" />}
+                  </VaporFor>
+                </div>
+              </>
+            )}
+          </div>
 
+          <img
+            src={getAffiliationLogo(liverEvent.value.affiliation)}
+            class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
+            loading="lazy"
+          />
+
+          <div
+            class={[
+              "flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-2 shadow-md transition-colors",
+              {
+                "border-gray-800 bg-white": isUpcoming.value && !isHovered.value,
+                "border-gray-600 bg-gray-50": isFinished.value && !isHovered.value,
+                "border-red-600 bg-white": isLive.value && !isHovered.value,
+                "border-amber-600 bg-amber-200": isHovered.value,
+              },
+            ]}
+          >
             <img
-              src={getAffiliationLogo(liverEvent.value.affiliation)}
-              class="absolute bottom-[4px] left-[4px] z-10 w-[clamp(14px,14px+0.4vw,20px)]"
+              src={liverEvent.value.talent.image}
+              class="ml-1 w-[clamp(36px,36px+1vw,60px)] rounded-full bg-white transition-transform group-hover:scale-110"
               loading="lazy"
+              onContextmenu={(e) => {
+                e.preventDefault();
+                searchStore.setFocusedTalent(liverEvent.value.talent.name);
+              }}
             />
 
-            <div
-              class={[
-                "flex h-[clamp(80px,80px+1vw,108px)] flex-row items-center justify-center gap-1 overflow-hidden rounded-xl rounded-tl-none border-2 shadow-md transition-colors",
-                {
-                  "border-gray-800 bg-white": isUpcoming.value && !isHovered.value,
-                  "border-gray-600 bg-gray-50": isFinished.value && !isHovered.value,
-                  "border-red-600 bg-white": isLive.value && !isHovered.value,
-                  "border-amber-600 bg-amber-200": isHovered.value,
-                },
-              ]}
-            >
-              <img
-                src={liverEvent.value.talent.image}
-                class="ml-1 w-[clamp(36px,36px+1vw,60px)] rounded-full bg-white transition-transform group-hover:scale-110"
-                loading="lazy"
-                onContextmenu={(e) => {
-                  e.preventDefault();
-                  searchStore.setFocusedTalent(liverEvent.value.talent.name);
-                }}
-              />
-
-              <div class="relative flex h-full flex-1 flex-col items-start justify-center pb-2 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter">
-                <h3 class="line-clamp-1 font-bold">{liverEvent.value.talent.name}</h3>
-                <div class="line-clamp-2 wrap-anywhere">{liverEvent.value.title}</div>
-                <div class="absolute bottom-px z-10 flex flex-row">
-                  {liverEvent.value.collaboTalents.map((talent) => (
+            <div class="relative flex h-full flex-1 flex-col items-start justify-center pb-2 text-[clamp(11px,11px+0.25vw,14px)] tracking-tighter">
+              <h3 class="line-clamp-1 font-bold">{liverEvent.value.talent.name}</h3>
+              <div class="line-clamp-2 wrap-anywhere">{liverEvent.value.title}</div>
+              <div class="absolute bottom-px z-10 flex flex-row">
+                <VaporFor in={liverEvent.value.collaboTalents} getKey={(talent) => talent.image}>
+                  {(talent) => (
                     <img
-                      key={talent.image}
-                      src={talent.image}
+                      src={talent.value.image}
                       class="aspect-square w-[clamp(12px,12px+0.4vw,20px)] rounded-full outline-1 outline-gray-300 outline-solid hover:outline-2 hover:outline-red-500 hover:outline-solid"
-                      title={talent.name}
+                      title={talent.value.name}
                       loading="lazy"
-                      onMouseenter={() => hoverStore.setHoveredTalents(talent.name)}
+                      onMouseenter={() => hoverStore.setHoveredTalents(talent.value.name)}
                       onMouseleave={() => hoverStore.clearHoveredTalents()}
                       onContextmenu={(e) => {
                         e.preventDefault();
-                        searchStore.setFocusedTalent(talent.name);
+                        searchStore.setFocusedTalent(talent.value.name);
                       }}
                     />
-                  ))}
-                </div>
+                  )}
+                </VaporFor>
               </div>
+            </div>
 
-              <div class="flex aspect-video h-full overflow-hidden max-sm:w-[clamp(140px,30vw,200px)]">
-                <img
-                  src={getThumbnail(liverEvent.value.thumbnail, "mq")}
-                  class="size-full object-cover transition-transform group-hover:scale-110"
-                  loading="lazy"
-                />
-              </div>
+            <div class="flex aspect-video h-full overflow-hidden max-sm:w-[clamp(140px,30vw,200px)]">
+              <img
+                src={getThumbnail(liverEvent.value.thumbnail, "mq")}
+                class="size-full object-cover transition-transform group-hover:scale-110"
+                loading="lazy"
+              />
+            </div>
 
-              <div class="absolute -top-4 right-0 z-10 flex">
-                {isNew.value && (
-                  <div
-                    class="grid size-10 place-items-center rounded-full border-2 border-purple-800 bg-white shadow-md"
-                    title="new"
-                  >
-                    <i class="i-mdi-sparkles size-7 text-purple-600" />
-                  </div>
-                )}
-                {hasBookmark.value &&
-                  (hasNotify.value ? (
-                    <div
-                      class="grid size-10 place-items-center rounded-full border-2 border-yellow-800 bg-white shadow-md"
-                      title="bookmark"
-                    >
-                      <i class="i-mdi-bell size-7 text-yellow-600" />
-                    </div>
-                  ) : (
-                    <div
-                      class="grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
-                      title="bookmark"
-                    >
-                      <i class="i-mdi-bookmark size-7 text-green-600" />
-                    </div>
-                  ))}
-              </div>
-
-              {hash && (
+            <div class="absolute -top-4 right-0 z-10 flex">
+              {isNew.value && (
                 <div
-                  class={[
-                    "absolute right-0 bottom-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md",
-                    {
-                      "bg-amber-600 text-amber-100": hasHoveredHash.value,
-                      "bg-blue-600 text-blue-100": !hasHoveredHash.value,
-                    },
-                  ]}
-                  onContextmenu={(e) => {
-                    e.preventDefault();
-                    setSearchString(hash);
-                  }}
+                  class="grid size-10 place-items-center rounded-full border-2 border-purple-800 bg-white shadow-md"
+                  title="new"
                 >
-                  <span class="text-xs whitespace-nowrap">#{hash}</span>
+                  <i class="i-mdi-sparkles size-7 text-purple-600" />
                 </div>
               )}
-
-              {multiSelectStore.isMultiSelectMode &&
-                multiSelectStore.multiSelectEventIdSet.has(liverEvent.value.id) && (
-                  <div class="absolute z-10 flex size-full items-center justify-end">
-                    <div class="absolute inset-0 rounded-xl bg-green-500/30" />
-
-                    <div class="absolute right-2 z-10 flex rounded-full bg-white">
-                      <i class="i-mdi-checkbox-marked-circle size-12 text-green-600" />
-                    </div>
+              {hasBookmark.value &&
+                (hasNotify.value ? (
+                  <div
+                    class="grid size-10 place-items-center rounded-full border-2 border-yellow-800 bg-white shadow-md"
+                    title="bookmark"
+                  >
+                    <i class="i-mdi-bell size-7 text-yellow-600" />
                   </div>
-                )}
+                ) : (
+                  <div
+                    class="grid size-10 place-items-center rounded-full border-2 border-green-800 bg-white shadow-md"
+                    title="bookmark"
+                  >
+                    <i class="i-mdi-bookmark size-7 text-green-600" />
+                  </div>
+                ))}
             </div>
-          </a>
-        </div>
-      );
-    };
+
+            {firstHash.value && (
+              <div
+                class={[
+                  "absolute right-0 bottom-0 flex max-w-[50%] flex-row gap-1 overflow-hidden rounded-tl-[10px] p-1 shadow-md",
+                  {
+                    "bg-amber-600 text-amber-100": hasHoveredHash.value,
+                    "bg-blue-600 text-blue-100": !hasHoveredHash.value,
+                  },
+                ]}
+                onContextmenu={(e) => {
+                  e.preventDefault();
+                  setSearchString(firstHash.value);
+                }}
+              >
+                <span class="text-xs whitespace-nowrap">#{firstHash.value}</span>
+              </div>
+            )}
+
+            {multiSelectStore.isMultiSelectMode &&
+              multiSelectStore.multiSelectEventIdSet.has(liverEvent.value.id) && (
+                <div class="absolute z-10 flex size-full items-center justify-end">
+                  <div class="absolute inset-0 rounded-xl bg-green-500/30" />
+
+                  <div class="absolute right-2 z-10 flex rounded-full bg-white">
+                    <i class="i-mdi-checkbox-marked-circle size-12 text-green-600" />
+                  </div>
+                </div>
+              )}
+          </div>
+        </a>
+      </div>
+    );
   },
   { name: "LiverEventCard", props: ["liverEvent"] },
 );

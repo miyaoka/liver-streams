@@ -4,7 +4,8 @@
  * 大文字小文字を区別せずにカウントし、最も多く使われている表記をキーとして採用する。
  */
 import { getFilteredEventList } from "@liver-streams/core";
-import { computed, defineComponent } from "vue";
+import { computed, defineVaporComponent } from "vue";
+import { asNativeEvent } from "../../shared/lib";
 import { useSearchStore } from "../../shared/stores";
 import { closePopover } from "../../shared/utils";
 import { useTalentFilterStore } from "../channelFilter";
@@ -53,7 +54,7 @@ function createCountList(eventList: string[][]): KeywordItem[] {
   return resultList;
 }
 
-export default defineComponent(
+export default defineVaporComponent(
   () => {
     const eventListStore = useEventListStore();
     const talentFilterStore = useTalentFilterStore();
@@ -93,7 +94,7 @@ export default defineComponent(
       return list.sort((a, b) => b.count - a.count);
     });
 
-    return () => (
+    return (
       <div class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[350px] flex-col overflow-hidden rounded-md border-2 border-gray-800 bg-white">
         <div class="flex h-11 shrink-0 items-center justify-start gap-1 bg-black p-2 text-white">
           <i class="i-icon-park-solid-topic size-5" />
@@ -101,7 +102,7 @@ export default defineComponent(
 
           <button
             class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
-            onClick={closePopover}
+            onClick={(e) => closePopover(asNativeEvent(e))}
           >
             <i class="i-mdi-close size-6" />
           </button>

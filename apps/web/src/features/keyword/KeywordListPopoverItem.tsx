@@ -1,7 +1,8 @@
 /**
  * キーワード一覧の各アイテム表示。クリックで検索クエリに設定する。
  */
-import { defineComponent } from "vue";
+import { defineVaporComponent } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { useSearchStore } from "../../shared/stores";
 import type { KeywordItem } from "./KeywordListPopover";
 
@@ -9,7 +10,7 @@ type Props = {
   itemList: KeywordItem[];
 };
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const searchStore = useSearchStore();
 
@@ -24,20 +25,21 @@ export default defineComponent(
       searchStore.setSearchString(formattedStr);
     }
 
-    return () => (
+    return (
       <div class="grid [scrollbar-width:none] gap-1 overflow-y-scroll pt-2 pb-6">
-        {props.itemList.map((item) => (
-          <button
-            key={item.value}
-            class="py-1 hover:bg-gray-100"
-            onClick={() => setSearchString(item.value)}
-          >
-            <div class="flex items-center gap-2 px-3 text-start">
-              <p class="line-clamp-2 flex-1 wrap-anywhere">{item.value}</p>
-              <div class="w-12 text-center">{item.count}</div>
-            </div>
-          </button>
-        ))}
+        <VaporFor in={props.itemList} getKey={(item) => item.value}>
+          {(item) => (
+            <button
+              class="py-1 hover:bg-gray-100"
+              onClick={() => setSearchString(item.value.value)}
+            >
+              <div class="flex items-center gap-2 px-3 text-start">
+                <p class="line-clamp-2 flex-1 wrap-anywhere">{item.value.value}</p>
+                <div class="w-12 text-center">{item.value.count}</div>
+              </div>
+            </button>
+          )}
+        </VaporFor>
       </div>
     );
   },

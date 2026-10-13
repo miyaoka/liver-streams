@@ -4,7 +4,9 @@
  * グループ単位でまとめてチェック/解除でき、子ノードのチェック状態に応じて親のチェック状態も連動する。
  */
 import type { ChannelNode, EventService } from "@liver-streams/core";
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { computed, defineVaporComponent, onMounted, ref } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
+import { asNativeEvent } from "../../shared/lib";
 import { useSearchStore } from "../../shared/stores";
 import { useTalentFilterStore } from "./";
 
@@ -14,7 +16,7 @@ type Props = {
   onChange?: () => void;
 };
 
-const ChannelNodeComponent = defineComponent(
+const ChannelNodeComponent = defineVaporComponent(
   (props: Props) => {
     function getIcon(name: string): string {
       return props.service.getIcon(name);
@@ -102,11 +104,16 @@ const ChannelNodeComponent = defineComponent(
       props.onChange?.();
     }
 
-    return () => (
+    return (
       <div class="ml-4 flex flex-col items-start gap-2 text-sm font-bold select-none">
         <div class="flex flex-col items-start">
           <label class="flex h-9 cursor-pointer place-items-center gap-1 rounded-lg bg-gray-100 px-2 whitespace-nowrap hover:outline-2 hover:outline-solid has-checked:bg-red-200 has-checked:text-red-900 has-focus-visible:outline-solid">
-            <input ref={groupEl} type="checkbox" class="sr-only" onClick={onGroupClick} />
+            <input
+              ref={groupEl}
+              type="checkbox"
+              class="sr-only"
+              onClick={(e) => onGroupClick(asNativeEvent(e))}
+            />
             <i class="i-mdi-folder-open size-6"></i>
             <p>{props.node.name}</p>
           </label>
@@ -115,45 +122,47 @@ const ChannelNodeComponent = defineComponent(
         <div>
           {children.value.names.length > 0 && (
             <div ref={namesEl} class="ml-4 flex flex-col gap-px rounded-xl px-2 pt-1 pb-3">
-              {children.value.names.map((name) => (
-                <label
-                  key={name}
-                  class="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-focus-visible:outline"
-                  title={name}
-                  onContextmenu={(e) => {
-                    e.preventDefault();
-                    searchStore.setFocusedTalent(name);
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    class="sr-only"
-                    onChange={(e) => onNameCheck(e, name)}
-                    checked={talentFilterStore.talentFilterMap.get(name)}
-                  />
-                  <img
-                    src={getIcon(name)}
-                    alt="icon"
-                    class="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline-2 group-hover:outline-solid"
-                    loading="lazy"
-                  />
-                  <div class="rounded-lg bg-gray-100 px-2 py-1 group-hover:outline-2 group-hover:outline-solid group-has-checked:bg-red-200 group-has-checked:text-red-900 group-has-focus-visible:outline-2">
-                    {name}
-                  </div>
-                </label>
-              ))}
+              <VaporFor in={children.value.names} getKey={(name) => name}>
+                {(name) => (
+                  <label
+                    class="group relative flex cursor-pointer place-items-center gap-2 hover:z-10 has-focus-visible:outline"
+                    title={name.value}
+                    onContextmenu={(e) => {
+                      e.preventDefault();
+                      searchStore.setFocusedTalent(name.value);
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      class="sr-only"
+                      onChange={(e) => onNameCheck(asNativeEvent(e), name.value)}
+                      checked={talentFilterStore.talentFilterMap.get(name.value)}
+                    />
+                    <img
+                      src={getIcon(name.value)}
+                      alt="icon"
+                      class="size-[40px] rounded-full border bg-gray-200 outline-gray-800 group-hover:outline-2 group-hover:outline-solid"
+                      loading="lazy"
+                    />
+                    <div class="rounded-lg bg-gray-100 px-2 py-1 group-hover:outline-2 group-hover:outline-solid group-has-checked:bg-red-200 group-has-checked:text-red-900 group-has-focus-visible:outline-2">
+                      {name.value}
+                    </div>
+                  </label>
+                )}
+              </VaporFor>
             </div>
           )}
           {children.value.childNodes.length > 0 && (
             <div ref={childNodeEl} class="flex flex-col gap-2">
-              {children.value.childNodes.map((child) => (
-                <ChannelNodeComponent
-                  node={child}
-                  service={props.service}
-                  key={child.name}
-                  onChange={onNodeChange}
-                />
-              ))}
+              <VaporFor in={children.value.childNodes} getKey={(child) => child.name}>
+                {(child) => (
+                  <ChannelNodeComponent
+                    node={child.value}
+                    service={props.service}
+                    onChange={onNodeChange}
+                  />
+                )}
+              </VaporFor>
             </div>
           )}
         </div>

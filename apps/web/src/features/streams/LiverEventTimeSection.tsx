@@ -5,7 +5,8 @@
  */
 import type { TimeSection } from "@liver-streams/core";
 import { hhmmDateFormatter } from "@liver-streams/core";
-import { computed, defineComponent, TransitionGroup } from "vue";
+import { computed, defineVaporComponent, VaporTransitionGroup } from "vue";
+import { VaporFor } from "vue-jsx-vapor";
 import { useDateStore } from "../../shared/stores";
 import LiverEventCard from "./LiverEventCard";
 
@@ -19,7 +20,7 @@ function getTimeColor(hour: number) {
   return "var(--hour" + hour + ")";
 }
 
-export default defineComponent(
+export default defineVaporComponent(
   (props: Props) => {
     const dateStore = useDateStore();
 
@@ -28,7 +29,7 @@ export default defineComponent(
     const sectionBackground = computed(() => getTimeColor(hour.value));
     const hhss = computed(() => hhmmDateFormatter.format(dateStore.currentTime));
 
-    return () => (
+    return (
       <section
         class="flex scroll-m-8 flex-col items-center gap-[20px] pt-3"
         data-id="time-section"
@@ -52,11 +53,17 @@ export default defineComponent(
               <span class="text-3xl drop-shadow-md">:00</span>
             </div>
             <div class="grid w-full grid-cols-[repeat(auto-fill,minmax(410px,1fr))] gap-x-[clamp(2px,2px+0.5vw,12px)] gap-y-[28px] px-[clamp(2px,2px+0.5vw,16px)] pb-8 max-xl:grid-cols-[repeat(auto-fill,minmax(360px,1fr))]">
-              <TransitionGroup name="time-section-card">
-                {props.section.events.map((liverEvent) => (
-                  <LiverEventCard key={liverEvent.id} liverEvent={liverEvent} />
-                ))}
-              </TransitionGroup>
+              <VaporTransitionGroup name="time-section-card">
+                <VaporFor
+                  // VaporTransitionGroup は子が 1 件のとき、その子のキーを VaporFor 自身のキーで上書きする。
+                  // VaporFor にキーが無いと 1 件だけの時間帯のカードがキー無しになり、トランジションが付かない
+                  key="events"
+                  in={props.section.events}
+                  getKey={(liverEvent) => liverEvent.id}
+                >
+                  {(liverEvent) => <LiverEventCard liverEvent={liverEvent.value} />}
+                </VaporFor>
+              </VaporTransitionGroup>
             </div>
           </>
         )}
