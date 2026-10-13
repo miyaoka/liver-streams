@@ -4,10 +4,10 @@
  * 大文字小文字を区別せずにカウントし、最も多く使われている表記をキーとして採用する。
  */
 import { getFilteredEventList } from "@liver-streams/core";
-import { computed, defineComponent } from "vue";
-import { useSearchStore } from "../../shared/stores";
+import { useMemo } from "react";
+import { selectSearchQuery, useSearchStore } from "../../shared/stores";
 import { closePopover } from "../../shared/utils";
-import { useTalentFilterStore } from "../channelFilter";
+import { selectTalentFilterMap, useTalentFilterStore } from "../channelFilter";
 import { useEventListStore } from "../streams";
 import KeywordListPopoverItem from "./KeywordListPopoverItem";
 
@@ -53,63 +53,52 @@ function createCountList(eventList: string[][]): KeywordItem[] {
   return resultList;
 }
 
-export default defineComponent(
-  () => {
-    const eventListStore = useEventListStore();
-    const talentFilterStore = useTalentFilterStore();
-    const searchStore = useSearchStore();
+export default function KeywordListPopover() {
+  const liverEventList = useEventListStore((state) => state.liverEventList);
+  const filterMap = useTalentFilterStore(selectTalentFilterMap);
+  const searchQuery = useSearchStore(selectSearchQuery);
 
+  const wholeList = useMemo(() => {
     // searchTermsを指定しない状態のリスト
-    const filteredEventList = computed(() => {
-      const list = eventListStore.liverEventList;
-      if (!list) return [];
-      const searchQuery = searchStore.searchQuery;
-      return getFilteredEventList({
-        liverEventList: list,
-        filterMap: talentFilterStore.talentFilterMap,
-        searchQuery: {
-          ...searchQuery,
-          wordList: [],
-          hashtagList: [],
-          options: {},
-        },
-      });
-    });
+    const filteredEventList = liverEventList
+      ? getFilteredEventList({
+          liverEventList,
+          filterMap,
+          searchQuery: {
+            ...searchQuery,
+            wordList: [],
+            hashtagList: [],
+            options: {},
+          },
+        })
+      : [];
 
-    const keywordList = computed(() => {
-      const keywordLists = filteredEventList.value.map((event) => event.keywordList);
-      return createCountList(keywordLists);
-    });
-
-    const hashtagList = computed(() => {
-      const hashtagLists = filteredEventList.value.map((event) => event.hashtagList);
-      return createCountList(hashtagLists).map((item) => {
+    const keywordList = createCountList(filteredEventList.map((event) => event.keywordList));
+    const hashtagList = createCountList(filteredEventList.map((event) => event.hashtagList)).map(
+      (item) => {
         return { value: `#${item.value}`, count: item.count };
-      });
-    });
-
-    const wholeList = computed(() => {
-      const list = [...keywordList.value, ...hashtagList.value];
-      return list.sort((a, b) => b.count - a.count);
-    });
-
-    return () => (
-      <div class="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[350px] flex-col overflow-hidden rounded-md border-2 border-gray-800 bg-white">
-        <div class="flex h-11 shrink-0 items-center justify-start gap-1 bg-black p-2 text-white">
-          <i class="i-icon-park-solid-topic size-5" />
-          <span>トレンド</span>
-
-          <button
-            class="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
-            onClick={closePopover}
-          >
-            <i class="i-mdi-close size-6" />
-          </button>
-        </div>
-
-        <KeywordListPopoverItem itemList={wholeList.value} />
-      </div>
+      },
     );
-  },
-  { name: "KeywordListPopover" },
-);
+
+    const list = [...keywordList, ...hashtagList];
+    return list.sort((a, b) => b.count - a.count);
+  }, [liverEventList, filterMap, searchQuery]);
+
+  return (
+    <div className="flex max-h-[min(500px,calc(100dvh-5rem))] min-h-[150px] w-[350px] flex-col overflow-hidden rounded-md border-2 border-gray-800 bg-white">
+      <div className="flex h-11 shrink-0 items-center justify-start gap-1 bg-black p-2 text-white">
+        <i className="i-icon-park-solid-topic size-5" />
+        <span>トレンド</span>
+
+        <button
+          className="absolute -right-1 z-10 flex size-11 items-center justify-center text-gray-200 hover:text-gray-400 active:text-gray-400"
+          onClick={(e) => closePopover(e.nativeEvent)}
+        >
+          <i className="i-mdi-close size-6" />
+        </button>
+      </div>
+
+      <KeywordListPopoverItem itemList={wholeList} />
+    </div>
+  );
+}

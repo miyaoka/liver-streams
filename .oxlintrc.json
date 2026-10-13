@@ -1,5 +1,5 @@
 {
-  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "plugins": ["typescript", "unicorn", "oxc", "import", "react"],
   "jsPlugins": [
     { "name": "barrel-import", "specifier": "@miyaoka/eslint-plugin-barrel-import" },
     "eslint-plugin-better-tailwindcss"
@@ -48,6 +48,8 @@
     "typescript/prefer-as-const": "error",
     "typescript/prefer-namespace-keyword": "error",
     "typescript/triple-slash-reference": "error",
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "warn",
     "import/no-duplicates": "warn",
     "import/order": [
       "warn",

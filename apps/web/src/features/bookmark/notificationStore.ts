@@ -1,29 +1,29 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import { create } from "zustand";
 
 const isSupported = window && "Notification" in window;
 
-export const useNotificationStore = defineStore("notificationStore", () => {
-  const permissionGranted = ref(
-    isSupported && "permission" in Notification && Notification.permission === "granted",
-  );
+interface NotificationState {
+  isSupported: boolean;
+  permissionGranted: boolean;
+  ensurePermissions: () => Promise<boolean>;
+}
 
-  async function ensurePermissions() {
+export const useNotificationStore = create<NotificationState>()((set, get) => ({
+  isSupported,
+  permissionGranted:
+    isSupported && "permission" in Notification && Notification.permission === "granted",
+
+  ensurePermissions: async () => {
     if (!isSupported) return false;
-    if (permissionGranted.value) return true;
+    if (get().permissionGranted) return true;
 
     // deniedの場合はrequestできないのでfalseを返す
     if (Notification.permission === "denied") return false;
 
     // request: ユーザーがアクションするかタイムアウトまで時間がかかる
     const permission = await Notification.requestPermission();
-    permissionGranted.value = permission === "granted";
-    return permissionGranted.value;
-  }
-
-  return {
-    isSupported,
-    permissionGranted,
-    ensurePermissions,
-  };
-});
+    const permissionGranted = permission === "granted";
+    set({ permissionGranted });
+    return permissionGranted;
+  },
+}));

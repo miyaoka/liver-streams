@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-liver-streams は Vue 3 + TypeScript + Vite で構築された、VTuber の配信情報を表示するウェブアプリケーション。にじさんじとホロライブの配信データを統合して表示する。
+liver-streams は React + TypeScript + Vite で構築された、VTuber の配信情報を表示するウェブアプリケーション。にじさんじとホロライブの配信データを統合して表示する。
 
 ## 開発コマンド
 
@@ -37,7 +37,7 @@ pnpm build
 
 ```
 apps/
-└── web/                   # フロントエンド（Vue 3 + Vite）
+└── web/                   # フロントエンド（React + Vite）
 
 packages/
 ├── core/                  # 共通型定義、ビジネスロジック、ユーティリティ
@@ -48,12 +48,11 @@ packages/
 ### 技術スタック
 
 - **ツール管理**: mise.toml (bun, pnpm, node)
-- **フレームワーク**: Vue（TSX。SFC は使わない）
-- **ビルドツール**: Vite + @vitejs/plugin-vue-jsx
+- **フレームワーク**: React
+- **ビルドツール**: Vite + @vitejs/plugin-react
 - **型チェック**: bun check
 - **テスト**: bun test + happy-dom
-- **状態管理**: Pinia
-- **ルーティング**: Vue Router
+- **状態管理**: zustand
 - **スタイリング**: Tailwind CSS
 - **リンター・フォーマッター**: bun lint + bun fmt。設定は `.oxlintrc.json` と `.oxfmtrc.json` の 1 つずつ。独自ルール（barrel-import、better-tailwindcss）は `.oxlintrc.json` の `jsPlugins` で読み込む。jsPlugins に入れる ESLint プラグインは、eslint 本体を読み込まないものに限る（eslint-plugin-vue などは eslint 本体を require する）
 - **パッケージマネージャー**: pnpm
@@ -72,11 +71,11 @@ packages/
 - knip --fix で未使用 export を自動削除（変更は unstaged で残るので、確認して git add → 再コミット）
 - フォーマットや不要 export の整理はコミットフックで自動的に行われるため、手動で実行しない
 
-## Vue コンポーネント
+## React コンポーネント
 
-`.tsx` で `defineComponent((props: Props) => () => <JSX />, { name, props: [...] })` の形で書く。実行時 props の配列には Props の全キーを書く（漏れたキーは attrs に落ちる）。emit は使わず `onXxx` のコールバック props にする。
+`.tsx` で関数コンポーネントとして書く。store は zustand の `useXxxStore(selector)` で読み、selector の中で新しい Map / Set / オブジェクトを作って返さない（参照が毎回変わって再描画が止まらない）。必要なら `shared/lib` の `createMemoSelector` を使う。localStorage に保存する状態は zustand の `persist` に `shared/lib` の `createLocalStoragePersist` を渡して保存する。利用者のブラウザに保存済みの値を読めるよう、キー名と保存形式を変えない（形式は `shared/lib/localStorage.ts` とそのテストが正本）。store のモジュールで始める副作用（interval、イベントリスナー）は、HMR の再実行で重ならないよう `shared/lib` の `stopOnHotReexecute` に後始末を渡す。テキスト入力は IME の変換中に副作用（検索など）を走らせない。
 
-スタイルは Tailwind のクラスで書く。クラスで書けないもの（Transition のクラス、popover の疑似要素、keyframes）だけを同じディレクトリの `<ファイル名>.css` に書き、`assets/main.css` から `@import` する。scoped は無いので、クラス名には接頭辞を付けて衝突を避け、class 属性で使うクラスは `@layer components` に置く（better-tailwindcss が既知のクラスとして扱う）。
+スタイルは Tailwind のクラスで書き、条件で切り替えるクラスは `shared/lib` の `classNames` で組み立てる。クラスで書けないもの（`@starting-style` の出現アニメーション、popover の疑似要素、keyframes）だけを同じディレクトリの `<ファイル名>.css` に書き、`assets/main.css` から `@import` する。scoped は無いので、クラス名には接頭辞を付けて衝突を避け、class 属性で使うクラスは `@layer components` に置く（better-tailwindcss が既知のクラスとして扱う）。
 
 ファイル冒頭に JSDoc のブロックコメント（`/** ... */`）を置き、md 形式でドキュメントを記述する。
 
@@ -88,7 +87,7 @@ packages/
 ### 記述しないもの
 
 - ファイル名と同じタイトル（冗長なため）
-- props や emit などの実装詳細（コードを見れば分かるため）
+- props などの実装詳細（コードを見れば分かるため）
 - 単なる配置場所の列挙（役割の説明に含めて記述すればよい）
 
 ### Markdown 記法

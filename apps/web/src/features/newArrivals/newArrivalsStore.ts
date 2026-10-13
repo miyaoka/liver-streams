@@ -1,8 +1,8 @@
 import type { LiverEvent } from "@liver-streams/core";
 import { talentFilter } from "@liver-streams/core";
-import { acceptHMRUpdate, defineStore } from "pinia";
-import { computed, ref } from "vue";
-import { useTalentFilterStore } from "../channelFilter";
+import { create } from "zustand";
+import { createMemoSelector, memoizeLast } from "../../shared/lib";
+import { selectTalentFilterMap, useTalentFilterStore } from "../channelFilter";
 
 interface NewArrivalId {
   id: string;
@@ -17,51 +17,29 @@ interface NewArrival {
 // 新着としてキープする時間(ms)
 const newArrivalsKeepTime = 1000 * 60 * 60 * 2;
 
-export const useNewArrivalsStore = defineStore("newArrivalsStore", () => {
-  const talentFilterStore = useTalentFilterStore();
-  const newArrivalsIdList = ref<NewArrivalId[]>([]);
-  // liverEventMap への参照を保持
-  const liverEventMapRef = ref<Map<string, LiverEvent>>(new Map());
-
-  const newArrivalsIdSet = computed(() => {
-    return new Set(newArrivalsIdList.value.map((item) => item.id));
-  });
-
-  // 新着イベントを現在のタレントフィルターでフィルタリング
-  const newArrivalsList = computed<NewArrival[]>(() => {
-    if (!newArrivalsIdList.value) return [];
-
-    const filterMap = talentFilterStore.talentFilterMap;
-    const filterEnabled = talentFilterStore.talentFilterEnabled;
-
-    const list = newArrivalsIdList.value.flatMap((item) => {
-      const liverEvent = liverEventMapRef.value.get(item.id);
-      if (!liverEvent) return [];
-      return {
-        addedTime: item.addedTime,
-        liverEvent,
-      };
-    });
-    if (!filterEnabled || filterMap.size === 0) return list;
-    return list.filter((item) =>
-      talentFilter({
-        liverEvent: item.liverEvent,
-        filterMap,
-      }),
-    );
-  });
-
-  // setを比較して足されたものを算出
-  function updateNewArrivals(
+interface NewArrivalsState {
+  newArrivalsIdList: NewArrivalId[];
+  // eventListStore の liverEventMap への参照
+  liverEventMap: Map<string, LiverEvent>;
+  updateNewArrivals: (
     newLiverEventList: LiverEvent[],
     prevLiverEventList: LiverEvent[] | null,
     liverEventMap: Map<string, LiverEvent>,
-  ) {
-    // liverEventMap への参照を更新
-    liverEventMapRef.value = liverEventMap;
+  ) => void;
+  clearNewArrivals: () => void;
+}
 
+export const useNewArrivalsStore = create<NewArrivalsState>()((set, get) => ({
+  newArrivalsIdList: [],
+  liverEventMap: new Map(),
+
+  // setを比較して足されたものを算出
+  updateNewArrivals: (newLiverEventList, prevLiverEventList, liverEventMap) => {
     // 初回の場合は差分抽出せずスキップ
-    if (!prevLiverEventList) return;
+    if (!prevLiverEventList) {
+      set({ liverEventMap });
+      return;
+    }
 
     const newLiverEventIdSet = new Set(newLiverEventList.map((event) => event.id));
     const prevLiverEventIdSet = new Set(prevLiverEventList.map((event) => event.id));
@@ -76,7 +54,7 @@ export const useNewArrivalsStore = defineStore("newArrivalsStore", () => {
       };
     });
 
-    const mergedList = [...newArrivalsIdList.value, ...newItems].filter((item) => {
+    const mergedList = [...get().newArrivalsIdList, ...newItems].filter((item) => {
       // 追加後から一定時間経ったものは新着に含めない
       if (now - item.addedTime > newArrivalsKeepTime) return false;
       // 開始時間から一定時間経過したものも新着に含めない
@@ -87,22 +65,47 @@ export const useNewArrivalsStore = defineStore("newArrivalsStore", () => {
       return true;
     });
 
-    newArrivalsIdList.value = mergedList;
-  }
+    set({ liverEventMap, newArrivalsIdList: mergedList });
+  },
 
-  function clearNewArrivals() {
-    newArrivalsIdList.value = [];
-  }
+  clearNewArrivals: () => {
+    set({ newArrivalsIdList: [] });
+  },
+}));
 
-  return {
-    newArrivalsIdList,
-    newArrivalsIdSet,
-    newArrivalsList,
-    updateNewArrivals,
-    clearNewArrivals,
-  };
-});
+export const selectNewArrivalsIdSet = createMemoSelector(
+  (state: NewArrivalsState) => state.newArrivalsIdList,
+  (newArrivalsIdList) => new Set(newArrivalsIdList.map((item) => item.id)),
+);
 
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useNewArrivalsStore, import.meta.hot));
+const computeNewArrivalsList = memoizeLast(
+  (
+    newArrivalsIdList: NewArrivalId[],
+    liverEventMap: Map<string, LiverEvent>,
+    filterMap: Map<string, boolean>,
+  ): NewArrival[] => {
+    const list = newArrivalsIdList.flatMap((item) => {
+      const liverEvent = liverEventMap.get(item.id);
+      if (!liverEvent) return [];
+      return {
+        addedTime: item.addedTime,
+        liverEvent,
+      };
+    });
+    if (filterMap.size === 0) return list;
+    return list.filter((item) =>
+      talentFilter({
+        liverEvent: item.liverEvent,
+        filterMap,
+      }),
+    );
+  },
+);
+
+/** 新着イベントを現在のタレントフィルターで絞り込んだ一覧 */
+export function useNewArrivalsList(): NewArrival[] {
+  const newArrivalsIdList = useNewArrivalsStore((state) => state.newArrivalsIdList);
+  const liverEventMap = useNewArrivalsStore((state) => state.liverEventMap);
+  const filterMap = useTalentFilterStore(selectTalentFilterMap);
+  return computeNewArrivalsList(newArrivalsIdList, liverEventMap, filterMap);
 }

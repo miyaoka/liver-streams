@@ -1,2 +1,7 @@
 export { default as ChannelFilter } from "./ChannelFilter";
-export { useTalentFilterStore } from "./talentFilterStore";
+export {
+  selectActivePreset,
+  selectIsModified,
+  selectTalentFilterMap,
+  useTalentFilterStore,
+} from "./talentFilterStore";

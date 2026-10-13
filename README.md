@@ -36,10 +36,9 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 
 | カテゴリ       | 技術         |
 | -------------- | ------------ |
-| フレームワーク | Vue（TSX）   |
+| フレームワーク | React        |
 | ビルドツール   | Vite         |
-| 状態管理       | Pinia        |
-| ルーティング   | Vue Router   |
+| 状態管理       | zustand      |
 | スタイリング   | Tailwind CSS |
 
 ## 開発
@@ -76,7 +75,7 @@ pnpm fix           # 差分に lint の自動修正と format を適用
 
 ```
 apps/
-└── web/        # フロントエンド（Vue + Vite）
+└── web/        # フロントエンド（React + Vite）
 packages/
 ├── core/       # 共通型定義・ユーティリティ
 ├── hololive/   # ホロライブ配信情報取得

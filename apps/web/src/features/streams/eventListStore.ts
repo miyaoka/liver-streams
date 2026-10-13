@@ -1,69 +1,79 @@
 import { getFilteredEventList, createDateSectionList } from "@liver-streams/core";
 import type { LiverEvent } from "@liver-streams/core";
-import { acceptHMRUpdate, defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { create } from "zustand";
+import { memoizeLast } from "../../shared/lib";
 import { fetchAllEvents } from "../../shared/services";
-import { useSearchStore } from "../../shared/stores";
+import { selectSearchQuery, useSearchStore } from "../../shared/stores";
 import { processBookmarkNotification } from "../bookmark";
-import { useTalentFilterStore } from "../channelFilter";
+import { selectTalentFilterMap, useTalentFilterStore } from "../channelFilter";
 import { useNewArrivalsStore } from "../newArrivals";
 
-export const useEventListStore = defineStore("eventListStore", () => {
-  const talentFilterStore = useTalentFilterStore();
-  const searchStore = useSearchStore();
-  const newArrivalsStore = useNewArrivalsStore();
-  const liverEventList = ref<LiverEvent[] | null>(null);
+interface EventListState {
+  liverEventList: LiverEvent[] | null;
   // idをキーにしたLiverEventのMap
-  const liverEventMap = ref<Map<string, LiverEvent>>(new Map());
+  liverEventMap: Map<string, LiverEvent>;
+  updateLiverEventList: () => Promise<void>;
+}
 
-  const filteredEventList = computed(() => {
-    if (!liverEventList.value) return [];
-    return getFilteredEventList({
-      liverEventList: liverEventList.value,
-      filterMap: talentFilterStore.talentFilterMap,
-      searchQuery: searchStore.searchQuery,
-    });
-  });
+export const useEventListStore = create<EventListState>()((set, get) => ({
+  liverEventList: null,
+  liverEventMap: new Map(),
 
-  const onLiveEventList = computed(() => {
-    return filteredEventList.value.filter((event) => event.isLive);
-  });
-
-  const isLoading = computed(() => liverEventList.value === null);
-
-  const dateSectionList = computed(() => {
-    return createDateSectionList(filteredEventList.value).filter((dateSection) => {
-      return dateSection.timeSectionList.some((section) => section.events.length > 0);
-    });
-  });
-
-  async function updateLiverEventList() {
+  updateLiverEventList: async () => {
     const newLiverEventList = await fetchAllEvents();
 
     const eventMap = new Map<string, LiverEvent>();
     newLiverEventList.forEach((liverEvent) => {
       eventMap.set(liverEvent.id, liverEvent);
     });
-    liverEventMap.value = eventMap;
 
-    newArrivalsStore.updateNewArrivals(newLiverEventList, liverEventList.value, eventMap);
+    useNewArrivalsStore
+      .getState()
+      .updateNewArrivals(newLiverEventList, get().liverEventList, eventMap);
 
-    liverEventList.value = newLiverEventList;
+    set({ liverEventMap: eventMap, liverEventList: newLiverEventList });
 
     processBookmarkNotification(eventMap);
-  }
+  },
+}));
 
-  return {
-    liverEventList,
-    filteredEventList,
-    onLiveEventList,
-    dateSectionList,
-    liverEventMap,
-    isLoading,
-    updateLiverEventList,
-  };
-});
+export const selectIsLoading = (state: EventListState) => state.liverEventList === null;
 
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useEventListStore, import.meta.hot));
+const computeFilteredEventList = memoizeLast(
+  (
+    liverEventList: LiverEvent[] | null,
+    filterMap: Map<string, boolean>,
+    searchQuery: ReturnType<typeof selectSearchQuery>,
+  ): LiverEvent[] => {
+    if (!liverEventList) return [];
+    return getFilteredEventList({ liverEventList, filterMap, searchQuery });
+  },
+);
+
+const computeOnLiveEventList = memoizeLast((filteredEventList: LiverEvent[]) =>
+  filteredEventList.filter((event) => event.isLive),
+);
+
+const computeDateSectionList = memoizeLast((filteredEventList: LiverEvent[]) =>
+  createDateSectionList(filteredEventList).filter((dateSection) => {
+    return dateSection.timeSectionList.some((section) => section.events.length > 0);
+  }),
+);
+
+/** タレントフィルターと検索条件を適用したイベント一覧 */
+export function useFilteredEventList(): LiverEvent[] {
+  const liverEventList = useEventListStore((state) => state.liverEventList);
+  const filterMap = useTalentFilterStore(selectTalentFilterMap);
+  const searchQuery = useSearchStore(selectSearchQuery);
+  return computeFilteredEventList(liverEventList, filterMap, searchQuery);
+}
+
+/** useFilteredEventList のうち配信中のもの */
+export function useOnLiveEventList(): LiverEvent[] {
+  return computeOnLiveEventList(useFilteredEventList());
+}
+
+/** useFilteredEventList を日付・時間で区切り、イベントのある日付だけを残したもの */
+export function useDateSectionList() {
+  return computeDateSectionList(useFilteredEventList());
 }

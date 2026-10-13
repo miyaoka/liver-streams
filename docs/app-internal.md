@@ -215,32 +215,14 @@ export function getFilteredEventList({
 
 配信イベントリストの状態管理を行います。
 
-**主要な computed プロパティ**:
-
-```typescript
-const filteredEventList = computed(() => {
-  if (!liverEventList.value) return [];
-  return getFilteredEventList({
-    liverEventList: liverEventList.value,
-    filterMap: storageStore.talentFilterMap,
-    searchQuery: searchStore.searchQuery,
-  });
-});
-```
-
-### storageStore
-
-フィルター設定の永続化を担当します。
-
-- `talentFilterMap`: 選択されたタレントのMap
-- `talentFilterEnabled`: フィルター有効/無効の状態
+派生値（フィルター済みのイベント一覧、日付セクション、ライブ中の一覧）は、`useFilteredEventList` などのフックが store の状態から計算する。
 
 ### searchStore
 
 検索条件の管理を行います。
 
-- `searchQuery`: 検索クエリオブジェクト
 - `searchString`: 検索文字列
+- `selectSearchQuery`: 検索文字列を解析した検索クエリを返す selector
 
 ## UI コンポーネント
 
@@ -268,14 +250,7 @@ const filteredEventList = computed(() => {
 
 ### 計算結果のキャッシュ
 
-Vue の `computed` を使用して、依存データが変更されるまで計算結果をキャッシュ：
-
-```typescript
-const filteredEventList = computed(() => {
-  // 依存: liverEventList, talentFilterMap, searchQuery
-  // これらが変更されない限り再計算されない
-});
-```
+派生値のフックは、依存する状態（イベント一覧、タレントフィルター、検索クエリ）の参照をキーにしたモジュール単位の memo（`shared/lib` の `memoizeLast`）で計算する。使う部品がいくつあっても、計算は状態が変わるごとに 1 回で済む。
 
 ### Set を使用した高速検索
 
@@ -316,6 +291,6 @@ liver-streams のデータフローとフィルタリング処理は、以下の
 
 - **統一データ形式**: 異なるAPIからのデータを統一フォーマットに変換
 - **多層フィルタリング**: タレント、検索、ステータスの3種類のフィルター
-- **リアクティブな更新**: Vue の computed によるリアクティブな状態管理
+- **状態に追従する更新**: zustand の selector と、状態の参照をキーにした memo による派生値の再計算
 - **パフォーマンス最適化**: キャッシュ、Set、並列処理による最適化
 - **永続化**: フィルター設定の保存と復元

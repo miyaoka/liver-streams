@@ -14,10 +14,9 @@
     "@liver-streams/core": "workspace:*",
     "@liver-streams/hololive": "workspace:*",
     "@liver-streams/nijisanji": "workspace:*",
-    "@vueuse/core": "15.0.0",
-    "pinia": "4.0.3",
-    "vue": "3.5.43",
-    "vue-router": "5.4.0"
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zustand": "5.0.15"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "2.0.0-beta.sha-c82c3efb3",
@@ -30,11 +29,11 @@
     "@tsconfig/node24": "catalog:",
     "@types/bun": "catalog:",
     "@types/node": "catalog:",
-    "@vitejs/plugin-vue-jsx": "5.1.6",
-    "@vue/tsconfig": "0.9.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
     "cf": "1.0.0-beta.14",
     "tailwindcss": "4.3.3",
-    "vite": "catalog:",
-    "vite-plugin-vue-devtools": "8.2.1"
+    "vite": "catalog:"
   }
 }
