@@ -3,3 +3,7 @@ node = "24.21.0"
 pnpm = "12.11.2"
 # bun lint / bun fmt は canary にのみ含まれる。canary は GitHub のタグで、core:bun バックエンドでは解決できない
 "github:oven-sh/bun" = "canary"
+
+[settings]
+# canary の配布物は同じタグのまま上げ直される。mise-versions のキャッシュは更新まで古い digest を返し、照合に失敗するので、GitHub の API から直接読む
+use_versions_host = false
