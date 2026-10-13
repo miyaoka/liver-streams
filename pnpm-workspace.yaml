@@ -21,7 +21,7 @@ catalog:
   eslint-plugin-unused-imports: 4.4.1
   oxfmt: 0.72.0
   oxlint: 1.87.0
-  oxlint-tsgolint: 7.0.2003
+  oxlint-tsgolint: 7.0.2004
   typescript: npm:@typescript/typescript6@6.0.2
   typescript-eslint: 8.71.1
   unplugin-dts: 1.1.2
