@@ -34,6 +34,6 @@ export function fetchNijiStreamList(options: FetchDataOptions): Promise<NijiStre
   }
 
   return fetch(`${options.apiBaseUrl}/streams`)
-    .then((res) => res.json())
+    .then((res) => res.json() as Promise<NijiStream[]>)
     .catch(() => []);
 }

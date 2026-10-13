@@ -39,7 +39,7 @@ function fetchData(options: FetchDataOptions): Promise<HoloSchedule> {
     return import("../data/dev/schedule.json").then((res) => res.default);
   }
   return fetch(holoAPI)
-    .then((res) => res.json())
+    .then((res) => res.json() as Promise<HoloSchedule>)
     .catch(() => ({ dateGroupList: [] }));
 }
 
