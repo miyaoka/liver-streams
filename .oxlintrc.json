@@ -2,7 +2,8 @@
   "plugins": ["typescript", "unicorn", "oxc", "import"],
   "jsPlugins": [
     { "name": "barrel-import", "specifier": "@miyaoka/eslint-plugin-barrel-import" },
-    "eslint-plugin-better-tailwindcss"
+    "eslint-plugin-better-tailwindcss",
+    { "name": "vue-js", "specifier": "eslint-plugin-vue" }
   ],
   "categories": {
     "correctness": "warn"
@@ -62,6 +63,7 @@
     {
       "files": ["apps/web/src/**"],
       "rules": {
+        "vue-js/no-ref-as-operand": "error",
         "barrel-import/barrel-import": [
           "error",
           {
@@ -76,7 +78,7 @@
         "better-tailwindcss/no-duplicate-classes": "warn",
         "better-tailwindcss/no-concatenated-classes": "error",
         "better-tailwindcss/no-conflicting-classes": "error",
-        "better-tailwindcss/no-unknown-classes": ["warn", { "ignore": ["_.*"] }]
+        "better-tailwindcss/no-unknown-classes": "warn"
       }
     }
   ]

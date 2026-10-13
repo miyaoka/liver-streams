@@ -2,10 +2,8 @@
 @import "../features/bookmark/BookmarkedEventButton.css";
 @import "../features/channelFilter/ChannelFilter.css";
 @import "../features/keyword/KeywordListButton.css";
-@import "../features/keyword/KeywordListPopover.css";
 @import "../features/menu/FilteringButton.css";
 @import "../features/newArrivals/NewArrivalsButton.css";
-@import "../features/streams/LiverEventDateSectionList.css";
 @import "../features/streams/LiverEventTimeSection.css";
 @import "../features/streams/detail/LiverEventDetailListItem.css";
 @import "../features/streams/detail/LiverEventDetailPopover.css";
@@ -16,4 +14,41 @@
   button {
     cursor: pointer;
   }
+}
+
+html {
+  scrollbar-width: none;
+  background-color: var(--hour0);
+}
+:root {
+  --midnight: #627ea3;
+  --morning: #97cce6;
+  --noon: #dff7f9;
+  --evening: #f8b074;
+  --night: #f6f3be;
+
+  --hour0: var(--midnight);
+  --hour1: var(--midnight);
+  --hour2: var(--midnight);
+  --hour3: var(--midnight);
+  --hour4: var(--midnight);
+  --hour5: var(--morning);
+  --hour6: var(--morning);
+  --hour7: var(--morning);
+  --hour8: var(--morning);
+  --hour9: var(--morning);
+  --hour10: var(--noon);
+  --hour11: var(--noon);
+  --hour12: var(--noon);
+  --hour13: var(--noon);
+  --hour14: var(--noon);
+  --hour15: var(--noon);
+  --hour16: var(--evening);
+  --hour17: var(--evening);
+  --hour18: var(--evening);
+  --hour19: var(--night);
+  --hour20: var(--night);
+  --hour21: var(--night);
+  --hour22: var(--midnight);
+  --hour23: var(--midnight);
 }

@@ -1,7 +1,7 @@
 /**
  * 日付セクションのリスト表示。ローディング・データなしの状態も含めて配信一覧全体を管理する。
  *
- * 初回読み込み完了時に自動で現在時刻までスクロールする。時間帯ごとの背景色 CSS 変数もここで定義している。
+ * 初回読み込み完了時に自動で現在時刻までスクロールする。
  */
 import type { DateSection } from "@liver-streams/core";
 import { defineComponent, nextTick, onMounted, watch } from "vue";

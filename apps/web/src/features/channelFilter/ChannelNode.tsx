@@ -103,10 +103,7 @@ const ChannelNodeComponent = defineComponent(
     }
 
     return () => (
-      <div
-        {...{ open: "" }}
-        class="ml-4 flex flex-col items-start gap-2 text-sm font-bold select-none"
-      >
+      <div class="ml-4 flex flex-col items-start gap-2 text-sm font-bold select-none">
         <div class="flex flex-col items-start">
           <label class="flex h-9 cursor-pointer place-items-center gap-1 rounded-lg bg-gray-100 px-2 whitespace-nowrap hover:outline-2 hover:outline-solid has-checked:bg-red-200 has-checked:text-red-900 has-focus-visible:outline-solid">
             <input ref={groupEl} type="checkbox" class="sr-only" onClick={onGroupClick} />

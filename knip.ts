@@ -5,11 +5,10 @@ const config: KnipConfig = {
   ignoreBinaries: ["check", "lint", "fmt"],
   workspaces: {
     ".": {
-      // .oxlintrc.json の jsPlugins で使用（knip は jsPlugins を解析できない）
-      ignoreDependencies: [
-        "@miyaoka/eslint-plugin-barrel-import",
-        "eslint-plugin-better-tailwindcss",
-      ],
+      // oxlint を依存に持たないため自動では有効にならない。.oxlintrc.json の jsPlugins を依存として解決させる
+      oxlint: true,
+      // typescript を依存に持たないため自動では有効にならない。tsconfig の extends を依存として解決させる
+      typescript: true,
     },
     "packages/core": {
       project: ["src/**/*.ts"],
@@ -24,6 +23,7 @@ const config: KnipConfig = {
     },
     "apps/web": {
       project: ["src/**/*.{ts,tsx,css}"],
+      typescript: true,
 
       ignoreDependencies: [
         // @egoist/tailwindcss-icons が CSS の @plugin 経由で読む（knip は辿れない）

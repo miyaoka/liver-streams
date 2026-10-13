@@ -13,8 +13,7 @@ export default defineConfig({
     tailwindcss(),
     vueJsx(),
     vueDevTools(),
-    // Workers の型は typecheck スクリプトの cf workers types だけが生成する。
-    // build は typecheck と並行に走るため、両方が同じファイルを書かないようにする
+    // Workers の型はルートの check:types の cf workers types だけが生成する
     cloudflare({ types: { generate: false } }),
   ],
   resolve: {

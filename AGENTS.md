@@ -17,9 +17,9 @@ pnpm dev
 
 # チェック（リポジトリルートで 1 回だけ定義している。各 package にはチェック用のスクリプトを置かない）
 pnpm check:types   # 全プロジェクトの型チェック（bun check -b）
-pnpm check:lint    # 既定ブランチとの差分だけ lint
-pnpm check:fmt     # 既定ブランチとの差分だけ format を検査
-pnpm check:test    # 既定ブランチとの差分に影響するテストだけ実行
+pnpm check:lint    # origin/main から分岐した点との差分だけ lint
+pnpm check:fmt     # 同じ差分だけ format を検査
+pnpm check:test    # 同じ差分のファイルを import するテストだけ実行（パッケージをまたぐ import は辿らない）
 pnpm fix           # 差分に lint の自動修正と format を適用
 
 # 比較元を変える（CI は PR の base を渡す）
@@ -55,7 +55,7 @@ packages/
 - **状態管理**: Pinia
 - **ルーティング**: Vue Router
 - **スタイリング**: Tailwind CSS
-- **リンター・フォーマッター**: bun lint + bun fmt。設定は `.oxlintrc.json` と `.oxfmtrc.json` の 1 つずつ。独自ルール（barrel-import、better-tailwindcss）は `.oxlintrc.json` の `jsPlugins` で読み込む
+- **リンター・フォーマッター**: bun lint + bun fmt。設定は `.oxlintrc.json` と `.oxfmtrc.json` の 1 つずつ。独自ルール（barrel-import、better-tailwindcss、eslint-plugin-vue の script 向けルール）は `.oxlintrc.json` の `jsPlugins` で読み込む（eslint-plugin-vue は組み込みの vue と名前がぶつかるので `vue-js` の別名で読む）
 - **パッケージマネージャー**: pnpm
 
 ### テスト方針

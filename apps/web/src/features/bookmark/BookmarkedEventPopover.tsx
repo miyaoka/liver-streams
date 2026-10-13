@@ -91,7 +91,7 @@ export default defineComponent(
                   <div class="flex items-center gap-2 p-2 text-start">
                     <img
                       src={getThumbnail(liverEvent.thumbnail, "mq")}
-                      class="_thumb aspect-video h-[36px] w-[64px] bg-gray-800 object-cover p-0 transition-colors"
+                      class="aspect-video h-[36px] w-[64px] bg-gray-800 object-cover p-0 transition-colors"
                       loading="lazy"
                     />
                     <p class="line-clamp-2 flex-1 text-sm wrap-anywhere">{liverEvent.title}</p>
