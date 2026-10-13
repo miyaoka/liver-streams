@@ -58,7 +58,7 @@ packages/
 - **状態管理**: Pinia
 - **ルーティング**: Vue Router
 - **スタイリング**: Tailwind CSS
-- **リンター・フォーマッター**: bun lint + bun fmt（apps/web の lint は `-c eslint.config.ts` で eslint の設定とプラグインを読む）
+- **リンター・フォーマッター**: bun lint + bun fmt（apps/web の lint は eslint の設定とプラグインを使う）
 - **パッケージマネージャー**: pnpm
 
 ### テスト方針
