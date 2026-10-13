@@ -1,0 +1,16 @@
+@layer components {
+  .event-detail-list-item-popover[popover] {
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    &:popover-open {
+      animation: event-detail-list-item-fade-in 0.2s ease-in-out forwards;
+    }
+  }
+
+  @keyframes event-detail-list-item-fade-in {
+    from {
+      translate: 0 50%;
+    }
+  }
+}

@@ -1,1 +1,1 @@
-export { default as SearchFilter } from "./SearchFilter.vue";
+export { default as SearchFilter } from "./SearchFilter";

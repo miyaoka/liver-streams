@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - main
+  # base を指定して重ねた PR でも走らせるため base ブランチを限定しない
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,23 +22,32 @@ jobs:
       matrix:
         include:
           - name: typecheck
-            command: pnpm run typecheck:all
+            command: pnpm run check:types
 
           - name: lint
-            command: pnpm run lint:all
+            command: pnpm run check:lint
+
+          - name: fmt
+            command: pnpm run check:fmt
 
           - name: test
-            command: pnpm run test:all
+            command: pnpm run check:test
 
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # 差分の比較元のコミットを参照するため履歴をすべて取得する
+          fetch-depth: 0
 
       - name: Setup environment
         uses: ./.github/actions/setup-environment
 
       - name: Run ${{ matrix.name }}
         run: ${{ matrix.command }}
+        env:
+          # lint / fmt / test はこのコミットとの差分だけを検査する
+          CHECK_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
 
   all-green:
     runs-on: ubuntu-latest

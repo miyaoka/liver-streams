@@ -1,0 +1,16 @@
+@layer components {
+  .channel-filter-popover[popover] {
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    &:popover-open {
+      animation: channel-filter-fade-in 0.2s ease-in-out forwards;
+    }
+  }
+
+  @keyframes channel-filter-fade-in {
+    from {
+      translate: 50% 0;
+    }
+  }
+}

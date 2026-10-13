@@ -25,8 +25,10 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 | -------------- | ------------------ |
 | 言語           | TypeScript         |
 | パッケージ管理 | pnpm               |
+| 型チェック     | bun check          |
 | テスト         | bun test           |
-| リント         | bun lint + bun fmt |
+| リント         | bun lint           |
+| フォーマット   | bun fmt            |
 | Git フック     | lefthook           |
 | ホスティング   | Cloudflare Workers |
 
@@ -34,7 +36,7 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 
 | カテゴリ       | 技術         |
 | -------------- | ------------ |
-| フレームワーク | Vue          |
+| フレームワーク | Vue（TSX）   |
 | ビルドツール   | Vite         |
 | 状態管理       | Pinia        |
 | ルーティング   | Vue Router   |
@@ -60,23 +62,23 @@ pnpm dev
 ### コマンド一覧
 
 ```bash
-pnpm dev        # 開発サーバー起動
-pnpm build      # プロダクションビルド
-pnpm preview    # ビルドプレビュー
-pnpm test       # テスト実行
-pnpm typecheck  # 型チェック
-pnpm lint       # リント実行
-pnpm lint:fix   # リント自動修正
+pnpm dev           # 開発サーバー起動
+pnpm build         # プロダクションビルド
+pnpm preview       # ビルドプレビュー
+pnpm check:types   # 型チェック
+pnpm check:lint    # 差分の lint
+pnpm check:fmt     # 差分の format 検査
+pnpm check:test    # 差分に影響するテスト
+pnpm fix           # 差分に lint の自動修正と format を適用
 ```
 
 ### パッケージ構成
 
 ```
+apps/
+└── web/        # フロントエンド（Vue + Vite）
 packages/
 ├── core/       # 共通型定義・ユーティリティ
-└── ui/         # フロントエンド（Vue 3 + Vite）
-
-services/
 ├── hololive/   # ホロライブ配信情報取得
 └── nijisanji/  # にじさんじ配信情報取得
 ```

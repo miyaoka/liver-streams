@@ -1,5 +1,83 @@
 {
+  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "jsPlugins": [
+    { "name": "barrel-import", "specifier": "@miyaoka/eslint-plugin-barrel-import" },
+    "eslint-plugin-better-tailwindcss"
+  ],
   "categories": {
     "correctness": "warn"
-  }
+  },
+  "settings": {
+    "better-tailwindcss": {
+      "cwd": "apps/web",
+      "entryPoint": "src/assets/main.css",
+      "detectComponentClasses": true
+    }
+  },
+  "rules": {
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "typescript/ban-ts-comment": "error",
+    "typescript/no-array-constructor": "error",
+    "typescript/no-duplicate-enum-values": "error",
+    "typescript/no-empty-object-type": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-extra-non-null-assertion": "error",
+    "typescript/no-misused-new": "error",
+    "typescript/no-namespace": "error",
+    "typescript/no-non-null-asserted-optional-chain": "error",
+    "typescript/no-require-imports": "error",
+    "typescript/no-this-alias": "error",
+    "typescript/no-unnecessary-type-constraint": "error",
+    "typescript/no-unsafe-declaration-merging": "error",
+    "typescript/no-unsafe-function-type": "error",
+    "typescript/no-unused-expressions": "error",
+    "typescript/no-wrapper-object-types": "error",
+    "typescript/prefer-as-const": "error",
+    "typescript/prefer-namespace-keyword": "error",
+    "typescript/triple-slash-reference": "error",
+    "import/no-duplicates": "warn",
+    "import/order": [
+      "warn",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
+        "pathGroupsExcludedImportTypes": ["builtin", "external", "type"],
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["apps/web/src/**"],
+      "rules": {
+        "barrel-import/barrel-import": [
+          "error",
+          {
+            "scopes": {
+              "shared": { "directories": ["shared"], "dependsOn": [] },
+              "features": { "directories": ["features"], "dependsOn": ["shared"] }
+            }
+          }
+        ],
+        "better-tailwindcss/enforce-consistent-class-order": "warn",
+        "better-tailwindcss/no-deprecated-classes": "warn",
+        "better-tailwindcss/no-duplicate-classes": "warn",
+        "better-tailwindcss/no-concatenated-classes": "error",
+        "better-tailwindcss/no-conflicting-classes": "error",
+        "better-tailwindcss/no-unknown-classes": "warn"
+      }
+    }
+  ]
 }

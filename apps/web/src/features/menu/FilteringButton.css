@@ -1,0 +1,9 @@
+@layer components {
+  .filtering-button-container {
+    transition: translate 0.3s;
+    @starting-style {
+      opacity: 0;
+      translate: 0 100px;
+    }
+  }
+}

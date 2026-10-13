@@ -7,21 +7,22 @@
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
     "preview": "pnpm --filter @liver-streams/web preview",
-    "test:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only test",
-    "typecheck": "bun check",
-    "typecheck:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only typecheck",
-    "lint:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only lint",
-    "fix": "bun fmt '!apps/**' '!packages/**'",
-    "fix:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only fix",
+    "check:types": "pnpm --filter @liver-streams/web exec cf workers types && bun check -b",
+    "check:lint": "base=$(sh scripts/check-base.sh) && bun lint --type-aware --changed=$base",
+    "check:fmt": "base=$(sh scripts/check-base.sh) && bun fmt --check --changed=$base",
+    "check:test": "base=$(sh scripts/check-base.sh) && bun test --pass-with-no-tests --changed=$base",
+    "fix": "base=$(sh scripts/check-base.sh) && bun lint --type-aware --fix --changed=$base && bun fmt --changed=$base",
+    "fix:staged": "bun lint --type-aware --fix --staged && bun fmt --staged",
     "knip": "knip",
     "prepare": "lefthook install"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "catalog:",
+    "@miyaoka/eslint-plugin-barrel-import": "0.1.0",
     "@tsconfig/node24": "catalog:",
     "@types/node": "catalog:",
+    "eslint-plugin-better-tailwindcss": "4.9.0",
     "knip": "6.41.0",
-    "lefthook": "2.2.1",
-    "typescript": "catalog:"
+    "lefthook": "2.2.1"
   }
 }

@@ -244,7 +244,7 @@ const filteredEventList = computed(() => {
 
 ## UI コンポーネント
 
-### ChannelFilter.vue
+### ChannelFilter.tsx
 
 タレント選択用のUIコンポーネントです。
 
@@ -255,15 +255,14 @@ const filteredEventList = computed(() => {
 - 選択数の表示
 - リセット機能
 
-### SearchBar.vue
+### SearchFilter.tsx
 
 検索入力用のUIコンポーネントです。
 
 **機能**:
 
 - キーワード入力
-- ライブ中フィルターのトグル
-- 検索クエリのパース
+- 入力の遅延反映（入力が止まってから検索文字列を更新）
 
 ## パフォーマンス最適化
 

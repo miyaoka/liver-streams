@@ -1,0 +1,13 @@
+@layer components {
+  .bookmarked-event-button-popover[popover] {
+    &:popover-open {
+      animation: bookmarked-event-button-fade-in 0.2s forwards;
+    }
+  }
+
+  @keyframes bookmarked-event-button-fade-in {
+    from {
+      translate: 0 50%;
+    }
+  }
+}
