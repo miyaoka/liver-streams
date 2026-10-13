@@ -1,4 +1,14 @@
 [tools]
-bun = "1.4.3"
 node = "24.21.0"
 pnpm = "12.11.2"
+
+# bun lint / bun fmt は canary にのみ含まれる。canary は GitHub のタグで、core:bun バックエンドでは解決できない
+[tools."github:oven-sh/bun"]
+version = "canary"
+
+# 自動選択では musl / android / baseline / profile の変種を拾い得るため、素のビルドを指定する
+[tools."github:oven-sh/bun".platforms]
+linux-x64 = { asset_pattern = "bun-linux-x64.zip" }
+linux-arm64 = { asset_pattern = "bun-linux-aarch64.zip" }
+macos-x64 = { asset_pattern = "bun-darwin-x64.zip" }
+macos-arm64 = { asset_pattern = "bun-darwin-aarch64.zip" }
