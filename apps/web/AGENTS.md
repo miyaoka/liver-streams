@@ -14,8 +14,8 @@ pnpm preview     # ビルドプレビュー
 
 ## ディレクトリ構造
 
-- `src/features/<機能>/` - 機能ごとのコンポーネント・store・composable。外からは各ディレクトリの `index.ts`（barrel）を通して import する
-- `src/shared/` - features から使う共通部品（`composables` / `lib` / `services` / `stores` / `utils`）。shared から features は import しない（barrel-import ルールで強制）
+- `src/features/<機能>/` - 機能ごとのコンポーネント・store・フック。外からは各ディレクトリの `index.ts`（barrel）を通して import する
+- `src/shared/` - features から使う共通部品（`lib` / `popover` / `services` / `stores` / `utils`）。shared から features は import しない（barrel-import ルールで強制）
 - `src/views/` - ページコンポーネント
 - `src/assets/main.css` - Tailwind のエントリ。コンポーネント用の CSS もここから読み込む
 - `worker/` - Cloudflare Worker。`/api/*` を処理し、CORS を許可しないにじさんじ API を同じオリジンへ中継する

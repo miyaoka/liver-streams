@@ -1,5 +1,5 @@
 /**
- * usePopover の control で開閉する Popover API の要素。mountAtOpen なら開いている間だけ中身をマウントする。
+ * usePopover の control で開閉する Popover API の要素。
  */
 import type { ReactNode } from "react";
 import type { PopoverControl } from "./usePopover";
