@@ -109,8 +109,8 @@ importers:
         version: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@typescript/typescript6@6.0.2)(@vue/devtools-api@8.2.1)(vue@3.5.45(@typescript/typescript6@6.0.2)))(rolldown@1.2.16)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1))(vue@3.5.45(@typescript/typescript6@6.0.2))
     devDependencies:
       '@cloudflare/vite-plugin':
-        specifier: 2.0.0-beta.v.1
-        version: 2.0.0-beta.v.1(@types/node@24.19.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1))(workerd@1.20261012.1)
+        specifier: 2.0.0-beta.v.14
+        version: 2.0.0-beta.v.14(@types/node@24.19.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1))(workerd@1.20261012.1)
       '@egoist/tailwindcss-icons':
         specifier: 1.9.2
         version: 1.9.2(tailwindcss@4.3.5)
@@ -503,8 +503,8 @@ packages:
       workerd:
         optional: true
 
-  '@cloudflare/vite-plugin@2.0.0-beta.v.1':
-    resolution: {integrity: sha512-gyxplbx5mImicE5bcMO3t3kAy5V9ad6X7Hk/K1DRINUv7n9vgjYcfmhiH0kOiXSOck/WT8R6e/HgNbBaVbhuaw==}
+  '@cloudflare/vite-plugin@2.0.0-beta.v.14':
+    resolution: {integrity: sha512-Zx3kOm+YUwFGsUeFYycu6rImFi3zU0OubqTR5v1zpnakh9K3Q6CuPnBGL+CBUprp54wLggWV6AZt30bo8HVj9Q==}
     hasBin: true
     peerDependencies:
       vite: ^7.0.0 || ^8.0.0
@@ -3816,19 +3816,20 @@ snapshots:
     optionalDependencies:
       workerd: 1.20261012.1
 
-  '@cloudflare/vite-plugin@2.0.0-beta.v.1(@types/node@24.19.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1))(workerd@1.20261012.1)':
+  '@cloudflare/vite-plugin@2.0.0-beta.v.14(@types/node@24.19.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1))(workerd@1.20261012.1)':
     dependencies:
-      '@cloudflare/build-output-utils': 0.9.3
-      '@cloudflare/config': 0.27.0
-      '@cloudflare/runtime-types': 0.1.12(@types/node@24.19.2)
+      '@cloudflare/build-output-utils': 0.9.12
+      '@cloudflare/config': 0.31.1
+      '@cloudflare/runtime-types': 0.1.25(@types/node@24.19.2)
       '@cloudflare/unenv-preset': 2.16.2(unenv@2.0.0-rc.24)(workerd@1.20261012.1)
-      miniflare: 5.20261012.1-beta(@types/node@24.19.2)
+      miniflare: 5.20261110.0-beta(@types/node@24.19.2)
       unenv: 2.0.0-rc.24
       vite: 8.3.6(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1)
       ws: 8.21.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
+      - kerberos
       - utf-8-validate
       - workerd
 
