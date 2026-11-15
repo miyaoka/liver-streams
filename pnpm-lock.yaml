@@ -10,8 +10,8 @@ catalogs:
       specifier: 21.0.4
       version: 21.0.4
     '@tsconfig/node24':
-      specifier: 24.0.5
-      version: 24.0.5
+      specifier: 24.0.6
+      version: 24.0.6
     '@types/bun':
       specifier: 1.4.4
       version: 1.4.4
@@ -58,7 +58,7 @@ importers:
         version: 21.0.4
       '@tsconfig/node24':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 24.0.6
       '@types/node':
         specifier: 'catalog:'
         version: 24.19.2
@@ -140,7 +140,7 @@ importers:
         version: 4.3.5(vite@8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1))
       '@tsconfig/node24':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 24.0.6
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -209,7 +209,7 @@ importers:
     devDependencies:
       '@tsconfig/node24':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 24.0.6
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -243,7 +243,7 @@ importers:
     devDependencies:
       '@tsconfig/node24':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 24.0.6
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -277,7 +277,7 @@ importers:
     devDependencies:
       '@tsconfig/node24':
         specifier: 'catalog:'
-        version: 24.0.5
+        version: 24.0.6
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -1605,8 +1605,8 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
-  '@tsconfig/node24@24.0.5':
-    resolution: {integrity: sha512-DWC54fGPuhZgg3Ighg4Y/A/bA3ZdB5hnzAuv/MkQ/X85sVsBsMQxu8t7khutdYeiNksBbFdDyeqv1HSW2Zl8aA==}
+  '@tsconfig/node24@24.0.6':
+    resolution: {integrity: sha512-/SK4JuydRQLGSCq7+hbiQ8fdAVR4Suv5EcBvkIAG3zo3GbXQvGoSclz4olL12Ar4OpH8gwGYJ67P4wwQqBRxKw==}
 
   '@tybys/wasm-util@0.10.4':
     resolution: {integrity: sha512-W3c4gRigFS0T/Ma4qIYF3GDAc5AQdHb1yL5znJT1Zv1YaD9Kitx656wBjvr19qbiosmZT8lWDM5BEMynUqX65A==}
@@ -4519,7 +4519,7 @@ snapshots:
       tailwindcss: 4.3.5
       vite: 8.3.8(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1)
 
-  '@tsconfig/node24@24.0.5': {}
+  '@tsconfig/node24@24.0.6': {}
 
   '@tybys/wasm-util@0.10.4':
     dependencies:
