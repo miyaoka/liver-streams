@@ -20,8 +20,8 @@ catalog:
   eslint-plugin-import-x: 4.17.1
   eslint-plugin-unused-imports: 4.4.1
   oxfmt: 0.75.0
-  oxlint: 1.90.0
-  oxlint-tsgolint: 7.0.2005
+  oxlint: 1.93.0
+  oxlint-tsgolint: 7.0.2006
   typescript: npm:@typescript/typescript6@6.0.2
   typescript-eslint: 8.72.2
   unplugin-dts: 1.1.2
