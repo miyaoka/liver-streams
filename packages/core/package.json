@@ -16,7 +16,7 @@
     "build": "vite build",
     "dev": "vite build --watch",
     "test": "bun test",
-    "typecheck": "bun check --no-script --timing",
+    "typecheck": "bun check --no-script",
     "lint": "bun lint --no-script --type-aware .",
     "fix": "bun lint --no-script --type-aware --fix . && bun fmt --no-script ."
   },

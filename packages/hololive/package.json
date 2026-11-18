@@ -15,7 +15,7 @@
     "prepare": "vite build",
     "build": "vite build",
     "dev": "vite build --watch",
-    "typecheck": "bun check --no-script --timing",
+    "typecheck": "bun check --no-script",
     "lint": "bun lint --no-script --type-aware .",
     "fix": "bun lint --no-script --type-aware --fix . && bun fmt --no-script .",
     "update-channels": "bun scripts/update-channels.ts"

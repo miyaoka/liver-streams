@@ -8,7 +8,7 @@
     "build": "pnpm -r build",
     "preview": "pnpm --filter @liver-streams/web preview",
     "test:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only test",
-    "typecheck": "bun check --no-script --timing",
+    "typecheck": "bun check --no-script",
     "typecheck:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only typecheck",
     "lint:all": "pnpm -r --include-workspace-root --no-bail --aggregate-output --reporter=append-only lint",
     "fix": "bun fmt --no-script '!apps/**' '!packages/**'",

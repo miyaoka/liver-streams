@@ -12,9 +12,9 @@
     "deploy": "cf deploy --prebuilt --mode production",
     "deploy:check": "cf deploy --prebuilt --mode production --dry-run",
     "typecheck": "cf workers types && pnpm /^typecheck:/",
-    "typecheck:app": "tsrs --runExternalCode --noEmit --extendedDiagnostics -p tsconfig.app.json",
-    "typecheck:node": "bun check --no-script --timing -p tsconfig.node.json",
-    "typecheck:worker": "bun check --no-script --timing -p tsconfig.worker.json",
+    "typecheck:app": "tsrs --runExternalCode --noEmit -p tsconfig.app.json",
+    "typecheck:node": "bun check --no-script -p tsconfig.node.json",
+    "typecheck:worker": "bun check --no-script -p tsconfig.worker.json",
     "lint": "bun lint --no-script --config eslint.config.ts .",
     "fix": "bun lint --no-script --config eslint.config.fix.ts --fix . && bun fmt --no-script ."
   },

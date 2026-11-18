@@ -34,6 +34,8 @@ pnpm fix:all
 pnpm build
 ```
 
+スクリプトやフックから bun の組み込みコマンド（`bun check` / `bun lint` / `bun fmt`）を起動するときは `--no-script` を付ける。付けないと、package.json に同じ名前のスクリプトがあればそちらを実行する。
+
 ## アーキテクチャ
 
 ### パッケージ構成
@@ -72,7 +74,6 @@ packages/
 
 - lefthook でコミット前に自動整形・不要コード削除を実行
 - bun lint + bun fmt でリント・フォーマット（`stage_fixed` で自動ステージ）
-- スクリプトやフックから bun の組み込みコマンド（`bun check` / `bun lint` / `bun fmt`）を起動するときは `--no-script` を付ける。付けないと、同名の package.json スクリプトや `node_modules/.bin` の実行ファイルがあればそちらを実行する
 - knip --fix で未使用 export を自動削除（変更は unstaged で残るので、確認して git add → 再コミット）
 - フォーマットや不要 export の整理はコミットフックで自動的に行われるため、手動で実行しない
 

@@ -14,9 +14,9 @@ catalog:
   eslint: 10.15.0
   eslint-plugin-import-x: 4.18.1
   eslint-plugin-unused-imports: 4.4.1
-  # TS7 は programmatic API を持たないため、compiler API を import する ESLint の設定
-  # （@vue/eslint-config-typescript）向けに TS6 API を再エクスポートする互換 package を置く。
-  # 型検査は bun check と tsrs が行い、この typescript は使わない
+  # TS7 は programmatic API を持たないため、compiler API を使う道具向けに TS6 API を
+  # 再エクスポートする互換 package を置く。使うのは apps/web の ESLint の設定
+  # （@vue/eslint-config-typescript）と、packages の .d.ts を作る unplugin-dts（peer）
   typescript: npm:@typescript/typescript6@6.0.2
   unplugin-dts: 1.1.2
   vite: 8.3.8
