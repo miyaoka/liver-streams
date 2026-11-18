@@ -14,7 +14,6 @@ dist-ssr
 .cloudflare
 coverage
 *.local
-.eslintcache
 
 /cypress/videos/
 /cypress/screenshots/

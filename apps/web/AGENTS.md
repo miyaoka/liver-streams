@@ -107,4 +107,4 @@ UI 状態管理
 - Tailwind CSS 4
 - @vueuse/core
 - bun test + happy-dom（テスト）
-- vue-tsc（型チェック）
+- tsrs + vize（`.vue` の型チェック）、bun check（それ以外の型チェック）

@@ -1,6 +1,9 @@
 import type { KnipConfig } from "knip";
 
 const config: KnipConfig = {
+  // knip の bun の解決は組み込みコマンドの一覧に lint を持たず、`bun lint` を lint という
+  // バイナリとして扱う
+  ignoreBinaries: ["lint"],
   workspaces: {
     "packages/core": {
       project: ["src/**/*.ts"],

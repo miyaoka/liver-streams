@@ -57,4 +57,4 @@ const iconUrl = service.getIcon("さくらみこ");
 ## 技術スタック
 
 - TypeScript
-- ESLint
+- bun lint

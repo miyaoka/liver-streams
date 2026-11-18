@@ -26,7 +26,7 @@ VTuber の配信情報を一覧表示するウェブアプリケーション。�
 | 言語           | TypeScript         |
 | パッケージ管理 | pnpm               |
 | テスト         | bun test           |
-| リント         | ESLint + Prettier  |
+| リント         | bun lint + bun fmt |
 | Git フック     | lefthook           |
 | ホスティング   | Cloudflare Workers |
 
