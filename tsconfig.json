@@ -3,9 +3,7 @@
   "include": ["**/*.ts"],
   "exclude": ["apps/**", "packages/**"],
   "compilerOptions": {
-    "incremental": true,
     "noEmit": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"],

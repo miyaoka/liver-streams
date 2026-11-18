@@ -34,6 +34,8 @@ pnpm fix:all
 pnpm build
 ```
 
+スクリプトやフックから bun の組み込みコマンド（`bun check` / `bun lint` / `bun fmt`）を起動するときは `--no-script` を付ける。付けないと、package.json に同じ名前のスクリプトがあればそちらを実行する。
+
 ## アーキテクチャ
 
 ### パッケージ構成
@@ -53,12 +55,12 @@ packages/
 - **ツール管理**: mise.toml (bun, pnpm, node)
 - **フレームワーク**: Vue (Composition API, `<script setup>` 構文)
 - **ビルドツール**: Vite
-- **型チェック**: TypeScript + vue-tsc
+- **型チェック**: bun check（`.vue` を含む tsconfig は tsrs + vize）
 - **テスト**: bun test + happy-dom
 - **状態管理**: Pinia
 - **ルーティング**: Vue Router
 - **スタイリング**: Tailwind CSS
-- **リンター**: ESLint + Prettier
+- **リンター / フォーマッター**: bun lint（`.oxlintrc.json` と apps/web の ESLint 設定を読む）+ bun fmt（`.oxfmtrc.json` を読む）
 - **パッケージマネージャー**: pnpm
 
 ### テスト方針
@@ -71,7 +73,7 @@ packages/
 ### Git フック
 
 - lefthook でコミット前に自動整形・不要コード削除を実行
-- oxlint + eslint + oxfmt でリント・フォーマット（`stage_fixed` で自動ステージ）
+- bun lint + bun fmt でリント・フォーマット（`stage_fixed` で自動ステージ）
 - knip --fix で未使用 export を自動削除（変更は unstaged で残るので、確認して git add → 再コミット）
 - フォーマットや不要 export の整理はコミットフックで自動的に行われるため、手動で実行しない
 

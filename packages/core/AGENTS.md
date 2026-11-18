@@ -129,4 +129,4 @@ LiverEvent 生成:
 
 - TypeScript
 - bun test（テスト）
-- ESLint
+- bun lint

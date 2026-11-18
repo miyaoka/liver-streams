@@ -11,9 +11,12 @@
     "build-only": "cf build",
     "deploy": "cf deploy --prebuilt --mode production",
     "deploy:check": "cf deploy --prebuilt --mode production --dry-run",
-    "typecheck": "cf workers types && vue-tsc --build --force",
-    "lint": "eslint .",
-    "fix": "eslint . --fix -c eslint.config.fix.ts && oxfmt ."
+    "typecheck": "cf workers types && pnpm /^typecheck:/",
+    "typecheck:app": "tsrs --runExternalCode --noEmit -p tsconfig.app.json",
+    "typecheck:node": "bun check --no-script -p tsconfig.node.json",
+    "typecheck:worker": "bun check --no-script -p tsconfig.worker.json",
+    "lint": "bun lint --no-script --config eslint.config.ts .",
+    "fix": "bun lint --no-script --config eslint.config.fix.ts --fix . && bun fmt --no-script ."
   },
   "dependencies": {
     "@liver-streams/core": "workspace:*",
@@ -51,11 +54,11 @@
     "happy-dom": "21.0.4",
     "jiti": "2.7.0",
     "npm-run-all2": "9.0.4",
-    "oxfmt": "catalog:",
     "tailwindcss": "4.3.5",
+    "tsrs": "catalog:vize",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-vue-devtools": "8.2.1",
-    "vue-tsc": "3.3.14"
+    "vize": "catalog:vize"
   }
 }
