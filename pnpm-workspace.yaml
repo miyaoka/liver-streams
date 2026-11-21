@@ -26,7 +26,7 @@ catalogs:
   # vize を呼び、.vue を TS に写して検査する。.vue を含まない tsconfig は bun check で検査する
   vize:
     tsrs: 7.1.0-beta.tsrs2
-    vize: 0.777.0
+    vize: 0.778.0
 
 minimumReleaseAgeExclude:
   - "@miyaoka/eslint-plugin-barrel-import"
