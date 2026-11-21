@@ -24,7 +24,7 @@
     "@liver-streams/core": "workspace:*"
   },
   "devDependencies": {
-    "@tsconfig/node24": "catalog:",
+    "@tsconfig/node26": "catalog:",
     "@types/bun": "catalog:",
     "typescript": "catalog:",
     "unplugin-dts": "catalog:",
