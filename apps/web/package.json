@@ -38,7 +38,7 @@
     "@miyaoka/eslint-plugin-barrel-import": "0.1.0",
     "@miyaoka/vite-plugin-doc-block": "0.0.3",
     "@tailwindcss/vite": "4.3.5",
-    "@tsconfig/node24": "catalog:",
+    "@tsconfig/node26": "catalog:",
     "@types/bun": "catalog:",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "6.0.11",

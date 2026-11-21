@@ -9,9 +9,9 @@ catalogs:
     '@happy-dom/global-registrator':
       specifier: 21.0.4
       version: 21.0.4
-    '@tsconfig/node24':
-      specifier: 24.0.6
-      version: 24.0.6
+    '@tsconfig/node26':
+      specifier: 26.0.0
+      version: 26.0.0
     '@types/bun':
       specifier: 1.4.4
       version: 1.4.4
@@ -51,9 +51,9 @@ importers:
       '@happy-dom/global-registrator':
         specifier: 'catalog:'
         version: 21.0.4
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.6
+        version: 26.0.0
       '@types/node':
         specifier: 'catalog:'
         version: 26.6.6
@@ -121,9 +121,9 @@ importers:
       '@tailwindcss/vite':
         specifier: 4.3.5
         version: 4.3.5(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.6
+        version: 26.0.0
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -190,9 +190,9 @@ importers:
 
   packages/core:
     devDependencies:
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.6
+        version: 26.0.0
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -212,9 +212,9 @@ importers:
         specifier: workspace:*
         version: link:../core
     devDependencies:
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.6
+        version: 26.0.0
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -234,9 +234,9 @@ importers:
         specifier: workspace:*
         version: link:../core
     devDependencies:
-      '@tsconfig/node24':
+      '@tsconfig/node26':
         specifier: 'catalog:'
-        version: 24.0.6
+        version: 26.0.0
       '@types/bun':
         specifier: 'catalog:'
         version: 1.4.4
@@ -1551,8 +1551,8 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
-  '@tsconfig/node24@24.0.6':
-    resolution: {integrity: sha512-/SK4JuydRQLGSCq7+hbiQ8fdAVR4Suv5EcBvkIAG3zo3GbXQvGoSclz4olL12Ar4OpH8gwGYJ67P4wwQqBRxKw==}
+  '@tsconfig/node26@26.0.0':
+    resolution: {integrity: sha512-AlW882moMu/JzvTVjdGqJEsrqD5nSWHiFD7Aeuw6Rb58S4Aig+09mDUFFlXJx/y6/y77NwGYLlqhWxvolcC0sw==}
 
   '@tsrs/darwin-arm64@7.1.0-beta.tsrs2':
     resolution: {integrity: sha512-VMsXBPFD0SO5p7XrXhLutPmnpHc4kMIt7uztBJoHr/5Jd6qC8eH/TomobdPGugw27U3uiW2wJDqYjqYq5fxoCA==}
@@ -4497,7 +4497,7 @@ snapshots:
       tailwindcss: 4.3.5
       vite: 8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)
 
-  '@tsconfig/node24@24.0.6': {}
+  '@tsconfig/node26@26.0.0': {}
 
   '@tsrs/darwin-arm64@7.1.0-beta.tsrs2':
     optional: true

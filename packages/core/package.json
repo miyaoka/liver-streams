@@ -21,7 +21,7 @@
     "fix": "bun lint --no-script --type-aware --fix . && bun fmt --no-script ."
   },
   "devDependencies": {
-    "@tsconfig/node24": "catalog:",
+    "@tsconfig/node26": "catalog:",
     "@types/bun": "catalog:",
     "typescript": "catalog:",
     "unplugin-dts": "catalog:",
