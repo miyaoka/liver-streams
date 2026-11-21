@@ -22,6 +22,12 @@
       "description": "tsrs は .vue の型検査を担い、追従する TypeScript のスナップショットが変わると診断が変わる。全版が prerelease で版ごとに minor が上がるので、ignoreUnstable を外さないと更新 PR が作られない",
       "matchPackageNames": ["tsrs"],
       "ignoreUnstable": false
+    },
+    {
+      "description": "cf は @cloudflare/vite-plugin が書き出す Build Output を読み、起動時に vite-plugin の版を範囲で検査する。Build Output の版が変わる更新を片方だけ入れると build が失敗するので、同じ PR にまとめる",
+      "matchPackageNames": ["cf", "@cloudflare/vite-plugin"],
+      "groupName": "cloudflare-build",
+      "groupSlug": "cloudflare-build"
     }
   ]
 }
