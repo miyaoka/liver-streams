@@ -8,4 +8,4 @@ npm.package_manager = "npm"
 [tools]
 "npm:bun" = { version = "1.4.5", allow_builds = ["bun"] }
 node = "26.13.1"
-pnpm = "12.21.0"
+pnpm = "12.23.0"
