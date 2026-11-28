@@ -21,7 +21,7 @@
     "@tsconfig/node26": "catalog:",
     "@types/node": "catalog:",
     "knip": "6.46.1",
-    "lefthook": "2.2.2",
+    "lefthook": "2.2.3",
     "typescript": "catalog:"
   }
 }
